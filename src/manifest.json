@@ -9,7 +9,7 @@
          "38": "img/logo.png"
       },
       "default_popup": "html/popup.html",
-      "default_title": "\u6309\u4E0BCtrl+Q\u8BD5\u8BD5 :)"
+      "default_title": "按下Ctrl+Q试试 :)"
    },
    "commands": {
       "_execute_browser_action": {
@@ -25,7 +25,7 @@
       "matches": [ "http://*/*", "https://*/*", "file:///*" ]
    } ],
    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
-   "description": "\u6574\u5408\u4E86\u767E\u5EA6\u4E0E\u6709\u9053\u7684\u5728\u7EBF\u7FFB\u8BD1\u670D\u52A1\uFF0C\u652F\u6301\u4E2D\u3001\u65E5\u3001\u82F1\u7B49\u8BED\u8A00\u7684\u4E92\u8BD1\u53CA\u53F3\u952E\u4E0E\u5212\u8BCD\u7FFB\u8BD1\uFF0C\u540C\u65F6\u589E\u52A0\u4E86\u6709\u9053\u7684\u7F51\u9875\u7FFB\u8BD1\u529F\u80FD\u3002",
+   "description": "整合了百度与有道的在线翻译服务，支持中、日、英等语言的互译及右键与划词翻译，同时增加了有道的网页翻译功能。",
    "homepage_url": " http://blog.lmk123.com/?p=30",
    "icons": {
       "128": "img/logo.png",
@@ -33,9 +33,9 @@
       "48": "img/logo.png"
    },
    "manifest_version": 2,
-   "name": "\u53F3\u952E\u7FFB\u8BD1",
-   "permissions": [ "\u003Call_urls\u003E", "contextMenus", "storage", "unlimitedStorage", "clipboardWrite", "clipboardRead" ],
-   "update_url": "http://lmk123nodejs.duapp.com/server/update",
-   "version": "3.2.2",
+   "name": "右键翻译",
+   "permissions": [ "<all_urls>", "contextMenus", "storage", "unlimitedStorage", "clipboardWrite", "clipboardRead" ],
+   "update_url": "http://lmk123.com/update",
+   "version": "3.4.1",
    "web_accessible_resources": [ "js/web.js" ]
 }
