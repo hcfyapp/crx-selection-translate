@@ -26,7 +26,7 @@
    } ],
    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
    "description": "整合了百度与有道的在线翻译服务，支持中、日、英等语言的互译及右键与划词翻译，同时增加了有道的网页翻译功能。",
-   "homepage_url": " http://blog.lmk123.com/?p=30",
+   "homepage_url": "http://blog.lmk123.com/?p=30",
    "icons": {
       "128": "img/logo.png",
       "16": "img/ico16.png",
@@ -35,7 +35,6 @@
    "manifest_version": 2,
    "name": "右键翻译",
    "permissions": [ "<all_urls>", "contextMenus", "storage", "unlimitedStorage", "clipboardWrite", "clipboardRead" ],
-   "update_url": "http://lmk123.com/update",
    "version": "3.4.1",
    "web_accessible_resources": [ "js/web.js" ]
 }
