@@ -10,14 +10,26 @@ var _gaq = _gaq || [], $ = {
     config : {
         apis : {
             youdao : {
+                id : 'youdao' ,
                 method : 'GET' ,
                 url : 'http://fanyi.youdao.com/openapi.do?keyfrom=chrome&key=1361128838&type=data&doctype=json&version=1.1&q={query}' ,
-                data : null
+                data : null ,
+                //生成用于显示在页面上的HTML字符串并返回。如果发生错误，则返回错误码
+                generate : function ( json ) {
+                    //TODO
+                    return json;
+                }
             } ,
             baidu : {
+                id : 'baidu' ,
                 method : 'POST' ,
                 url : 'http://openapi.baidu.com/public/2.0/bmt/translate' ,
-                data : 'client_id=ZGoZqZPUPtSXCmdlCrtqEKFz&from={from}&to={to}&q={query}'
+                data : 'client_id=ZGoZqZPUPtSXCmdlCrtqEKFz&from={from}&to={to}&q={query}' ,
+                //生成用于显示在页面上的HTML字符串并返回。如果发生错误，则返回错误码
+                generate : function ( json ) {
+                    //TODO
+                    return json;
+                }
             }
         } ,
         menus : function () {
@@ -41,7 +53,7 @@ var _gaq = _gaq || [], $ = {
                     onmessage : function () {
 //                        console.log('收到几次？');
                         //$.selection与$.handleResult仅在内容脚本中才有
-                        $.query( {api : 'youdao' , q : $.selection} , $.handleResult );
+                        $.query( {api : 'youdao' , q : $.selection.toString().trim()} , $.handleResult );
                     }
                 } ,
                 baidu : {
@@ -53,7 +65,7 @@ var _gaq = _gaq || [], $ = {
                     //内容脚本收到命令时的处理函数
                     onmessage : function () {
                         //$.selection与$.handleResult仅在内容脚本中才有
-                        $.query( {api : 'baidu' , q : $.selection} , $.handleResult );
+                        $.query( {api : 'baidu' , q : $.selection.toString().trim()} , $.handleResult );
                     }
                 } ,
                 youdaoweb : {
@@ -118,6 +130,7 @@ var _gaq = _gaq || [], $ = {
      * @param {string|undefined} config.method 请求的方法，GET or POST
      * @param {string|undefined} config.url 要请求的地址
      * @param {object|undefined} config.data 用于POST请求的数据字符串
+     * @param {object|undefined} config.other 调用ajax时传入的供回调函数使用的其他数据
      * @param {function=} callback 回调函数，传递r作为参数
      */
     ajax : function ( config , callback ) {
@@ -126,7 +139,7 @@ var _gaq = _gaq || [], $ = {
         if ( config.method === 'POST' ) r.setRequestHeader( "Content-Type" , "application/x-www-form-urlencoded" );
         r.onreadystatechange = function ( e ) {
             if ( r.readyState === 4 ) {
-                callback && setTimeout( callback , 0 , r );
+                callback && setTimeout( callback , 0 , r , config.other );
             }
         };
         r.send( config.data || null );
@@ -157,10 +170,11 @@ var _gaq = _gaq || [], $ = {
      * @param {function} callback 回调函数，传递查询结果作为参数
      */
     query : function ( config , callback ) {
+        console.log( config.q );
         //暂时把查询接口信息写死
-        var apis = this.config.apis, api = apis[ config.api || 'youdao'], text;
-        if ( typeof config === 'string' ) return this.ajax( {url : api.url.replace( '{query}' , encodeURI( config ) )} , callback );
-        text = encodeURI( config.q );
+        var apis = this.config.apis, api = apis[ config.api || 'youdao'], text = encodeURI( config.q );
+//        if ( typeof config === 'string' ) return this.ajax( {url : api.url.replace( '{query}' , encodeURI( config ) ) , other : api.id} , callback );
+//        text = encodeURI( config.q );
         if ( typeof api.data === 'string' ) {
             api.data = api.data.replace( '{query}' , text ).replace( '{from}' , config.from || 'auto' ).replace( '{to}' , config.to || 'auto' );
         } else {
@@ -169,7 +183,8 @@ var _gaq = _gaq || [], $ = {
         return this.ajax( {
             method : api.method ,
             url : api.url ,
-            data : api.data
+            data : api.data ,
+            other : api.id
         } , callback );
     }
 };

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   需要自动化的流程：
+       1、将src里面所有的文件复制进build/{版本号}下面
+       2、对build文件夹里面的所有文件（包括js、css、甚至html）进行压缩处理；
+       3、合并js与css文件
+-->
+<project name="Build" default="build" basedir=".">
+
+    <!--构建时间-->
+    <tstamp>
+        <format property="time" pattern="yyyy-MM-dd HH:mm:ss" />
+    </tstamp>
+
+    <!--引入属性文件-->
+    <loadproperties srcfile="ant.properties" />
+
+    <!--定义运行时变量-->
+    <!--带版本号的 build 路径-->
+    <property name="build_dir_with_version" value="${build.dir}/${version}" />
+
+    <!--总命令-->
+    <target name="build" depends="build_start,build_html,build_images,build_css,build_js">
+        <echo>${test}</echo>
+    </target>
+
+    <!--构建之前需要做的一些事情-->
+    <target name="build_start">
+
+        <mkdir dir="${build.dir}" />
+        <!--先按照目前的版本号在 build 文件夹下创建一个文件夹-->
+        <mkdir dir="${build_dir_with_version}" />
+
+        <!-- 将 manifest.json 文件复制进去，仅用于 Chrome 扩展-->
+        <copy todir="${build_dir_with_version}">
+            <filelist dir="${src.dir}" files="manifest.json" />
+        </copy>
+
+    </target>
+
+    <!--处理 html 文件夹，这里只是简单的将文件复制进 build / {版本号} 目录下-->
+    <target name="build_html">
+
+        <!--创建 html 文件夹-->
+        <mkdir dir="${build_dir_with_version}/${html}" />
+
+        <!--进行复制操作-->
+        <copy todir="${build_dir_with_version}/${html}">
+
+            <!--选取 src / html 目录下的所有 html 文件-->
+            <fileset dir="${src.dir}/${html}/" includes="*.html" />
+
+        </copy>
+
+    </target>
+
+    <!--处理 images 文件夹，这里只是简单的将文件复制进 build / {版本号} 目录下-->
+    <target name="build_images">
+
+        <!--创建 html 文件夹-->
+        <mkdir dir="${build_dir_with_version}/${images}" />
+
+        <!--进行复制操作-->
+        <copy todir="${build_dir_with_version}/${images}">
+
+            <!--选取 src / html 目录下的所有图片件-->
+            <fileset dir="${src.dir}/${images}/" includes="*.jpg,*.png" />
+
+        </copy>
+
+    </target>
+
+    <!--处理 css 文件夹，会先合并需要合并的文件然后使用 YUI 精简代码-->
+    <target name="build_css">
+
+        <mkdir dir="${build_dir_with_version}/${css}" />
+
+        <!--
+            这里并没有先将 css 文件复制一份到 build 下，再精简；
+            而是直接对 src 下的 css 文件精简后输出到 build 目录下
+            可如果我要合并文件怎么办
+        -->
+        <apply executable="java" failonerror="true" verbose="true">
+            <fileset dir="${src.dir}/${css}/" includes="*.css" />
+            <mapper type="glob" from="*.css" to="${build_dir_with_version}/${css}/*.css" />
+            <arg line="-jar" />
+            <arg path="${yui}" />
+            <srcfile />
+            <arg line="--type css" />
+            <arg line="--charset utf-8" />
+            <arg line="-v" />
+            <arg line="-o" />
+            <targetfile />
+        </apply>
+
+    </target>
+
+    <!--处理 js 文件夹，会先合并需要合并的文件然后使用 YUI 精简代码-->
+    <target name="build_js">
+        <mkdir dir="${build_dir_with_version}/${js}" />
+
+        <!--
+            这里并没有先将 css 文件复制一份到 build 下，再精简；
+            而是直接对 src 下的 css 文件精简后输出到 build 目录下
+            可如果我要合并文件怎么办
+        -->
+        <apply executable="java" failonerror="true" verbose="true">
+            <fileset dir="${src.dir}/${js}/" includes="*.js" />
+            <mapper type="glob" from="*.js" to="${build_dir_with_version}/${js}/*.js" />
+            <arg line="-jar" />
+            <arg path="${yui}" />
+            <srcfile />
+            <arg line="--type js" />
+            <arg line="--charset utf-8" />
+            <arg line="-v" />
+            <arg line="-o" />
+            <targetfile />
+        </apply>
+
+    </target>
+
+</project>

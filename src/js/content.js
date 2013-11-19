@@ -1,10 +1,10 @@
 $.extend( $ , {
     //重要的frame问题
     isFrame : function () {
-//        var d = top === window ? null : location.href;
-//        console.log( d );
+        //        var d = top === window ? null : location.href;
+        //        console.log( d );
         return top === window ? null : location.href;
-//        return d;
+        //        return d;
     }() ,
     //这是一个实时的对象，所以只需获取一次
     selection : getSelection() ,
@@ -13,9 +13,9 @@ $.extend( $ , {
         var selectionText;
         //如果是鼠标左键且当前有选中的文本
         if ( e.button === 0 && (selectionText = $.selection.toString().trim()) ) {
-//            if ( !$.result ) {$.result = $.outResult()}
-//            $.result.show( {"_tip_" : null} , $.getSelectionPos() );
-            $.query( selectionText , $.handleResult );
+            //            if ( !$.result ) {$.result = $.outResult()}
+            //            $.result.show( {"_tip_" : null} , $.getSelectionPos() );
+            $.query( {q : selectionText} , $.handleResult );
         }
     } ,
     //打开划词翻译
@@ -28,14 +28,21 @@ $.extend( $ , {
         document.removeEventListener( 'mouseup' , this.mouseupHandler , true );
         return this;
     } ,
-    //用于生成界面
-    handleResult : function ( r ) {
+    /**
+     * 用于生成结果显示界面
+     * @param {XMLHttpRequest} r 执行这次查询的XMLHttpRequest对象
+     * @param other 查询时传入的其他供回调使用的参数，这里一般是使用的查询api的名字
+     */
+    handleResult : function ( r , other ) {
         //TODO
-        console.dir( r );
+        //        console.log( other );
+        var html = $.config.apis[other].generate( JSON.parse( r.responseText ) );
+        console.log( html );
+        //先检测错误
     }
 } );
 chrome.runtime.onMessage.addListener( function ( msg ) {
-//    console.dir( msg );
+    //    console.dir( msg );
     //卧槽，iFrame导致页面收到多次信息
     //如果右键是在子窗口里点击的
     if ( msg.frameUrl ) {
