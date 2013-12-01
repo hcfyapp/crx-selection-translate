@@ -20,10 +20,11 @@
     } ,
     "content_scripts" : [
         {
-            "matches" : ["<all_urls>"] ,
+            "matches" : ["http://*/*", "https://*/*", "file:///*"] ,
+            "css" : ["/css/content.css"] ,
             "js" : ["/js/common.js", "/js/content.js"] ,
-            "run_at" : "document_start" ,
-            "all_frames" : true
+            "all_frames" : true ,
+            "run_at" : "document_start"
         }
     ] ,
     "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
@@ -43,5 +44,5 @@
         "idle", "notifications"
     ] ,
     "version" : "4.0" ,
-    "web_accessible_resources" : ["/js/youdaoweb.js"]
+    "web_accessible_resources" : ["/js/ydw.js"]
 }
