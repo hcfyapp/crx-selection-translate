@@ -11,6 +11,7 @@
         "default_popup" : "/html/popup.html" ,
         "default_title" : "翻译盒子"
     } ,
+    "options_page" : "/html/options.html" ,
     "commands" : {
         "_execute_browser_action" : {
             "suggested_key" : {
@@ -24,7 +25,7 @@
             "css" : ["/css/content.css"] ,
             "js" : ["/js/common.js", "/js/content.js"] ,
             "all_frames" : true ,
-            "run_at" : "document_start"
+            "run_at" : "document_end"
         }
     ] ,
     "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,

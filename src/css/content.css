@@ -3,6 +3,7 @@
     padding: 0;
     border: 0;
     color: black;
+    text-align: left;
 }
 
 li {
@@ -29,6 +30,18 @@ li {
     display: none;
 }
 
+#_container_ ._pronunciation_ {
+    font-size: 12px;
+    padding: 5px 0 0 0;
+}
+
+#_container_ ._play_ {
+    font-size: 12px;
+    font-weight: normal;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
 #_container_ ._query_ {
     font-size: 26px;
     line-height: 36px;
@@ -37,6 +50,7 @@ li {
     background-color: black;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: move;
 }
 
 #_container_ ._title_ {
@@ -72,12 +86,12 @@ li {
     font-family: 'Microsoft YaHei', sans-serif !important;
 }
 
-#_container_ ._from_ a {
+#_container_ a {
     text-decoration: none;
     color: #618dff;
     transition: color .2s ease-in-out;
 }
 
-#_container_ ._from_ a:hover {
+#_container_ a:hover {
     color: black !important;
 }

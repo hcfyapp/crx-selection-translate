@@ -1,11 +1,6 @@
 (function () {
     'use strict';
-    var Menus = $.M.create(), menus = [], d = [
-        "http://*/*", "https://*/*", "file:///*", "about:blank"
-    ];
-
-    //扩展实例属性
-    $.extend( Menus.fn , {
+    var Menus = {
 
         //右键菜单默认的click事件
         onclick : function ( info , tab ) {
@@ -13,10 +8,12 @@
             //直接把整个info发过去，用于辨别 frame 的问题
             chrome.tabs.sendMessage( tab.id , info );
         }
-    } );
+    }, menus = [], d = [
+        "http://*/*", "https://*/*", "file:///*", "about:blank"
+    ], extend = $.extend;
 
     //有道翻译右键菜单
-    menus[0] = Menus.init( {
+    menus[0] = $.inherit( Menus , {
         id : 'yd' ,
         title : '用 有道 翻译“%s”' ,
         contexts : ['selection'] ,
@@ -24,7 +21,7 @@
     } );
 
     //百度翻译右键菜单
-    menus[1] = Menus.init( {
+    menus[1] = $.inherit( Menus , {
         id : 'bd' ,
         title : '用 百度 翻译“%s”' ,
         contexts : ['selection'] ,
@@ -32,7 +29,7 @@
     } );
 
     //有道网页翻译右键菜单
-    menus[2] = Menus.init( {
+    menus[2] = $.inherit( Menus , {
         id : 'ydw' ,
         title : '翻译网页' ,
         contexts : ['all'] ,
@@ -40,7 +37,7 @@
     } );
 
     //第一个分隔符
-    menus[3] = Menus.init( {
+    menus[3] = $.inherit( Menus , {
         type : 'separator' ,
         id : 's1' ,
         contexts : ['all'] ,
@@ -48,7 +45,7 @@
     } );
 
     //划词翻译开关
-    menus[4] = Menus.init( {
+    menus[4] = $.inherit( Menus , {
         type : 'checkbox' ,
         id : 'select' ,
         title : '划词翻译' ,
@@ -57,18 +54,18 @@
     } );
 
     //支持作者
-    menus[5] = Menus.init( {
+    menus[5] = $.inherit( Menus , {
         id : 'donate' ,
         title : '支持作者' ,
         contexts : ['all'] ,
         documentUrlPatterns : d
     } );
-    
+
     //创建右键菜单
     menus.forEach( function ( v ) {
 
         //卧槽。。如果不使用 $.extend 的话，会使onclick执行两次。。
-        chrome.contextMenus.create( $.extend( {} , v ) );
+        chrome.contextMenus.create( v );
 
         //同时使用它们的id创建一个相同的引用
         menus[v.id] = v;

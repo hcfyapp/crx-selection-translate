@@ -3,6 +3,30 @@
  */
 var $ = {
 
+    /**
+     * 封装一层 Object.create，避免每次都手动书写描述符的 value 属性
+     * @param inheritObj
+     * @param selfProperties
+     * @returns {object}
+     */
+    inherit : function ( inheritObj , selfProperties ) {
+        'use strict';
+        var key , desObj = {}, temp;
+
+        for ( key in selfProperties ) {
+            if ( selfProperties.hasOwnProperty( key ) ) {
+                desObj[key] = {
+                    value : selfProperties[key] ,
+                    writable : true ,
+                    enumerable : true ,
+                    configurable : true
+                };
+            }
+        }
+
+        return Object.create( inheritObj , desObj );
+    } ,
+
     //扩展程序根目录
     rootPath : chrome.extension.getURL( "/" ) ,
 
@@ -14,8 +38,9 @@ var $ = {
         'use strict';
         document.addEventListener( 'DOMContentLoaded' , f );
     } ,
+
     /**
-     * 测试target节点是否是source的子节点
+     * 测试 target 节点是否是 source 的子节点
      * @param source
      * @param target
      */
@@ -31,7 +56,7 @@ var $ = {
     } ,
 
     /**
-     * 扩展对象的方法
+     * 扩展对象的方法，浅复制
      * @param o
      * @param t
      * @returns {*}
@@ -112,7 +137,9 @@ var $ = {
         x.data = $.encode( requestObj.data );
 
         //GET请求的参数写在 url 后面
-        if ( x.method === 'GET' ) {x.url += '?' + x.data;}
+        if ( x.method === 'GET' ) {
+            x.url += '?' + x.data;
+        }
 
         r.open( x.method , x.url );
 
@@ -135,163 +162,308 @@ var $ = {
 };
 
 /**
- * 定义 Model 层
- * @type {{fn: {}, create: Function, init: Function}}
+ * 在全局变量上添加事件模块
  */
-$.M = {
+$.extend( $ , (function () {
+    "use strict";
 
-    //类似构造函数的 prototype 属性，用于实例继承
-    fn : {} ,
+    //在闭包内存储注册的事件
+    var callbacks = {};
 
-    /**
-     * 创建继承于Model的子类
-     */
-    create : function () {
-        'use strict';
-        var obj = Object.create( this );
+    return {
+        sub : function ( eventName , callback ) {
 
-        //指明它的父类
-        obj.parent = this;
-
-        //单独继承父类的 fn，否则当Model的fn对象变动时，子类不会变动
-        obj.fn = Object.create( this.fn );
-
-        return obj;
-    } ,
-
-    /**
-     * 创建类的实例，如果有参数且参数为对象，则将参数中的属性添加进实例中
-     * @param attributes 要添加进实例的 名/值 对
-     * @returns {object} 创建好的实例对象
-     */
-    init : function ( attributes ) {
-        'use strict';
-        var instance = Object.create( this.fn );
-
-        //将自定义属性添加至实例当中
-        if ( typeof attributes === 'object' ) {
-            $.extend( instance , attributes );
-        }
-
-        return instance;
-    }
-};
-
-/**
- * MVC 中的 View 层
- * @param inculdes
- * @constructor
- */
-$.V = function ( inculdes ) {
-    'use strict';
-    if ( typeof inculdes === 'object' ) {
-        $.extend( this , inculdes );
-    }
-};
-
-/**
- * 针对不同的页面（标签页、弹出页）都应该有不同的生成方法（因为模板可能不同）
- * 所以如果调用到了下面这个generate方法
- * 说明对应的页面没有自定义generate方法
- */
-$.V.prototype.generate = function () {
-    'use strict';
-    throw new Error( 'generate()：没有实现对应的generate方法！' );
-};
-
-/**
- * MVC中的 Controller 层
- */
-$.C = function ( inculdes ) {
-    'use strict';
-    if ( typeof inculdes === 'object' ) {
-        $.extend( this , inculdes );
-    }
-};
-
-/**
- * 全局的 Event 类
- * @param inculdes
- * @constructor
- */
-$.E = function ( inculdes ) {
-    'use strict';
-    if ( typeof inculdes === 'object' ) {
-        $.extend( this , inculdes );
-    }
-};
-
-//封闭一个局部作用域，使用全局变量 $ 作为上下文
-(function () {
-    'use strict';
-    //用于管理翻译 api 的 Model 子类
-    var Apis = this.M.create();
-
-    //扩展 Apis 的实例方法
-    this.extend( Apis.fn , {
-
-        /**
-         * 查询方法，查询结束后会使用实例的 handleTemplate() 方法处理模板
-         * @param queryObj
-         * @returns {object}
-         */
-        query : function ( queryObj ) {
-            var data;
-            //调用查询前函数，如果函数返回 false 则取消查询
-            if ( this.beforeQuery() !== false ) {
-
-                data = $.extend( {} , this.data );
-
-                //如果传入的是字符串，则默认为查询内容
-                data.q = typeof queryObj === 'string' ? queryObj : queryObj.q;
-
-                $.ajax( {
-                    url : this.url ,
-                    method : this.method ,
-                    data : data
-                } , function ( r , e ) {
-                    if ( r.readyState === 4 && r.status === 200 ) {
-
-                        //第一个参数是翻译结果，第二个参数是查询的字符串
-                        this.handleTemplate( r.responseText , data.q );
-                    }
-                }.bind( this ) );
+            //如果这个事件还没被注册过，则为它初始化一个数组
+            if ( callbacks[eventName] === undefined ) {
+                callbacks[eventName] = [];
             }
+
+            callbacks[eventName].push( callback );
 
             return this;
+
         } ,
+        pub : function () {
+            var args = Array.prototype.slice.call( arguments , 0 ),
+                eventName = args.shift(),
+                a = callbacks[eventName];
+
+            if ( a && a.length !== 0 ) {
+                a.forEach( function ( v ) {
+                    v.apply( this , args );
+                } );
+            }
+            return this;
+        }
+    };
+}()) );
+
+/**
+ * 新增 tts 模块，用于进行阅读
+ * @type {{support: Array, detect: Function, audio: HTMLElement, play: Function, transform: Function}}
+ */
+$.tts = {
+
+    // 右键翻译支持的发音语言
+    support : ['zh', 'jp', 'kor', 'en', 'fra'] ,
+
+    /**
+     * 检测语言类型的函数
+     * @param query
+     * @param callback
+     */
+    detect : function ( query , callback ) {
+        'use strict';
+
+        //使用百度的接口检测
+        //有道的太复杂了
+        $.ajax( {
+            method : 'POST' ,
+            url : 'http://fanyi.baidu.com/langdetect' ,
+            data : 'query=' + query
+        } , function ( r ) {
+            var lan, isSupport;
+            if ( r.readyState === 4 ) {
+                lan = JSON.parse( r.responseText ).lan;
+                isSupport = this.support.indexOf( lan ) >= 0;
+                if ( callback ) {
+                    callback( isSupport , lan , query );
+                } else if ( isSupport ) {
+                    this.transform( lan , query );
+                }
+            }
+        }.bind( this ) );
+        return this;
+    } ,
+
+    audio : document.createElement( 'audio' ) ,
+
+    //播放语音
+    play : function ( url ) {
+        'use strict';
+        var audio = this.audio;
+        if ( audio.src !== url ) {
+            audio.src = url;
+        }
+        audio.play();
+    } ,
+
+    //将支持的语言转换为对应的tts接口
+    transform : function ( lan , query , callback ) {
+        'use strict';
+        var url, that = this;
+        switch ( lan ) {
+
+            //英文很麻烦，有道中 tts 为eng，百度中分两种：美式en，英式uk
+            case 'en':
+
+                //读取一下设置
+                $.Controller.getStorage( 'englishAudio' , function ( item ) {
+                    var key = item.englishAudio, url;
+                    switch ( key ) {
+
+                        //百度美式与英式英语
+                        case 'en':
+                        case 'uk':
+                            url = 'http://tts.baidu.com/text2audio?pid=101&ie=UTF-8&spd=3&lan=' + key + '&text=' + query;
+                            break;
+
+                        //默认使用有道读
+                        default :
+                            url = 'http://tts.youdao.com/fanyivoice?keyfrom=fanyi%2Eweb%2Eindex&le=eng&word=' + query;
+                            break;
+                    }
+                    if ( callback ) {
+                        callback( url );
+                    } else {
+                        that.play( url );
+                    }
+                    return that;
+                } );
+                break;
+
+            //中文只有百度支持，tts 中的语言为 zh
+            case 'zh':
+                url = 'http://tts.baidu.com/text2audio?pid=101&ie=UTF-8&spd=3&lan=zh&text=' + query;
+                break;
+
+            //日文只有有道支持，tts 中的语言为 jap
+            case 'jp':
+                url = 'http://tts.youdao.com/fanyivoice?keyfrom=fanyi%2Eweb%2Eindex&le=jap&word=' + query;
+                break;
+
+            //韩语只有有道支持，tts中的语言为 ko
+            case 'kor':
+                url = 'http://tts.youdao.com/fanyivoice?keyfrom=fanyi%2Eweb%2Eindex&le=ko&word=' + query;
+                break;
+
+            //法语只有有道支持，tts 中的语言为 fr
+            case 'fra':
+                url = 'http://tts.youdao.com/fanyivoice?keyfrom=fanyi%2Eweb%2Eindex&le=fr&word=' + query;
+                break;
+        }
+        if ( callback ) {
+            callback( url );
+        } else {
+            this.play( url );
+        }
+        return this;
+    }
+};
+
+/**
+ * 由于使用了 .bind( $ )，所以这个局部作用域内的 this === $
+ */
+(function () {
+
+    "use strict";
+
+    /**
+     * Model 层父类
+     * @type {{query: Function, beforeQuery: Function}}
+     */
+    var Translate = {
+
+            /**
+             * 查询方法，查询结束后会使用实例的 handleTemplate() 方法处理模板
+             * @param queryObj
+             * @returns {object}
+             */
+            query : function ( queryObj ) {
+                var data;
+
+                //调用查询前函数，如果函数返回 false 则取消查询
+                if ( this.beforeQuery() !== false ) {
+
+                    data = $.extend( {} , this.data );
+
+                    //如果传入的是字符串，则默认为查询内容
+                    data.q = typeof queryObj === 'string' ? queryObj : queryObj.q;
+
+                    $.ajax( {
+                        url : this.url ,
+                        method : this.method ,
+                        data : data
+                    } , function ( r , e ) {
+                        if ( r.readyState === 4 && r.status === 200 ) {
+
+                            //第一个参数是翻译结果，第二个参数是查询的字符串
+                            this.handleTemplate( r.responseText , data.q );
+                        }
+                    }.bind( this ) );
+                }
+
+                return this;
+            } ,
+
+            /**
+             * 在查询前调用的函数，可以用于给用户提出提示
+             * 如果返回 false ，则可以取消这次查询
+             */
+            beforeQuery : function () {
+
+                console.debug( '查询开始' );
+            }
+        },
+
+    //缓存 inherit 函数
+        inherit = this.inherit;
+
+    /**
+     * 我这个是一个简单的应用，每个页面只需要一个控制器实例
+     * 这个控制层有一些公用的方法，但在不同的页面（如标签页与弹出页）有不同的实例
+     * 由于这一层需要在别的页面用于初始化实例，所以绑在全局变量上
+     * @type {{}}
+     */
+    this.Controller = {
 
         /**
-         * 在查询前调用的函数，可以用于给用户提出提示
-         * 如果返回 false ，则可以取消这次查询
+         * 想到一个好办法，直接把数据层实例放进控制器的父类
+         * 让各个页面的控制器实例继承到它们
+         * View 层也是如此！
          */
-        beforeQuery : function () {
+        m : {} ,
 
-            //            console.debug( '查询开始' );
+        v : {} ,
+
+        /**
+         * 封装一层 chrome 的获取数据方法，方便修改
+         * 以后可能会出现一个设置项，指示存储区域
+         * @param key
+         * @param callback
+         */
+        getStorage : function ( key , callback ) {
+            chrome.storage.local.get( key , callback );
         }
-    } );
+    };
 
-    //在全局变量 $ 上挂载控制器实例
-    this.yd = new this.C();
-    this.bd = new this.C();
-    this.ydw = new this.C();
+    //有道的数据模型实例
+    this.Controller.m.yd = inherit( Translate , {
+        method : 'GET' ,
+        url : 'http://fanyi.youdao.com/openapi.do' ,
+        data : {
+            keyfrom : "chrome" ,
+            key : "1361128838" ,
+            type : "data" ,
+            doctype : "json" ,
+            version : "1.1" ,
+            q : ''
+        } ,
+        handleTemplate : function ( result , query ) {
+            var templateObj = {}, r = result;
 
-    //有道网页翻译只有一个方法，就是插入有道的翻译脚本
-    this.ydw.m = Apis.init( {
-        query : function () {
-            var e;
-            if ( !document.getElementById( 'OUTFOX_JTR_CDA' ) ) {
-                e = document.createElement( 'script' );
-                e.id = 'outfox_seed_js';
-                e.charset = "utf-8";
-                e.src = $.rootPath + 'js/ydw.js';
-                document.getElementsByTagName( 'script' )[0].appendChild( e );
+            if ( r === 'no query' ) {
+                templateObj.errorCode = 30;
+            } else {
+
+                r = JSON.parse( result );
+
+                //查询的字符串
+                templateObj.query = query;
+
+                if ( r.errorCode === 0 ) {
+
+                    /*
+                     * 对于单词和短语，有道翻译有详细的解释，但对于长文本则没有
+                     * result.basic.explains 是一个数组，每个元素都是对查询的文本的详细解释
+                     * result.basic下还有一个 phonetic 字符串属性，表示查询单词的音标
+                     */
+                    if ( r.basic ) {
+                        templateObj.detailedExplains = r.basic.explains;
+
+                        // 如果有音标
+                        if ( r.basic.phonetic ) {
+                            templateObj.phonetic = '/' + r.basic.phonetic + '/';
+                        }
+                    }
+
+                    //翻译结果，虽然这是一个数组，但至今只有一个元素
+                    templateObj.translateResult = r.translation[0];
+
+                    /*
+                     * 有道翻译还提供相关的单词或短语
+                     * web 是一个数组，每个数组元素都是一个对象
+                     * 这种对象有一个字符串属性 key，是相关的单词或短语
+                     * 另有一个数组属性 value ，包含对相关单词的解释，一般有三个解释
+                     */
+                    if ( r.web ) {
+                        templateObj.relatedWords = r.web;
+                    }
+                } else {
+
+                    templateObj.errorCode = r.errorCode;
+                }
             }
+            //在全局对象上触发这个事件
+            $.pub( 'query' , templateObj , 'yd' );
+
+            return this;
+
         }
     } );
 
-    //百度翻译接口
-    this.bd.m = Apis.init( {
+    //百度的数据模型实例
+    this.Controller.m.bd = inherit( Translate , {
         method : 'POST' ,
         url : 'http://openapi.baidu.com/public/2.0/bmt/translate' ,
         data : {
@@ -311,7 +483,7 @@ $.E = function ( inculdes ) {
 
         /**
          * 当使用 bd 接口返回结果时，将结果转换为统一的模板对象
-         * 而后调用视图（$.V）来创建HTML
+         * 而后在全局变量 $ 上触发 query 事件
          * @param result
          * @param query
          */
@@ -362,15 +534,39 @@ $.E = function ( inculdes ) {
                 }()) );
             }
 
-            //交给视图去处理
-            $.bd.v.generate( templateObj );
+            //在全局对象上触发这个事件
+            $.pub( 'query' , templateObj , 'bd' );
 
             return this;
         }
     } );
 
-    //百度翻译视图
-    this.bd.v = new this.V( {
+    /**
+     * 应用的视图层
+     * @type {{}}
+     */
+    this.View = {
+
+        //给自己一个提醒 ;)
+        generate : function () {
+            throw new Error( 'generate()：每个页面都应该重载各自的 generate 方法！' );
+        }
+    };
+
+    //在控制器上定义有道的视图信息
+    this.Controller.v.yd = inherit( this.View , {
+        viaName : '有道翻译' ,
+        viaLink : 'http://fanyi.youdao.com/translate?i={{query}}' ,
+        errorMsg : {
+            20 : '有道翻译服务一次性只能翻译200个字符哦，长文本就用百度翻译吧！' ,
+            30 : '你查询的文本太难了，有道翻译不出来  :( 试试百度翻译吧！' ,
+            40 : '有道翻译不支持这种语言哦，试试百度翻译！' ,
+            50 : '天呐！由于使用右键翻译的人数过多，导致有道翻译封禁了翻译功能！请火速发送邮件至 i@lmk123.com 通知作者！'
+        }
+    } );
+
+    //在控制器上定义百度的视图信息
+    this.Controller.v.bd = inherit( this.View , {
         viaName : '百度翻译' ,
         viaLink : 'http://fanyi.baidu.com/#{{from}}/{{to}}/{{query}}' ,
         errorMsg : {
@@ -379,76 +575,4 @@ $.E = function ( inculdes ) {
             52003 : '天呐！如果你看见这条错误信息，说明由于使用右键翻译的人数过多，导致百度翻译封禁了翻译功能！请火速发送邮件至 i@lmk123.com 反应情况！'
         }
     } );
-
-    //有道翻译接口
-    this.yd.m = Apis.init( {
-        method : 'GET' ,
-        url : 'http://fanyi.youdao.com/openapi.do' ,
-        data : {
-            keyfrom : "chrome" ,
-            key : "1361128838" ,
-            type : "data" ,
-            doctype : "json" ,
-            version : "1.1" ,
-            q : ''
-        } ,
-
-        /**
-         * 当使用有道翻译接口返回结果时，将结果转换为统一的模板对象
-         * 而后调用视图实例的 generate() 方法来创建HTML
-         * @param result
-         * @param query
-         */
-        handleTemplate : function ( result , query ) {
-            var templateObj = {}, r = JSON.parse( result );
-
-            //查询的字符串
-            templateObj.query = query;
-
-            if ( r.errorCode === 0 ) {
-
-                /*
-                 * 对于单词和短语，有道翻译有详细的解释，但对于长文本则没有
-                 * result.basic.explains 是一个数组，每个元素都是对查询的文本的详细解释
-                 * result.basic下还有一个 phonetic 字符串属性，表示查询单词的音标
-                 */
-                if ( r.basic ) {
-                    templateObj.detailedExplains = r.basic.explains;
-                }
-
-                //翻译结果，虽然这是一个数组，但至今只有一个元素
-                templateObj.translateResult = r.translation[0];
-
-                /*
-                 * 有道翻译还提供相关的单词或短语
-                 * web 是一个数组，每个数组元素都是一个对象
-                 * 这种对象有一个字符串属性 key，是相关的单词或短语
-                 * 另有一个数组属性 value ，包含对相关单词的解释，一般有三个解释
-                 */
-                if ( r.web ) {
-                    templateObj.relatedWords = r.web;
-                }
-            } else {
-
-                templateObj.errorCode = r.errorCode;
-            }
-
-            //交给视图去处理
-            $.yd.v.generate( templateObj );
-
-            return this;
-        }
-    } );
-
-    //有道翻译视图
-    this.yd.v = new this.V( {
-        viaName : '有道翻译' ,
-        viaLink : 'http://fanyi.youdao.com/translate?i={{query}}' ,
-        errorMsg : {
-            20 : '有道翻译服务一次性只能翻译200个字符哦，长文本就用百度翻译吧！' ,
-            30 : '你查询的文本太难了，有道翻译不出来  :( 试试百度翻译吧！' ,
-            40 : '有道翻译不支持这种语言哦，试试百度翻译！' ,
-            50 : '天呐！如果你看见这条错误信息，说明由于使用右键翻译的人数过多，导致有道翻译封禁了翻译功能！请火速发送邮件至 i@lmk123.com 反应情况！'
-        }
-    } );
-}.bind( $ ))();
+}.bind( $ )());
