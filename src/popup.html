@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link href="css/popup.css" rel="stylesheet">
+        <script async src="https://ssl.google-analytics.com/ga.js"></script>
+    </head>
+    <body>
+        <header data-i18n="Box"></header>
+        <textarea id="query" autofocus rows="3"></textarea>
+
+        <div class="q">
+            <span class="r">From：<select id="from">
+                <option value="en" data-to="zh,jp,ara,spa,pt,th">英文</option>
+                <option value="zh" data-to="en,jp,kor,spa,fra,th,ara,yue,ru">中文</option>
+                <option value="jp" data-to="zh,en">日语</option>
+                <option value="th" data-to="zh,en">泰语</option>
+                <option value="ara" data-to="zh,en">阿拉伯语</option>
+                <option value="spa" data-to="zh,en">西班牙语</option>
+                <option value="kor" data-to="zh">韩语</option>
+                <option value="ru" data-to="zh">俄语</option>
+                <option value="fra" data-to="zh">法语</option>
+                <option value="yue" data-to="zh">粤语</option>
+                <option value="pt" data-to="en">葡萄牙语</option>
+            </select>&nbsp;&nbsp;To：<select id="to">
+                <option value="zh">中文</option>
+                <option value="en" disabled>英文</option>
+                <option value="jp">日语</option>
+                <option value="th">泰语</option>
+                <option value="ara">阿拉伯语</option>
+                <option value="spa">西班牙语</option>
+                <option value="kor" disabled>韩语</option>
+                <option value="ru" disabled>俄语</option>
+                <option value="fra" disabled>法语</option>
+                <option value="yue" disabled>粤语</option>
+                <option value="pt">葡萄牙语</option>
+            </select></span>
+            <button id="tran" title="Ctrl + Enter" data-i18n="Translate"></button>
+        </div>
+        <dl id="result"></dl>
+        <footer data-i18n="DonateInPopup"></footer>
+        <script src="js/com.js"></script>
+        <script src="js/popup.js"></script>
+    </body>
+</html>
