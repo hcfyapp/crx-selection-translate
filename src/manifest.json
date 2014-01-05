@@ -1,0 +1,58 @@
+﻿{
+    "name" : "__MSG_ExtensionName__" ,
+    "short_name" : "__MSG_ExtensionShortName__" ,
+
+    "description" : "__MSG_ExtensionDescription__" ,
+    "manifest_version" : 2 ,
+    "version" : "4.0.1" ,
+
+    "default_locale" : "zh_CN" ,
+    "homepage_url" : "http://blog.lmk123.com/?p=30" ,
+    "icons" : {
+        "128" : "/img/logo.png" ,
+        "16" : "/img/ico16.png" ,
+        "48" : "/img/logo.png"
+    } ,
+
+    "author" : "Milk Lee( i@lmk123.com )" ,
+
+    "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
+    "permissions" : [
+        "<all_urls>", "contextMenus", "storage", "cookies", "unlimitedStorage", "clipboardWrite", "clipboardRead",
+        "idle", "notifications"
+    ] ,
+
+    "background" : {
+        "page" : "lmk123.html" ,
+        "persistent" : false
+    } ,
+
+    "browser_action" : {
+        "default_icon" : {
+            "19" : "/img/logo.png" ,
+            "38" : "/img/logo.png"
+        } ,
+        "default_popup" : "/popup.html" ,
+        "default_title" : "翻译盒子"
+    } ,
+
+    "commands" : {
+        "_execute_browser_action" : {
+            "suggested_key" : {
+                "default" : "Ctrl+Q"
+            }
+        }
+    } ,
+
+    "content_scripts" : [
+        {
+            "matches" : ["http://*/*", "https://*/*", "file:///*"] ,
+            "css" : ["/css/content.css"] ,
+            "js" : ["/js/com.js", "/js/content.js"] ,
+            "all_frames" : true ,
+            "run_at" : "document_end"
+        }
+    ] ,
+
+    "web_accessible_resources" : ["/js/ydw.js"]
+}
