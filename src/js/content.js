@@ -34,7 +34,9 @@
              */
             web : function () {
                 var e;
-                if ( !doc.getElementById( 'OUTFOX_JTR_CDA' ) ) {
+                if ( location.protocol === 'https:' ) {
+                    alert( '网页翻译无法在 https 页面下使用，这时候就使用划词翻译或者翻译盒子吧 ;)' );
+                } else if ( !doc.getElementById( 'OUTFOX_JTR_CDA' ) ) {
                     e = doc.createElement( 'script' );
                     e.id = 'outfox_seed_js';
                     e.charset = "utf-8";
