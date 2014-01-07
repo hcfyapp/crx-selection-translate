@@ -41,7 +41,7 @@ _gaq.push( ['_trackPageview'] );
             show : function ( obj , api ) {
                 var s = '<dt class="word">' + obj.query + '</dt>';
                 if ( obj.error ) {
-                    s += '<dt>出错啦！</dt><dd>' + api.errorMsg[ obj.error] + '</dd>';
+                    s += '<dt>出错啦！</dt><dd>' + (api.errorMsg[ obj.error] || '未知错误') + '</dd>';
                 } else {
 
                     // 详细释义

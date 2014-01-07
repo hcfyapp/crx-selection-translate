@@ -20,7 +20,7 @@
     <property name="build_dir_with_version" value="${build.dir}/${version}" />
 
     <!--总命令-->
-    <target name="build" depends="build_start,build_html,build_images,build_css,build_js">
+    <target name="build" depends="build_start,build_images,build_css,build_js">
         <echo>${test}</echo>
     </target>
 
@@ -28,14 +28,19 @@
     <target name="build_start">
 
         <mkdir dir="${build.dir}" />
+
         <!--先按照目前的版本号在 build 文件夹下创建一个文件夹-->
         <mkdir dir="${build_dir_with_version}" />
 
-        <!-- 将 manifest.json 文件复制进去，仅用于 Chrome 扩展-->
-        <copy todir="${build_dir_with_version}">
-            <filelist dir="${src.dir}" files="manifest.json" />
-        </copy>
+        <mkdir dir="${build_dir_with_version}/_locales" />
 
+        <!-- 将根目录下的指定类型文件复制过去-->
+        <copy todir="${build_dir_with_version}/">
+
+            <fileset dir="${src.dir}/" includes="*.json,*.html" />
+            <fileset dir="${src.dir}/" includes="_locales/**" />
+        </copy>
+        <!--如果有 _locales 文件夹，那么也直接复制过去-->
     </target>
 
     <!--处理 html 文件夹，这里只是简单的将文件复制进 build / {版本号} 目录下-->

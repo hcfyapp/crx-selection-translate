@@ -272,14 +272,15 @@ $.extend( {
      */
     play : (function () {
         "use strict";
-        var audio = document.createElement( 'audio' ),
+        var audio = new Audio(),
             support = ['zh', 'jp', 'kor', 'en', 'fra'],
             bd = 'http://tts.baidu.com/text2audio?pid=101&ie=UTF-8&spd=3&lan={{lang}}&text={{text}}',
             yd = 'http://tts.youdao.com/fanyivoice?keyfrom=fanyi%2Eweb%2Eindex&le={{lang}}&word={{text}}';
         return function ( query , lang ) {
-            var src;
+            var src, a = audio;
+
             if ( lang === 'zh' ) {
-                src = bd.replace( '{{lang}}' , 'zh' ).replace( '{{text}}' , query );
+                src = encodeURI( bd.replace( '{{lang}}' , 'zh' ).replace( '{{text}}' , query ) );
             } else {
                 switch ( lang ) {
                     case 'en':
@@ -295,12 +296,20 @@ $.extend( {
                         lang = 'fr';
                         break;
                 }
-                src = yd.replace( '{{lang}}' , lang ).replace( '{{text}}' , query );
+                src = encodeURI( yd.replace( '{{lang}}' , lang ).replace( '{{text}}' , query ) );
             }
-            if ( audio.src !== src ) {
-                audio.src = src;
-            }
-            audio.play();
+
+            /*
+             * bug：有些较短的单词（例如test）如果不重置src（即使URL一样）
+             * 则无法播放第二次（第二次调用audio.play()的时候没有声音）
+             *
+             * fix：无法重复播放的原因，是因为有道接口的问题
+             * （具体原因是在于有道的语音接口返回的是一个文件，而不是流。它的响应头里有一个 video.mp3）
+             * 百度的接口也有问题。。简单点说，如果浏览器没有使用 206 缓存，就无法重复播放。。
+             * 所以也不考虑那么多了，每次阅读的时候都老老实实的直接改变 src 吧
+             * */
+            a.src = src;
+            a.play();
         };
     }()) ,
 
@@ -504,7 +513,7 @@ $.extend( {
         data : {
 
             //API Key
-            client_id : 'ZGoZqZPUPtSXCmdlCrtqEKFz' ,
+            client_id : 'Hs18iW3px3gQ6Yfy6Za0QGg4' ,
 
             //源语种，默认自动检测
             from : 'auto' ,
