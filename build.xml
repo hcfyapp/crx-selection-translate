@@ -32,6 +32,7 @@
         <!--先按照目前的版本号在 build 文件夹下创建一个文件夹-->
         <mkdir dir="${build_dir_with_version}" />
 
+        <!--把多语言文件夹给整个复制过去-->
         <mkdir dir="${build_dir_with_version}/_locales" />
 
         <!-- 将根目录下的指定类型文件复制过去-->

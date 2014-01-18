@@ -79,7 +79,7 @@
         "description" : "显示在弹出页的按钮上的两个字"
     } ,
     "DonateInPopup" : {
-        "message" : "捐赠我一下嘛 TnT" ,
+        "message" : "我需要你的支持！" ,
         "description" : "显示在弹出页底部的捐助信息"
     }
 }

@@ -138,4 +138,15 @@ _gaq.push( ['_trackPageview'] );
     doc.getElementsByTagName( 'footer' )[0].addEventListener( 'click' , function () {
         chrome.tabs.create( { url : "https://me.alipay.com/lmk123" } );
     } );
+
+    // 因为我在html上对输入框写了 auto focus，所以下面这个命令会直接把剪切板的文本粘贴进去。
+    // 而且，如果剪切板里的内容不是文本，则什么都不会粘贴进去
+    if ( doc.execCommand( 'paste' ) ) {
+
+        // 翻译
+        c.tran.click();
+
+        // 并选中文本
+        c.query.select();
+    }
 }( $ ) );
