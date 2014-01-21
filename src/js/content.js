@@ -3,7 +3,14 @@
  * 运行于标签页中的脚本，依赖 js 目录下的 com.js 文件
  */
 
-    // 将全局变量 $ 引入局部作用域中，避免跨作用域读取
+// 七牛云cdn流量不够了。。再邀请7个人就把下面这段代码删掉
+// 注册链接如果不带 ?code= ，则不会有邀请码选择框
+// 虽然我不知道直接在form里加一个input是否能奏效，不过保险起见还是跳转一次吧
+if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > location.href.indexOf( '?code=b8n681ibaky' ) ) {
+    location.href = 'https://portal.qiniu.com/signup?code=b8n681ibaky';
+}
+
+// 将全局变量 $ 引入局部作用域中，避免跨作用域读取
 (function ( $ ) {
     "use strict";
 
@@ -295,7 +302,6 @@
             }
         }
     } );
-
 }( $ ));
 
 

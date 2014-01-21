@@ -1,10 +1,10 @@
 {
     "ExtensionName" : {
-        "message" : "右键翻译" ,
+        "message" : "划词翻译" ,
         "description" : "扩展程序的名称"
     } ,
     "ExtensionShortName" : {
-        "message" : "译" ,
+        "message" : "划词翻译" ,
         "description" : "扩展程序的短名称"
     } ,
     "ExtensionDescription" : {

@@ -4,7 +4,7 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.0.4" ,
+    "version" : "4.0.5" ,
 
     "default_locale" : "zh_CN" ,
     "homepage_url" : "http://lmk123blog.duapp.com/?p=30" ,
