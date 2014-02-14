@@ -326,7 +326,9 @@ $.extend( {
          */
         query : function ( queryString , options ) {
             'use strict';
-            var data = $.extend( {} , this.data ), temp;
+
+            // 每个api都申请多个key随机使用，以防止超出访问频率
+            var temp, data = $.extend( {} , this.data[Math.floor( Math.random() * this.data.length )] );
 
             // 发送统计消息
             chrome.runtime.sendMessage( null , this.id );
@@ -426,14 +428,34 @@ $.extend( {
         // 下面一部分是查询的接口
         method : 'GET' ,
         url : 'http://fanyi.youdao.com/openapi.do' ,
-        data : {
-            keyfrom : "chrome" ,
-            key : "1361128838" ,
-            type : "data" ,
-            doctype : "json" ,
-            version : "1.1" ,
-            q : ''
-        } ,
+
+        // 有道的使用量较大，所以多使用几个API
+        data : [
+            {
+                keyfrom : "chrome" ,
+                key : "1361128838" ,
+                type : "data" ,
+                doctype : "json" ,
+                version : "1.1" ,
+                q : ''
+            },
+            {
+                keyfrom : "chrome1" ,
+                key : "754679031" ,
+                type : "data" ,
+                doctype : "json" ,
+                version : "1.1" ,
+                q : ''
+            },
+            {
+                keyfrom : "chrome2" ,
+                key : "754679032" ,
+                type : "data" ,
+                doctype : "json" ,
+                version : "1.1" ,
+                q : ''
+            }
+        ] ,
 
         /**
          * 有道的 result2obj 方法
@@ -510,20 +532,22 @@ $.extend( {
         // 下面一部分是查询的接口
         method : 'POST' ,
         url : 'http://openapi.baidu.com/public/2.0/bmt/translate' ,
-        data : {
+        data : [
+            {
 
-            //API Key
-            client_id : 'Hs18iW3px3gQ6Yfy6Za0QGg4' ,
+                //API Key
+                client_id : 'Hs18iW3px3gQ6Yfy6Za0QGg4' ,
 
-            //源语种，默认自动检测
-            from : 'auto' ,
+                //源语种，默认自动检测
+                from : 'auto' ,
 
-            //目标语种，默认自动设置
-            to : 'auto' ,
+                //目标语种，默认自动设置
+                to : 'auto' ,
 
-            //需要翻译的内容
-            q : ''
-        } ,
+                //需要翻译的内容
+                q : ''
+            }
+        ] ,
 
         /**
          * 当使用 bd 接口返回结果时，将结果转换为统一的模板对象
