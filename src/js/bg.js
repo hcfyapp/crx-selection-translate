@@ -99,11 +99,11 @@ _gaq.push( ['_trackPageview'] );
     //覆盖捐赠的 onClick 事件，在没有把英语做出来之前一律支付宝吧
     menus.donate.onClick = function () {
 
-//        if ( $.zh ) {
-            chrome.tabs.create( { url : "https://me.alipay.com/lmk123" } );
-//        } else {
-//            chrome.tabs.create( { url : "http://lmk123.duapp.com/paypal.html" } );
-//        }
+        //        if ( $.zh ) {
+        chrome.tabs.create( { url : "https://me.alipay.com/lmk123" } );
+        //        } else {
+        //            chrome.tabs.create( { url : "http://lmk123.duapp.com/paypal.html" } );
+        //        }
     };
 
     //右键菜单点击事件
@@ -111,8 +111,7 @@ _gaq.push( ['_trackPageview'] );
 
         // 跟踪右键菜单使用情况
         _gaq.push( ['_trackEvent' , 'MenusClick', info.menuItemId] );
-
-        menus[info.menuItemId].onClick( info , tab );
+        menus[ info.menuItemId ].onClick( info , tab );
     } );
 
     //storage change事件统一处理器
@@ -127,6 +126,8 @@ _gaq.push( ['_trackPageview'] );
             chrome.contextMenus.update( 'select' , {
                 checked : temp
             } );
+
+            // 通知每个页面
             chrome.tabs.query( {} , function ( tabs ) {
                 tabs.forEach( function ( tab ) {
                     chrome.tabs.sendMessage( tab.id , { 'SELECTION' : temp } );
@@ -140,6 +141,14 @@ _gaq.push( ['_trackPageview'] );
 
         // 跟踪api使用情况
         _gaq.push( ['_trackEvent' , 'ApiUsed', ga] );
+    } );
+
+    // 将划词翻译开关默认打开
+    chrome.runtime.onInstalled.addListener( function ( details ) {
+        var reason = details.reason;
+        if ( 'install' === reason || ('update' === reason && '4.0.6' === details.string) ) {
+            chrome.storage.local.set( {'SELECTION' : true} );
+        }
     } );
 
 }( $ ));

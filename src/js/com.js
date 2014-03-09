@@ -328,7 +328,10 @@ $.extend( {
             'use strict';
 
             // 每个api都申请多个key随机使用，以防止超出访问频率
-            var temp, data = $.extend( {} , this.data[Math.floor( Math.random() * this.data.length )] );
+            // var temp, data = $.extend( {} , this.data[Math.floor( Math.random() * this.data.length )] );
+
+            // 由于已经通过有道提升了使用限制，所以就不用这么麻烦轮流使用API key了，以免出现未知问题
+            var temp, data = $.extend( {} , this.data[0] );
 
             // 发送统计消息
             chrome.runtime.sendMessage( null , this.id );

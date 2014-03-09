@@ -4,10 +4,10 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.0.6" ,
+    "version" : "4.0.7" ,
 
     "default_locale" : "zh_CN" ,
-    "homepage_url" : "http://lmk123blog.duapp.com/?p=30" ,
+    "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad?hl=zh-CN&gl=CN" ,
     "icons" : {
         "128" : "/img/logo.png" ,
         "16" : "/img/ico16.png" ,
