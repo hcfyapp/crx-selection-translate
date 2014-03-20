@@ -57,9 +57,9 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
         v = $.inherit( $.View , {
             Content_TEMPLATE : "<div class='_tip_'>{{tip}}</div><div class='_query_'>{{query}}</div><div><span class='_pronunciation_'>{{pronunciation}}</span></div><div><div class='_title_'>" +
                 $.i18n( 'ContentDetailed' ) + "</div><ul class='_content_'>{{base}}</ul></div><div><div class='_title_'>" +
-                $.i18n( 'ContentResult' ) + "</div><div class='_content_'>{{result}}</div></div><div class='_from_'>via&nbsp;<a target='_blank' href='{{viaLink}}' title='" +
-                $.i18n( 'ContentMore' ) + "'>{{via}}</a></div><div><div class='_title_'>" +
-                $.i18n( 'ContentError' ) + "</div><div class='_content_'>{{error}}</div></div>" , // 标签页的模板
+                $.i18n( 'ContentResult' ) + "</div><div class='_content_'>{{result}}</div></div><div><div class='_title_ _error_'>" +
+                $.i18n( 'ContentError' ) + "</div><div class='_content_'>{{error}}</div></div><div class='_from_'>via&nbsp;<a target='_blank' href='{{viaLink}}' title='" +
+                $.i18n( 'ContentMore' ) + "'>{{via}}</a></div>" , // 标签页的模板
 
             // 用于记录弹出层显示位置
             pos : {left : 0 , top : 0} ,
@@ -127,19 +127,22 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
 
                 var t = this.Content_TEMPLATE;
 
-                t = t.replace( '{{via}}' , api.viaName ) //替换接口名称
-                    .replace( '{{viaLink}}' , api.viaLink ) //替换接口链接
-                    .replace( /\{\{query\}\}/g , obj.query ) //替换标头与接口链接里面的查询字符串。因为有两个{{query}}所以用了全局的正则，否则replace方法只会替换第一个
-                    .replace( '{{from}}' , obj.from || 'auto' ) //接口链接里面的源语言
-                    .replace( '{{to}}' , obj.to || 'auto' ); //接口链接里面的目标语言
+                t = t.replace( '{{via}}' , api.viaName ); //替换接口名称
 
                 if ( obj.error ) { //如果有错误状态
-                    t = t.replace( '{{error}}' , api.errorMsg[ obj.error] );
+                    t = t.replace( '{{error}}' , api.errorMsg[ obj.error] )
+                        .replace( "<a target='_blank' href='{{viaLink}}' title='" +
+                            $.i18n( 'ContentMore' ) + "'>" + api.viaName + "</a>" , api.viaName );  // 错误状态下没有更多信息
 
                 } else if ( obj.tip ) { //如果是提示
                     t = t.replace( '{{tip}}' , obj.tip );
 
                 } else { //处理一般情况
+
+                    t = t.replace( '{{viaLink}}' , api.viaLink ) //替换接口链接
+                        .replace( /\{\{query\}\}/g , obj.query ) //替换标头与接口链接里面的查询字符串。因为有两个{{query}}所以用了全局的正则，否则replace方法只会替换第一个
+                        .replace( '{{from}}' , obj.from || 'auto' ) //接口链接里面的源语言
+                        .replace( '{{to}}' , obj.to || 'auto' ); //接口链接里面的目标语言
 
                     if ( obj.detailed ) { //如果有详细解释
 
@@ -163,13 +166,14 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
                     }
 
                     //相关内容（templateObj.relatedWords），在标签页中不处理，以免结果框过长
-
-                    //将没有的内容去除，这样 css 的 :empty{display:none} 规则会隐藏它们
-                    t = t.replace( /\{\{[^}]+\}\}/g , '' );
-
-                    //显示模板
-                    return this.show( t , this.pos );
                 }
+
+                //将没有的内容去除，这样 css 的 :empty{display:none} 规则会隐藏它们
+                t = t.replace( /\{\{[^}]+\}\}/g , '' );
+
+                //显示模板
+                //bugfix：错误消息不显示
+                return this.show( t , this.pos );
             } ,
 
             show : function ( htmlStr , pos ) {

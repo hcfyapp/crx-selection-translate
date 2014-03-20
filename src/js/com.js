@@ -162,7 +162,8 @@ $.extend( {
                     }
                 }
 
-                return result.join( '&' );
+                // bugfix：中文不编码导致有道翻译中文时失败
+                return encodeURI( result.join( '&' ) );
 
             case  'string':
 
@@ -203,6 +204,8 @@ $.extend( {
 
         // 将对象编码
         x.data = this.encode( x.data );
+
+        console.log( x.data );
 
         //GET请求的参数写在 url 后面
         if ( x.method === 'GET' ) {

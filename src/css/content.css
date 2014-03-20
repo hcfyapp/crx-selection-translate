@@ -95,3 +95,9 @@ li {
 #_container_ a:hover {
     color: black !important;
 }
+
+#_container_ ._error_ {
+    background-color: #000;
+    color: #fff;
+    margin-bottom: 10px;
+}
