@@ -10,7 +10,7 @@
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad?hl=zh-CN&gl=CN" ,
     "icons" : {
         "128" : "/img/logo.png" ,
-        "16" : "/img/ico16.png" ,
+        "16" : "/img/logo.png" ,
         "48" : "/img/logo.png"
     } ,
 
