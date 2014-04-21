@@ -7,7 +7,7 @@
     "version" : "4.1.2" ,
 
     "default_locale" : "zh_CN" ,
-    "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad?hl=zh-CN&gl=CN" ,
+    "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
     "icons" : {
         "128" : "/img/logo.png" ,
         "16" : "/img/logo.png" ,
