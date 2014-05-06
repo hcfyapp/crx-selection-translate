@@ -25,7 +25,7 @@
         "description" : "有道翻译的错误码30"
     } ,
     "YDError40" : {
-        "message" : "有道翻译不支持这种语言哦，试试百度翻译！" ,
+        "message" : "有道翻译不支持这种语言哦，用百度翻译试试！" ,
         "description" : "有道翻译的错误码40"
     } ,
     "YDError50" : {
