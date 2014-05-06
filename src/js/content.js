@@ -134,9 +134,6 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
                         .replace( "<a target='_blank' href='{{viaLink}}' title='" +
                             $.i18n( 'ContentMore' ) + "'>" + api.viaName + "</a>" , api.viaName );  // 错误状态下没有更多信息
 
-                } else if ( obj.tip ) { //如果是提示
-                    t = t.replace( '{{tip}}' , obj.tip );
-
                 } else { //处理一般情况
 
                     t = t.replace( '{{viaLink}}' , api.viaLink ) //替换接口链接
@@ -215,7 +212,7 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
     doc.addEventListener( 'mouseup' , function ( event ) {
 
         /*
-         * bug：当鼠标点击选中的区域后，翻译框会再弹起来一次
+         * bugfix：当鼠标点击选中的区域后，翻译框会再弹起来一次
          * 为此只能延后0毫秒，待浏览器默认将选中词取消后再查询
          * （每次鼠标mousedown事件，chrome就会清空页面上的选中文本）
          */
@@ -233,6 +230,9 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
 
                 // 如果起来的是鼠标左键且当前开启了划词翻译，则执行划词翻译
                 if ( e.button === 0 && lc.SELECTION ) {
+
+                    // 翻译前添加一个提醒
+                    v.show( '<div class="_tip_">正在翻译，请稍后……</div>' , v.pos );
                     $( s );
                 }
             }

@@ -79,6 +79,10 @@ _gaq.push( ['_trackPageview'] );
     c.tran.addEventListener( 'click' , function () {
         var word = c.query.value.trim(), from, to;
         if ( word ) {
+
+            // 显示一个正在查询的状态
+            c.result.innerHTML = '<dd>正在查询，请稍后……</dd>';
+
             from = c.from.value;
             to = c.to.value;
             //            c.tip.style.display = 'block';

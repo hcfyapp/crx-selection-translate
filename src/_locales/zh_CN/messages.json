@@ -79,7 +79,7 @@
         "description" : "显示在弹出页的按钮上的两个字"
     } ,
     "DonateInPopup" : {
-        "message" : "我需要你的支持！" ,
+        "message" : "请我喝杯咖啡吧 :)" ,
         "description" : "显示在弹出页底部的捐助信息"
     }
 }
