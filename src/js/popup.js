@@ -11,7 +11,7 @@ _gaq.push( ['_trackPageview'] );
     var doc = document,
 
         c = $.inherit( $.Controller , {
-            ui : ['from', 'to', 'tran', 'query', 'tip', 'result'] ,
+            ui : ['from', 'to', 'tran', 'query', 'tip', 'result', 'api'] ,
             init : function () {
 
                 // 保存所有的 ui 节点
@@ -87,16 +87,28 @@ _gaq.push( ['_trackPageview'] );
             to = c.to.value;
             //            c.tip.style.display = 'block';
 
-            // 如果源语言是英文且目标语言设为了中文，就使用有道翻译
-            // 否则使用百度的多语言来翻译
-            if ( from === 'en' && to === 'zh' ) {
+            // 如果翻译的文本超过了200个，那么强制使用bd
+            if ( word.length > 200 ) {
+                $.bd.query( word );
+            } else if ( 'yd' === c.api.value ) {
                 $.yd.query( word );
-            } else {
+            } else if ( 'bd' === c.api.value ) {
                 $.bd.query( word , {
                     from : from ,
                     to : to
                 } );
             }
+
+            // 如果源语言是英文且目标语言设为了中文，就使用有道翻译
+            // 否则使用百度的多语言来翻译
+            //            if ( from === 'en' && to === 'zh' ) {
+            //                $.yd.query( word );
+            //            } else {
+            //                $.bd.query( word , {
+            //                    from : from ,
+            //                    to : to
+            //                } );
+            //            }
         }
     } );
 
@@ -109,6 +121,10 @@ _gaq.push( ['_trackPageview'] );
 
     // 注册查询事件
     $.sub( 'query' , v.show.bind( v ) ).i18nForHtml();
+
+    c.api.addEventListener( 'change' , function () {
+        doc.querySelector( '.r' ).classList.toggle( 'on' );
+    } );
 
     // 选择语言事件
     c.from.addEventListener( 'change' , function ( e ) {
@@ -140,7 +156,7 @@ _gaq.push( ['_trackPageview'] );
 
     // 捐赠
     doc.getElementsByTagName( 'footer' )[0].addEventListener( 'click' , function () {
-        chrome.tabs.create( { url : "https://me.alipay.com/lmk123" } );
+        chrome.tabs.create( { url : "/donate.html" } );
     } );
 
     // 4.1 bug 修复

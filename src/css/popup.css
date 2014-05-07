@@ -12,7 +12,7 @@ li {
 }
 
 body {
-    min-width: 300px;
+    min-width: 310px;
     max-width: 400px;
 }
 
@@ -32,16 +32,28 @@ body {
 
 .q {
     width: 97%;
-    margin: 0 auto;
+    margin-top: .4em;
     line-height: 1.5;
     font-size: .8em;
     overflow: hidden;
     padding-left: .7%;
 }
 
-.q .r {
+.q .use {
     position: relative;
     top: .2em;
+}
+
+.r {
+    margin-top: 3%;
+    opacity: .1;
+    height: 0;
+    transition: height .5s, opacity .5s;
+}
+
+.r.on {
+    opacity: 1;
+    height: 20px;
 }
 
 .q select, .q button {

@@ -100,7 +100,7 @@ _gaq.push( ['_trackPageview'] );
     menus.donate.onClick = function () {
 
         //        if ( $.zh ) {
-        chrome.tabs.create( { url : "https://me.alipay.com/lmk123" } );
+        chrome.tabs.create( { url : "/donate.html" } );
         //        } else {
         //            chrome.tabs.create( { url : "http://lmk123.duapp.com/paypal.html" } );
         //        }

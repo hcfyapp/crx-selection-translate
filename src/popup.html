@@ -10,7 +10,11 @@
         <textarea id="query" autofocus rows="3"></textarea>
 
         <div class="q">
-            <span class="r">From：<select id="from">
+            <span class="use">Use：<select id="api">
+            <option value="yd" title="有道翻译只支持英、日、韩、法、西班牙语，且不能设置目标语言，但翻译更准确详细">有道</option>
+            <option value="bd" title="百度翻译支持更多语言及目标语言设置，但翻译结果无详细释义">百度</option>
+        </select></span><button id="tran" title="Ctrl + Enter" data-i18n="Translate"></button>
+            <div class="r">From：<select id="from">
                 <option value="en" data-to="zh,jp,ara,spa,pt,th">英文</option>
                 <option value="zh" data-to="en,jp,kor,spa,fra,th,ara,yue,ru">中文</option>
                 <option value="jp" data-to="zh,en">日语</option>
@@ -34,8 +38,8 @@
                 <option value="fra" disabled>法语</option>
                 <option value="yue" disabled>粤语</option>
                 <option value="pt">葡萄牙语</option>
-            </select></span>
-            <button id="tran" title="Ctrl + Enter" data-i18n="Translate"></button>
+            </select></div>
+
         </div>
         <dl id="result"></dl>
         <footer data-i18n="DonateInPopup"></footer>
