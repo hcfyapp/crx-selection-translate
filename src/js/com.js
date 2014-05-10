@@ -1,12 +1,13 @@
 /**
  * 把这个函数作为查询的开始
- * @param query
+ * @param {String} query 待翻译的字符串
+ * @param {String=} api 翻译引擎的名称
  */
-var $ = function ( query ) {
+var $ = function ( query , api ) {
     "use strict";
 
     // 读取配置，使用哪个 api 进行查询；如果没有配置，则自动选择
-    $[$.QUERY_API || (query.length > 200 ? 'bd' : 'yd')].query( query );
+    $[ api || ( query.length > 200 ? 'bd' : 'yd' ) ].query( query );
 };
 
 /**
@@ -106,9 +107,6 @@ $.extend = function () {
 // 扩展全局变量 $，添加一些公用的工具函数及对象父类
 $.extend( {
 
-    // 与 chrome.storage 一致的默认配置项
-    QUERY_API : '' , // 使用哪个 api 进行翻译，默认是自动选择
-
     // 扩展程序的根目录
     root : chrome.extension.getURL( '/' ) ,
 
@@ -205,7 +203,7 @@ $.extend( {
         // 将对象编码
         x.data = this.encode( x.data );
 
-//        console.log( x.data );
+        //        console.log( x.data );
 
         //GET请求的参数写在 url 后面
         if ( x.method === 'GET' ) {
@@ -626,9 +624,9 @@ $.extend( {
 } );
 
 // 将保存在 chrome.storage 中的公共配置读取至全局变量上
-$.load( 'QUERY_API' , function ( items ) {
-    "use strict";
+//$.load( 'QUERY_API' , function ( items ) {
+//    "use strict";
 
-    // 保存完配置后，触发 ready 事件
-    $.extend( items ).pub( 'ready' );
-} );
+// 保存完配置后，触发 ready 事件
+//    $.extend( items ).pub( 'ready' );
+//} );

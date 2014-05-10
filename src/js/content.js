@@ -3,14 +3,7 @@
  * 运行于标签页中的脚本，依赖 js 目录下的 com.js 文件
  */
 
-// 七牛云cdn流量不够了。。再邀请7个人就把下面这段代码删掉
-// 注册链接如果不带 ?code= ，则不会有邀请码选择框
-// 虽然我不知道直接在form里加一个input是否能奏效，不过保险起见还是跳转一次吧
-if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > location.href.indexOf( '?code=b8n681ibaky' ) ) {
-    location.href = 'https://portal.qiniu.com/signup?code=b8n681ibaky';
-}
-
-// 将全局变量 $ 引入局部作用域中，避免跨作用域读取
+    // 将全局变量 $ 引入局部作用域中，避免跨作用域读取
 (function ( $ ) {
     "use strict";
 
@@ -21,6 +14,8 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
 
             // chrome.storage 中的应用于内容脚本的设置项
             SELECTION : true , // 划词翻译默认开启
+
+            CTRL_NEEDED : false , // 是否需要按住ctrl键时才显示翻译结果，默认不需要
 
             /*
              * 检测标签页是否在 iframe 中运行
@@ -231,9 +226,16 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
                 // 如果起来的是鼠标左键且当前开启了划词翻译，则执行划词翻译
                 if ( e.button === 0 && lc.SELECTION ) {
 
+                    // 如果开启了必须使用Ctrl键配合
+                    if ( lc.CTRL_NEEDED ) {
+                        if ( !e.ctrlKey ) {
+                            return;
+                        }
+                    }
+
                     // 翻译前添加一个提醒
                     v.show( '<div class="_tip_">正在翻译，请稍后……</div>' , v.pos );
-                    $( s );
+                    $( s , lc.QUERY_API );
                 }
             }
         } , 0 );
@@ -256,22 +258,22 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
     } );
 
     // 根据设置项更新配置
-    $.load( 'SELECTION' , function ( items ) {
-        c.SELECTION = items.SELECTION;
+    $.load( ['SELECTION', 'CTRL_NEEDED', 'QUERY_API'] , function ( items ) {
+        $.extend( c , items );
     } );
 
-    /*
+    /**
      * 统一接收消息
      * 接收的消息目前有两种：
      * 1）bd、yd、ydw，这三种是翻译命令，需要匹配到具体的 frame
-     * 2）SELECTION 这是全局命令，每个frame都需要接收到
+     * 2）其它的 SELECTION、QUERY_API、CTRL_NEEDED， 这是全局命令，每个frame都需要接收到
      * */
     chrome.runtime.onMessage.addListener( function ( info ) {
         var menuId = info.menuItemId;
 
         //        console.dir( info );
 
-        // 如果有这个属性，说明这个消息是属于 yd、bd、ydw中的一个
+        // 如果有这个属性，说明这个消息是从右键菜单传来的，属于 yd、bd、ydw中的一个
         if ( menuId ) {
 
             /*
@@ -300,10 +302,14 @@ if ( 0 === location.href.indexOf( 'https://portal.qiniu.com/signup' ) && 0 > loc
             }
         } else {
 
-            // 处理设置变更，这一部分每个frame都需要接收到
-            if ( info.SELECTION !== undefined ) {
-                c.SELECTION = info.SELECTION;
-            }
+            // 处理设置变更SELECTION、QUERY_API、CTRL_NEEDED，这一部分每个frame都需要接收到
+            //            console.dir( info );
+            Object.keys( info ).forEach( function ( v ) {
+                c[v] = info[v].newValue;
+            } );
+            //            if ( info.SELECTION !== undefined ) {
+            //                c.SELECTION = info.SELECTION;
+            //            }
         }
     } );
 }( $ ));

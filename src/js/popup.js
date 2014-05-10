@@ -39,7 +39,7 @@ _gaq.push( ['_trackPageview'] );
              * @returns {v}
              */
             show : function ( obj , api ) {
-                var s = '<dt class="word">' + obj.query + '</dt>';
+                var s = '<dt class="word">' + obj.query.replace( /</g , '&lt;' ) + '</dt>';
                 if ( obj.error ) {
                     s += '<dt>出错啦！</dt><dd>' + (api.errorMsg[ obj.error] || '未知错误') + '</dd>';
                 } else {
@@ -60,7 +60,7 @@ _gaq.push( ['_trackPageview'] );
                     // 相关内容暂不考虑
 
                     // 链接
-                    s += '<dd class="via"><span class="play">阅读</span><a target="_blank" href="' + api.viaLink.replace( '{{query}}' , obj.query ).replace( '{{from}}' , obj.from ).replace( '{{to}}' , obj.to ) + '">via ' + api.viaName + '</a></dd>';
+                    s += '<dd class="via"><span class="play">朗读</span><a target="_blank" href="' + api.viaLink.replace( '{{query}}' , obj.query ).replace( '{{from}}' , obj.from ).replace( '{{to}}' , obj.to ) + '">via ' + api.viaName + '</a></dd>';
                 }
                 c.result.innerHTML = s;
                 //                c.result.style.display = 'block';

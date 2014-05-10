@@ -4,7 +4,7 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.1.4" ,
+    "version" : "4.2" ,
 
     "default_locale" : "zh_CN" ,
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
@@ -27,6 +27,8 @@
         "persistent" : false
     } ,
 
+    "options_page" : "options.html" ,
+
     "browser_action" : {
         "default_icon" : {
             "19" : "/img/logo.png" ,
@@ -39,7 +41,8 @@
     "commands" : {
         "_execute_browser_action" : {
             "suggested_key" : {
-                "default" : "Ctrl+Q"
+                "default" : "Ctrl+Q" ,
+                "mac" : "Command+Q"
             }
         }
     } ,
