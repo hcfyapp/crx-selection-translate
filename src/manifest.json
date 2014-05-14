@@ -4,7 +4,7 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.2" ,
+    "version" : "4.3" ,
 
     "default_locale" : "zh_CN" ,
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
@@ -44,6 +44,12 @@
                 "default" : "Ctrl+Q" ,
                 "mac" : "Command+Q"
             }
+        } ,
+        "toggle-selection" : {
+            "suggested_key" : {
+                "default" : "Alt+Z"
+            } ,
+            "description" : "切换网页划词翻译开关"
         }
     } ,
 

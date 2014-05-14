@@ -15,7 +15,11 @@
             // chrome.storage 中的应用于内容脚本的设置项
             SELECTION : true , // 划词翻译默认开启
 
+            QUERY_API : '' , // 自动选择
+
             CTRL_NEEDED : false , // 是否需要按住ctrl键时才显示翻译结果，默认不需要
+
+            IGNORE_CHINESE : false , // 是否忽略有汉字时的翻译
 
             /*
              * 检测标签页是否在 iframe 中运行
@@ -24,6 +28,29 @@
             frame : (function () {
                 return window.top === window ? null : location.href;
             }()) ,
+
+            /**
+             * 执行翻译动作
+             * @param s
+             */
+            tran : function ( s ) {
+
+                // 如果页面上存在选中文本，则记录鼠标up时的位置，供翻译结果显示
+                //                if ( s ) {
+
+                // 如果开启了忽略中文
+                if ( this.IGNORE_CHINESE ) {
+                    if ( /[\u4e00-\u9fa5]/.test( s ) ) {
+                        return;
+                    }
+                }
+
+                // 翻译前添加一个提醒
+                v.show( '<div class="_tip_">正在翻译，请稍后……</div>' , v.pos );
+                $( s , this.QUERY_API );
+
+                //                }
+            } ,
 
             /**
              * 保存一个页面中选中文本的引用
@@ -57,7 +84,7 @@
                 $.i18n( 'ContentMore' ) + "'>{{via}}</a></div>" , // 标签页的模板
 
             // 用于记录弹出层显示位置
-            pos : {left : 0 , top : 0} ,
+            pos : { left : 0 , top : 0 } ,
 
             // 元素是否已被插入到了文档中。仅当发生第一次查询时，才把它插入文档。
             inserted : false ,
@@ -204,41 +231,34 @@
     $.sub( 'query' , v.obj2html.bind( v ) );
 
     //注册划词翻译事件
-    doc.addEventListener( 'mouseup' , function ( event ) {
+    doc.addEventListener( 'mouseup' , function ( e ) {
+        var s = c.text.toString().trim();
 
-        /*
-         * bugfix：当鼠标点击选中的区域后，翻译框会再弹起来一次
-         * 为此只能延后0毫秒，待浏览器默认将选中词取消后再查询
-         * （每次鼠标mousedown事件，chrome就会清空页面上的选中文本）
-         */
-        setTimeout( function () {
+        if ( s ) {
+            v.pos = {
+                left : e.pageX + 10 ,
+                top : e.pageY + 10
+            };
 
-            //缓存本地控制器
-            var lc = c , e = event, s = lc.text.toString().trim();
+            if ( e.button === 0 && c.SELECTION ) {
 
-            // 如果页面上存在选中文本，则记录鼠标up时的位置，供翻译结果显示
-            if ( s ) {
-                v.pos = {
-                    left : e.pageX + 10 ,
-                    top : e.pageY + 10
-                };
-
-                // 如果起来的是鼠标左键且当前开启了划词翻译，则执行划词翻译
-                if ( e.button === 0 && lc.SELECTION ) {
-
-                    // 如果开启了必须使用Ctrl键配合
-                    if ( lc.CTRL_NEEDED ) {
-                        if ( !e.ctrlKey ) {
-                            return;
-                        }
+                // 如果开启了必须使用Ctrl键配合
+                if ( c.CTRL_NEEDED ) {
+                    if ( !e.ctrlKey ) {
+                        return;
                     }
-
-                    // 翻译前添加一个提醒
-                    v.show( '<div class="_tip_">正在翻译，请稍后……</div>' , v.pos );
-                    $( s , lc.QUERY_API );
                 }
+
+                /*
+                 * bugfix：当鼠标点击选中的区域后，翻译框会再弹起来一次
+                 * 为此只能延后0毫秒，待浏览器默认将选中词取消后再查询
+                 * （每次鼠标mousedown事件，chrome就会清空页面上的选中文本）
+                 */
+                setTimeout( function () {
+                    c.tran( s );
+                } , 0 );
             }
-        } , 0 );
+        }
 
     } , true );
 
@@ -247,7 +267,7 @@
      * 注意结果框本身注册了一个捕获来阻止mousedown事件的冒泡
      * 以防止在结果框上点击时被隐藏
      * */
-    doc.addEventListener( 'mousedown' , function () {
+    doc.addEventListener( 'mousedown' , function ( e ) {
         var d = v.dom;
 
         //隐藏结果框
@@ -257,8 +277,17 @@
         d.style.right = 'auto';
     } );
 
+    // 开启CTRL选项后，按下CTRL后执行一次翻译动作
+    doc.addEventListener( 'keyup' , function ( e ) {
+        var s = c.text.toString().trim();
+
+        if ( s && c.CTRL_NEEDED && 17 === e.keyCode && 'none' === getComputedStyle( v.dom ).display ) {
+            c.tran( s );
+        }
+    } );
+
     // 根据设置项更新配置
-    $.load( ['SELECTION', 'CTRL_NEEDED', 'QUERY_API'] , function ( items ) {
+    $.load( ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE'] , function ( items ) {
         $.extend( c , items );
     } );
 
@@ -266,7 +295,7 @@
      * 统一接收消息
      * 接收的消息目前有两种：
      * 1）bd、yd、ydw，这三种是翻译命令，需要匹配到具体的 frame
-     * 2）其它的 SELECTION、QUERY_API、CTRL_NEEDED， 这是全局命令，每个frame都需要接收到
+     * 2）其它的 SELECTION、QUERY_API、CTRL_NEEDED、IGNORE_CHINESE， 这是全局命令，每个frame都需要接收到
      * */
     chrome.runtime.onMessage.addListener( function ( info ) {
         var menuId = info.menuItemId;
@@ -283,7 +312,7 @@
              */
             if ( info.frameUrl ) {
 
-                //通过地址判断是否是同一个frame
+                // 通过地址判断是否是同一个frame
                 if ( c.frame !== info.frameUrl ) {
                     return;
                 }
@@ -302,7 +331,7 @@
             }
         } else {
 
-            // 处理设置变更SELECTION、QUERY_API、CTRL_NEEDED，这一部分每个frame都需要接收到
+            // 处理设置变更SELECTION、QUERY_API、CTRL_NEEDED、IGNORE_CHINESE，这一部分每个frame都需要接收到
             //            console.dir( info );
             Object.keys( info ).forEach( function ( v ) {
                 c[v] = info[v].newValue;

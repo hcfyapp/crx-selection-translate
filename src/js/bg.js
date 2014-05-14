@@ -88,7 +88,7 @@ _gaq.push( ['_trackPageview'] );
          * 用于更新浏览器按钮的title
          */
         updataStatus = function () {
-            $.load( ['SELECTION', 'CTRL_NEEDED', 'QUERY_API'] , function ( settings ) {
+            $.load( ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE'] , function ( settings ) {
                 var s = '';
                 s += '划词翻译已';
                 if ( settings.SELECTION ) {
@@ -97,7 +97,10 @@ _gaq.push( ['_trackPageview'] );
                         s += '\n默认使用' + ( 'yd' === settings.QUERY_API ? '有道' : '百度' ) + '翻译';
                     }
                     if ( settings.CTRL_NEEDED ) {
-                        s += '\n需要按住Ctrl键';
+                        s += '\n需要按住或按下Ctrl键';
+                    }
+                    if ( settings.IGNORE_CHINESE ) {
+                        s += '\n有汉字时不翻译';
                     }
                 } else {
                     s += '关闭';
@@ -190,4 +193,17 @@ _gaq.push( ['_trackPageview'] );
         }
     } );
 
+    // 快捷键
+    chrome.commands.onCommand.addListener( function ( commond ) {
+        switch ( commond ) {
+            case 'toggle-selection': // 切换划词翻译的开关
+                $.load( 'SELECTION' , function ( settings ) {
+                    chrome.storage.local.set( {
+                        SELECTION : !settings.SELECTION
+                    } );
+                } );
+                break;
+        }
+
+    } );
 }( $ ));

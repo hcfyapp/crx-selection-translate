@@ -49,7 +49,7 @@
                 display: block;
             }
 
-            section .setting label:nth-last-of-type(n+2) {
+            section .setting label:nth-last-of-type(n+1) {
                 padding-left: 20px;
             }
 
@@ -90,10 +90,17 @@
                 <label><input type="radio" name="QUERY_API" value="">自动为我选择合适的翻译引擎</label>
                 <label><input type="radio" name="QUERY_API" value="yd">有道翻译</label>
                 <label><input type="radio" name="QUERY_API" value="bd">百度翻译</label>
-                <label><input type="checkbox" id="CTRL_NEEDED">按住Ctrl键时才显示翻译结果</label>
+                <label><input type="checkbox" id="CTRL_NEEDED"><strong>按住</strong>或者<strong>按下</strong>Ctrl键时才显示翻译结果</label>
 
                 <p class="tip">
-                    由于Chrome的安全策略，某些页面是无法使用划词翻译的，例如Chrome自家的网上商店。不过别担心，我专门为此准备了翻译盒子 ;)
+                    开启上面的开关后，按住Ctrl后划词，或者划词后按一下Ctrl键才会翻译。从右键菜单里点击“使用……翻译”时会忽略该设置。
+                </p>
+                <label><input type="checkbox" id="IGNORE_CHINESE">有汉字时不翻译</label>
+
+                <p class="tip">开启上面的开关后，一旦文本里包含哪怕一个汉字，就不会翻译。从右键菜单里点击“使用……翻译”时会忽略该设置。</p>
+
+                <p class="tip">
+                    另外，由于Chrome的安全策略，某些页面是无法使用划词翻译的，例如Chrome自家的网上商店。不过别担心，我专门为此准备了翻译盒子 ;)
                 </p>
             </div>
         </section>
@@ -101,6 +108,8 @@
             <h3>使用帮助</h3>
 
             <p>打开翻译盒子：Ctrl + Q（Mac用户请使用Command + Q）</p>
+
+            <p>切换网页划词翻译开关：Alt + Z</p>
 
             <p class="tip">以上快捷键都可以在“工具”->“扩展程序”->“键盘快捷键”（位于页面右下角）里自定义。</p>
 
