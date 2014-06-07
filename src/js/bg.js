@@ -89,14 +89,14 @@ _gaq.push( ['_trackPageview'] );
          */
         start = function () {
             chrome.alarms.get( 'morning' , function ( a ) {
-                var now, tomorrow;
+                var now, tonight;
 
                 // 避免重复创建定时器
                 if ( !a ) {
                     now = new Date();
-                    tomorrow = new Date( now.getFullYear() , now.getMonth() , now.getDate() + 1 );
+                    tonight = new Date( now.getFullYear() , now.getMonth() , now.getDate() , 11 );
                     chrome.alarms.create( 'morning' , {
-                        when : tomorrow.getTime() ,
+                        when : tonight.getTime() ,
                         periodInMinutes : 1440 // 每隔一天触发一次
                     } );
                 }

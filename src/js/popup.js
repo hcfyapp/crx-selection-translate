@@ -81,7 +81,7 @@ _gaq.push( ['_trackPageview'] );
         if ( word ) {
 
             // 显示一个正在查询的状态
-            c.result.innerHTML = '<dd>正在查询，请稍后……</dd>';
+            c.result.innerHTML = '<dd>正在查询，请稍候……</dd>';
 
             from = c.from.value;
             to = c.to.value;

@@ -46,7 +46,7 @@
                 }
 
                 // 翻译前添加一个提醒
-                v.show( '<div class="_tip_">正在翻译，请稍后……</div>' , v.pos );
+                v.show( '<div class="_tip_">正在翻译，请稍候……</div>' , v.pos );
                 $( s , this.QUERY_API );
 
                 //                }

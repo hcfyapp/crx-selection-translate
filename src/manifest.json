@@ -4,7 +4,7 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.4" ,
+    "version" : "4.4.1" ,
 
     "default_locale" : "zh_CN" ,
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
