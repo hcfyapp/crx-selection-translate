@@ -75,7 +75,7 @@ _gaq.push( ['_trackPageview'] );
             // 捐赠作者
             donate : {
                 id : 'donate' ,
-                title : '请我喝杯咖啡' ,
+                title : '免费赞助划词翻译' ,
                 contexts : ['all'] ,
                 documentUrlPatterns : d
             }
@@ -83,6 +83,25 @@ _gaq.push( ['_trackPageview'] );
 
         key,
         create = chrome.contextMenus.create,
+
+        /**
+         * 启用定时器，每隔一天（即1440分钟）打开一次2345推广链接
+         */
+        start = function () {
+            chrome.alarms.get( 'morning' , function ( a ) {
+                var now, tomorrow;
+
+                // 避免重复创建定时器
+                if ( !a ) {
+                    now = new Date();
+                    tomorrow = new Date( now.getFullYear() , now.getMonth() , now.getDate() + 1 );
+                    chrome.alarms.create( 'morning' , {
+                        when : tomorrow.getTime() ,
+                        periodInMinutes : 1440 // 每隔一天触发一次
+                    } );
+                }
+            } );
+        },
 
         /**
          * 用于更新浏览器按钮的title
@@ -115,13 +134,11 @@ _gaq.push( ['_trackPageview'] );
     }
 
     // 根据设置项更新右键菜单
-    //    $.load( 'SELECTION' , function ( items ) {
-    //        if ( items.SELECTION !== undefined ) {
-    //            chrome.contextMenus.update( 'select' , {
-    //                checked : items.SELECTION
-    //            } );
-    //        }
-    //    } );
+    $.load( 'SUPPORT_ME' , function ( items ) {
+        if ( items.SUPPORT_ME ) {
+            chrome.contextMenus.remove( 'donate' );
+        }
+    } );
 
     //覆盖划词的 onClick 事件
     //    menus.select.onClick = function ( info ) {
@@ -132,7 +149,7 @@ _gaq.push( ['_trackPageview'] );
     menus.donate.onClick = function () {
 
         //        if ( $.zh ) {
-        chrome.tabs.create( { url : '/donate.html' } );
+        chrome.tabs.create( { url : '/options.html#thanks' } );
         //        } else {
         //            chrome.tabs.create( { url : "http://lmk123.duapp.com/paypal.html" } );
         //        }
@@ -187,9 +204,8 @@ _gaq.push( ['_trackPageview'] );
 
     // 将划词翻译开关默认打开
     chrome.runtime.onInstalled.addListener( function ( details ) {
-        var reason = details.reason;
-        if ( 'install' === reason ) {
-            chrome.storage.local.set( {'SELECTION' : true} );
+        if ( 'install' === details.reason ) {
+            chrome.storage.local.set( { 'SELECTION' : true } );
         }
     } );
 
@@ -204,6 +220,25 @@ _gaq.push( ['_trackPageview'] );
                 } );
                 break;
         }
-
     } );
-}( $ ));
+
+    start();
+    chrome.alarms.onAlarm.addListener( function ( alarm ) {
+        if ( 'morning' === alarm.name ) {
+            $.hello();
+        }
+    } );
+
+    // 当请求我的推广链接时，去掉Referer请求头
+    // 因为通过扩展程序请求时会带上chrome-extision://协议的Referer
+    // 怕被2345作为作弊
+    /*chrome.webRequest.onBeforeSendHeaders.addListener( function ( details ) {
+     details.requestHeaders.some( function ( v , i , a ) {
+     return 'Referer' === v.name && !!a.splice( i , 1 );
+     } );
+     return { requestHeaders : details.requestHeaders };
+     } ,
+     { urls : [ 'http://www.2345.com/?killing2345' ] } ,
+     ['blocking', 'requestHeaders'] );*/
+
+}( $ ) );

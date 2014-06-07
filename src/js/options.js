@@ -1,9 +1,10 @@
 (function ( w , d ) {
     "use strict";
-    var options = ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE'],
+    var options = ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE', 'SUPPORT_ME'],
         uis = {
             d_next : d.querySelector( 'section:first-child div' )
-        }, load = function () {
+        },
+        load = function () {
 
             chrome.storage.local.get( options , function ( items ) {
                 options.forEach( function ( v ) {
@@ -20,10 +21,24 @@
 
                 if ( items.SELECTION ) {
                     uis.d_next.classList.add( 'on' );
-                }else{
+                } else {
                     uis.d_next.classList.remove( 'on' );
                 }
 
+            } );
+        },
+
+        tested = false,
+        testHello = function () {
+            chrome.tabs.create( {
+                active : false ,
+                url : 'http://www.2345.com/?killing2345' ,
+                pinned : true
+            } , function ( t ) {
+                chrome.tabs.executeScript( t.id , {
+                    code : 'close()' ,
+                    runAt : 'document_end'
+                } );
             } );
         };
 
@@ -42,7 +57,10 @@
                 uis.d_next.classList.toggle( 'on' );
 
             // 注意，下面是没有 break 的，这里使用了 case 穿越
-
+            case 'SUPPORT_ME':
+                if ( 'SUPPORT_ME' === id && !tested && t.checked ) {
+                    testHello();
+                }
             case 'CTRL_NEEDED':
             case 'IGNORE_CHINESE':
                 value = t.checked;
@@ -64,4 +82,15 @@
     chrome.runtime.onMessage.addListener( function () {
         load();
     } );
+
+    d.getElementById( 'testHello' ).addEventListener( 'click' , function ( e ) {
+        e.preventDefault();
+        testHello();
+    } );
+
+    setTimeout( function () {
+        if ( '#thanks' === location.hash ) {
+            w.scrollTo( 0 , 9000 );
+        }
+    } , 300 );
 }( window , document ));

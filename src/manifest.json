@@ -4,7 +4,7 @@
 
     "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "4.3.1" ,
+    "version" : "4.4" ,
 
     "default_locale" : "zh_CN" ,
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
@@ -19,7 +19,7 @@
     "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
     "permissions" : [
         "*://*/*", "contextMenus", "storage", "cookies", "unlimitedStorage", "clipboardWrite", "clipboardRead",
-        "idle", "notifications"
+        "idle", "notifications", "alarms", "activeTab"
     ] ,
 
     "background" : {

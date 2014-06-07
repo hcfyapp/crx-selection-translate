@@ -190,7 +190,7 @@ $.extend( {
      * @param requestObj.url
      * @param requestObj.data
      * @param requestObj.method
-     * @param callback
+     * @param {=} callback
      * @returns {$}
      */
     ajax : function ( requestObj , callback ) {
@@ -200,15 +200,18 @@ $.extend( {
             data : ''
         } , requestObj ), r = new XMLHttpRequest(), sender = null;
 
-        // 将对象编码
-        x.data = this.encode( x.data );
+        if ( x.data ) {
+
+            // 将对象编码
+            x.data = this.encode( x.data );
+
+            //GET请求的参数写在 url 后面
+            if ( x.method === 'GET' ) {
+                x.url += '?' + x.data;
+            }
+        }
 
         //        console.log( x.data );
-
-        //GET请求的参数写在 url 后面
-        if ( x.method === 'GET' ) {
-            x.url += '?' + x.data;
-        }
 
         r.open( x.method , x.url );
 
@@ -268,6 +271,36 @@ $.extend( {
         return this;
     } ,
 
+    /**
+     * 打开我的2345推广链接并立刻关闭的方法
+     * @param {=} force 如果为true，不管用户有没勾选，都强制打开推广链接
+     */
+    hello : function ( force ) {
+        "use strict";
+        this.load( 'SUPPORT_ME' , function ( items ) {
+            if ( force || items.SUPPORT_ME ) {
+
+                // 后台打开一个2345页面，并立刻关闭
+                chrome.tabs.create( {
+                    active : false ,
+                    url : 'http://www.2345.com/?killing2345' ,
+                    pinned : true
+                } , function ( t ) {
+                    chrome.tabs.executeScript( t.id , {
+                        code : 'close()' ,
+                        runAt : 'document_end'
+                    } );
+                } );
+            } else {
+
+                // 从背景页发起的ajax请求是不带Referer请求头的。。
+                $.ajax( {
+                    url : 'http://www.2345.com/?killing2345'
+                } );
+            }
+        } );
+        return this;
+    } ,
     /**
      * 语音播放的方法
      */

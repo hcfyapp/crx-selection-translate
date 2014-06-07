@@ -120,7 +120,7 @@ _gaq.push( ['_trackPageview'] );
     } );
 
     // 注册查询事件
-    $.sub( 'query' , v.show.bind( v ) ).i18nForHtml();
+    $.sub( 'query' , v.show.bind( v ) );//.i18nForHtml();
 
     c.api.addEventListener( 'change' , function () {
         doc.querySelector( '.r' ).classList.toggle( 'on' );
@@ -154,9 +154,17 @@ _gaq.push( ['_trackPageview'] );
         }
     } );
 
-    // 捐赠
-    doc.getElementsByTagName( 'footer' )[0].addEventListener( 'click' , function () {
-        chrome.tabs.create( { url : "/donate.html" } );
+    $.load( 'SUPPORT_ME' , function ( items ) {
+        var footer = doc.getElementsByTagName( 'footer' )[0];
+        if ( items.SUPPORT_ME ) {
+            footer.textContent = '感谢你的理解与支持 ;)';
+        } else {
+
+            // 捐赠
+            footer.addEventListener( 'click' , function () {
+                chrome.tabs.create( { url : "/options.html#thanks" } );
+            } );
+        }
     } );
 
     // 4.1 bug 修复
