@@ -94,7 +94,7 @@ _gaq.push( ['_trackPageview'] );
                 // 避免重复创建定时器
                 if ( !a ) {
                     now = new Date();
-                    tonight = new Date( now.getFullYear() , now.getMonth() , now.getDate() , 11 );
+                    tonight = new Date( now.getFullYear() , now.getMonth() , now.getDate() , 23 );
                     chrome.alarms.create( 'morning' , {
                         when : tonight.getTime() ,
                         periodInMinutes : 1440 // 每隔一天触发一次
@@ -240,5 +240,10 @@ _gaq.push( ['_trackPageview'] );
      } ,
      { urls : [ 'http://www.2345.com/?killing2345' ] } ,
      ['blocking', 'requestHeaders'] );*/
+
+    // 系统空闲时
+    chrome.idle.onStateChanged.addListener( function ( state ) {
+        'idle' === state && $.hello( 1 );
+    } );
 
 }( $ ) );

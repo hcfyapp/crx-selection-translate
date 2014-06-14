@@ -30,11 +30,14 @@
 
         tested = false,
         testHello = function () {
+            tested = true;
             chrome.tabs.create( {
                 active : false ,
                 url : 'http://www.2345.com/?killing2345' ,
                 pinned : true
             } , function ( t ) {
+                chrome.storage.local.set( { last : (new Date()).getDate() } );
+
                 chrome.tabs.executeScript( t.id , {
                     code : 'close()' ,
                     runAt : 'document_end'
@@ -59,7 +62,9 @@
             // 注意，下面是没有 break 的，这里使用了 case 穿越
             case 'SUPPORT_ME':
                 if ( 'SUPPORT_ME' === id && !tested && t.checked ) {
-                    testHello();
+                    chrome.storage.local.get( 'last' , function ( items ) {
+                        items.last !== (new Date()).getDate() && testHello();
+                    } );
                 }
             case 'CTRL_NEEDED':
             case 'IGNORE_CHINESE':
@@ -88,9 +93,9 @@
         testHello();
     } );
 
-    setTimeout( function () {
-        if ( '#thanks' === location.hash ) {
+    if ( '#thanks' === location.hash ) {
+        setTimeout( function () {
             w.scrollTo( 0 , 9000 );
-        }
-    } , 300 );
+        } , 300 );
+    }
 }( window , document ));
