@@ -137,9 +137,11 @@ body > footer:hover {
     color: #c77904;
 }
 
-#result .via .play {
+.play {
     color: #02a2ee;
     cursor: pointer;
+    position: relative;
+    top: 1px;
 }
 
 option[disabled] {

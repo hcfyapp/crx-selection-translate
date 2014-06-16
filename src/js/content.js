@@ -77,7 +77,7 @@
 
     // 视图类
         v = $.inherit( $.View , {
-            Content_TEMPLATE : "<div class='_tip_'>{{tip}}</div><div class='_query_'>{{query}}</div><div><span class='_pronunciation_'>{{pronunciation}}</span></div><div><div class='_title_'>" +
+            Content_TEMPLATE : "<div class='_tip_'>{{tip}}</div><div class='_query_'>{{query}}</div><div><span class='_pronunciation_'>{{pronunciation}}</span><b class='__play__'>朗读</b></div><div><div class='_title_'>" +
                 $.i18n( 'ContentDetailed' ) + "</div><ul class='_content_'>{{base}}</ul></div><div><div class='_title_'>" +
                 $.i18n( 'ContentResult' ) + "</div><div class='_content_'>{{result}}</div></div><div><div class='_title_ _error_'>" +
                 $.i18n( 'ContentError' ) + "</div><div class='_content_'>{{error}}</div></div><div class='_from_'>via&nbsp;<a target='_blank' href='{{viaLink}}' title='" +
@@ -261,6 +261,13 @@
         }
 
     } , true );
+
+    // 朗读
+    doc.addEventListener( 'click' , function ( e ) {
+        if ( '__play__' === e.target.className ) {
+            $.play( doc.querySelector( '._query_' ).textContent );
+        }
+    } );
 
     /*
      * 注册自动隐藏翻译框事件

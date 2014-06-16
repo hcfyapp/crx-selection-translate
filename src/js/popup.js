@@ -60,7 +60,7 @@ _gaq.push( ['_trackPageview'] );
                     // 相关内容暂不考虑
 
                     // 链接
-                    s += '<dd class="via"><span class="play">朗读</span><a target="_blank" href="' + api.viaLink.replace( '{{query}}' , obj.query ).replace( '{{from}}' , obj.from ).replace( '{{to}}' , obj.to ) + '">via ' + api.viaName + '</a></dd>';
+                    s += '<dd class="via"><a target="_blank" href="' + api.viaLink.replace( '{{query}}' , obj.query ).replace( '{{from}}' , obj.from ).replace( '{{to}}' , obj.to ) + '">via ' + api.viaName + '</a></dd>';
                 }
                 c.result.innerHTML = s;
                 //                c.result.style.display = 'block';
@@ -112,7 +112,7 @@ _gaq.push( ['_trackPageview'] );
         }
     } );
 
-    c.result.addEventListener( 'click' , function ( e ) {
+    doc.addEventListener( 'click' , function ( e ) {
         var t = e.target;
         if ( t.className === 'play' ) {
             $.play( c.query.value , c.from.value );
