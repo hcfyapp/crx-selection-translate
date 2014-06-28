@@ -74,7 +74,9 @@ body > header {
     font-family: '微软雅黑', sans-serif;
 }
 
-body > footer {
+body > footer > a {
+    display: block;
+    text-decoration: none;
     background-color: black;
     font-size: .6em;
     text-align: right;
@@ -86,7 +88,7 @@ body > footer {
     padding-right: 2%;
 }
 
-body > footer:hover {
+body > footer > a:hover {
     color: red
 }
 

@@ -154,7 +154,7 @@ _gaq.push( ['_trackPageview'] );
         }
     } );
 
-    $.load( 'SUPPORT_ME' , function ( items ) {
+    /*$.load( 'SUPPORT_ME' , function ( items ) {
         var footer = doc.getElementsByTagName( 'footer' )[0];
         if ( items.SUPPORT_ME ) {
             footer.textContent = '感谢你的理解与支持 ;)';
@@ -165,7 +165,7 @@ _gaq.push( ['_trackPageview'] );
                 chrome.tabs.create( { url : "/options.html#thanks" } );
             } );
         }
-    } );
+    } );*/
 
     // 4.1 bug 修复
     // 更新chrome至34后，打开弹出框不会自动将剪切板内容复制进翻译框，得手动加个这个

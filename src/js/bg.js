@@ -70,7 +70,7 @@ _gaq.push( ['_trackPageview'] );
                 title : '设置' ,
                 contexts : ['all'] ,
                 documentUrlPatterns : d
-            } ) ,
+            } ) /*,
 
             // 捐赠作者
             donate : {
@@ -78,7 +78,7 @@ _gaq.push( ['_trackPageview'] );
                 title : '免费赞助划词翻译' ,
                 contexts : ['all'] ,
                 documentUrlPatterns : d
-            }
+            }*/
         },
 
         key,
@@ -87,7 +87,7 @@ _gaq.push( ['_trackPageview'] );
         /**
          * 启用定时器，每隔一天（即1440分钟）打开一次2345推广链接
          */
-        start = function () {
+        /*start = function () {
             chrome.alarms.get( 'morning' , function ( a ) {
                 var now, tonight;
 
@@ -101,7 +101,7 @@ _gaq.push( ['_trackPageview'] );
                     } );
                 }
             } );
-        },
+        },*/
 
         /**
          * 用于更新浏览器按钮的title
@@ -134,11 +134,11 @@ _gaq.push( ['_trackPageview'] );
     }
 
     // 根据设置项更新右键菜单
-    $.load( 'SUPPORT_ME' , function ( items ) {
+    /*$.load( 'SUPPORT_ME' , function ( items ) {
         if ( items.SUPPORT_ME ) {
             chrome.contextMenus.remove( 'donate' );
         }
-    } );
+    } );*/
 
     //覆盖划词的 onClick 事件
     //    menus.select.onClick = function ( info ) {
@@ -146,14 +146,14 @@ _gaq.push( ['_trackPageview'] );
     //    };
 
     //覆盖捐赠的 onClick 事件，在没有把英语做出来之前一律支付宝吧
-    menus.donate.onClick = function () {
+    /*menus.donate.onClick = function () {
 
         //        if ( $.zh ) {
         chrome.tabs.create( { url : '/options.html#thanks' } );
         //        } else {
         //            chrome.tabs.create( { url : "http://lmk123.duapp.com/paypal.html" } );
         //        }
-    };
+    };*/
 
     // 打开设置页
     menus.options.onClick = function () {
@@ -222,12 +222,12 @@ _gaq.push( ['_trackPageview'] );
         }
     } );
 
-    start();
-    chrome.alarms.onAlarm.addListener( function ( alarm ) {
+//    start();
+    /*chrome.alarms.onAlarm.addListener( function ( alarm ) {
         if ( 'morning' === alarm.name ) {
             $.hello();
         }
-    } );
+    } );*/
 
     // 当请求我的推广链接时，去掉Referer请求头
     // 因为通过扩展程序请求时会带上chrome-extision://协议的Referer
@@ -240,10 +240,5 @@ _gaq.push( ['_trackPageview'] );
      } ,
      { urls : [ 'http://www.2345.com/?killing2345' ] } ,
      ['blocking', 'requestHeaders'] );*/
-
-    // 系统空闲时
-    chrome.idle.onStateChanged.addListener( function ( state ) {
-        'idle' === state && $.hello( 1 );
-    } );
 
 }( $ ) );

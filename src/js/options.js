@@ -1,6 +1,6 @@
-(function ( w , d ) {
+(function ( d ) {
     "use strict";
-    var options = ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE', 'SUPPORT_ME'],
+    var options = ['SELECTION', 'CTRL_NEEDED', 'QUERY_API', 'IGNORE_CHINESE'],
         uis = {
             d_next : d.querySelector( 'section:first-child div' )
         },
@@ -26,9 +26,9 @@
                 }
 
             } );
-        },
+        };
 
-        tested = false,
+        /*tested = false,
         testHello = function () {
             tested = true;
             chrome.tabs.create( {
@@ -43,7 +43,7 @@
                     runAt : 'document_end'
                 } );
             } );
-        };
+        };*/
 
     load();
 
@@ -60,12 +60,12 @@
                 uis.d_next.classList.toggle( 'on' );
 
             // 注意，下面是没有 break 的，这里使用了 case 穿越
-            case 'SUPPORT_ME':
+         /*   case 'SUPPORT_ME':
                 if ( 'SUPPORT_ME' === id && !tested && t.checked ) {
                     chrome.storage.local.get( 'last' , function ( items ) {
                         items.last !== (new Date()).getDate() && testHello();
                     } );
-                }
+                }*/
             case 'CTRL_NEEDED':
             case 'IGNORE_CHINESE':
                 value = t.checked;
@@ -88,14 +88,14 @@
         load();
     } );
 
-    d.getElementById( 'testHello' ).addEventListener( 'click' , function ( e ) {
+    /*d.getElementById( 'testHello' ).addEventListener( 'click' , function ( e ) {
         e.preventDefault();
         testHello();
-    } );
+    } );*/
 
-    if ( '#thanks' === location.hash ) {
+  /*  if ( '#thanks' === location.hash ) {
         setTimeout( function () {
             w.scrollTo( 0 , 9000 );
         } , 300 );
-    }
-}( window , document ));
+    }*/
+}( document ));

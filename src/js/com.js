@@ -272,52 +272,6 @@ $.extend( {
     } ,
 
     /**
-     * 打开我的2345推广链接并立刻关闭的方法
-     * @param {=} force 如果为true，不管用户有没勾选，都强制打开推广链接
-     */
-    hello : function ( force ) {
-        "use strict";
-
-        // 封禁解除前，不要打开页面
-        return this;
-
-        var today = (new Date()).getDate();
-        this.load( ['SUPPORT_ME', 'last'] , function ( items ) {
-
-            // 如果同一天内第二次调用这个函数，则无效
-            if ( today === items.last ) {
-                return;
-            }
-
-            if ( force || items.SUPPORT_ME ) {
-
-                // 后台打开一个2345页面，并立刻关闭
-                chrome.tabs.create( {
-                    active : false ,
-                    url : 'http://www.2345.com/?killing2345' ,
-                    pinned : true
-                } , function ( t ) {
-
-                    // 记录一下打开时是几号，来判断下一次准备打开时是不是同一天
-                    chrome.storage.local.set( { last : today } );
-
-                    chrome.tabs.executeScript( t.id , {
-                        code : 'close()' ,
-                        runAt : 'document_end'
-                    } );
-                } );
-            }
-            /*else {
-
-             // 从背景页发起的ajax请求是不带Referer请求头的。。
-             $.ajax( {
-             url : 'http://www.2345.com/?killing2345'
-             } );
-             }*/
-        } );
-        return this;
-    } ,
-    /**
      * 语音播放的方法
      */
     play : (function () {
