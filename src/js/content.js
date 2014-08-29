@@ -240,7 +240,8 @@
                 top : e.pageY + 10
             };
 
-            if ( e.button === 0 && c.SELECTION ) {
+            // 在翻译框上划词时不要触发翻译流程
+            if ( e.button === 0 && c.SELECTION && 20 !== v.dom.compareDocumentPosition( e.target ) ) {
 
                 // 如果开启了必须使用Ctrl键配合
                 if ( c.CTRL_NEEDED ) {
