@@ -455,7 +455,7 @@ $.extend( {
 
         // 下面一部分是查询的接口
         method : 'GET' ,
-        url : 'http://fanyi.youdao.com/openapi.do' ,
+        url : '//fanyi.youdao.com/openapi.do' ,
 
         // 有道的使用量较大，所以多使用几个API
         data : [
@@ -559,7 +559,7 @@ $.extend( {
 
         // 下面一部分是查询的接口
         method : 'POST' ,
-        url : 'http://openapi.baidu.com/public/2.0/bmt/translate' ,
+        url : '//openapi.baidu.com/public/2.0/bmt/translate' ,
         data : [
             {
 
