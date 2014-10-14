@@ -184,6 +184,11 @@
                         t = t.replace( '{{pronunciation}}' , obj.phonetic );
                     }
 
+                    //https下无法朗读，屏蔽掉
+                    if ( location.protocol === 'https:' ) {
+                        t = t.replace( '__play__', '__play__ none');
+                    }
+
                     //相关内容（templateObj.relatedWords），在标签页中不处理，以免结果框过长
                 }
 
