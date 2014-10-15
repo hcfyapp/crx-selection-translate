@@ -377,7 +377,8 @@ $.extend( {
             }
 
             $.ajax( {
-                url : this.url ,
+                // https 下用 https，http 或者弹出框（chrome://）使用 http
+                url : (location.protocol === 'https:' ? 'https:' : 'http:') + this.url ,
                 method : this.method ,
                 data : data
             } , function ( r , e ) {
