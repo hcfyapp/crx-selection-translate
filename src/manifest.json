@@ -1,0 +1,77 @@
+﻿{
+    "name" : "划词翻译" ,
+
+    "description" : "多语言互译与阅读。" ,
+    "manifest_version" : 2 ,
+    "version" : "5.0" ,
+
+    "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
+    "icons" : {
+        "128" : "/img/logo.png" ,
+        "16" : "/img/logo.png" ,
+        "48" : "/img/logo.png"
+    } ,
+
+    "author" : "Milk Lee( milk.lee@qq.com )" ,
+
+    "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
+    "permissions" : [
+        "*://*/*", "contextMenus", "storage", "cookies", "unlimitedStorage", "clipboardWrite", "clipboardRead",
+        "idle", "notifications", "alarms", "activeTab"
+    ] ,
+
+    "background" : {
+        "page" : "lmk123.html" ,
+        "persistent" : false
+    } ,
+
+    "options_page" : "options.html" ,
+
+    "browser_action" : {
+        "default_icon" : {
+            "19" : "/img/logo.png" ,
+            "38" : "/img/logo.png"
+        } ,
+        "default_popup" : "/popup.html" ,
+        "default_title" : "Ctrl + Q"
+    } ,
+
+    "commands" : {
+        "_execute_browser_action" : {
+            "suggested_key" : {
+                "default" : "Ctrl+Q" ,
+                "mac" : "MacCtrl+Q"
+            }
+        } ,
+
+        "toggle-selection" : {
+            "suggested_key" : {
+                "default" : "Alt+Z"
+            } ,
+            "description" : "切换网页划词翻译开关"
+        } ,
+
+        "translate" : {
+            "suggested_key" : {
+                "default" : "Alt+X"
+            } ,
+            "description" : "翻译网页中选中的文本"
+        }
+    } ,
+
+    "content_scripts" : [
+        {
+            "matches" : ["http://*/*", "https://*/*", "file:///*"] ,
+            "js" : [
+                "js/lib/L.js",
+                "js/lib/doT.js",
+                "js/selection.js",
+                "js/content.js"
+            ] ,
+            "all_frames" : true ,
+            "run_at" : "document_start"
+        }
+    ] ,
+    "minimum_chrome_version" : "26" ,
+    "web_accessible_resources" : ["js/ydwa.js"]
+}
