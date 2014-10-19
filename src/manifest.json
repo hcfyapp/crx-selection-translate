@@ -1,10 +1,12 @@
 ﻿{
-    "name" : "划词翻译" ,
+    "name" : "__MSG_ExtensionName__" ,
+    "short_name" : "__MSG_ExtensionShortName__" ,
 
-    "description" : "多语言互译与阅读。" ,
+    "description" : "__MSG_ExtensionDescription__" ,
     "manifest_version" : 2 ,
-    "version" : "5.0" ,
+    "version" : "4.5.4" ,
 
+    "default_locale" : "zh_CN" ,
     "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
     "icons" : {
         "128" : "/img/logo.png" ,
@@ -43,35 +45,23 @@
                 "mac" : "MacCtrl+Q"
             }
         } ,
-
         "toggle-selection" : {
             "suggested_key" : {
                 "default" : "Alt+Z"
             } ,
             "description" : "切换网页划词翻译开关"
-        } ,
-
-        "translate" : {
-            "suggested_key" : {
-                "default" : "Alt+X"
-            } ,
-            "description" : "翻译网页中选中的文本"
         }
     } ,
 
     "content_scripts" : [
         {
             "matches" : ["http://*/*", "https://*/*", "file:///*"] ,
-            "js" : [
-                "js/lib/L.js",
-                "js/lib/doT.js",
-                "js/selection.js",
-                "js/content.js"
-            ] ,
+            "css" : ["/css/content.css"] ,
+            "js" : ["/js/com.js", "/js/content.js"] ,
             "all_frames" : true ,
-            "run_at" : "document_start"
+            "run_at" : "document_end"
         }
     ] ,
-    "minimum_chrome_version" : "26" ,
-    "web_accessible_resources" : ["js/ydwa.js"]
+
+    "web_accessible_resources" : ["/js/ydw.js"]
 }
