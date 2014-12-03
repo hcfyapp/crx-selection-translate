@@ -81,3 +81,6 @@ chrome.commands.onCommand.addListener( function ( command ) {
             break;
     }
 } );
+
+// 添加github信息
+console.log( 'Hi ，你是开发者吗？欢迎你贡献代码：\nhttps://github.com/lmk123/crx-selection-translate' );
