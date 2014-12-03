@@ -20,9 +20,6 @@ require( [ 'js/module/apis' , 'js/module/clipboard' , 'js/module/ga' ] , functio
 
             case 'createTab':
                 chrome.tabs.create( data );
-                if ( data.url.indexOf( '.linktech.cn/' ) > 0 ) { // 记录广告点击
-                    ga.track( 'ad_click' , decodeURIComponent( data.url.slice( data.url.lastIndexOf( '=' ) + 1 ) ) );
-                }
                 break;
 
             // 没有其它类型的 action 了，所以无需default
