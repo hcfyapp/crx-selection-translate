@@ -1,7 +1,6 @@
 ﻿module.exports = function ( grunt ) {
     'use strict';
 
-    // 项目配置
     grunt.initConfig( {
 
         clean : {
@@ -13,36 +12,33 @@
             }
         } ,
 
-        // 精简js
         uglify : {
 
             dynamic : {
                 files : [
                     {
-                        expand : true , //启用动态扩展
-                        cwd : 'build-require/' , //批匹配相对lib目录的src来源
-                        src : [ '**/*.js' , '!**/google_cn.js' , '!**/donate.js' , '!**/menu.js' ] , // 忽略旧的谷歌接口
-                        dest : 'build/' //目标路径前缀
+                        expand : true ,
+                        cwd : 'build-require/' ,
+                        src : [ '**/*.js' , '!**/google_cn.js' ] , // 忽略旧的谷歌接口
+                        dest : 'build/'
                     }
                 ]
             }
         } ,
 
-        // 精简css
         cssmin : {
             dynamic : {
                 files : [
                     {
-                        expand : true , //启用动态扩展
-                        cwd : 'build-require/' , //批匹配相对lib目录的src来源
-                        src : [ '**/*.css' ] , // 不包括global类文件
-                        dest : 'build/' //目标路径前缀
+                        expand : true ,
+                        cwd : 'build-require/' ,
+                        src : [ '**/*.css' ] ,
+                        dest : 'build/'
                     }
                 ]
             }
         } ,
 
-        // 用于精简模板
         htmlmin : {
             dist : {
                 options : {
@@ -51,16 +47,15 @@
                 } ,
                 files : [
                     {
-                        expand : true , //启用动态扩展
+                        expand : true ,
                         cwd : 'build-require/' ,
                         src : '**/*.html' ,
-                        dest : 'build/' // 目标路径前缀
+                        dest : 'build/'
                     }
                 ]
             }
         } ,
 
-        // 精简png、jpg和gif
         imagemin : {
             dynamic : {
                 files : [
@@ -74,7 +69,6 @@
             }
         } ,
 
-        // 复制其它文件
         copy : {
             main : {
                 files : [
@@ -99,8 +93,7 @@
                     baseUrl : './' ,
                     paths : {
                         'js/lib/L' : 'empty:' ,
-                        'js/lib/doT' : 'empty:' ,
-                        'js/module/settings' : 'empty:'
+                        'js/lib/doT' : 'empty:'
                     } ,
                     removeCombined : true ,
                     optimize : 'none' ,
@@ -119,15 +112,13 @@
         }
     } );
 
-    // 加载各种必需的插件
-    grunt.loadNpmTasks( 'grunt-contrib-uglify' ); // 精简js
-    grunt.loadNpmTasks( 'grunt-contrib-cssmin' ); // 精简css
-    grunt.loadNpmTasks( 'grunt-contrib-htmlmin' ); // 精简html
-    grunt.loadNpmTasks( 'grunt-contrib-imagemin' ); // 精简图片
-    //grunt.loadNpmTasks( 'grunt-push-svn' ); // 提交至svn
-    grunt.loadNpmTasks( 'grunt-contrib-requirejs' ); // 合并模块
-    grunt.loadNpmTasks( 'grunt-contrib-copy' ); // 复制文件
-    grunt.loadNpmTasks( 'grunt-contrib-clean' ); // 删除文件或文件夹
+    grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+    grunt.loadNpmTasks( 'grunt-contrib-cssmin' );
+    grunt.loadNpmTasks( 'grunt-contrib-htmlmin' );
+    grunt.loadNpmTasks( 'grunt-contrib-imagemin' );
+    grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
+    grunt.loadNpmTasks( 'grunt-contrib-copy' );
+    grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
     grunt.registerTask( 'default' , [
         'clean:main' , 'requirejs' , 'uglify' , 'cssmin' , 'htmlmin' , 'imagemin' , 'copy' , 'clean:after'

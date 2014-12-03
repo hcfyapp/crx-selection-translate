@@ -20,7 +20,10 @@
     "activeTab"
   ] ,
   "background" : {
-    "page" : "lmk123.html"
+    "scripts" : [
+      "/js/lib/require.js" ,
+      "/js/bg.js"
+    ]
   } ,
   "options_page" : "options.html#settings" ,
   "browser_action" : {

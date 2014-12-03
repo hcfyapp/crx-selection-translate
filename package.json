@@ -1,7 +1,7 @@
 {
   "name" : "grunt" ,
   "version" : "0.1.0" ,
-  "author" : "mica.li@yi-express.com" ,
+  "author" : "milk.lee@qq.com" ,
   "devDependencies" : {
     "grunt" : "*" ,
     "grunt-contrib-uglify" : "*" ,
