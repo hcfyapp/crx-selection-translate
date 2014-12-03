@@ -1,0 +1,77 @@
+﻿{
+  "name" : "划词翻译" ,
+  "description" : "支持谷歌、百度与有道三大翻译和朗读引擎，可以方便的查看、复制和朗读不同引擎的翻译结果。" ,
+  "manifest_version" : 2 ,
+  "version" : "5.2" ,
+  "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
+  "icons" : {
+    "128" : "/img/logo.png" ,
+    "16" : "/img/logo.png" ,
+    "48" : "/img/logo.png"
+  } ,
+  "author" : "Milk Lee( milk.lee@qq.com )" ,
+  "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
+  "permissions" : [
+    "*://*/*" ,
+    "contextMenus" ,
+    "storage" ,
+    "clipboardWrite" ,
+    "clipboardRead" ,
+    "activeTab"
+  ] ,
+  "background" : {
+    "page" : "lmk123.html"
+  } ,
+  "options_page" : "options.html#settings" ,
+  "browser_action" : {
+    "default_icon" : {
+      "19" : "/img/logo.png" ,
+      "38" : "/img/logo.png"
+    } ,
+    "default_title" : "点击切换划词翻译开关"
+  } ,
+  "commands" : {
+    "_execute_browser_action" : {
+      "suggested_key" : {
+        "default" : "Ctrl+Q" ,
+        "mac" : "MacCtrl+Q"
+      }
+    } ,
+    "translate" : {
+      "suggested_key" : {
+        "default" : "Alt+A"
+      } ,
+      "description" : "翻译网页中选中的文本"
+    } ,
+    "web" : {
+      "suggested_key" : {
+        "default" : "Alt+Z"
+      } ,
+      "description" : "翻译整个网页"
+    }
+  } ,
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://*/*" ,
+        "https://*/*" ,
+        "file:///*"
+      ] ,
+      "css" : ["default/selection.css"] ,
+      "js" : [
+        "js/lib/L.js" ,
+        "js/lib/doT.js" ,
+        "js/selection.js"
+      ] ,
+      "all_frames" : true ,
+      "run_at" : "document_start"
+    }
+  ] ,
+  "minimum_chrome_version" : "26" ,
+  "web_accessible_resources" : [
+    "js/lib/ydwa.js" ,
+    "default/selection.dot" ,
+    "default/selection.css" ,
+    "default/icon.png"
+  ]
+}
