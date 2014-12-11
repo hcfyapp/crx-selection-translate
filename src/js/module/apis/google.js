@@ -80,7 +80,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
                 url : config.url ,
                 type : config.method ,
                 data : $.param( data , true ) , // 因为google的查询里面有一个数组 dt:[ 't','tl' ]，如果不设置true，会被错误的转换为 &dt[]=t&dt[]=tl
-                timeout : 6000 // 谷歌很慢，所以设为6秒
+                timeout : 5000 // 谷歌很慢，稍长一点
             } ).done( function ( response ) {
                 var result;
 
@@ -97,7 +97,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
                 .fail( function ( jqXhr , textStatus ) {
                     var message;
                     if ( 'timeout' === textStatus ) {
-                        message = '查询时间超过了6秒，为避免发生错误已取消此次查询，请稍后重试。';
+                        message = '查询时间超过了5秒，为避免发生错误已取消此次查询，请稍后重试。';
                     } else if ( 'error' === textStatus ) {
                         message = '查询时发生了网络错误，请先检查一下你的网络设置，然后重试。';
                     }

@@ -123,7 +123,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
                 url : config.url ,
                 type : config.method ,
                 data : data ,
-                timeout : 4000
+                timeout : 3000
             } ).done( function ( response ) {
                 var result;
 
@@ -140,7 +140,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
             } ).fail( function ( jqXhr , textStatus ) {
                 var message;
                 if ( 'timeout' === textStatus ) {
-                    message = '查询时间超过了4秒，为避免发生错误已取消此次查询，请稍后重试。';
+                    message = '查询时间超过了3秒，为避免发生错误已取消此次查询，请稍后重试。';
                 } else if ( 'error' === textStatus ) {
                     message = '查询时发生了网络错误，请先检查一下你的网络设置，然后重试。';
                 }

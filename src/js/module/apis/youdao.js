@@ -55,6 +55,8 @@ define( [ '../../lib/jquery' , './baidu' ] , function ( $ , baidu ) {
                 //翻译结果，虽然这是一个数组，但至今只有一个元素
                 if ( Array.isArray( result.translation ) ) {
                     obj.result = result.translation.join( '<br>' );
+                } else {
+                    obj.result = '啊哦，有道翻译返回了一个奇怪的东西，稍后再重新试试看吧。';
                 }
 
                 /*
@@ -96,7 +98,7 @@ define( [ '../../lib/jquery' , './baidu' ] , function ( $ , baidu ) {
                 url : config.url ,
                 type : config.method ,
                 data : data ,
-                timeout : 4000
+                timeout : 3000
             } )
                 .done( function ( response ) {
                     var result;
