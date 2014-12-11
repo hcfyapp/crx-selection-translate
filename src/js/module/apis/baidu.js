@@ -96,7 +96,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
         detectLanguage : function ( text , success , fail ) {
             $.ajax( {
                 url : 'http://fanyi.baidu.com/langdetect' ,
-                method : 'POST' ,
+                type : 'POST' ,
                 data : 'query=' + text.slice( 0 , 73 )
             } ).done( function ( response ) {
                 if ( 0 === response.error ) {
@@ -121,7 +121,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
 
             $.ajax( {
                 url : config.url ,
-                method : config.method ,
+                type : config.method ,
                 data : data ,
                 timeout : 4000
             } ).done( function ( response ) {

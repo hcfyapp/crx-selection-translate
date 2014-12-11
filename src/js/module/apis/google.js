@@ -78,7 +78,7 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
 
             $.ajax( {
                 url : config.url ,
-                method : config.method ,
+                type : config.method ,
                 data : $.param( data , true ) , // 因为google的查询里面有一个数组 dt:[ 't','tl' ]，如果不设置true，会被错误的转换为 &dt[]=t&dt[]=tl
                 timeout : 6000 // 谷歌很慢，所以设为6秒
             } ).done( function ( response ) {
