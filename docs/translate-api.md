@@ -15,4 +15,4 @@
 
 有一点需要注意：QueryObj里面的语种是以 google 翻译的语种为标准的，但可能你的翻译引擎是另一种表示法，例如，标准的英语语种是 `en` ，但在有道翻译中是 `eng`。你可能需要一种转换语种的方法。
 
-translate方法中的 QueryObj 与 ResultObj 见 query-and-result.md
+translate方法中的 QueryObj 与 ResultObj 见 [query-and-result.md](https://github.com/lmk123/crx-selection-translate/blob/5.x-master/docs/query-and-result.md)
