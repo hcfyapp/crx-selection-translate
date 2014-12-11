@@ -111,7 +111,7 @@
          * @returns {Selection}
          */
         hide : function () {
-            if ( !this.loading || !this.config.alwaysShow ) { // 加载过程中不隐藏。由于加入了超时时间，所以这没什么大不了的
+            if ( !this.loading && !this.config.alwaysShow ) { // 加载过程中不隐藏。由于加入了超时时间，所以这没什么大不了的
                 this.dom_result.classList.remove( 'lmk-show' );
             }
             return this;
@@ -393,7 +393,6 @@
 
     $( document )
         .on( 'mouseup' , function ( e ) {
-            var text = selection.getText();
 
             // 记录翻译框显示的位置
             selection.position = {
@@ -402,16 +401,11 @@
             };
 
             if ( selection.check( e ) ) {
-
-                // 当鼠标点击选中的文本时，翻译框会再弹起来一次
-                // 即使延后0毫秒也没用，发生在选中文本上的 mousedown 事件不会取消选中的文本
-                //setTimeout( function () {
-                selection.translate( text );
-                //} , 0 );
+                selection.translate();
             }
         } )
         .on( 'mousedown' , function ( e ) {
-            if ( !selection.loading && !selection.isInDom( e.target ) ) {
+            if ( !selection.isInDom( e.target ) ) {
                 selection.hide();
             }
         } )
