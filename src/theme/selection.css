@@ -73,7 +73,7 @@ lmk-move {
 }
 
 lmk-icon-setting, lmk-icon-list, lmk-enable, lmk-disable, lmk-icon-copy, lmk-icon-play, lmk-icon-pin {
-    background-image: url(chrome-extension://__MSG_@@extension_id__/default/icon.png);
+    background-image: url(chrome-extension://__MSG_@@extension_id__/theme/icon.png);
     background-repeat: no-repeat;
 }
 

@@ -4,7 +4,11 @@
 
 var _gaq = _gaq || [];
 _gaq.push( [ '_setAccount' , 'UA-43276752-1' ] );
-define( [ 'https://ssl.google-analytics.com/ga.js' ] , function () {
+
+// 不要把 ga.js 作为依赖加载，否则一些加载慢的地区会导致后台准备时间过长
+require( [ 'https://ssl.google-analytics.com/ga.js' ] );
+
+define( function () {
     "use strict";
     var ver = chrome.runtime.getManifest().version;
     return Object.freeze( {
@@ -25,7 +29,6 @@ define( [ 'https://ssl.google-analytics.com/ga.js' ] , function () {
          * @returns {*}
          */
         track : function ( type , value ) {
-
             return this.push( [ '_trackEvent' , type , value ] );
         }
     } );

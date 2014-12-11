@@ -19,7 +19,7 @@
                     {
                         expand : true ,
                         cwd : 'build-require/' ,
-                        src : [ '**/*.js' , '!**/google_cn.js' ] , // 忽略旧的谷歌接口
+                        src : [ '**/*.js' , '!**/google_cn.js' ] , // 暂时忽略旧的谷歌接口
                         dest : 'build/'
                     }
                 ]
@@ -92,7 +92,7 @@
                     appDir : './src' ,
                     baseUrl : './' ,
                     paths : {
-                        'js/lib/L' : 'empty:' ,
+                        'js/lib/jquery' : 'empty:' ,
                         'js/lib/doT' : 'empty:'
                     } ,
                     removeCombined : true ,

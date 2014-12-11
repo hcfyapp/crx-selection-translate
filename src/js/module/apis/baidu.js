@@ -1,10 +1,7 @@
-define( [ '../../lib/L' ] , function ( L ) {
+define( [ '../../lib/jquery' ] , function ( $ ) {
     "use strict";
 
     var config = {
-
-        ERROR_NETWORK : '网络错误，请稍后重试' ,
-        ERROR_RESPONSE : '服务器返回了错误的数据类型' ,
 
         /**
          * 百度支持的语言
@@ -34,20 +31,15 @@ define( [ '../../lib/L' ] , function ( L ) {
         method : 'GET' ,
         url : 'https://openapi.baidu.com/public/2.0/bmt/translate' ,
         data : {
-
-            //API Key
             client_id : 'Hs18iW3px3gQ6Yfy6Za0QGg4' ,
-
-            //源语种，默认自动检测
             from : 'auto' ,
-
-            //目标语种，默认自动设置
             to : 'auto' ,
 
             //需要翻译的内容
             q : ''
         } ,
         ttsLink : 'http://fanyi.baidu.com/gettts?lan={{lang}}&text={{query}}&spd=2&source=web' ,
+        linkToResult : 'http://fanyi.baidu.com/#auto/{{to}}/{{query}}' ,
 
         /**
          * 将百度的翻译结果转换为统一的对象
@@ -58,38 +50,19 @@ define( [ '../../lib/L' ] , function ( L ) {
         result2obj : function ( result , query ) {
             var obj = {};
 
-            //查询的字符串
-            //                    obj.query = query;
-
             //如果有错误码则直接处理错误
             if ( result.error_code ) {
                 obj.error = config.error[ result.error_code ];
             } else {
-
-                //百度翻译接口有源语种，有道翻译没有
-                // from 永远设为auto
-                //                        obj.from = result.from;
-
-                //百度翻译接口需要有目标语种，有道翻译不需要
                 obj.to = result.to;
-
                 obj.from = result.from;
-
-                obj.query = query.text;
-
                 obj.response = result;
+                obj.linkToResult = config.linkToResult.replace( '{{query}}' , query.text ).replace( '{{to}}' , result.to );
+                if ( Array.isArray( result.trans_result ) ) {
+                    obj.result = [];
 
-                //百度 API 仅有翻译结果
-                result.trans_result.forEach( (function () {
-
-                    /*
-                     * 为了不使最后一个段落总是包含换行符
-                     * 改用数组.join()方法来进行字符串连接
-                     * 在闭包里保存一个临时数组
-                     */
-                    var arr = [];
-
-                    return function ( v , i , a ) {
+                    //百度 API 仅有翻译结果
+                    result.trans_result.forEach( function ( v ) {
 
                         /*
                          * 百度API的翻译结果在 trans_result 数组中，每个数组元素都是一个对象
@@ -97,14 +70,12 @@ define( [ '../../lib/L' ] , function ( L ) {
                          * 有多少个段落，就会有多少个数组元素
                          * 所以需要使用 \n 把它们拼起来
                          */
-                        arr.push( v.dst );
-
-                        //最后一次循环时赋值给对象
-                        if ( i + 1 === a.length ) {
-                            obj.result = arr.join( '\n' );
-                        }
-                    };
-                }()) );
+                        obj.result.push( v.dst );
+                    } );
+                    obj.result = obj.result.join( '\n' );
+                } else {
+                    obj.result = '啊哦，百度返回了一个奇怪的东西，等一会儿再试试看吧。';
+                }
             }
 
             return obj;
@@ -115,45 +86,21 @@ define( [ '../../lib/L' ] , function ( L ) {
 
         link : 'http://fanyi.baidu.com/' ,
 
-        linkToResult : 'http://fanyi.baidu.com/#auto/{{to}}/{{query}}' ,
-
         /**
          * 百度检测语言的方法
-         * @param test
+         * @param text
          * @param {Function} success
          * @param {Function=} fail
          * @returns {baidu}
          */
-        detectLanguage : function ( test , success , fail ) {
-            L.ajax( {
+        detectLanguage : function ( text , success , fail ) {
+            $.ajax( {
                 url : 'http://fanyi.baidu.com/langdetect' ,
                 method : 'POST' ,
-                data : 'query=' + test.slice( 0 , 73 ) ,
-                load : function ( response ) {
-
-                    if ( 'object' === typeof response ) {
-                        if ( 0 === response.error ) {
-                            success( response.lan );
-                        } else {
-                            fail && fail( {
-                                code : -3 ,
-                                message : config.ERROR_RESPONSE ,
-                                response : response
-                            } );
-                        }
-                    } else {
-                        fail && fail( {
-                            code : -1 ,
-                            message : config.ERROR_RESPONSE ,
-                            response : response
-                        } );
-                    }
-                } ,
-                error : function () {
-                    fail && fail( {
-                        code : -2 ,
-                        message : config.ERROR_NETWORK
-                    } );
+                data : 'query=' + text.slice( 0 , 73 )
+            } ).done( function ( response ) {
+                if ( 0 === response.error ) {
+                    success( response.lan );
                 }
             } );
             return this;
@@ -166,45 +113,42 @@ define( [ '../../lib/L' ] , function ( L ) {
          * @returns {baidu}
          */
         translate : function ( query , callback ) {
-            var data = L.shallowCopy( config.data );
+            var data = $.extend( {} , config.data );
 
-            data.q = encodeURI( query.text );
+            data.q = query.text;
 
             data.to = config.map[ query.to ] || 'auto';
 
-            L.ajax( {
+            $.ajax( {
                 url : config.url ,
                 method : config.method ,
                 data : data ,
-                timeout : 3000 , // 4秒
-                ontimeout : function () {
-                    callback( {
-                        api : baidu ,
-                        error : '查询时间超过了3秒，为避免出现错误已取消此次查询，请稍后重试。'
-                    } );
-                } ,
-                load : function ( response ) {
-                    var result;
-                    if ( 'object' === typeof response ) {
-                        result = config.result2obj( response , query );
-                        result.api = baidu;
-                    } else {
-                        result = {
-                            error : config.ERROR_RESPONSE ,
-                            response : response ,
-                            api : baidu
-                        };
-                    }
+                timeout : 4000
+            } ).done( function ( response ) {
+                var result;
 
-                    callback( result );
-                } ,
-                error : function () {
-                    callback( {
-                        api : baidu ,
-                        error : config.ERROR_NETWORK
-                    } );
+                // 如果服务器返回的不是JSON格式数据
+                // 比如长城宽带会修改返回的内容插入广告
+                if ( 'string' === typeof response ) {
+                    result = { error : '翻译服务器返回了错误的数据，请稍后重试' };
+                } else {
+                    result = config.result2obj( response , query );
                 }
+
+                result.response = response;
+                callback( result );
+            } ).fail( function ( jqXhr , textStatus ) {
+                var message;
+                if ( 'timeout' === textStatus ) {
+                    message = '查询时间超过了4秒，为避免发生错误已取消此次查询，请稍后重试。';
+                } else if ( 'error' === textStatus ) {
+                    message = '查询时发生了网络错误，请先检查一下你的网络设置，然后重试。';
+                }
+                callback( {
+                    error : message
+                } );
             } );
+
             return this;
         } ,
 
@@ -221,7 +165,6 @@ define( [ '../../lib/L' ] , function ( L ) {
                 src = src.replace( '{{lang}}' , lang );
                 cb( encodeURI( src ) );
             } else {
-
                 baidu.detectLanguage( text , function ( lang ) {
                     src = src.replace( '{{lang}}' , lang );
                     cb( encodeURI( src ) );

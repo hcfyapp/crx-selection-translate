@@ -1,4 +1,4 @@
-define( [ '../../lib/L' ] , function ( L ) {
+define( [ '../../lib/jquery' ] , function ( $ ) {
     "use strict";
 
     var config = {
@@ -28,37 +28,40 @@ define( [ '../../lib/L' ] , function ( L ) {
          */
         result2obj : function ( result , query ) {
             var obj = {};
-            //console.log( result , query );
 
-            obj.to = query.to;
+            obj.to = query.to || 'auto';
 
             obj.from = result.src;
-
-            obj.query = query.text;
-
             obj.response = result;
+            obj.linkToResult = config.linkToResult.replace( '{{to}}' , obj.to ).replace( '{{query}}' , query.text );
 
-            if ( result.dict ) {
+            if ( Array.isArray( result.dict ) ) {
                 obj.detailed = [];
                 result.dict.forEach( function ( v ) {
-                    obj.detailed.push( v.pos + '：' + v.terms.slice( 0 , 3 ).join( ',' ) );
+                    obj.detailed.push( v.pos + '：' + ( v.terms.slice( 0 , 3 ) || []).join( ',' ) );
                 } );
                 obj.detailed = obj.detailed.join( '<br>' );
             }
 
-            // 翻译结果，每一段是一个数组项
-            obj.result = [];
-            result.sentences.forEach( function ( v ) {
-                obj.result.push( v.trans );
-            } );
-            obj.result = obj.result.join( '<br>' );
+            if ( Array.isArray( result.sentences ) ) {
+
+                // 翻译结果，每一段是一个数组项
+                obj.result = [];
+                result.sentences.forEach( function ( v ) {
+                    obj.result.push( v.trans );
+                } );
+                obj.result = obj.result.join( '<br>' );
+            } else {
+                obj.result = '啊哦，谷歌翻译返回了一个奇怪的东西，稍后再试试看吧。';
+            }
             return obj;
-        }
+        } ,
+
+        linkToResult : 'https://translate.google.com/#auto/{{to}}/{{query}}'
     } , google = Object.freeze( {
         id : 'google' ,
         name : '谷歌翻译' ,
         link : 'https://translate.google.com/' ,
-        linkToResult : 'https://translate.google.com/#auto/{{to}}/{{query}}' ,
 
         /**
          * 翻译方法
@@ -67,43 +70,41 @@ define( [ '../../lib/L' ] , function ( L ) {
          * @returns {google}
          */
         translate : function ( query , callback ) {
-            var data = L.shallowCopy( config.data );
+            var data = $.extend( {} , config.data );
 
-            data.q = encodeURI( query.text );
+            data.q = query.text;
 
             data.tl = query.to || 'auto';
 
-            L.ajax( {
+            $.ajax( {
                 url : config.url ,
                 method : config.method ,
-                data : data ,
-                timeout : 6000 , // 10秒
-                ontimeout : function () {
-                    callback( {
-                        api : google ,
-                        error : '查询时间超过了6秒，为避免出现错误已取消此次查询，请稍后重试。'
-                    } );
-                } ,
-                load : function ( response ) {
-                    var result;
-                    if ( 'string' === typeof response ) {
-                        result = {
-                            error : '谷歌翻译发生了一个错误，可能是因为查询文本过长造成的。'
-                        };
-                    } else {
-                        result = config.result2obj( response , query );
-                    }
-                    result.api = google;
-                    result.response = response;
-                    callback( result );
-                } ,
-                error : function () {
-                    callback( {
-                        error : config.ERROR_NETWORK ,
-                        api : google
-                    } );
+                data : $.param( data , true ) , // 因为google的查询里面有一个数组 dt:[ 't','tl' ]，如果不设置true，会被错误的转换为 &dt[]=t&dt[]=tl
+                timeout : 6000 // 谷歌很慢，所以设为6秒
+            } ).done( function ( response ) {
+                var result;
+
+                // 谷歌出错的原因在于文本过长
+                if ( 'string' === typeof response ) {
+                    result = { error : '谷歌翻译发生了一个错误，可能是因为查询文本过长造成的。' };
+                } else {
+                    result = config.result2obj( response , query );
                 }
-            } );
+
+                result.response = response;
+                callback( result );
+            } )
+                .fail( function ( jqXhr , textStatus ) {
+                    var message;
+                    if ( 'timeout' === textStatus ) {
+                        message = '查询时间超过了6秒，为避免发生错误已取消此次查询，请稍后重试。';
+                    } else if ( 'error' === textStatus ) {
+                        message = '查询时发生了网络错误，请先检查一下你的网络设置，然后重试。';
+                    }
+                    callback( {
+                        error : message
+                    } );
+                } );
             return this;
         } ,
 
