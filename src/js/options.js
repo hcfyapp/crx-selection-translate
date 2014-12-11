@@ -1,43 +1,48 @@
-require( [ 'js/lib/L' ] , function ( L ) {
+// 页面内跳转
+( function () {
     'use strict';
-    function c() {
-        var dom_hash = L( 'a[href="' + location.hash + '"]' ) , last;
+    var linkTo = function () {
+        var dom = document ,
+            dom_hash = dom.querySelector( 'a[href="' + location.hash + '"]' ) ,
+            last;
         if ( dom_hash ) {
-            last = L( 'nav li a.on' );
+            last = dom.querySelector( 'nav li a.on' );
             if ( last ) {
                 last.classList.remove( 'on' );
             }
             dom_hash.classList.add( 'on' );
         } else {
-            dom_hash = L( 'a[href="#settings"]' );
-            dom_hash.click();
+            dom.querySelector( 'a[href="#settings"]' ).click();
         }
-    }
+    };
 
-    window.addEventListener( 'hashchange' , c );
-    c();
-} );
+    window.addEventListener( 'hashchange' , linkTo );
+    linkTo();
+}() );
 
-require( [ 'js/lib/L' , 'js/module/settings' , 'js/module/languages' ] , function ( L , sts , l ) {
+// 设置修改时自动保存
+require( [ 'js/lib/jquery' , 'js/module/settings' , 'js/module/languages' ] , function ( $ , sts , l ) {
     'use strict';
-    var keys = [];
-    L.forEach( L( '[name]' , true ) , function ( node ) {
-        keys.push( node.name );
+    var dom = document ,
+        keys = [];
+
+    $( '[name]' ).each( function () {
+        keys.push( this.name );
     } );
 
-    // 读取设置
+    // 先读取设置显示在页面上
     sts.option( keys , function ( i ) {
-        L.forIn( i , function ( key ) {
-            var n = L( '[name="' + key + '"]' );
+        $.each( i , function ( k , v ) {
+            var n = dom.querySelector( '[name="' + k + '"]' );
             if ( n ) {
-                n[ 'checkbox' === n.type ? 'checked' : 'value' ] = i[ key ];
+                n[ 'checkbox' === n.type ? 'checked' : 'value' ] = v;
             }
         } );
 
-        L( '#defaultTo' ).textContent = (l.languages[ i.defaultTo ] || '自动选择_zdxz').split( '_' )[ 0 ];
+        dom.getElementById( 'defaultTo' ).textContent = ( l.languages[ i.defaultTo ] || '自动选择_zdxz' ).split( '_' )[ 0 ];
     } );
 
-    L.on( document , 'change,submit' , function ( e ) {
+    $( dom ).on( 'change submit' , function ( e ) {
         var t , n;
         if ( 'submit' === e.type ) {
             e.preventDefault();
@@ -52,15 +57,18 @@ require( [ 'js/lib/L' , 'js/module/settings' , 'js/module/languages' ] , functio
 
 } );
 
-require( [ 'js/lib/L' , 'js/module/settings' , 'js/module/languages' ] , function ( L , sts , l ) {
+// 目标语言设置
+require( [ 'js/module/settings' , 'js/module/languages' ] , function ( sts , l ) {
     'use strict';
-    var dom_langs = L( '#langs' );
-    l.attach( dom_langs , function ( chooseItem ) {
-        var des = chooseItem.textContent ,
-            i18n = chooseItem.dataset.value;
-        L( '#defaultTo' ).textContent = des;
-        dom_langs.value = '';
-        dom_langs.focus();
-        sts.option( 'defaultTo' , i18n );
+
+    var dom = document ,
+        lang = dom.getElementById( 'langs' ) ,
+        dt = dom.getElementById( 'defaultTo' );
+
+    l.attach( lang , function ( choosed ) {
+        dt.textContent = choosed.textContent;
+        lang.value = '';
+        lang.focus();
+        sts.option( 'defaultTo' , choosed.dataset.value );
     } );
 } );

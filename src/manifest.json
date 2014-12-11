@@ -2,7 +2,7 @@
   "name" : "划词翻译" ,
   "description" : "支持谷歌、百度与有道三大翻译和朗读引擎，可以方便的查看、复制和朗读不同引擎的翻译结果。" ,
   "manifest_version" : 2 ,
-  "version" : "5.2" ,
+  "version" : "5.3" ,
   "homepage_url" : "https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" ,
   "icons" : {
     "128" : "/img/logo.png" ,
@@ -10,7 +10,7 @@
     "48" : "/img/logo.png"
   } ,
   "author" : "Milk Lee( milk.lee@qq.com )" ,
-  "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com; object-src 'self'" ,
+  "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com https://code.jquery.com; object-src 'self'" ,
   "permissions" : [
     "*://*/*" ,
     "contextMenus" ,
@@ -60,11 +60,11 @@
         "https://*/*" ,
         "file:///*"
       ] ,
-      "css" : ["default/selection.css"] ,
+      "css" : ["/theme/selection.css"] ,
       "js" : [
-        "js/lib/L.js" ,
+        "js/lib/jquery.js" ,
         "js/lib/doT.js" ,
-        "js/selection.js"
+        "js/select.js"
       ] ,
       "all_frames" : true ,
       "run_at" : "document_start"
@@ -72,9 +72,8 @@
   ] ,
   "minimum_chrome_version" : "26" ,
   "web_accessible_resources" : [
-    "js/lib/ydwa.js" ,
-    "default/selection.dot" ,
-    "default/selection.css" ,
-    "default/icon.png"
+    "/js/lib/ydwa.js" ,
+    "/theme/selection.dot" ,
+    "/theme/icon.png"
   ]
 }

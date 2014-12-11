@@ -1,21 +1,21 @@
 // 接收查询请求
-require( [ 'js/module/apis' , 'js/module/clipboard' , 'js/module/ga' ] , function ( api , clipboard , ga ) {
+require( [ 'js/module/apis' , 'js/module/clipboard' ] , function ( api , clipboard ) {
     "use strict";
     chrome.runtime.onMessage.addListener( function ( msgObj , sender , response ) {
         var data = msgObj.data;
         switch ( msgObj.action ) {
             case 'translate':
-                api.ts( data.apiId , data , function ( resultObj ) {
+                api.ts( data , function ( resultObj ) {
                     response( resultObj );
                 } );
-                return true; // 看了 chrome 对消息传递的源码实现才知道要返回 true 才能异步发送消息 extensions::messaging 126行
+                return true; // 发送回执需要在事件监听里返回 true
 
             case 'play': // 阅读
-                api.speak( data.apiId , data.text , data.lang );
+                api.speak( data );
                 break;
 
             case 'copy':
-                clipboard.copy( data );
+                clipboard.write( data );
                 break;
 
             case 'createTab':
@@ -27,7 +27,7 @@ require( [ 'js/module/apis' , 'js/module/clipboard' , 'js/module/ga' ] , functio
     } );
 } );
 
-// 默认设置
+// 安装扩展或者从4.x升级时更新默认设置
 chrome.runtime.onInstalled.addListener( function ( d ) {
     "use strict";
     var r = d.reason;
@@ -48,9 +48,7 @@ chrome.runtime.onInstalled.addListener( function ( d ) {
 
 } );
 
-//require( [ 'js/module/donate' ] );
-
-// 浏览器按钮只是用来切换开关的
+// 浏览器按钮只是用来显示开关状态的
 require( [ 'js/module/browserAction' ] );
 
 chrome.commands.onCommand.addListener( function ( command ) {

@@ -1,9 +1,10 @@
 /**
  * 使用的google.cn的翻译接口，问题多多
  * 换用了谷歌官方的翻译接口，但是只能翻墙访问
+ * todo 待重新发布
  */
 
-define( [ '../../lib/L' ] , function ( L ) {
+define( [ '../../lib/jquery' ] , function ( $ ) {
     "use strict";
 
     var config = {
@@ -21,6 +22,7 @@ define( [ '../../lib/L' ] , function ( L ) {
             hl : 'zh-CN' ,
 
             // 这个数组指定了返回的结果包含哪些部分。我只需要翻译结果和详细释义
+            //dt : [ 'bd' , 'ex' , 'ld' , 'md' , 'qc' , 'rw' , 'rm' , 'ss' , 't' , 'at' , 'sw' ] ,
             dt : [ 'bd' , 'ex' , 'ld' , 'md' , 'qc' , 'rw' , 'rm' , 'ss' , 't' , 'at' , 'sw' ] ,
             ie : 'UTF-8' ,
             oe : 'UTF-8' ,
@@ -31,6 +33,7 @@ define( [ '../../lib/L' ] , function ( L ) {
             tsel : 0 ,
             q : ''
         } ,
+        linkToResult : 'https://translate.google.cn/#auto/{{to}}/{{query}}' ,
 
         /**
          * 解析谷歌翻译数据
@@ -98,7 +101,6 @@ define( [ '../../lib/L' ] , function ( L ) {
         id : 'google_cn' ,
         name : '谷歌翻译（国内）' ,
         link : 'https://translate.google.cn/' ,
-        linkToResult : 'https://translate.google.cn/#auto/{{to}}/{{query}}' ,
 
         /**
          * 翻译方法

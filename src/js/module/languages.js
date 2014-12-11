@@ -1,4 +1,4 @@
-define( [ '../lib/L' ] , function ( L ) {
+define( [ '../lib/jquery' ] , function ( $ ) {
     'use strict';
     var end = function ( func , timeout ) {
             var timeId;
@@ -13,6 +13,10 @@ define( [ '../lib/L' ] , function ( L ) {
         } ,
 
         s = {
+            /**
+             * 语种：语种中文名_对应拼音
+             * @see https://translate.google.cn
+             */
             languages : {
                 "sq" : "阿尔巴尼亚语_aebnyy" ,
                 "ga" : "爱尔兰语_aely" ,
@@ -96,79 +100,99 @@ define( [ '../lib/L' ] , function ( L ) {
                 "zh-TW" : "中文(繁体)_zwft" ,
                 "zh-CN" : "中文(简体)_zwjt"
             } ,
-            search : function ( word ) {
+
+            /**
+             * 根据用户输入返回匹配的语种
+             * @param input 用户的输入
+             * @returns {{code: string, des: string}[]}
+             */
+            search : function ( input ) {
                 var r = [
                     {
                         code : 'auto' ,
                         des : '自动选择'
                     }
                 ];
-                if ( word ) {
-                    L.forIn( s.languages , function ( key ) {
-                        var v = this[ key ];
-                        if ( v.indexOf( word ) >= 0 ) {
+                if ( input ) {
+                    $.each( s.languages , function ( key , value ) {
+                        if ( value.indexOf( input ) >= 0 ) {
                             r.push( {
                                 code : key ,
-                                des : v.split( '_' )[ 0 ]
+                                des : value.split( '_' )[ 0 ]
                             } );
                         }
                     } );
                 }
                 return r;
             } ,
+
+            /**
+             * 检测划词翻译是否支持某种语种
+             * @param {string} code
+             * @returns {boolean}
+             */
             has : function ( code ) {
                 return s.languages.hasOwnProperty( code );
             } ,
+
             handles : {
+
+                /**
+                 * 显示与用户输入匹配的语言列表
+                 * 这是一个“懒加载”函数，仅在第一次显示时才真正将相关的dom插入到网页中
+                 */
                 show : function () {
-                    var x = document.createElement( 'lmk-langs' ) ,
-                        style = document.createElement( 'style' ) ,
-                        show = function ( dom , result ) {
-                            var pos = dom.getBoundingClientRect() ,
-                                dom_html = document.documentElement ,
+                    var $x = $( '<lmk-langs/>' ).appendTo( 'body' ) ,
+                        show = function ( $input , result ) {
+                            var pos = $input.offset() ,
                                 str = '';
 
                             result.forEach( function ( v ) {
                                 str += '<lmk-langs-item data-value="' + v.code + '">' + v.des + '</lmk-langs-item>';
                             } );
 
-                            x.innerHTML = str;
-
-                            // 获取元素的绝对位置
-                            L.shallowCopy( x.style , {
-                                left : pos.left + dom_html.scrollLeft + 'px' ,
-                                top : pos.top + dom_html.scrollTop + pos.height + 'px' ,
-                                width : pos.width + 'px' ,
-                                display : 'block'
-                            } );
-
+                            $x.html( str ).css( {
+                                left : pos.left ,
+                                top : pos.top + $input.outerHeight( true ) ,
+                                width : $input.outerWidth()
+                            } ).addClass( 'show' );
                             return this;
                         };
 
-                    style.textContent = 'lmk-langs{box-sizing:border-box;background:#fff;border:1px solid black;display:none;position:absolute;}lmk-langs-item{display:block;line-height:20px;cursor:pointer}lmk-langs-item:hover{background:#d3d3d3}';
-                    document.head.appendChild( style );
-                    document.body.appendChild( x );
+                    $( '<style>' +
+                    'lmk-langs{box-sizing:border-box;background:#fff;border:1px solid black;display:none;position:absolute}lmk-langs.show{display:block}lmk-langs-item{display:block;line-height:20px;cursor:pointer}lmk-langs-item:hover{background:#d3d3d3}' +
+                    '</style>' ).appendTo( 'head' );
 
-                    s.handles.show = show;
-                    s.handles.hide = function () {x.style.display = 'none';};
+                    s.handles.show = show; // 覆盖
+                    s.handles.hide = function () { $x.removeClass( 'show' ); };
 
                     return show.apply( this , arguments );
                 } ,
                 hide : function () {}
             } ,
-            attach : function ( dom_input , choose ) {
-                L.on( dom_input , 'input' , end( function () {
+
+            /**
+             * 将语言列表附到一个输入框上
+             * @param {Element} input
+             * @param {function} choose
+             */
+            attach : function ( input , choose ) {
+                var $input = $( input );
+                $input.on( 'input' , end( function () {
                     var v = this.value.trim();
                     if ( v ) {
-                        s.handles.show( this , s.search( v ) );
+                        s.handles.show( $input , s.search( v ) );
                     } else {
                         s.handles.hide();
                     }
                 } ) );
 
-                L.on( document , 'click' , 'lmk-langs-item' , function ( e ) {
+                $( document ).on( 'click' , function ( e ) {
+                    var target = e.target;
                     s.handles.hide();
-                    choose( e.target );
+                    if ( 'lmk-langs-item' === target.nodeName.toLowerCase() ) {
+                        choose( target );
+                    }
                 } );
             }
         };

@@ -1,4 +1,4 @@
-define( [ '../lib/L' ] , function ( L ) {
+define( [ '../lib/jquery' ] , function ( $ ) {
     "use strict";
 
     var ls = chrome.storage.local , settings;
@@ -15,18 +15,18 @@ define( [ '../lib/L' ] , function ( L ) {
         option : function ( key , value , cb ) {
             var data , action , firstType = typeof key , secondType = typeof value;
 
-            // 第一种情况 option( 'key' , function(){}) 或者 option( [ 'key1' , 'key2' ] , function(){} )
+            // 第一种情况：读取 option( 'key' , function(){}) 或者 option( [ 'key1' , 'key2' ] , function(){} )
             if ( null === key || ('string' === firstType && 'function' === secondType) || Array.isArray( key ) ) {
                 action = 'get';
                 data = key;
                 cb = value;
 
-                // 第二种情况 option( 'key' , 'value' , function(){})
+                // 第二种情况：设置单个 option( 'key' , 'value' , function(){})
             } else if ( 'string' === firstType && 'function' !== secondType ) {
                 action = 'set';
                 data = {};
                 data[ key ] = value;
-            } else { // 第三种情况 option( { key:'value' } , function(){} )
+            } else { // 第三种情况：设置多个 option( { key:'value' } , function(){} )
                 action = 'set';
                 data = key;
                 cb = value;
@@ -60,20 +60,15 @@ define( [ '../lib/L' ] , function ( L ) {
         } ,
 
         /**
-         * 更新模板、闹钟
+         * 更新模板
          * @returns {settings}
          */
         updateTemplate : function () {
 
             // 加载默认模板
-            L.ajax( {
-                url : 'default/selection.dot?' + Date.now() ,
-                load : function ( dot ) {
-                    ls.set( {
-                        template : dot
-                    } );
-                }
-            } );
+            $.ajax( '/theme/selection.dot?' + Date.now() ).done( function ( dot ) {
+                    ls.set( { template : dot } );
+                } );
             return this;
         }
     };
