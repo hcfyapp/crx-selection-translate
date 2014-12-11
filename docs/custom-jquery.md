@@ -6,4 +6,4 @@
 grunt custom:-ajax/script,-ajax/jsonp,-deprecated,-effects,-event/alias,-wrap,-core/ready,-sizzle --amd=""
 ```
 
-以上命令行的含义可以在 jQuery 项目主页查看。
+以上命令行的含义可以在 [jQuery 项目主页](https://github.com/jquery/jquery#modules)查看。
