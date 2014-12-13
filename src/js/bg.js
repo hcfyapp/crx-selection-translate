@@ -30,19 +30,21 @@ require( [ 'js/module/apis' , 'js/module/clipboard' ] , function ( api , clipboa
 // 安装扩展或者从4.x升级时更新默认设置
 chrome.runtime.onInstalled.addListener( function ( d ) {
     "use strict";
-    var r = d.reason;
-    if ( 'install' === r || ('update' === r && 5 > Number( d.previousVersion.slice( 0 , 3 ) )) ) {
-        require( [ 'js/module/settings' ] , function ( settings ) {
+    var r = d.reason ,
+        isInstall = 'install' === r ,
+        isUpdate = 'update' === r;
+    if ( isInstall || ( isUpdate && 5 > Number( d.previousVersion.slice( 0 , 3 ) ) ) ) {
+        require( [ 'js/module/storage' ] , function ( settings ) {
             settings.restore();
         } );
     }
 
     // 安装时打开设置页
-    if ( 'install' === r ) {
+    if ( isInstall ) {
         chrome.tabs.create( { url : '/options.html' } );
     }
 
-    require( [ 'js/module/settings' ] , function ( settings ) {
+    require( [ 'js/module/storage' ] , function ( settings ) {
         settings.updateTemplate();
     } );
 

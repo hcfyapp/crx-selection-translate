@@ -21,7 +21,7 @@
 }() );
 
 // 设置修改时自动保存
-require( [ 'js/lib/jquery' , 'js/module/settings' , 'js/module/languages' ] , function ( $ , sts , l ) {
+require( [ 'js/lib/jquery' , 'js/module/storage' , 'js/module/languages' ] , function ( $ , sts , l ) {
     'use strict';
     var dom = document ,
         keys = [];
@@ -31,7 +31,7 @@ require( [ 'js/lib/jquery' , 'js/module/settings' , 'js/module/languages' ] , fu
     } );
 
     // 先读取设置显示在页面上
-    sts.option( keys , function ( i ) {
+    sts.get( keys ).done( function ( i ) {
         $.each( i , function ( k , v ) {
             var n = dom.querySelector( '[name="' + k + '"]' );
             if ( n ) {
@@ -50,7 +50,7 @@ require( [ 'js/lib/jquery' , 'js/module/settings' , 'js/module/languages' ] , fu
             t = e.target;
             n = t.name;
             if ( n ) {
-                sts.option( n , 'checkbox' === t.type ? t.checked : t.value );
+                sts.set( n , 'checkbox' === t.type ? t.checked : t.value );
             }
         }
     } );
@@ -58,7 +58,7 @@ require( [ 'js/lib/jquery' , 'js/module/settings' , 'js/module/languages' ] , fu
 } );
 
 // 目标语言设置
-require( [ 'js/module/settings' , 'js/module/languages' ] , function ( sts , l ) {
+require( [ 'js/module/storage' , 'js/module/languages' ] , function ( sts , l ) {
     'use strict';
 
     var dom = document ,
@@ -69,6 +69,6 @@ require( [ 'js/module/settings' , 'js/module/languages' ] , function ( sts , l )
         dt.textContent = choosed.textContent;
         lang.value = '';
         lang.focus();
-        sts.option( 'defaultTo' , choosed.dataset.value );
+        sts.set( 'defaultTo' , choosed.dataset.value );
     } );
 } );
