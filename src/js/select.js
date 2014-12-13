@@ -70,10 +70,23 @@
 
     $.extend( Selection.prototype , {
 
+        /**
+         * 获取页面上选中的文本
+         * @returns {string}
+         */
         getText : function () {
             return getSelection().toString().trim();
         } ,
 
+        /**
+         * 一个由 doT 根据模板编译出来的函数
+         * 注意：此方法只会在第一次调用的时候编译模板，
+         *        如果此后 template 属性更改了，
+         *        模板不会重新编译，
+         *        因为接下来调用的是 Selection 对象本身的render方法，
+         *        而不是继承自这里的render方法了
+         * @returns {string} 根据数据生成的html字符串
+         */
         render : function () {
             this.render = doT.template( this.config.template );
             return this.render.apply( null , arguments );
@@ -381,7 +394,7 @@
     'use strict';
     var selection = new Selection();
 
-    chrome.storage.local.get( Object.keys( selection.config ) , function ( items ) {
+    chrome.storage.local.get(  selection.config , function ( items ) {
         $.extend( selection.config , items );
     } );
 

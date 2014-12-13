@@ -1,4 +1,4 @@
-define( [ './settings' ] , function ( settings ) {
+define( [ './storage' ] , function ( settings ) {
     "use strict";
     var ba = chrome.browserAction ,
 
@@ -11,30 +11,26 @@ define( [ './settings' ] , function ( settings ) {
                     ba.setBadgeText( { text : 'off' } );
                     ba.setTitle( { title : '划词翻译已关闭' } );
                 }
+                return this;
             }
         };
 
     // 读取设置
-    settings.option( 'enable' , function ( i ) {
+    settings.get( 'enable' ).done( function ( i ) {
         baObj.changeTo( i.enable );
     } );
 
     ba.onClicked.addListener( function () {
 
         // 改变设置
-        settings.option( 'enable' , function ( i ) {
-
-            settings.option( 'enable' , !i.enable );
-            //baObj.changeTo( !i.enable );
+        settings.get( 'enable' ).done( function ( i ) {
+            settings.set( 'enable' , !i.enable ); // 这里设置新值之后，下面的回调函数会自动改变按钮状态
         } );
     } );
 
-    chrome.storage.onChanged.addListener( function ( changes ) {
-
-        if ( changes.hasOwnProperty( 'enable' ) ) {
-            baObj.changeTo( changes.enable.newValue );
-        }
-    } );
+    settings.onChange( function ( changes ) {
+            baObj.changeTo( changes.enable );
+    } , { enable : null } );
 
     return Object.freeze( baObj );
 } );

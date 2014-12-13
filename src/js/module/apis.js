@@ -1,9 +1,9 @@
 define( [
-    './ga' , './settings' ,
+    './ga' , './storage' , '../lib/jquery' ,
 
     // 翻译引擎列在下面
     './apis/baidu' , './apis/youdao' , './apis/google'
-] , function ( ga , settings ) {
+] , function ( ga , settings , $ ) {
     "use strict";
     var audio = document.createElement( 'audio' ) ,
 
@@ -12,8 +12,6 @@ define( [
             defaultSpeak : 'google' ,
             defaultTo : 'auto'
         } ,
-
-        keys = Object.keys( config ) ,
 
         apis = {} ,
 
@@ -74,23 +72,17 @@ define( [
     //} );
 
     // 读取设置
-    settings.option( keys , function ( i ) {
-        keys.forEach( function ( key ) {
-            config[ key ] = i[ key ];
-        } );
+    settings.get( config ).done( function ( i ) {
+        $.extend( config , i );
     } );
 
-    // 设置变更
-    chrome.storage.onChanged.addListener( function ( changes ) {
-        keys.forEach( function ( key ) {
-            if ( changes.hasOwnProperty( key ) ) {
-                config[ key ] = changes[ key ].newValue;
-            }
-        } );
-    } );
+    // 当设置有改动时
+    settings.onChange( function ( changes ) {
+        $.extend( config , changes );
+    } , config );
 
-    // 绑定翻译引擎
-    Array.prototype.slice.call( arguments , 2 ).forEach( function ( api ) {
+    // 绑定翻译引擎。这里的 3 不能写成 arguments.length。。我也不知道为什么
+    Array.prototype.slice.call( arguments , 3 ).forEach( function ( api ) {
         apis[ api.id ] = api;
     } );
 
