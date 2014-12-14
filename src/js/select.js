@@ -1,7 +1,7 @@
 (function ( root , factory ) {
     'use strict';
     if ( typeof define === 'function' && define.amd ) {
-        define( [ 'jquery' , 'doT' ] , factory );
+        define( [ './lib/jquery' , './lib/doT' ] , factory );
     } else {
         root.Select = factory( jQuery , doT );
     }
@@ -136,14 +136,7 @@
          * @returns {boolean}
          */
         isInDom : function ( target ) {
-            var r = this.dom_result;
-
-            /*
-             * 需要判断元素是否已经被插入到文档中
-             * 之所以没有一开始就插入，是因为内容脚本是在网页打开后立刻加载的
-             * 此时 body 元素还没准备好
-             */
-            return r.parentNode && (r === target || 20 === r.compareDocumentPosition( target ));
+            return $.contains( this.dom_result , target );
         } ,
 
         /**
@@ -390,103 +383,101 @@
 } ));
 
 // 应用
-(function ( $ , Selection ) {
+(function ( $ , Selection , storage ) {
     'use strict';
     var selection = new Selection();
 
-    chrome.storage.local.get(  selection.config , function ( items ) {
-        $.extend( selection.config , items );
-    } );
+    /**
+     * 数据准备完之后再注册事件
+     * @see https://github.com/lmk123/crx-selection-translate/issues/19
+     */
+    storage.get( selection.config )
+        .done( function ( items ) {
+            $.extend( selection.config , items );
 
-    //document.addEventListener( 'mousedown' , function ( e ) {
-    //    if ( selection.isInDom( e.target ) ) {
-    //        e.preventDefault(); // 在翻译结果框内点击防止划选的文本消失掉
-    //    }
-    //} , true ); // 必须使用捕获才能阻止
+            //document.addEventListener( 'mousedown' , function ( e ) {
+            //    if ( selection.isInDom( e.target ) ) {
+            //        e.preventDefault(); // 在翻译结果框内点击防止划选的文本消失掉
+            //    }
+            //} , true ); // 必须使用捕获才能阻止
 
-    $( document )
-        .on( 'mouseup' , function ( e ) {
+            $( document )
+                .on( 'mouseup' , function ( e ) {
 
-            // 记录翻译框显示的位置
-            selection.position = {
-                left : e.pageX + 10 ,
-                top : e.pageY + 10
-            };
+                    // 记录翻译框显示的位置
+                    selection.position = {
+                        left : e.pageX + 10 ,
+                        top : e.pageY + 10
+                    };
 
-            if ( selection.check( e ) ) {
-                selection.translate();
-            }
-        } )
-        .on( 'mousedown' , function ( e ) {
-            if ( !selection.isInDom( e.target ) ) {
-                selection.hide();
-            }
-        } )
-        .on( 'click' , '[data-lmk123-action]' , function () {
-            switch ( this.dataset.lmk123Action ) {
-                case 'translate':
-                    selection.translate( {
-                        text : selection.curQuery.text ,
-                        apiId : this.dataset.apiId
-                    } , true );
-                    break;
-                case 'web':
-                    selection.web();
-                    break;
-            }
-        } )
-        .on( 'click' , 'lmk-icon-pin' , function () {
-            this.classList.toggle( 'lmk-pined' );
-            selection.config.alwaysShow = this.classList.contains( 'lmk-pined' );
-        } )
-        .on( 'click' , 'lmk-icon-setting' , function () {
-            Selection.send( {
-                action : 'createTab' ,
-                data : { url : '/options.html' }
+                    if ( selection.check( e ) ) {
+                        selection.translate();
+                    }
+                } )
+                .on( 'mousedown' , function ( e ) {
+                    if ( !selection.isInDom( e.target ) ) {
+                        selection.hide();
+                    }
+                } )
+                .on( 'click' , '[data-lmk123-action]' , function () {
+                    switch ( this.dataset.lmk123Action ) {
+                        case 'translate':
+                            selection.translate( {
+                                text : selection.curQuery.text ,
+                                apiId : this.dataset.apiId
+                            } , true );
+                            break;
+                        case 'web':
+                            selection.web();
+                            break;
+                    }
+                } )
+                .on( 'click' , 'lmk-icon-pin' , function () {
+                    this.classList.toggle( 'lmk-pined' );
+                    selection.config.alwaysShow = this.classList.contains( 'lmk-pined' );
+                } )
+                .on( 'click' , 'lmk-icon-setting' , function () {
+                    Selection.send( {
+                        action : 'createTab' ,
+                        data : { url : '/options.html' }
+                    } );
+                } )
+                .on( 'click' , 'lmk-footer lmk-a' , function () {
+                    Selection.send( {
+                        action : 'createTab' ,
+                        data : { url : selection.curResult.linkToResult }
+                    } );
+                } )
+                .on( 'click' , 'lmk-icon-play' , function () {
+                    selection.play( this.dataset.lmk123Play );
+                } )
+                .on( 'click' , 'lmk-icon-copy' , function () {
+                    selection.copy( this.parentNode.textContent.trim() );
+                    this.classList.add( 'lmk-copy' );
+                } )
+                .on( 'click' , 'lmk-switch' , function () {
+                    this.classList.toggle( 'lmk-close' );
+                    chrome.storage.local.set( {
+                        enable : !this.classList.contains( 'lmk-close' )
+                    } );
+                } );
+
+            // 接收来自背景页的消息
+            chrome.runtime.onMessage.addListener( function ( info ) {
+                switch ( info.action ) {
+                    case 'translate': // 快捷键：翻译网页上选中的文本
+                        selection.translate();
+                        break;
+
+                    case 'web': // 快捷键：翻译网页
+                        selection.web();
+                        break;
+                }
             } );
-        } )
-        .on( 'click' , 'lmk-footer lmk-a' , function () {
-            Selection.send( {
-                action : 'createTab' ,
-                data : { url : selection.curResult.linkToResult }
-            } );
-        } )
-        .on( 'click' , 'lmk-icon-play' , function () {
-            selection.play( this.dataset.lmk123Play );
-        } )
-        .on( 'click' , 'lmk-icon-copy' , function () {
-            selection.copy( this.parentNode.textContent.trim() );
-            this.classList.add( 'lmk-copy' );
-        } )
-        .on( 'click' , 'lmk-switch' , function () {
-            this.classList.toggle( 'lmk-close' );
-            chrome.storage.local.set( {
-                enable : !this.classList.contains( 'lmk-close' )
-            } );
+
+            // 设置变更时
+            storage.onChange( function ( changes ) {
+                $.extend( selection.config , changes );
+            } , selection.config );
         } );
-
-    // 接收来自背景页的消息
-    chrome.runtime.onMessage.addListener( function ( info ) {
-        switch ( info.action ) {
-            case 'translate': // 快捷键：翻译网页上选中的文本
-                selection.translate();
-                break;
-
-            case 'web': // 快捷键：翻译网页
-                selection.web();
-                break;
-        }
-    } );
-
-    // 设置变更时
-    chrome.storage.onChanged.addListener( function ( changes ) {
-        var config = selection.config;
-
-        $.each( changes , function ( key , value ) {
-            if ( config.hasOwnProperty( key ) ) {
-                config[ key ] = value.newValue;
-            }
-        } );
-    } );
-
-}( jQuery , Select ));
+}( jQuery , Select , storage ));

@@ -62,9 +62,10 @@
       ] ,
       "css" : ["/theme/selection.css"] ,
       "js" : [
-        "js/lib/jquery.js" ,
-        "js/lib/doT.js" ,
-        "js/select.js"
+        "/js/lib/jquery.js" ,
+        "/js/lib/doT.js" ,
+        "/js/module/storage.js" ,
+        "/js/select.js"
       ] ,
       "all_frames" : true ,
       "run_at" : "document_start"

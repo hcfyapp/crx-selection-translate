@@ -1,6 +1,10 @@
 ﻿module.exports = function ( grunt ) {
     'use strict';
 
+    // 如果开启了 r.js 连接工具，那么应该是 'build-require'
+    // 否则应该是 'src'
+    var source = 'src';
+
     grunt.initConfig( {
 
         clean : {
@@ -8,7 +12,7 @@
                 src : [ 'build' ]
             } ,
             after : {
-                src : [ 'build-require' ]
+                src : [ source === 'src' ? '' : source ] // 可别误删了
             }
         } ,
 
@@ -18,7 +22,7 @@
                 files : [
                     {
                         expand : true ,
-                        cwd : 'build-require/' ,
+                        cwd : source ,
                         src : [ '**/*.js' , '!**/google_cn.js' ] , // 暂时忽略旧的谷歌接口
                         dest : 'build/'
                     }
@@ -31,7 +35,7 @@
                 files : [
                     {
                         expand : true ,
-                        cwd : 'build-require/' ,
+                        cwd : source ,
                         src : [ '**/*.css' ] ,
                         dest : 'build/'
                     }
@@ -48,7 +52,7 @@
                 files : [
                     {
                         expand : true ,
-                        cwd : 'build-require/' ,
+                        cwd : source ,
                         src : '**/*.html' ,
                         dest : 'build/'
                     }
@@ -61,7 +65,7 @@
                 files : [
                     {
                         expand : true ,
-                        cwd : 'build-require/' ,
+                        cwd : source ,
                         src : [ '**/*.{png,jpg,gif}' ] ,
                         dest : 'build/'
                     }
@@ -74,7 +78,7 @@
                 files : [
                     {
                         expand : true ,
-                        cwd : 'build-require/' ,
+                        cwd : source ,
                         src : [
                             '**/*.*' , '!**/*.{js,css,html,png,jpg,gif,txt}'
                         ] ,
@@ -121,6 +125,6 @@
     grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
     grunt.registerTask( 'default' , [
-        'clean:main' , 'requirejs' , 'uglify' , 'cssmin' , 'htmlmin' , 'imagemin' , 'copy' , 'clean:after'
+        'clean:main' , /*'requirejs' ,*/ 'uglify' , 'cssmin' , 'htmlmin' , 'imagemin' , 'copy' /*, 'clean:after'*/
     ] );
 };
