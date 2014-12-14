@@ -1,4 +1,4 @@
-define( [ '../../lib/jquery' , './baidu' ] , function ( $ , baidu ) {
+define( [ '../../lib/jquery' , './baidu' , '../ga' ] , function ( $ , baidu , ga ) {
     "use strict";
     var config = {
 
@@ -57,6 +57,10 @@ define( [ '../../lib/jquery' , './baidu' ] , function ( $ , baidu ) {
                     obj.result = result.translation.join( '<br>' );
                 } else {
                     obj.result = '啊哦，有道翻译返回了一个奇怪的东西，稍后再重新试试看吧。';
+                    console.error( '有道返回了错误的数据：' );
+                    console.error( result );
+                    // 跟踪此次错误
+                    ga.track( '有道返回了错误的json结构' , JSON.stringify( result ) );
                 }
 
                 /*

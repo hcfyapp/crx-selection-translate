@@ -1,4 +1,4 @@
-define( [ '../../lib/jquery' ] , function ( $ ) {
+define( [ '../../lib/jquery' , '../ga' ] , function ( $ , ga ) {
     "use strict";
 
     var config = {
@@ -53,6 +53,10 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
                 obj.result = obj.result.join( '<br>' );
             } else {
                 obj.result = '啊哦，谷歌翻译返回了一个奇怪的东西，稍后再试试看吧。';
+                console.error( '谷歌返回了错误的数据：' );
+                console.error( result );
+                // 跟踪此次错误
+                ga.track( '谷歌返回了错误的json结构' , JSON.stringify( result ) );
             }
             return obj;
         } ,
