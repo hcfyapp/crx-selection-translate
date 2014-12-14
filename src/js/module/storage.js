@@ -75,7 +75,6 @@
                     cb = function ( changes , area ) {
                         var myChanges = {};
 
-                        // 直接修改 changes 对象会导致回调列表里的其它回调参数也会被修改
                         $.each( changes , function ( key , value ) {
                             if ( caseOf.hasOwnProperty( key ) ) {
                                 myChanges[ key ] = value;
@@ -141,7 +140,9 @@
         $.each( changes , function ( key , value ) { // 多数情况下都只关心新值
             customChanges[ key ] = value.newValue;
         } );
-        changeCallbacks.fire( customChanges , area );
+
+        // 防止对象在回调里被修改，因为这会导致其它回调也收到修改后的对象
+        changeCallbacks.fire( Object.freeze( customChanges ) , area );
     } );
 
     return Object.freeze( storage );
