@@ -73,6 +73,11 @@ lmk-move {
     cursor: move;
 }
 
+lmk-retry {
+    color: blue;
+    cursor: pointer;
+}
+
 lmk-phonetic-text {
     margin-left: 10px;
 }

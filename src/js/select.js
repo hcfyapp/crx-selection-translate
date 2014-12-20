@@ -232,9 +232,11 @@
                     } )
                     .done( function ( resultObj ) {
                         that.curResult = resultObj;
+                        if ( resultObj.error ) {
+                            resultObj.error = resultObj.error.replace( '重试' , '<lmk-retry>重试</lmk-retry>' );
+                        }
                         that.show( resultObj , keepPosition );
 
-                        // 自动阅读功能
                         if ( that.config.autoPlay ) {
                             var play = document.querySelector( 'lmk-icon-play' );
                             if ( play ) {
@@ -244,7 +246,7 @@
                     } )
                     .fail( function ( errMessage ) {
                         that.show( {
-                            error : errMessage
+                            error : errMessage.replace( '重试' , '<lmk-retry>重试</lmk-retry>' )
                         } , keepPosition );
                     } );
             }
@@ -464,6 +466,12 @@
                         action : 'createTab' ,
                         data : { url : selection.curResult.linkToResult }
                     } );
+                } )
+                .on( 'click' , 'lmk-retry' , function () {
+                    selection.translate( {
+                        text : selection.curQuery.text ,
+                        apiId : selection.curResult.api.apiId
+                    } , true );
                 } )
                 .on( 'click' , 'lmk-icon-play' , function () {
                     selection.play( this.dataset.lmk123Play );
