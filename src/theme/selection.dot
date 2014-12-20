@@ -9,13 +9,16 @@
 
         <lmk-list>
             <lmk-list-item data-lmk123-action="translate" data-api-id="google">
-                查看谷歌翻译结果
+                谷歌(国外)翻译结果
+            </lmk-list-item>
+            <lmk-list-item data-lmk123-action="translate" data-api-id="google_cn">
+                谷歌(国内)翻译结果
             </lmk-list-item>
             <lmk-list-item data-lmk123-action="translate" data-api-id="youdao">
-                查看有道翻译结果
+                有道翻译结果
             </lmk-list-item>
             <lmk-list-item data-lmk123-action="translate" data-api-id="baidu">
-                查看百度翻译结果
+                百度翻译结果
             </lmk-list-item>
             <lmk-list-item data-lmk123-action="web">网页翻译</lmk-list-item>
         </lmk-list>

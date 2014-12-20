@@ -297,7 +297,7 @@
                 data : {
                     text : this.curQuery[ type ] || this.curResult[ type ] ,
                     from : 'text' === type ? this.curResult.from : this.curResult.to ,
-                    apiId : this.curQuery.apiId
+                    apiId : this.curResult.api.id
                 }
             } );
             return this;
@@ -470,7 +470,7 @@
                 .on( 'click' , 'lmk-retry' , function () {
                     selection.translate( {
                         text : selection.curQuery.text ,
-                        apiId : selection.curResult.api.apiId
+                        apiId : selection.curResult.api.id
                     } , true );
                 } )
                 .on( 'click' , 'lmk-icon-play' , function () {

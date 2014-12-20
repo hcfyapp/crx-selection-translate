@@ -64,7 +64,7 @@ define( [ '../../lib/jquery' , '../ga' ] , function ( $ , ga ) {
         linkToResult : 'https://translate.google.com/#auto/{{to}}/{{query}}'
     } , google = Object.freeze( {
         id : 'google' ,
-        name : '谷歌翻译' ,
+        name : '谷歌翻译(国外)' ,
         link : 'https://translate.google.com/' ,
 
         /**

@@ -1,10 +1,17 @@
 /**
- * 使用的google.cn的翻译接口，问题多多
- * 换用了谷歌官方的翻译接口，但是只能翻墙访问
- * todo 待重新发布
+ * 无意中的发现：
+ *     我猜想国内的谷歌翻译接口是否会跟国外的一样，
+ *     于是我复制了 google.js 里面的内容，并把所有 .com 改为了 .cn
+ *     然后把接口 id 改为了 google_cn
+ *     尝试翻译一次后发现找不到接口域名：translate.googleapis.cn
+ *     于是我又猜想，如果把这个查询接口改为 translate.google.cn 会怎么样？
+ *     。。结果还真的有用= =
+ *     同理，把朗读的接口从 googleapis.com 改为 google.cn 之后也能用了
+ *
+ *     这样一来，国内的实际上就跟国外的一样了，而且比国外的更快更稳定！
  */
 
-define( [ '../../lib/jquery' ] , function ( $ ) {
+define( [ '../../lib/jquery' , '../ga' ] , function ( $ , ga ) {
     "use strict";
 
     var config = {
@@ -12,28 +19,19 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
         ERROR_NETWORK : '网络错误，请稍后重试' ,
         ERROR_RESPONSE : '服务器返回了错误的数据类型' ,
 
-        ttsLink : 'https://translate.google.cn/translate_tts?ie=UTF-8&q={{query}}&tl={{lang}}&total=1&idx=0&textlen=2&client=t' ,
+        ttsLink : 'https://translate.google.cn/translate_tts?ie=UTF-8&q={{query}}&tl={{lang}}&client=gtx' ,
         method : 'GET' ,
         url : 'https://translate.google.cn/translate_a/single' ,
         data : {
-            client : 't' ,
+            client : 'gtx' ,
             sl : 'auto' , // 源语言
             tl : 'auto' , // 目标语言
             hl : 'zh-CN' ,
-
-            // 这个数组指定了返回的结果包含哪些部分。我只需要翻译结果和详细释义
-            //dt : [ 'bd' , 'ex' , 'ld' , 'md' , 'qc' , 'rw' , 'rm' , 'ss' , 't' , 'at' , 'sw' ] ,
-            dt : [ 'bd' , 'ex' , 'ld' , 'md' , 'qc' , 'rw' , 'rm' , 'ss' , 't' , 'at' , 'sw' ] ,
-            ie : 'UTF-8' ,
-            oe : 'UTF-8' ,
-            oc : 1 ,
-            prev : 'btn' ,
-            it : 'tgtd.2092' ,
-            ssel : 3 ,
-            tsel : 0 ,
+            dt : [ 't' , 'bd' ] ,
+            dj : 1 ,
+            source : 'icon' ,
             q : ''
         } ,
-        linkToResult : 'https://translate.google.cn/#auto/{{to}}/{{query}}' ,
 
         /**
          * 解析谷歌翻译数据
@@ -42,64 +40,44 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
          * @returns {{}}
          */
         result2obj : function ( result , query ) {
-            var obj = {} , part;
-
-            // 去除重复逗号解析之后是一个数组，我只关心前三项
-            // 第一项是 obj.result
-            // 如果第二项是字符串，那么就是 源语言
-            // 否则，第二项就是 obj.detailed ，那么第三项就成为源语言了
-
-            // 第一个数组是解析结果，最后一个元素是发音，前面的每个段落的翻译是一个元素
-            part = result[ 0 ];
-
-            obj.result = '';
-
-            obj.query = query.text;
-
-            obj.response = result;
+            var obj = {};
 
             obj.to = query.to || 'auto';
 
-            part.splice( 0 , part.length - 1 ).forEach( function ( v ) {
-                obj.result += v[ 0 ]; // 谷歌翻译结果自带换行符
-            } );
+            obj.from = result.src;
+            obj.response = result;
+            obj.linkToResult = config.linkToResult.replace( '{{to}}' , obj.to ).replace( '{{query}}' , query.text );
 
-            // 两个以上的空格换成一个
-            obj.result = obj.result.replace( /\s{2,}/g , ' ' );
-
-            //obj.result = obj.result.join( '\n' ); // 翻译结果
-
-            obj.phonetic = '/' + part[ 0 ][ 1 ].replace( /\s{2,}/g , ' ' ) + '/'; // 发音
-
-            part = result[ 1 ];
-
-            // 如果是数组，那么就是详细释义，否则这个就是源语言字符串例如 en
-            if ( Array.isArray( part ) ) {
+            if ( Array.isArray( result.dict ) ) {
                 obj.detailed = [];
-                //                        console.dir( part );
-
-                // 详细释义结构如下
-                // 详细释义的每个元素都是一个数组，而这个数组的第一个项是单词的词性（例如名词、副词）
-                // 这个数组的第二个项也是一个数组，列出了此词性对应的所有解释
-                // 第三个项也是数组，这个数组对应第二项的每一个解释有英文的同义词，这个直接跳过
-                part.forEach( function ( cixing ) {
-                    var s = '';
-                    s += cixing[ 0 ] + '：';
-                    cixing[ 1 ].forEach( function ( jieshi ) {
-                        s += jieshi + '；';
-                    } );
-                    obj.detailed.push( s );
+                result.dict.forEach( function ( v ) {
+                    obj.detailed.push( v.pos + '：' + ( v.terms.slice( 0 , 3 ) || []).join( ',' ) );
                 } );
                 obj.detailed = obj.detailed.join( '<br>' );
-                obj.from = result[ 2 ];
+            }
+
+            if ( Array.isArray( result.sentences ) ) {
+
+                // 翻译结果，每一段是一个数组项
+                obj.result = [];
+                result.sentences.forEach( function ( v ) {
+                    obj.result.push( v.trans );
+                } );
+                obj.result = obj.result.join( '<br>' );
             } else {
-                obj.from = part;
+                obj.result = '啊哦，谷歌翻译(国内)返回了一个奇怪的东西，稍后再试试看吧。';
+                console.error( '谷歌(国内)返回了错误的数据：' );
+                console.error( result );
+                // 跟踪此次错误
+                ga.track( '谷歌(国内)返回了错误的json结构' , JSON.stringify( result ) );
             }
             return obj;
-        }
+        } ,
+
+        linkToResult : 'https://translate.google.cn/#auto/{{to}}/{{query}}'
     } , google = Object.freeze( {
         id : 'google_cn' ,
-        name : '谷歌翻译（国内）' ,
+        name : '谷歌翻译(国内)' ,
         link : 'https://translate.google.cn/' ,
 
         /**
@@ -109,46 +87,41 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
          * @returns {google}
          */
         translate : function ( query , callback ) {
-            var data = L.shallowCopy( config.data );
+            var data = $.extend( {} , config.data );
 
-            data.q = encodeURI( query.text );
+            data.q = query.text;
 
             data.tl = query.to || 'auto';
 
-            L.ajax( {
+            $.ajax( {
                 url : config.url ,
-                method : config.method ,
-                data : data ,
-                load : function ( response ) {
-                    var result;
+                type : config.method ,
+                data : $.param( data , true ) , // 因为google的查询里面有一个数组 dt:[ 't','tl' ]，如果不设置true，会被错误的转换为 &dt[]=t&dt[]=tl
+                timeout : 4000
+            } ).done( function ( response ) {
+                var result;
 
-                    try {
-
-                        // google翻译结果包含很多连续的逗号，导致不能正常JSON.parse
-                        response = JSON.parse( response.replace( /,{2,}/g , ',' ).replace( '[,' , '[' ).replace( ',]' , ']' ) ).slice( 0 , 3 );
-                    }
-                    catch ( e ) {
-                        result = {
-                            error : config.ERROR_RESPONSE ,
-                            api : google ,
-                            response : response
-                        };
-                    }
-
-                    if ( !result ) {
-                        result = config.result2obj( response , query );
-                        result.api = google;
-                        result.response = response;
-                    }
-                    callback( result );
-                } ,
-                error : function () {
-                    callback( {
-                        error : config.ERROR_NETWORK ,
-                        api : google
-                    } );
+                // 谷歌出错的原因在于文本过长
+                if ( 'string' === typeof response ) {
+                    result = { error : '谷歌(国内)翻译发生了一个错误，可能是因为查询文本过长造成的。' };
+                } else {
+                    result = config.result2obj( response , query );
                 }
-            } );
+
+                result.response = response;
+                callback( result );
+            } )
+                .fail( function ( jqXhr , textStatus ) {
+                    var message;
+                    if ( 'timeout' === textStatus ) {
+                        message = '查询时间超过了5秒，为避免发生错误已取消此次查询，请稍后重试。';
+                    } else if ( 'error' === textStatus ) {
+                        message = '查询时发生了网络错误，请先检查一下你的网络设置，然后重试。';
+                    }
+                    callback( {
+                        error : message
+                    } );
+                } );
             return this;
         } ,
 
@@ -194,4 +167,5 @@ define( [ '../../lib/jquery' ] , function ( $ ) {
 
     return google;
 } );
+
 

@@ -2,14 +2,14 @@ define( [
     './ga' , './storage' , '../lib/jquery' ,
 
     // 翻译引擎列在下面
-    './apis/baidu' , './apis/youdao' , './apis/google'
+    './apis/baidu' , './apis/youdao' , './apis/google' , './apis/google_cn'
 ] , function ( ga , settings , $ ) {
     "use strict";
     var audio = document.createElement( 'audio' ) ,
 
         config = {
-            defaultApi : 'google' ,
-            defaultSpeak : 'google' ,
+            defaultApi : 'google_cn' ,
+            defaultSpeak : 'google_cn' ,
             defaultTo : 'auto'
         } ,
 

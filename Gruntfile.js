@@ -23,7 +23,7 @@
                     {
                         expand : true ,
                         cwd : source ,
-                        src : [ '**/*.js' , '!**/google_cn.js' ] , // 暂时忽略旧的谷歌接口
+                        src : [ '**/*.js' ] ,
                         dest : 'build/'
                     }
                 ]
