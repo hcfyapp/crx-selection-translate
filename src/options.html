@@ -10,10 +10,9 @@
             <header>划词翻译</header>
             <ul>
                 <li><a href="#settings">设置</a></li>
-                <li><a href="#help">帮助</a></li>
-                <li><a href="#question">常见问题</a></li>
+                <li><a href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助">使用帮助</a></li>
+                <li><a href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题">常见问题</a></li>
                 <li class="bottom"><a href="#about">关于</a></li>
-                <!--<li><a href="#donate">捐助列表</a></li>-->
             </ul>
         </nav>
         <main>
@@ -33,7 +32,7 @@
                     <label><input type="checkbox" name="needCtrl">配合 Ctrl 键使用划词翻译</label>
 
                     <p>勾选此选项后，需要按下 Ctrl
-                        键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的<a href="#help">快捷键</a>。
+                        键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的<a href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助#快捷键">快捷键</a>。
                     </p></div>
 
                 <h3>翻译筛选</h3>
@@ -75,112 +74,12 @@
                 </div>
 
             </section>
-            <section id="help">
-                <header>帮助</header>
-                <h3>开关状态</h3>
-
-                <div class="group">
-                    <p>当划词翻译关闭时，浏览器右上角的图标上会显示有红底白字的“off”；你可以点击图标、或者使用下面提到的快捷键切换开关。</p>
-                </div>
-                <h3>快捷键</h3>
-
-                <div class="group">
-                    <p>划词翻译预定义了一些快捷键，分别是：</p>
-                    <ol>
-                        <li>切换开关（即键盘快捷键里面的“激活该扩展程序”）：Ctrl + Q</li>
-                        <li>翻译网页中选中的文本：Alt + A</li>
-                        <li>翻译整个网页：Alt + Z</li>
-                    </ol>
-                    <p><strong>特别注意：</strong>默认的快捷键并不一定适应你的操作系统，强烈建议你更改这些快捷方式。
-                        更改方法：“更多工具” -> “扩展程序” -> 最右下角的“键盘快捷键”。</p>
-                </div>
-                <h3>划词翻译界面</h3>
-
-                <div class="group">
-                    <p>点击左上角的图钉可以让翻译框始终显示。</p>
-
-                    <p>点击左下角的“已开启划词翻译”可以切换开关。</p>
-
-                    <p>点击右上角的齿轮可以打开设置页；鼠标移动到齿轮旁边的列表，会显示菜单项。</p>
-
-                    <p>点击右下角的“via 谷歌翻译”可以打开对应翻译引擎的翻译网站。</p>
-
-                    <p>鼠标移动到翻译内容里，右下角会出现“复制”按钮，点击即可将文本复制到剪切板。</p>
-
-                    <p>翻译框是可拖动的。</p>
-                </div>
-            </section>
-            <section id="question">
-                <header>常见问题</header>
-                <h3>为什么朗读图标偶尔会消失？</h3>
-
-                <div class="group">
-                    <p>朗读功能仅用于朗读单词或短语，对于超过一定长度的文本，朗读会持续很长一段时间，所以划词翻译会对长文本禁用朗读功能。</p>
-                </div>
-                <h3>为什么谷歌翻译不显示音标？</h3>
-
-                <div class="group">
-                    <p>
-                        因为官方的谷歌翻译接口没有返回音标。你可以对比一下<a target="_blank" href="https://chrome.google.com/webstore/detail/aapbdbdomjkkjkaonfhkkikfgjllcleb">官方的谷歌翻译扩展</a>与划词翻译显示的结果，应该是一模一样的。
-                    </p>
-                </div>
-
-                <h3>为什么谷歌翻译无反应或者显示网络错误？</h3>
-
-                <div class="group">
-                    <p>如果我没猜错，你也打不开 google.com 吧？我希望你能明白我的意思
-                        ;)如果不是这个原因，就<a href="https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" target="_blank">向我报告这个问题</a>吧。
-                    </p>
-                </div>
-
-                <h3>为什么谷歌翻译比有道或者百度慢？</h3>
-
-                <div class="group">
-                    <p>原因同上。</p>
-                </div>
-                <h3>为什么有时候点击朗读之后没有反应？</h3>
-
-                <div class="group">
-                    <p>有这些可能：</p>
-                    <ol>
-                        <li>1、翻译引擎不支持这种语言的朗读；</li>
-                        <li>2、朗读文本太长或者太复杂；</li>
-                        <li>3、网络因素。因为是语音，所以加载需要一段时间。</li>
-                    </ol>
-                </div>
-                <h3>划词翻译功能偶尔会失效，划词后没反应。</h3>
-
-                <div class="group">
-                    <p>我已经收到了很多发生这个问题的反馈，正在积极解决中。在这之前，你可以尝试以下方案：</p>
-                    <ol>
-                        <li>1、重新划选一次；</li>
-                        <li>2、刷新网页；</li>
-                        <li>3、重启浏览器；</li>
-                        <li>4、卸载划词翻译之后再重新安装。</li>
-                    </ol>
-                </div>
-                <h3>为何在本地打开的 html 文件（即以 file:// 开头的网址）里失效？</h3>
-
-                <div class="group">
-                    <p>你需要在扩展程序页面勾选“允许访问文件网址”。</p>
-                </div>
-                <h3>不能在Chrome网上应用店里使用。</h3>
-
-                <div class="group">
-                    <p>任何扩展都不能改变 https://chrome.google.com/（也有可能包含其他谷歌公司的网址） 下的网页，这是Chrome浏览器的强制设置。</p>
-                </div>
-                <div style="margin-top:20px">
-                    没有找到你想要的答案？你可以<a href="https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad#question" target="_blank">查看别人提出的问题或者向我提问</a>。
-                </div>
-            </section>
             <section id="about">
                 <header>关于</header>
                 <h3>关于划词翻译</h3>
 
                 <div class="group">
                     <p>划词翻译的目标是成为 Chrome 网上应用店里最受欢迎的中文翻译扩展。</p>
-
-                    <p class="mt">我的邮箱：<a href="mailto:milk.lee@qq.com">milk.lee@qq.com</a></p>
 
                     <p class="mt">
                         <a href="https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" target="_blank">问题反馈或功能建议请戳这里</a>，我每天都会查看一次，并且我希望你直到问题解决前都经常来看一下（因为我可能会向你询问更多有帮助的信息，或者告诉我问题已经解决了
@@ -193,227 +92,6 @@
                     <p>如果你是开发者，欢迎你贡献代码：<a target="_blank" href="https://github.com/lmk123/crx-selection-translate">https://github.com/lmk123/crx-selection-translate</a></p>
                 </div>
             </section>
-            <!--<section id="donate">
-                <header>捐助列表</header>
-                <p>这里列出了曾经捐助过我的朋友。为了保护他们的隐私，姓名里隐藏了一个字。</p>
-
-                <table border="1">
-                    <tbody>
-                        <tr>
-                            <th>日期</th>
-                            <th>姓名</th>
-                            <th class="td3">金额</th>
-                            <th>他/她的留言</th>
-                        </tr>
-                        <tr>
-                            <td>2014.11.10 13:55</td>
-                            <td>冯*</td>
-                            <td class="td3">5.00</td>
-                            <td>感谢作者 我推荐了很多人用</td>
-                        </tr>
-                        <tr>
-                            <td>2014.11.10 10:21</td>
-                            <td>高经*</td>
-                            <td class="td3">2.00</td>
-                            <td>学生党没有什么钱，支持一下</td>
-                        </tr>
-                        <tr>
-                            <td>2014.11.09 10:41</td>
-                            <td>李*</td>
-                            <td class="td3">10.00</td>
-                            <td>小小心意，扩展真心方便</td>
-                        </tr>
-                        <tr>
-                            <td>2014.11.05 21:36</td>
-                            <td>张*</td>
-                            <td class="td3">10.00</td>
-                            <td>付款-加油，划词真的好用</td>
-                        </tr>
-                        <tr>
-                            <td>2014.11.04 18:58</td>
-                            <td>曹坤*</td>
-                            <td class="td3">10.00</td>
-                            <td>
-                                软件不错！就是不能隐藏右键……<b style="color:#f00;float: right;" title="你的建议很不错，所以在划词翻译5.0里我直接删掉了右键菜单 ;)">我的回复</b>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2014.11.01 22:15</td>
-                            <td>严少*</td>
-                            <td class="td3">5.00</td>
-                            <td>付款-转账</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.10.23 14:31</td>
-                            <td>李守*</td>
-                            <td class="td3">2.00</td>
-                            <td>支持</td>
-                        </tr>
-                        <tr>
-                            <td>2014.10.21 17:17</td>
-                            <td>刘南*</td>
-                            <td class="td3">10.00</td>
-                            <td>付款-很好用的插件，谢谢你！</td>
-                        </tr>
-                        <tr>
-                            <td>2014.10.15 16:27</td>
-                            <td>余斗*</td>
-                            <td class="td3">5.00</td>
-                            <td>账户码-转账</td>
-                        </tr>
-                        <tr>
-                            <td>2014.10.06 17:18</td>
-                            <td>陈*</td>
-                            <td class="td3">5.00</td>
-                            <td>感谢划词翻译插件，我钱不多，略表心意</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.09.15 16:07</td>
-                            <td>张家*</td>
-                            <td class="td3">5.00</td>
-                            <td>付款-谢谢作者。</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.08.31 10:09</td>
-                            <td>陈箫*</td>
-                            <td class="td3">10.00</td>
-                            <td>划词翻译很好用呀，太谢谢了</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.05.26 10:16</td>
-                            <td>张佳*</td>
-                            <td class="td3">1.00</td>
-                            <td>账户码-转账*</td>
-                        </tr>
-                        <tr>
-                            <td>2014.05.23 09:27</td>
-                            <td>蒋克*</td>
-                            <td class="td3">5.00</td>
-                            <td>账户码-转账</td>
-                        </tr>
-                        <tr>
-                            <td>2014.05.20 11:29</td>
-                            <td>陶应*</td>
-                            <td class="td3">0.10</td>
-                            <td>账户码-转账</td>
-                        </tr>
-                        <tr>
-                            <td>2014.05.16 09:14</td>
-                            <td>马缚*</td>
-                            <td class="td3">5.00</td>
-                            <td>账户码-转账</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.04.01 21:14</td>
-                            <td>王家*</td>
-                            <td class="td3">10.00</td>
-                            <td>加油，插件非常好！</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.31 09:05</td>
-                            <td>艾尼瓦尔·吐尔*</td>
-                            <td class="td3">10.00</td>
-                            <td>这扩展很方便</td>
-                        </tr>
-                        <tr>
-                            <td>2014.03.07 16:56</td>
-                            <td>李振*</td>
-                            <td class="td3">20.00</td>
-                            <td>很好用，很有帮助</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.02.23 22:29</td>
-                            <td>林颜*</td>
-                            <td class="td3">1.00</td>
-                            <td>微薄之力</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2014.01.12 17:57</td>
-                            <td>汪儋*</td>
-                            <td class="td3">10.00</td>
-                            <td>捐助</td>
-                        </tr>
-                        <tr>
-                            <td>2014.01.04 15:32</td>
-                            <td>童旭*</td>
-                            <td class="td3">1.00</td>
-                            <td>付余款</td>
-                        </tr>
-                        <tr>
-                            <td>2014.01.02 04:55</td>
-                            <td>林*</td>
-                            <td class="td3">20.00</td>
-                            <td>帮我把这篇源文件解锁，译中文。</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2013.12.31 03:48</td>
-                            <td>苏武*</td>
-                            <td class="td3">1.00</td>
-                            <td>谢谢你制作的chrome网页翻译插件</td>
-                        </tr>
-                        <tr>
-                            <td>2013.12.26 08:35</td>
-                            <td>张小*</td>
-                            <td class="td3">0.10</td>
-                            <td>服务费</td>
-                        </tr>
-                        <tr>
-                            <td>2013.12.24 10:42</td>
-                            <td>黄永*</td>
-                            <td class="td3">20.00</td>
-                            <td>午饭- -</td>
-                        </tr>
-                        <tr>
-                            <td>2013.12.16 21:51</td>
-                            <td>张浩*</td>
-                            <td class="td3">3.00</td>
-                            <td>支持</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4">&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>2013.11.26 12:49</td>
-                            <td>杨予*</td>
-                            <td class="td3">30.00</td>
-                            <td>谢谢你开发的插件。支持你下</td>
-                        </tr>
-                        <tr>
-                            <td>2013.11.08 23:19</td>
-                            <td>钱鋆*</td>
-                            <td class="td3">1.00</td>
-                            <td>如果是网页打开直接翻译就赞助多点</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>-->
         </main>
         <script src="js/lib/require.js"></script>
         <script src="js/options.js"></script>
