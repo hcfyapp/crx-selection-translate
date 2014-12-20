@@ -30,7 +30,7 @@
     {{ if( it.error ) { }}
         {{= it.error }}
     {{ } else { }}
-    <lmk-phonetic>{{ if ( it.phonetic ) { }}{{= it.phonetic }}{{ } }}{{ if( it.query.length < 50 ) { }}
+    <lmk-phonetic>{{ if ( it.phonetic ) { }}<lmk-phonetic-text>{{= it.phonetic }}{{ } }}</lmk-phonetic-text>{{ if( it.query.length < 50 ) { }}
         <lmk-icon-play data-lmk123-play="text"></lmk-icon-play>
         {{ } }}
     </lmk-phonetic>

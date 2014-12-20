@@ -93,6 +93,21 @@
         } ,
 
         /**
+         * 计算翻译框下次显示的位置，相对于“视口”
+         * @param e 包含下面两个属性的对象，实际上可以直接将事件对象传进去
+         * @param e.pageX
+         * @param e.pageY
+         * @returns {Selection}
+         */
+        offset : function ( e ) {
+            this.position = {
+                left : e.pageX + 10 - window.pageXOffset ,
+                top : e.pageY + 10 - window.pageYOffset
+            };
+            return this;
+        } ,
+
+        /**
          * 显示翻译窗口。这是一个懒加载方法。
          * @returns {Selection}
          */
@@ -337,14 +352,21 @@
 
             // 注册在document上的鼠标移动事件
             mousemove = function ( e ) {
-                var v = view;
+                var left = e.pageX - original.x ,
+                    top = e.pageY - original.y;
 
                 //防止用户过快的移动导致文本被选中
                 e.preventDefault();
 
-                //更改元素定位
-                v.style.left = e.pageX - original.x + 'px';
-                v.style.top = e.pageY - original.y + 'px';
+                if ( left < 0 ) {
+                    left = 0;
+                }
+                if ( top < 0 ) {
+                    top = 0;
+                }
+
+                view.style.left = left + 'px';
+                view.style.top = top + 'px';
             } ,
 
             // 注册在document上的鼠标弹起事件，其中 this === document
@@ -403,12 +425,7 @@
 
             $( document )
                 .on( 'mouseup' , function ( e ) {
-
-                    // 记录翻译框下次显示的位置
-                    selection.position = {
-                        left : e.pageX + 10 ,
-                        top : e.pageY + 10
-                    };
+                    selection.offset( e );
 
                     if ( selection.check( e ) ) {
                         selection.translate();
