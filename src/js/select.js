@@ -102,12 +102,12 @@
             /**
              * 真正的用于显示翻译窗口的方法
              * @param {object} templateObj
-             * @param {boolean=} keepPosition
+             * @param {boolean=} keepPosition 是否要保持翻译框的位置，默认为否
              * @returns {Selection}
              */
             this.show = function ( templateObj , keepPosition ) {
                 var pos = this.position , dom_result = this.dom_result;
-                if ( !keepPosition ) {
+                if ( !this.config.alwaysShow && !keepPosition ) {
                     dom_result.style.top = pos.top + 'px';
                     dom_result.style.left = pos.left + 'px';
                 }
@@ -404,7 +404,7 @@
             $( document )
                 .on( 'mouseup' , function ( e ) {
 
-                    // 记录翻译框显示的位置
+                    // 记录翻译框下次显示的位置
                     selection.position = {
                         left : e.pageX + 10 ,
                         top : e.pageY + 10
