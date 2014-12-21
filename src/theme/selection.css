@@ -2,7 +2,7 @@
  * 将这些属性设置为 initial ，可以阻止它们影响子元素
  * 在扩展里，需要为 lmk-container 阻止这些继承
  */
-lmk-container {
+lmk-container, lmk-translate {
     border-collapse: initial;
     border-spacing: initial;
     caption-side: initial;
@@ -56,7 +56,7 @@ lmk-container {
     font-size: 14px;
 }
 
-lmk-container.lmk-show {
+.lmk-show {
     display: block;
 }
 
@@ -331,12 +331,18 @@ lmk-list-item:hover {
     /*background-color: #32cd74;*/
 }
 
-lmk-ad {
-    padding: 0 10px;
-    display: block;
-}
-
-lmk-ad lmk-a {
-    float: none;
-    color: #7373d0;
+lmk-translate {
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #32cd74;;
+    position: fixed;
+    right: 0;
+    font-size: 18px;
+    color: #fff;
+    z-index: 99999;
+    display: none;
 }

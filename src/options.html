@@ -26,14 +26,23 @@
                     <p>翻译结果显示后，如果有朗读按钮，就自动朗读</p>
                 </div>
 
-                <h3>辅助键</h3>
+                <h3>辅助功能</h3>
 
                 <div class="group">
                     <label><input type="checkbox" name="needCtrl">配合 Ctrl 键使用划词翻译</label>
 
-                    <p>勾选此选项后，需要按下 Ctrl
+                    <p>勾选此选项后，需要先按下 Ctrl
                         键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的<a href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助#快捷键">快捷键</a>。
-                    </p></div>
+                    </p>
+                </div>
+
+                <div class="group">
+                    <label><input type="checkbox" name="showTranslateButton">划词后显示翻译按钮</label>
+
+                    <p>
+                        若勾选此选项，那么划词后不会直接显示翻译结果，而是会显示一个按钮，点击之后才会翻译。
+                    </p>
+                </div>
 
                 <h3>翻译筛选</h3>
 
@@ -58,7 +67,8 @@
                     </select>
 
                     <p>
-                        <a href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题#谷歌翻译国外与谷歌翻译国内有什么区别我该如何选择">不知道该选择“谷歌翻译(国外)”还是“谷歌翻译(国内)”？</a>另外，默认的翻译引擎可能并不适合你的喜好，你可以对比不同引擎的翻译结果，选择出最适合你的那一个。比如，有道翻译可能更适合想要详细了解英文单词释义的朋友。</p>
+                        <a href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题#谷歌翻译国外与谷歌翻译国内有什么区别我该如何选择">不知道该选择“谷歌翻译(国外)”还是“谷歌翻译(国内)”？</a>另外，默认的翻译引擎可能并不适合你的喜好，你可以对比不同引擎的翻译结果，选择出最适合你的那一个。比如，有道翻译可能更适合想要详细了解英文单词释义的朋友。
+                    </p>
                 </div>
                 <h3>默认目标语言</h3>
 
@@ -90,7 +100,9 @@
                     <p class="mt">
                         觉得很好用？<a href="https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad/reviews" target="_blank">去为它评一个五星</a>吧！
                     </p>
-                    <p>如果你是开发者，欢迎你贡献代码：<a target="_blank" href="https://github.com/lmk123/crx-selection-translate">https://github.com/lmk123/crx-selection-translate</a></p>
+
+                    <p>如果你是开发者，欢迎你贡献代码：<a target="_blank" href="https://github.com/lmk123/crx-selection-translate">https://github.com/lmk123/crx-selection-translate</a>
+                    </p>
                 </div>
             </section>
         </main>

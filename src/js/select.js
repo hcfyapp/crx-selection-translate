@@ -20,7 +20,7 @@
                 autoPlay : false , // 当翻译单词和短语（即翻译结果有detailed的时候）自动发音
                 ignoreChinese : false , // 是否忽略中文
                 ignoreNumLike : true , // 忽略数字与符号的组成
-                showTranslateButton : false , // 是否在划词后显示一个按钮，点击它才翻译
+                showTranslateButton : true , // 是否在划词后显示一个按钮，点击它才翻译
                 waitText : '正在翻译，请稍候……' ,  // 翻译中的提示语
                 needCtrl : false ,
                 template : '没有提供模板！'
@@ -37,6 +37,7 @@
             this.curResult = null;
 
             this.dom_result = initDom();
+            this.dom_btn = initButton();
         }
     }
 
@@ -135,13 +136,45 @@
         } ,
 
         /**
+         * 显示翻译按钮的懒加载方法
+         * @returns {Selection}
+         */
+        showBtn : function () {
+            document.body.appendChild( this.dom_btn );
+
+            /**
+             * 显示翻译按钮，如果正在翻译中则不显示
+             * @returns {Selection}
+             */
+            this.showBtn = function () {
+                if ( !this.loading ) {
+                    var pos = this.position , dom_result = this.dom_btn;
+                    dom_result.style.top = pos.top + 'px';
+                    dom_result.style.left = pos.left + 'px';
+                    dom_result.classList.add( 'lmk-show' );
+                }
+                return this;
+            };
+            return this.showBtn.apply( this , arguments );
+        } ,
+
+        /**
          * 隐藏翻译窗口
          * @returns {Selection}
          */
         hide : function () {
-            if ( !this.loading && !this.config.alwaysShow ) { // 加载过程中不隐藏。由于加入了超时时间，所以这没什么大不了的
+            if ( !this.loading && !this.config.alwaysShow ) {
                 this.dom_result.classList.remove( 'lmk-show' );
             }
+            return this;
+        } ,
+
+        /**
+         * 隐藏翻译按钮
+         * @returns {Selection}
+         */
+        hideBtn : function () {
+            this.dom_btn.classList.remove( 'lmk-show' );
             return this;
         } ,
 
@@ -185,10 +218,13 @@
                     }
                 }
 
-                // 使用Ctrl键配合
-                if ( config.needCtrl ) {
-                    if ( !event.ctrlKey ) {
-                        return false;
+                if ( !config.showTranslateButton ) { // 显示图标时不要检查这项设置
+
+                    // 使用Ctrl键配合
+                    if ( config.needCtrl ) {
+                        if ( !event.ctrlKey ) {
+                            return false;
+                        }
                     }
                 }
 
@@ -228,7 +264,18 @@
                 this.show( { wait : this.config.waitText } , keepPosition )
                     .getResult( queryObj )
                     .always( function () {
-                        that.loading = false;
+
+                        /**
+                         * 之所以使用延时，是因为在网络很好的情况下，
+                         * mouseup 事件触发之前就已经获得了翻译结果，
+                         * 此时依靠 loading 状态来判断是否显示的翻译按钮
+                         * 会再次弹出。所以延时0.1秒的 loading 状态，
+                         * 让翻译按钮不要重复弹出，这也不会影响到
+                         * 用户再次划词（没有人的手有那么快吧 = =）
+                         */
+                        setTimeout( function () {
+                            that.loading = false;
+                        } , 100 );
                     } )
                     .done( function ( resultObj ) {
                         that.curResult = resultObj;
@@ -403,6 +450,13 @@
         return view;
     }
 
+    function initButton() {
+        var dom_button = document.createElement( 'lmk-translate' );
+        dom_button.dataset.hello = '我是由“划词翻译”生成的，不要担心;)';
+        dom_button.textContent = '译';
+        return dom_button;
+    }
+
     return Selection;
 } ));
 
@@ -419,23 +473,26 @@
         .done( function ( items ) {
             $.extend( selection.config , items );
 
-            //document.addEventListener( 'mousedown' , function ( e ) {
-            //    if ( selection.isInDom( e.target ) ) {
-            //        e.preventDefault(); // 在翻译结果框内点击防止划选的文本消失掉
-            //    }
-            //} , true ); // 必须使用捕获才能阻止
+            document.addEventListener( 'mousedown' , function ( e ) {
+                if ( selection.dom_btn === e.target ) {
+                    e.preventDefault(); // 点击翻译按钮时防止划选的文本消失掉
+                    selection.translate();
+                } else if ( !selection.isInDom( e.target ) ) {
+                    selection.hide();
+                }
+                selection.hideBtn()
+            } , true ); // 必须使用捕获才能阻止
 
             $( document )
                 .on( 'mouseup' , function ( e ) {
                     selection.offset( e );
 
                     if ( selection.check( e ) ) {
-                        selection.translate();
-                    }
-                } )
-                .on( 'mousedown' , function ( e ) {
-                    if ( !selection.isInDom( e.target ) ) {
-                        selection.hide();
+                        if ( selection.config.showTranslateButton && !(selection.config.needCtrl && e.ctrlKey) ) { // 指定 Ctrl 时直接翻译
+                            selection.showBtn();
+                        } else {
+                            selection.translate();
+                        }
                     }
                 } )
                 .on( 'click' , '[data-lmk123-action]' , function () {
