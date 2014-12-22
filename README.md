@@ -1,7 +1,7 @@
 划词翻译是一款用于 Chrome 浏览器的扩展程序。
 
 ## 安装划词翻译
-你可以[在Chrome网上应用店安装](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)，但如果你打不开Chrome商店，你也可以[下载最新版离线安装包（.crx文件）](https://github.com/lmk123/crx-selection-translate/releases/latest)
+你可以[在Chrome网上应用店安装](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)，但如果你打不开Chrome商店，你也可以[下载最新版离线安装包](https://github.com/lmk123/crx-selection-translate/releases/latest)（.crx文件）
 
 ## 写给普通用户
 
