@@ -480,20 +480,28 @@
                 } else if ( !selection.isInDom( e.target ) ) {
                     selection.hide();
                 }
-                selection.hideBtn()
+                selection.hideBtn();
             } , true ); // 必须使用捕获才能阻止
 
             $( document )
                 .on( 'mouseup' , function ( e ) {
                     selection.offset( e );
 
-                    if ( selection.check( e ) ) {
-                        if ( selection.config.showTranslateButton && !(selection.config.needCtrl && e.ctrlKey) ) { // 指定 Ctrl 时直接翻译
-                            selection.showBtn();
-                        } else {
-                            selection.translate();
+                    /**
+                     * 在这里使用延时的原因在于，
+                     * 用户如果点击选中的文本，
+                     * 那么由于mouseup时选中的文本还没有被浏览器取消掉，
+                     * 所以翻译框（或按钮）会再次弹出来
+                     */
+                    setTimeout( function () {
+                        if ( selection.check( e ) ) {
+                            if ( selection.config.showTranslateButton && !(selection.config.needCtrl && e.ctrlKey) ) { // 指定 Ctrl 时直接翻译
+                                selection.showBtn();
+                            } else {
+                                selection.translate();
+                            }
                         }
-                    }
+                    } , 0 );
                 } )
                 .on( 'click' , '[data-lmk123-action]' , function () {
                     switch ( this.dataset.lmk123Action ) {
