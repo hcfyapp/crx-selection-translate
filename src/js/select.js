@@ -23,7 +23,7 @@
                 showTranslateButton : true , // 是否在划词后显示一个按钮，点击它才翻译
                 waitText : '正在翻译，请稍候……' ,  // 翻译中的提示语
                 needCtrl : false ,
-                template : '没有提供模板！'
+                template : '划词翻译刚才自动更新了，请重启浏览器后重试。'
             } , config );
 
             this.position = {
