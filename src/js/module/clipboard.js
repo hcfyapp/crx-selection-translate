@@ -1,6 +1,8 @@
 define( function () {
     "use strict";
     var dom_input = document.createElement( 'input' );
+    dom_input.style.position = 'absolute';
+    dom_input.style.top = '-99999px';
     document.body.appendChild( dom_input );
 
     return Object.freeze( {

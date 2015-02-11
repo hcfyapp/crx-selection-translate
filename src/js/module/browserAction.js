@@ -20,13 +20,13 @@ define( [ './storage' ] , function ( settings ) {
         baObj.changeTo( i.enable );
     } );
 
-    ba.onClicked.addListener( function () {
-
-        // 改变设置
-        settings.get( 'enable' ).done( function ( i ) {
-            settings.set( 'enable' , !i.enable ); // 这里设置新值之后，下面的回调函数会自动改变按钮状态
-        } );
-    } );
+    //ba.onClicked.addListener( function () {
+    //
+    //    // 改变设置
+    //    settings.get( 'enable' ).done( function ( i ) {
+    //        settings.set( 'enable' , !i.enable ); // 这里设置新值之后，下面的回调函数会自动改变按钮状态
+    //    } );
+    //} );
 
     settings.onChange( function ( changes ) {
             baObj.changeTo( changes.enable );

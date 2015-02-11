@@ -12,6 +12,8 @@ define( [ '../lib/jquery' ] , function ( $ ) {
             };
         } ,
 
+        dom_curInput ,
+
         s = {
             /**
              * 语种：语种中文名_对应拼音
@@ -110,19 +112,17 @@ define( [ '../lib/jquery' ] , function ( $ ) {
                 var r = [
                     {
                         code : 'auto' ,
-                        des : '自动选择'
+                        des : '自动识别'
                     }
                 ];
-                if ( input ) {
-                    $.each( s.languages , function ( key , value ) {
-                        if ( value.indexOf( input ) >= 0 ) {
-                            r.push( {
-                                code : key ,
-                                des : value.split( '_' )[ 0 ]
-                            } );
-                        }
-                    } );
-                }
+                $.each( s.languages , function ( key , value ) {
+                    if ( value.indexOf( input ) >= 0 ) {
+                        r.push( {
+                            code : key ,
+                            des : value.split( '_' )[ 0 ]
+                        } );
+                    }
+                } );
                 return r;
             } ,
 
@@ -160,7 +160,7 @@ define( [ '../lib/jquery' ] , function ( $ ) {
                         };
 
                     $( '<style>' +
-                    'lmk-langs{box-sizing:border-box;background:#fff;border:1px solid black;display:none;position:absolute}lmk-langs.show{display:block}lmk-langs-item{display:block;line-height:20px;cursor:pointer}lmk-langs-item:hover{background:#d3d3d3}' +
+                    'lmk-langs{box-sizing:border-box;background:#fff;border:1px solid black;display:none;position:absolute;max-height:200px;overflow-y:auto;font-size:14px}lmk-langs.show{display:block}lmk-langs-item{display:block;line-height:18px;cursor:pointer;margin:2px 0}lmk-langs-item:hover{background:#d3d3d3}' +
                     '</style>' ).appendTo( 'head' );
 
                     s.handles.show = show; // 覆盖
@@ -177,24 +177,23 @@ define( [ '../lib/jquery' ] , function ( $ ) {
              * @param {function} choose
              */
             attach : function ( input , choose ) {
-                var $input = $( input );
-                $input.on( 'input' , end( function () {
-                    var v = this.value.trim();
-                    if ( v ) {
-                        s.handles.show( $input , s.search( v ) );
-                    } else {
-                        s.handles.hide();
-                    }
-                } ) );
-
-                $( document ).on( 'click' , function ( e ) {
-                    var target = e.target;
-                    s.handles.hide();
-                    if ( 'lmk-langs-item' === target.nodeName.toLowerCase() ) {
-                        choose( target );
-                    }
+                var $inputs = $( input );
+                $inputs.on( 'input focus' , end( function () {
+                    dom_curInput = this;
+                    s.handles.show( $( this ) , s.search( this.value.trim() ) );
+                } ) ).each( function () {
+                    $( this ).data( 'choose handler' , choose );
                 } );
             }
         };
+
+    $( document ).on( 'click' , function ( e ) {
+        var target = e.target;
+        s.handles.hide();
+        if ( 'lmk-langs-item' === target.nodeName.toLowerCase() ) {
+            $( dom_curInput ).data( 'choose handler' )( target , dom_curInput );
+        }
+    } );
+
     return Object.freeze( s );
 } );

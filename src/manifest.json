@@ -10,7 +10,7 @@
     "48" : "/img/logo.png"
   } ,
   "author" : "Milk Lee( milk.lee@qq.com )" ,
-  "content_security_policy" : "script-src 'self' https://ssl.google-analytics.com https://code.jquery.com; object-src 'self'" ,
+  "content_security_policy" : "script-src 'self' 'unsafe-eval' https://ssl.google-analytics.com https://code.jquery.com; object-src 'self'" ,
   "permissions" : [
     "*://*/*" ,
     "contextMenus" ,
@@ -31,6 +31,7 @@
       "19" : "/img/logo.png" ,
       "38" : "/img/logo.png"
     } ,
+    "default_popup": "popup.html" ,
     "default_title" : "点击切换划词翻译开关"
   } ,
   "commands" : {
