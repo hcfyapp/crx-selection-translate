@@ -26,7 +26,8 @@ define( [ './storage' ] , function ( storage ) {
             cc.create( {
                 id : 'menu-translate' ,
                 title : '翻译“%s”' ,
-                contexts : [ 'selection' ]
+                contexts : [ 'selection' ] ,
+                documentUrlPatterns : [ "http://*/*" , "https://*/*" , "file:///*" , "about:blank" ] // 不要让菜单出现在 chrome-* 页面下
             } );
         }
     }
