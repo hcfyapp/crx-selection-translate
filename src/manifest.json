@@ -25,7 +25,7 @@
       "/js/bg.js"
     ]
   } ,
-  "options_page" : "options.html#settings" ,
+  "options_page" : "options.html" ,
   "browser_action" : {
     "default_icon" : {
       "19" : "/img/logo.png" ,

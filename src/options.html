@@ -9,10 +9,10 @@
         <nav>
             <header>划词翻译</header>
             <ul>
-                <li><a href="#settings">设置</a></li>
+                <li class="on">设置</li>
                 <li><a href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助">使用帮助</a></li>
                 <li><a href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题">常见问题</a></li>
-                <li class="bottom"><a href="#about">关于</a></li>
+                <li class="bottom"><a href="https://github.com/lmk123/crx-selection-translate/wiki/关于划词翻译">关于</a></li>
             </ul>
         </nav>
         <main>
@@ -34,6 +34,9 @@
                     <p>勾选此选项后，需要先按下 Ctrl
                         键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的<a href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助#快捷键">快捷键</a>。
                     </p>
+
+                    <label><input type="checkbox" name="showMenu" />将翻译按钮加入右键菜单</label>
+                    <p>勾选后，在<b>选中的文本</b>上单击右键，弹出的菜单内会有“翻译选中文本”的菜单项。</p>
                 </div>
 
                 <div class="group">
@@ -84,26 +87,6 @@
                     </p>
                 </div>
 
-            </section>
-            <section id="about">
-                <header>关于</header>
-                <h3>关于划词翻译</h3>
-
-                <div class="group">
-                    <p>划词翻译的目标是成为 Chrome 网上应用店里最受欢迎的中文翻译扩展。</p>
-
-                    <p class="mt">
-                        <a href="https://chrome.google.com/webstore/support/ikhdkkncnoglghljlkmcimlnlhkeamad" target="_blank">问题反馈或功能建议请戳这里</a>，我每天都会查看一次，并且我希望你直到问题解决前都经常来看一下（因为我可能会向你询问更多有帮助的信息，或者告诉我问题已经解决了
-                        ;)）
-                    </p>
-
-                    <p class="mt">
-                        觉得很好用？<a href="https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad/reviews" target="_blank">去为它评一个五星</a>吧！
-                    </p>
-
-                    <p>如果你是开发者，欢迎你贡献代码：<a target="_blank" href="https://github.com/lmk123/crx-selection-translate">https://github.com/lmk123/crx-selection-translate</a>
-                    </p>
-                </div>
             </section>
         </main>
         <script src="js/lib/require.js"></script>

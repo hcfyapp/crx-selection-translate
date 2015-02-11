@@ -1,25 +1,3 @@
-// 页面内跳转
-( function () {
-    'use strict';
-    var linkTo = function () {
-        var dom = document ,
-            dom_hash = dom.querySelector( 'a[href="' + location.hash + '"]' ) ,
-            last;
-        if ( dom_hash ) {
-            last = dom.querySelector( 'nav li a.on' );
-            if ( last ) {
-                last.classList.remove( 'on' );
-            }
-            dom_hash.classList.add( 'on' );
-        } else {
-            dom.querySelector( 'a[href="#settings"]' ).click();
-        }
-    };
-
-    window.addEventListener( 'hashchange' , linkTo );
-    linkTo();
-}() );
-
 // 设置修改时自动保存
 require( [ 'js/lib/jquery' , 'js/module/storage' , 'js/module/languages' ] , function ( $ , sts , l ) {
     'use strict';

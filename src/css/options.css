@@ -3,9 +3,12 @@
     padding: 0;
 }
 
-a, a:visited {
-    color: #15c;
+a {
     text-decoration: none;
+}
+
+main a, main a:visited {
+    color: #15c;
 }
 
 body {
@@ -29,7 +32,6 @@ ol li {
     padding-left: 20px;
     margin: 5px 0;
 }
-
 
 li.bottom {
     margin-top: 30px;
@@ -61,21 +63,21 @@ nav header {
     padding: 20px 0 20px 26px;
 }
 
+nav li.on {
+    color: #464e5a;
+    border-left: 6px solid #4e5764;
+    padding-left: 20px;
+    cursor: default;
+}
+
 nav li a {
     padding-left: 26px;
     display: block;
     color: #999;
 }
 
-nav li a:visited {
-    color: #999;
-}
-
-nav li a.on {
+nav li a:hover {
     color: #464e5a;
-    border-left: 6px solid #4e5764;
-    padding-left: 20px;
-    cursor: default;
 }
 
 main {
@@ -87,11 +89,6 @@ main {
 
 main > section {
     max-width: 738px;
-    display: none;
-}
-
-main > section:target {
-    display: block;
 }
 
 main header {

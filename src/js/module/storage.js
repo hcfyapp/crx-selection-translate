@@ -62,7 +62,7 @@
             /**
              * 注册 change 事件
              *   注意，回调里面的第一个参数仅包含最新值，
-             *   而不是一个有newValue和oldValue的对象
+             *   而不是一个有newValue和oldValue的对象。
              *   见下面的事件监听函数
              * @param {function} listener
              * @param {object=} caseOf 关心哪些设置。
@@ -107,7 +107,7 @@
                     showTranslateButton : true , // 划词后是否显示翻译按钮，点击之后再翻译
                     needCtrl : false , // 是否需要配合 Ctrl 键使用
                     waitText : "正在翻译，请稍候……" , // 翻译过程中的文本
-                    //showMenu : true , // 是否显示右键菜单
+                    showMenu : true , // 是否显示右键菜单
                     defaultApi : 'youdao' , // 默认的翻译引擎
                     defaultSpeak : 'google' ,
                     defaultTo : 'auto' // 默认翻译为
