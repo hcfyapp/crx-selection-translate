@@ -3,7 +3,7 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
      * 保存页面上所有有 id 属性的节点
      */
     var uis = (function () {
-        var u = {} ,
+        var u   = {} ,
             ids = document.querySelectorAll( '[id]' );
         [].forEach.call( ids , function ( n ) {
             u[ n.id ] = $( n );
@@ -25,25 +25,19 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
     } );
 
     // 显示翻译结果
-    require( [ 'js/module/apis' , 'js/lib/doT' , 'js/module/clipboard' ] , function ( apis , dot , clipboard ) {
+    require( [ 'js/module/apis' , 'js/lib/doT' ] , function ( apis , dot ) {
 
         /**
          * @params {object} it
          * @types {function}
          * @return {string}
          */
-        var tplFunc = dot.template( uis.template.html() ) ,
-        textInBoard = clipboard.read();
+        var tplFunc = dot.template( uis.template.html() );
 
         uis.translateForm.on( 'submit' , function ( e ) {
             e.preventDefault();
             translate();
         } );
-
-        if ( textInBoard ) {
-            uis.translateText.val( textInBoard );
-            translate();
-        }
 
         uis.translateText.on( 'keydown' , function ( e ) {
             if ( e.ctrlKey && 13 === e.keyCode ) {
@@ -64,6 +58,21 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
                 uis.translate.text( '翻译' ).prop( 'disabled' , false );
             } );
         }
+    } );
+
+    // 自动翻译剪切板内容
+    require( [ 'js/module/storage' ] , function ( storage ) {
+        storage.get( 'autoClipboard' ).done( function ( items ) {
+            if ( items.autoClipboard ) {
+                require( [ 'js/module/clipboard' ] , function ( clipboard ) {
+                    var textInBoard = clipboard.read();
+                    if ( textInBoard ) {
+                        uis.translateText.val( textInBoard );
+                        uis.translate.click();
+                    }
+                } );
+            }
+        } );
     } );
 
     // 切换开关
@@ -94,8 +103,8 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
     require( [ 'js/module/clipboard' , 'js/module/apis' ] , function ( clipboard , apis ) {
         $( document ).on( 'click' , '[data-action]' , function () {
             var $action = $( this ) ,
-                text = $action.parent().prev( '.text' ).text() ,
-                action = $action.data( 'action' );
+                text    = $action.parent().prev( '.text' ).text() ,
+                action  = $action.data( 'action' );
 
             switch ( action ) {
                 case 'copy':
