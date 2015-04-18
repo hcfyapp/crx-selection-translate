@@ -124,7 +124,7 @@
             this.show = function ( templateObj , keepPosition ) {
                 var pos = this.position , dom_result = this.dom_result;
                 if ( !this.config.alwaysShow && !keepPosition ) {
-                    dom_result.style.top = pos.top + 'px';
+                    dom_result.style.top = pos.top + 10 + 'px';
                     dom_result.style.left = pos.left + 'px';
                 }
                 templateObj.config = $.extend( {} , this.config );
@@ -393,16 +393,16 @@
      * @returns {HTMLElement}
      */
     function initDom() {
-        var doc = document ,
-            view = doc.createElement( 'lmk-container' ) ,
+        var doc       = document ,
+            view      = doc.createElement( 'lmk-container' ) ,
 
             //用来保存鼠标按下时，鼠标与view的相对坐标
-            original = {} ,
+            original  = {} ,
 
             // 注册在document上的鼠标移动事件
             mousemove = function ( e ) {
                 var left = e.pageX - original.x ,
-                    top = e.pageY - original.y;
+                    top  = e.pageY - original.y;
 
                 //防止用户过快的移动导致文本被选中
                 e.preventDefault();
@@ -419,7 +419,7 @@
             } ,
 
             // 注册在document上的鼠标弹起事件，其中 this === document
-            mouseup = function () {
+            mouseup   = function () {
                 this.removeEventListener( 'mousemove' , mousemove , true );
                 this.removeEventListener( 'mouseup' , mouseup , true );
             } ,
