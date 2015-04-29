@@ -20,6 +20,9 @@
             <lmk-list-item data-lmk123-action="translate" data-api-id="baidu">
                 百度翻译结果
             </lmk-list-item>
+            <lmk-list-item data-lmk123-action="translate" data-api-id="bing">
+                必应翻译(测试中)
+            </lmk-list-item>
             <lmk-list-item data-lmk123-action="web">网页翻译</lmk-list-item>
         </lmk-list>
 
