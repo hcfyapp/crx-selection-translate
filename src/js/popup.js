@@ -60,15 +60,16 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
         }
     } );
 
-    // 自动翻译剪切板内容
+    // 自动翻译剪切板内容 after choose the default api
     require( [ 'js/module/storage' ] , function ( storage ) {
-        storage.get( 'autoClipboard' ).done( function ( items ) {
+        storage.get( [ 'autoClipboard' , 'defaultApi' ] ).done( function ( items ) {
+            uis.chooseApi.val( items.defaultApi );
             if ( items.autoClipboard ) {
                 require( [ 'js/module/clipboard' ] , function ( clipboard ) {
                     var textInBoard = clipboard.read();
                     if ( textInBoard ) {
                         uis.translateText.val( textInBoard );
-                        uis.translate.click();
+                        uis.translate.trigger( 'click' );
                     }
                 } );
             }
@@ -137,5 +138,4 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
             }
         } );
     } );
-
 } );
