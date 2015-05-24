@@ -123,13 +123,22 @@
              */
             this.show = function ( templateObj , keepPosition ) {
                 var pos = this.position , dom_result = this.dom_result;
-                if ( !this.config.alwaysShow && !keepPosition ) {
-                    dom_result.style.top = pos.top + 10 + 'px';
-                    dom_result.style.left = pos.left + 'px';
-                }
                 templateObj.config = $.extend( {} , this.config );
                 dom_result.innerHTML = this.render( templateObj );
                 dom_result.classList.add( 'lmk-show' );
+                if ( !this.config.alwaysShow && !keepPosition ) {
+                    dom_result.style.top = pos.top + 10 + 'px';
+                    dom_result.style.left = pos.left + 'px';
+
+                    if ( pos.top + 10 + dom_result.clientHeight > window.innerHeight && 
+                            pos.top - 10 - dom_result.clientHeight > 0 ) {
+                        dom_result.style.top = pos.top - 10 - dom_result.clientHeight + 'px';
+                    }
+                    if ( pos.left + dom_result.clientWidth > window.innerWidth && 
+                            pos.left - dom_result.clientWidth > 0 ) {
+                        dom_result.style.left = pos.left - dom_result.clientWidth + 'px';
+                    }
+                }
                 return this;
             };
             return this.show.apply( this , arguments );
