@@ -32,7 +32,9 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
          * @types {function}
          * @return {string}
          */
-        var tplFunc = dot.template( uis.template.html() );
+        var tplFunc = dot.template( uis.template.html() ) ,
+
+            timeId;
 
         uis.translateForm.on( 'submit' , function ( e ) {
             e.preventDefault();
@@ -40,14 +42,21 @@ require( [ 'js/lib/jquery' ] , function ( $ ) {
         } );
 
         uis.translateText.on( 'keydown' , function ( e ) {
+            clearTimeout( timeId );
             if ( e.ctrlKey && 13 === e.keyCode ) {
                 translate();
+            } else {
+                timeId = setTimeout( translate , 600 );
             }
         } );
 
         function translate() {
+            var text = uis.translateText.val().trim();
+            if ( !text ) {
+                return;
+            }
             var queryObj = {
-                text : uis.translateText.val() ,
+                text : text ,
                 apiId : uis.chooseApi.val() ,
                 from : uis.from.data( 'lang' ) || '' ,
                 to : uis.to.data( 'lang' ) || ''
