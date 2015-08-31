@@ -19,9 +19,9 @@ define( [ '../../lib/jquery' , '../ga' ] , function ( $ , ga ) {
         ERROR_NETWORK : '网络错误，请稍后重试' ,
         ERROR_RESPONSE : '服务器返回了错误的数据类型' ,
 
-        ttsLink : 'https://translate.google.cn/translate_tts?ie=UTF-8&q={{query}}&tl={{lang}}&client=gtx' ,
+        ttsLink : 'http://translate.google.cn/translate_tts?ie=UTF-8&q={{query}}&tl={{lang}}&client=gtx' ,
         method : 'GET' ,
-        url : 'https://translate.google.cn/translate_a/single' ,
+        url : 'http://translate.google.cn/translate_a/single' ,
         data : {
             client : 'gtx' ,
             sl : 'auto' , // 源语言
@@ -74,11 +74,11 @@ define( [ '../../lib/jquery' , '../ga' ] , function ( $ , ga ) {
             return obj;
         } ,
 
-        linkToResult : 'https://translate.google.cn/#auto/{{to}}/{{query}}'
+        linkToResult : 'http://translate.google.cn/#auto/{{to}}/{{query}}'
     } , google = Object.freeze( {
         id : 'google_cn' ,
         name : '谷歌翻译(国内)' ,
-        link : 'https://translate.google.cn/' ,
+        link : 'http://translate.google.cn/' ,
 
         /**
          * 翻译方法
