@@ -21,8 +21,31 @@
   ] ,
   "background" : {
     "scripts" : [
+      "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
+      "/vendor/translation.js/browser/translation.js" ,
+      "/public/my-ts.js" ,
+      "/background-scripts/bg.js"
     ]
   } ,
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://*/*" ,
+        "https://*/*" ,
+        "file:///*"
+      ] ,
+      "css" : [
+        "/vendor/selection-widget/dist/st.css"
+      ] ,
+      "js" : [
+        "/vendor/selection-widget/dist/st.js" ,
+        "/public/my-st.js" ,
+        "/content-scripts/content.js"
+      ] ,
+      "all_frames" : true ,
+      "run_at" : "document_start"
+    }
+  ] ,
   "options_page" : "index.html#/options" ,
   "browser_action" : {
     "default_icon" : {
@@ -52,24 +75,6 @@
       "description" : "翻译整个网页"
     }
   } ,
-  "content_scripts" : [
-    {
-      "matches" : [
-        "http://*/*" ,
-        "https://*/*" ,
-        "file:///*"
-      ] ,
-      "css" : [
-        "/vendor/selection-widget/dist/st.css"
-      ] ,
-      "js" : [
-        "/vendor/selection-widget/dist/st.js" ,
-        "/content-scripts/st.js"
-      ] ,
-      "all_frames" : true ,
-      "run_at" : "document_start"
-    }
-  ] ,
   "minimum_chrome_version" : "26" ,
   "web_accessible_resources" : [
   ]

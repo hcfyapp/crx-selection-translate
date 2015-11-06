@@ -6,25 +6,31 @@
   "bundle" : "typings/tsd.d.ts" ,
   "installed" : {
     "es6-promise/es6-promise.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
     "webrtc/MediaStream.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
     "angular-ui-router/angular-ui-router.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
     "angularjs/angular.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
     "jquery/jquery.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
     "angular-ui-bootstrap/angular-ui-bootstrap.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
-    },
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
+    } ,
     "chrome/chrome.d.ts" : {
-      "commit" : "32029fcb4e1a3ef8968711b545d77b584435729d"
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
+    } ,
+    "filewriter/filewriter.d.ts" : {
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
+    } ,
+    "filesystem/filesystem.d.ts" : {
+      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     }
   }
 }
