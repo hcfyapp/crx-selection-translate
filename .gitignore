@@ -1,0 +1,5 @@
+/node_modules/
+/typings/
+/src/*/*.js
+/src/vendor/
+/**/*.map

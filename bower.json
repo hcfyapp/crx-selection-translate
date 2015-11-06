@@ -1,0 +1,17 @@
+{
+  "name" : "crx-selection-translate" ,
+  "description" : "" ,
+  "authors" : "Milk Lee <milk.lee@qq.com>" ,
+  "license" : "GPLv3" ,
+  "homepage" : "https://github.com/lmk123/crx-selection-translate" ,
+  "private" : true ,
+  "dependencies" : {
+    "angular-bootstrap" : "~0.14.3" ,
+    "angular-ui-router" : "~0.2.15" ,
+    "bootstrap-sass" : "~3.3.5" ,
+    "selection-widget" : "~0.3.2" ,
+    "translation.js" : "~0.1.1"
+  } ,
+  "devDependencies" : {
+  }
+}
