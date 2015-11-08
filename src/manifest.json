@@ -38,12 +38,14 @@
         "/vendor/selection-widget/dist/st.css"
       ] ,
       "js" : [
+        "/vendor/interact/dist/interact.js",
+        "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
         "/vendor/selection-widget/dist/st.js" ,
         "/public/my-st.js" ,
         "/content-scripts/content.js"
       ] ,
       "all_frames" : true ,
-      "run_at" : "document_start"
+      "run_at" : "document_end"
     }
   ] ,
   "options_page" : "index.html#/options" ,
