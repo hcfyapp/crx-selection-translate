@@ -65,6 +65,7 @@
     storage
       .get( 'reminded' )
       .then( ( {reminded} ) => {
+        storage.set( 'reminded' , true );
         reminded || tabs.create( { url : '/index.html#/new-version' } );
       } );
   } );
