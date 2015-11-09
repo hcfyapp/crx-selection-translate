@@ -5,15 +5,18 @@
  */
 
 (( namespace , storage )=> {
-  const st = new ST() ,
+  const renderer = new ST.Renderer() ,
     {runtime} = chrome;
 
-  st.query = queryObj => {
-    return send( {
-      action : 'translate' ,
-      data : queryObj
-    } );
-  };
+  namespace.st = new ST( {
+    renderer ,
+    query( queryObj ) {
+      return send( {
+        action : 'translate' ,
+        data : queryObj
+      } );
+    }
+  } );
 
   /**
    * 传递消息到后台的方法
