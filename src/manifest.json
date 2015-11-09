@@ -24,7 +24,8 @@
       "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
       "/vendor/translation.js/browser/translation.js" ,
       "/public/my-ts.js" ,
-      "/background-scripts/bg.js"
+      "/background-scripts/bg.js" ,
+      "/background-scripts/menus.js"
     ]
   } ,
   "content_scripts" : [
@@ -38,7 +39,7 @@
         "/vendor/selection-widget/dist/st.css"
       ] ,
       "js" : [
-        "/vendor/interact/dist/interact.js",
+        "/vendor/interact/dist/interact.js" ,
         "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
         "/vendor/selection-widget/dist/st.js" ,
         "/public/my-st.js" ,
@@ -48,7 +49,7 @@
       "run_at" : "document_end"
     }
   ] ,
-  "options_page" : "index.html#/options" ,
+  "options_page" : "/options/index.html" ,
   "browser_action" : {
     "default_icon" : {
       "19" : "/logo.png" ,
