@@ -11,18 +11,6 @@
     "webrtc/MediaStream.d.ts" : {
       "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
-    "angular-ui-router/angular-ui-router.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "angularjs/angular.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "jquery/jquery.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "angular-ui-bootstrap/angular-ui-bootstrap.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
     "chrome/chrome.d.ts" : {
       "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
     } ,
