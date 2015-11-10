@@ -1,12 +1,9 @@
 /**
- * @files 扩展程序的“后台”
- * @requires chromeStorage
+ * @files 用于处理其他页面发送过来的命令
  * @requires CRX.ts
  * @requires CRX.clipboard
  */
-
-  // 处理其它页（特别是内容脚本）发送过来的命令
-(( namespace , storage )=> {
+(( namespace )=> {
   const {ts,clipboard} = namespace ,
     {runtime,tabs} = chrome ,
 
@@ -61,21 +58,4 @@
     // 发送回执需要在事件监听里返回 true
     return true;
   } );
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
-
-// 安装扩展或从旧版升级至新版时的处理
-(( namespace , storage )=> {
-  const {runtime} = chrome;
-
-  // 安装时提示用户划词翻译已升级至最新版
-  runtime.onInstalled.addListener( ()=> {
-    storage
-      .get( 'reminded' )
-      .then( ( {reminded} ) => {
-        storage.set( 'reminded' , true );
-        reminded || tabs.create( { url : 'https://www.baidu.com' } ); // todo 要做一个新版提示的网页，就放在 github 上吧
-      } );
-
-    // todo 从旧版升级时需要将 storage 数据处理一下
-  } );
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
+})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );

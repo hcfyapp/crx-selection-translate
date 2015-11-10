@@ -24,8 +24,9 @@
       "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
       "/vendor/translation.js/browser/translation.js" ,
       "/public/my-ts.js" ,
-      "/background-scripts/bg.js" ,
-      "/background-scripts/menus.js"
+      "/background-scripts/messages.js" ,
+      "/background-scripts/menus.js" ,
+      "/background-scripts/install.js"
     ]
   } ,
   "content_scripts" : [
