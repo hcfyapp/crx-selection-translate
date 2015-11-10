@@ -14,7 +14,7 @@
       return send( {
         action : 'translate' ,
         data : queryObj
-      } );
+      } ).catch( error => {return { error };} );
     }
   } );
 
