@@ -6,7 +6,6 @@
 (( namespace , storage )=> {
   const {runtime,tabs} = chrome ,
     defaultConfig = {
-      reminded : true ,
       autoPlay : false ,
       showMenu : true ,
       autoClipboard : true ,
@@ -25,11 +24,10 @@
     const {reason} = details;
 
     if ( reason === 'install' ) { // 安装了新版
+      tabs.create( { url : 'http://www.limingkai.cn/' } );
       storage.set( defaultConfig );
-      remindInstalled();
     } else if ( reason === 'update' && details.previousVersion[ 0 ] === '5' ) { // 从旧版升级
-      remindNewVersion();
-
+      tabs.create( { url : 'https://www.baidu.com' } );
       storage
         .get( [
           'autoClipboard' , 'autoPlay' , 'defaultApi' ,
@@ -43,29 +41,4 @@
         } );
     }
   } );
-
-  /**
-   * 提醒用户升级到新版了，跟旧版有哪些不同
-   * @returns {Promise}
-   */
-  function remindNewVersion() {
-    return storage
-      .get( 'reminded' )
-      .then( ( {reminded} ) => {
-        if ( !reminded ) {
-          //storage.set( 'reminded' , true );
-          tabs.create( { url : 'https://www.baidu.com' } );
-        }
-      } );
-  }
-
-  /**
-   * 用户安装新版之后，打开一个欢迎页面
-   * @returns {Promise}
-   */
-  function remindInstalled() {
-    return new Promise( ( resolve , reject )=> {
-      tabs.create( { url : 'http://www.limingkai.cn/' } , resolve );
-    } );
-  }
 })( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );

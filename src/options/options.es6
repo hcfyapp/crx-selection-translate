@@ -5,7 +5,6 @@
  * @property {Boolean} [autoClipboard=true] - 打开翻译盒子时自动翻译剪切板里的文本
  * @property {Boolean} [defaultApi="GoogleCn"] - 默认的翻译引擎
  * @property {Boolean} [defaultTo="auto"] - 默认的目标语言
- * @property {Boolean} [reminded=true] - 安装新版或从旧版升级至新版时会提示，提示一次后将它设为 true 防止下次再次提示
  *
  * @property {Boolean} [needCtrl=false] - *是否需要 Ctrl 键配合。todo 在 Mac 上换成 Command 键
  * @property {Boolean} [showBtn=true] - *是否显示翻译按钮。之前它的名字是 showTranslateButton，需要做一个转换
