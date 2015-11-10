@@ -14,7 +14,7 @@
  * 弃用的设置项：enable
  *
  * 准备加入的设置项：
- * @property {String[]} excludes - 在哪些网址下不要启用划词翻译，并且在这些网址下把图标变灰。这个功能抄袭自 Ad Blocker
- * @property {RegExp[]} ignores - *匹配这些正则表达式的文本不要翻译
+ * @property {String[]} excludesUrl - 在哪些网址下不要启用划词翻译，并且在这些网址下把图标变灰。这个功能抄袭自 Ad Blocker
+ * @property {RegExp[]} ignoresText - *匹配这些正则表达式的文本不要翻译
  * @property {String} [defaultAudio="Google"] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
  * */
