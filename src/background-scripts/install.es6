@@ -31,13 +31,16 @@
       remindNewVersion();
 
       storage
-        .getAll()
+        .get( [
+          'autoClipboard' , 'autoPlay' , 'defaultApi' ,
+          'defaultTo' , 'ignoreChinese' , 'ignoreNumLike' ,
+          'needCtrl' , 'showMenu' , 'showTranslateButton'
+        ] )
         .then( items => {
           items.showBtn = items.showTranslateButton;
           delete items.showTranslateButton;
-          return storage.clear();
-        } )
-        .then( ()=> storage.set( Object.assign( defaultConfig , items ) ) );
+          storage.clear().then( ()=> storage.set( Object.assign( defaultConfig , items ) ) );
+        } );
     }
   } );
 
@@ -50,7 +53,7 @@
       .get( 'reminded' )
       .then( ( {reminded} ) => {
         if ( !reminded ) {
-          storage.set( 'reminded' , true );
+          //storage.set( 'reminded' , true );
           tabs.create( { url : 'https://www.baidu.com' } );
         }
       } );
