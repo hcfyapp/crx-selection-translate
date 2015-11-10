@@ -55,7 +55,7 @@
       "19" : "/logo.png" ,
       "38" : "/logo.png"
     } ,
-    "default_popup" : "popup.html" ,
+    "default_popup" : "/popup/index.html" ,
     "default_title" : "点击切换划词翻译开关"
   } ,
   "commands" : {
