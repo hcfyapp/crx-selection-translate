@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+// 根据 ../vendor/bootstrap-sass/assets/stylesheets/_bootstrap.scss 筛选出有用的部分添加进来
+
+/*!
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+// Core variables and mixins
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+// Reset and dependencies
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+
+// Core CSS
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/type";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+
+// Components
+
+// Components w/ JavaScript
+
+// Utility classes
+@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
