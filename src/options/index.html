@@ -3,10 +3,47 @@
   <head>
     <meta charset="UTF-8">
     <title>设置 - 划词翻译</title>
+    <link rel="stylesheet" href="../public/bootstrap-lite.css">
+    <link rel="stylesheet" href="options.css">
   </head>
-  <body>
+  <body class="clearfix">
+    <nav class="pull-left">
+      <h1>划词翻译</h1>
+      <ul class="list-unstyled">
+        <li>设置</li>
+        <li><a href="#">使用帮助</a></li>
+        <li><a href="#">常见问题</a></li>
+        <li><a href="#">关于</a></li>
+      </ul>
+    </nav>
+    <main class="pull-left">
+      <h3>设置</h3>
 
+      <form>
+        <h4>朗读</h4>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            自动朗读
+          </label>
+
+          <div class="help-block">翻译结果显示后，如果有朗读按钮，就自动朗读。</div>
+        </div>
+        <h4>辅助功能</h4>
+
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" value="">
+            配合 Ctrl 键使用划词翻译
+          </label>
+
+          <div class="help-block">勾选此选项后，需要先按下 Ctrl 键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的快捷键。</div>
+        </div>
+      </form>
+    </main>
     <script src="../vendor/vue/dist/vue.js"></script>
+    <script src="../vendor/chrome-storage-wrapper/release/chrome-storage.js"></script>
     <script src="options.js"></script>
   </body>
 </html>
