@@ -29,9 +29,7 @@
 
   // 设置变更时同步设置
   storage.addChangeListener( changes => {
-    for ( let key in changes ) {
-      st.config[ key ] = changes[ key ];
-    }
+    Object.assign( st.config , changes );
   } , { keys : storageKeys } );
 
   // 接收来自后台的消息，见 /background-scripts/commands.es6
