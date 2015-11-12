@@ -14,10 +14,12 @@
           data : queryObj
         } ).catch( error => ({ error }) );
       }
-    } );
+    } ) ,
+
+    storageKeys = Object.keys( st.config ).concat( 'defaultApi' );
 
   storage
-    .get( Object.keys( st.config ).concat( 'defaultApi' ) )
+    .get( storageKeys )
     .then( items => {
       const {defaultApi} = items;
       delete items.defaultApi;
@@ -25,6 +27,14 @@
       // todo 划词之后需要把 query 里面的翻译引擎设置为默认的翻译引擎
     } );
 
+  // 设置变更时同步设置
+  storage.addChangeListener( changes => {
+    for ( let key in changes ) {
+      st.config[ key ] = changes[ key ];
+    }
+  } , { keys : storageKeys } );
+
+  // 接收来自后台的消息，见 /background-scripts/commands.es6
   runtime.onMessage.addListener( msg => {
     switch ( msg.action ) {
       case 'translate': // 快捷键：翻译网页上选中的文本
