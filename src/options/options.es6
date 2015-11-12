@@ -18,3 +18,23 @@
  * @property {RegExp[]} ignoresText - *匹配这些正则表达式的文本不要翻译
  * @property {String} [defaultAudio="Google"] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
  * */
+
+/**
+ * 设置页
+ * @requires chromeStorage
+ * @requires Vue
+ */
+(( storage , Vue )=> {
+
+  storage
+    .getAll()
+    .then( options => {
+      const vm = new Vue( {
+        el : '#options-form' ,
+        data : options
+      } );
+
+      vm.$watch( '$data' , ()=> storage.set( vm.$data ) , { deep : true } );
+    } );
+
+})( chromeStorage , Vue );

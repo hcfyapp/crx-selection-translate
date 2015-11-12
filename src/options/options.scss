@@ -1,14 +1,34 @@
 @charset "utf-8";
 
 body {
-  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
   cursor: default;
 }
 
 nav {
-  width: 200px;
+  width: 250px;
 }
 
 main {
-  width: 800px;
+  width: 650px;
+}
+
+h3 {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+h4 {
+  margin-top: 30px;
+}
+
+.o-group {
+  padding-left: 1em;
+}
+
+.checkbox {
+  margin-bottom: 20px;
+}
+
+.help-block {
+  margin-top: 0;
 }
