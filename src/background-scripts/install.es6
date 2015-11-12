@@ -15,7 +15,7 @@
       showBtn : true ,
       ignoreChinese : true ,
       ignoreNumLike : true ,
-      excludesUrl : [] ,
+      excludeDomains : [] ,
       ignoresText : []
     };
 

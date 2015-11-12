@@ -6,6 +6,7 @@
 
 (( namespace , storage )=> {
   const {runtime} = chrome ,
+    {host} = location ,
     st = new ST( {
       renderer : namespace.renderer ,
       query( queryObj ) {
@@ -16,21 +17,15 @@
       }
     } ) ,
 
-    storageKeys = Object.keys( st.config ).concat( 'defaultApi' );
+    storageKeys = Object.keys( st.config ).concat( 'defaultApi' , 'excludeDomains' );
 
+  // 初始化设置
   storage
     .get( storageKeys )
-    .then( items => {
-      const {defaultApi} = items;
-      delete items.defaultApi;
-      Object.assign( st.config , items );
-      // todo 划词之后需要把 query 里面的翻译引擎设置为默认的翻译引擎
-    } );
+    .then( storageChanged );
 
-  // 设置变更时同步设置
-  storage.addChangeListener( changes => {
-    Object.assign( st.config , changes );
-  } , { keys : storageKeys } );
+  // 在设置变更时保持同步
+  storage.addChangeListener( storageChanged , { keys : storageKeys } );
 
   // 接收来自后台的消息，见 /background-scripts/commands.es6
   runtime.onMessage.addListener( msg => {
@@ -38,8 +33,43 @@
       case 'translate': // 快捷键：翻译网页上选中的文本
         st.translate();
         break;
+      case 'disable':
+        st.config.enable = false;
+        break;
+      case 'enable':
+        st.config.enable = true;
+        break;
     }
   } );
+
+  /**
+   * 处理设置变化
+   * @param {StorageData} items
+   */
+  function storageChanged( items ) {
+    const {defaultApi,excludeDomains} = items;
+
+    if ( excludeDomains ) {
+      const hasExclude = excludeDomains.some( domain => {
+        if ( domain === host ) {
+          st.config.enableSelection = false;
+          return true;
+        }
+      } );
+
+      if ( !hasExclude ) {
+        st.config.enableSelection = true;
+      }
+      delete items.excludeDomains;
+    }
+
+    if ( defaultApi ) {
+      // todo 划词之后需要把 query 里面的翻译引擎设置为默认的翻译引擎
+      delete items.defaultApi;
+    }
+
+    Object.assign( st.config , items );
+  }
 
   /**
    * 传递消息到后台的方法

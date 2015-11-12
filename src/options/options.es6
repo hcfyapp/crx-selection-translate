@@ -14,7 +14,7 @@
  * 弃用的设置项：enable
  *
  * 准备加入的设置项：
- * @property {String[]} excludesUrl - 在哪些网址下不要启用划词翻译，并且在这些网址下把图标变灰。这个功能抄袭自 Ad Blocker
+ * @property {String[]} excludeDomains - 在哪些网站下不要启用划词翻译，并且在这些网站下把图标变灰。这个功能抄袭自 Ad Blocker
  * @property {RegExp[]} ignoresText - *匹配这些正则表达式的文本不要翻译
  * @property {String} [defaultAudio="Google"] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
  * */
@@ -26,15 +26,27 @@
  */
 (( storage , Vue )=> {
 
+  Vue.config.debug = true;
+
   storage
     .getAll()
     .then( options => {
       const vm = new Vue( {
         el : '#options-form' ,
-        data : options
+        data : {
+          options ,
+          showAdd : false ,
+          tmpDomain : ''
+        } ,
+        //methods : {} ,
+        watch : {
+          options : {
+            handler : newVal => storage.set( newVal ) ,
+            deep : true
+          }
+        }
       } );
 
-      vm.$watch( '$data' , ()=> storage.set( vm.$data ) , { deep : true } );
     } );
 
 })( chromeStorage , Vue );
