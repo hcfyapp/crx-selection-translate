@@ -25,6 +25,14 @@
       // todo 划词之后需要把 query 里面的翻译引擎设置为默认的翻译引擎
     } );
 
+  runtime.onMessage.addListener( msg => {
+    switch ( msg.action ) {
+      case 'translate': // 快捷键：翻译网页上选中的文本
+        st.translate();
+        break;
+    }
+  } );
+
   /**
    * 传递消息到后台的方法
    * @param {Object} obj

@@ -26,7 +26,8 @@
       "/public/my-ts.js" ,
       "/background-scripts/messages.js" ,
       "/background-scripts/menus.js" ,
-      "/background-scripts/install.js"
+      "/background-scripts/install.js" ,
+      "/background-scripts/commands.js"
     ]
   } ,
   "content_scripts" : [
@@ -71,12 +72,6 @@
         "default" : "Alt+A"
       } ,
       "description" : "翻译网页中选中的文本"
-    } ,
-    "web" : {
-      "suggested_key" : {
-        "default" : "Alt+Z"
-      } ,
-      "description" : "翻译整个网页"
     }
   } ,
   "minimum_chrome_version" : "26" ,
