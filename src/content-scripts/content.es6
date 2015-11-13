@@ -33,12 +33,6 @@
       case 'translate': // 快捷键：翻译网页上选中的文本
         st.translate();
         break;
-      case 'disable':
-        st.config.enable = false;
-        break;
-      case 'enable':
-        st.config.enable = true;
-        break;
     }
   } );
 
@@ -52,13 +46,13 @@
     if ( excludeDomains ) {
       const hasExclude = excludeDomains.some( domain => {
         if ( domain === host ) {
-          st.config.enableSelection = false;
+          st.config.selection = false;
           return true;
         }
       } );
 
       if ( !hasExclude ) {
-        st.config.enableSelection = true;
+        st.config.selection = true;
       }
       delete items.excludeDomains;
     }
