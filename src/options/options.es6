@@ -31,14 +31,16 @@
   storage
     .getAll()
     .then( options => {
-      const vm = new Vue( {
-        el : '#options-form' ,
+      const manifest = chrome.runtime.getManifest();
+
+      new Vue( {
+        el : 'body' ,
         data : {
           options ,
+          version : manifest.version ,
           showAdd : false ,
           tmpDomain : ''
         } ,
-        //methods : {} ,
         watch : {
           options : {
             handler : newVal => storage.set( newVal ) ,
@@ -46,7 +48,5 @@
           }
         }
       } );
-
     } );
-
 })( chromeStorage , Vue );
