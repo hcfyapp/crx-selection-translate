@@ -37,14 +37,12 @@
         "https://*/*" ,
         "file:///*"
       ] ,
-      "css" : [
-        "/vendor/selection-widget/dist/st.css"
-      ] ,
+      "css" : [] ,
       "js" : [
+        "/vendor/vue/dist/vue.js" ,
         "/vendor/interact/dist/interact.js" ,
         "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
-        "/vendor/selection-widget/dist/st.js" ,
-        "/public/st-renderer.js" ,
+        "/vendor/selection-widget/dist/vue-st.js" ,
         "/content-scripts/content.js"
       ] ,
       "all_frames" : true ,

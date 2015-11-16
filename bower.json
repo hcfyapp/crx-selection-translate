@@ -6,10 +6,10 @@
   "homepage" : "https://github.com/lmk123/crx-selection-translate" ,
   "private" : true ,
   "dependencies" : {
-    "vue" : "~1.0.7" ,
+    "vue" : "~1.0.8" ,
     "interact" : "~1.2.6" ,
     "bootstrap-sass" : "~3.3.5" ,
-    "selection-widget" : "~0.4.0" ,
+    "selection-widget" : "~0.5.1" ,
     "translation.js" : "~0.1.1" ,
     "chrome-storage-wrapper" : "~0.1.4"
   } ,

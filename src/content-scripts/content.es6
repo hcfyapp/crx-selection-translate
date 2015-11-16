@@ -1,23 +1,59 @@
 /**
  * @files 划词翻译的内容脚本里使用的 ST
- * @requires CRX.renderer
+ * @requires ST
  * @requires chromeStorage
  */
 
 (( namespace , storage )=> {
+  let defApi = '';
   const {runtime} = chrome ,
     {host} = location ,
     st = new ST( {
-      renderer : namespace.renderer ,
-      query( queryObj ) {
+      template : `
+      <div>
+        <div class="st-box" v-bind:style="boxStyle">
+          <header><span>图钉</span>这里是翻译窗口的头部<span>设置</span></header>
+          <div>
+            <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
+            <select v-model="query.from">
+              <option value="">自动判断</option>
+              <option value="en">英语</option>
+            </select>
+            <select v-model="query.to">
+              <option value="">自动选择</option>
+              <option value="zh">中文</option>
+            </select>
+            <select v-model="query.api">
+              <option value="YouDao">有道翻译</option>
+              <option value="BaiDu">百度翻译</option>
+            </select>
+            <button type="submit">翻译</button>
+          </div>
+          <div>{{result.result}}</div>
+        </div>
+        <div class="st-btn" v-bind:style="btnStyle">译</div>
+      </div>
+      ` ,
+      _btn : '.st-btn' ,
+      _box : '.st-box' ,
+      _drag : 'header' ,
+      _getResult( queryObj ) {
+        queryObj.api = defApi;
         return send( {
           action : 'translate' ,
           data : queryObj
         } ).catch( error => ({ error }) );
+      } ,
+      data : {
+        query : {
+          api : '' ,
+          from : '' ,
+          to : ''
+        }
       }
     } ) ,
 
-    storageKeys = Object.keys( st.config ).concat( 'defaultApi' , 'excludeDomains' );
+    storageKeys = [ 'ignoreChinese' , 'ignoreNumLike' , 'showBtn' , 'needCtrl' , 'defaultApi' , 'excludeDomains' ];
 
   // 初始化设置
   storage
@@ -46,23 +82,23 @@
     if ( excludeDomains ) {
       const hasExclude = excludeDomains.some( domain => {
         if ( domain === host ) {
-          st.config.selection = false;
+          st.selection = false;
           return true;
         }
       } );
 
       if ( !hasExclude ) {
-        st.config.selection = true;
+        st.selection = true;
       }
       delete items.excludeDomains;
     }
 
     if ( defaultApi ) {
-      // todo 划词之后需要把 query 里面的翻译引擎设置为默认的翻译引擎
+      defApi = defaultApi;
       delete items.defaultApi;
     }
 
-    Object.assign( st.config , items );
+    Object.assign( st , items );
   }
 
   /**
