@@ -21,32 +21,30 @@
 
 /**
  * 设置页
- * @requires chromeStorage
- * @requires Vue
  */
-(( storage , Vue )=> {
+const Vue = require( 'vue' ) ,
+  storage = require( 'chrome-storage-wrapper' );
 
-  Vue.config.debug = true;
+Vue.config.debug = true;
 
-  storage
-    .getAll()
-    .then( options => {
-      const manifest = chrome.runtime.getManifest();
+storage
+  .getAll()
+  .then( options => {
+    const manifest = chrome.runtime.getManifest();
 
-      new Vue( {
-        el : 'body' ,
-        data : {
-          options ,
-          version : manifest.version ,
-          showAdd : false ,
-          tmpDomain : ''
-        } ,
-        watch : {
-          options : {
-            handler : newVal => storage.set( newVal ) ,
-            deep : true
-          }
+    new Vue( {
+      el : 'body' ,
+      data : {
+        options ,
+        version : manifest.version ,
+        showAdd : false ,
+        tmpDomain : ''
+      } ,
+      watch : {
+        options : {
+          handler : newVal => storage.set( newVal ) ,
+          deep : true
         }
-      } );
+      }
     } );
-})( chromeStorage , Vue );
+  } );

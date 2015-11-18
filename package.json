@@ -1,25 +1,33 @@
 {
-  "name" : "crx-selection-translate" ,
-  "description" : "" ,
-  "repository" : {
-    "type" : "git" ,
-    "url" : "git+https://github.com/lmk123/crx-selection-translate.git"
-  } ,
-  "scripts" : {
-    "bower" : "bower" ,
-    "tsd" : "tsd"
-  } ,
-  "devDependencies" : {
-    "babel-cli" : "^6.1.2" ,
-    "babel-preset-es2015" : "^6.1.2" ,
-    "bower" : "^1.6.5" ,
-    "tsd" : "^0.6.5"
-  } ,
-  "author" : "Milk Lee <milk.lee@qq.com>" ,
-  "license" : "GPLv3" ,
-  "bugs" : {
-    "url" : "https://github.com/lmk123/crx-selection-translate/issues"
-  } ,
-  "homepage" : "https://github.com/lmk123/crx-selection-translate#readme" ,
-  "private" : true
+  "name": "crx-selection-translate",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lmk123/crx-selection-translate.git"
+  },
+  "scripts": {
+    "tsd": "tsd",
+    "webpack": "webpack"
+  },
+  "dependencies": {
+    "bootstrap-sass": "^3.3.5",
+    "chrome-storage-wrapper": "^0.1.4",
+    "interact.js": "^1.2.6",
+    "selection-widget": "^0.5.1",
+    "translation.js": "^0.1.2",
+    "vue": "^1.0.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.1.21",
+    "babel-loader": "^6.2.0",
+    "babel-preset-es2015": "^6.1.2",
+    "tsd": "^0.6.5"
+  },
+  "author": "Milk Lee <milk.lee@qq.com>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/lmk123/crx-selection-translate/issues"
+  },
+  "homepage": "https://github.com/lmk123/crx-selection-translate#readme",
+  "private": true
 }
