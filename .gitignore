@@ -1,7 +1,3 @@
 /node_modules/
 /typings/
-/src/*/*.js
-/src/vendor/
-/**/*.map
-/src/*/*.css
-/src/scripts/
+/src/bundle/

@@ -22,6 +22,10 @@
 /**
  * 设置页
  */
+
+//require( '../public/bootstrap-lite.scss' );
+require( './options.scss' );
+
 const Vue = require( 'vue' ) ,
   storage = require( 'chrome-storage-wrapper' );
 

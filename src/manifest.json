@@ -21,8 +21,8 @@
   ] ,
   "background" : {
     "scripts" : [
-      "/scripts/commons2.js",
-      "/scripts/bg.js"
+      "/bundle/commons2.js",
+      "/bundle/bg.js"
     ]
   } ,
   "content_scripts" : [
@@ -34,9 +34,9 @@
       ] ,
       "css" : [] ,
       "js" : [
-        "/scripts/commons2.js",
-        "/scripts/commons1.js",
-        "/scripts/content.js"
+        "/bundle/commons2.js",
+        "/bundle/commons1.js",
+        "/bundle/content.js"
       ] ,
       "all_frames" : true ,
       "run_at" : "document_start"
