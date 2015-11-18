@@ -6,7 +6,6 @@
     "url": "git+https://github.com/lmk123/crx-selection-translate.git"
   },
   "scripts": {
-    "bower": "bower",
     "tsd": "tsd",
     "webpack": "webpack"
   },

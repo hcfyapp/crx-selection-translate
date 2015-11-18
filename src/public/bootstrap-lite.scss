@@ -12,22 +12,22 @@
 $font-family-sans-serif: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 // Core variables and mixins
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/variables";
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
 
 // Reset and dependencies
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/normalize";
 
 // Core CSS
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/type";
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/grid";
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/forms";
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
 
 // Components
 
 // Components w/ JavaScript
 
 // Utility classes
-@import "../vendor/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
