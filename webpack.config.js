@@ -46,7 +46,7 @@ module.exports = {
     // popup   : bootstrap-lite.scss
     new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons2.js' , [ 'bg' , 'commons1.js' ] ) ,
-    //new CommonsChunkPlugin( 'bs-lite.js' , 'bs-lite' ) ,
+    new CommonsChunkPlugin( 'lite.js' , ['bs-lite'] ) ,
 
     new ExtractTextPlugin( "[name].css" )
   ]
