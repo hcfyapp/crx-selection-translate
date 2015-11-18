@@ -1,5 +1,8 @@
 # 划词翻译
 
+[![dependencies Status](https://img.shields.io/david/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate)
+[![devDependencies Status](https://img.shields.io/david/dev/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate#info=devDependencies)
+
 简单、方便、快速的 Chrome 翻译扩展。
 
 ## 注意！
