@@ -4,7 +4,8 @@
  * @requires ST
  */
 
-(( namespace , storage )=> {
+//(( namespace , storage )=> {
+  const storage = require('chrome-storage-wrapper');
   const {contextMenus} = chrome;
   let created = false;
 
@@ -62,5 +63,5 @@
     } );
   }
 
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
+//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
 

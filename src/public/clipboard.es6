@@ -1,13 +1,13 @@
 /**
  * @files 复制、粘贴的模块，不能再内容脚本中运行。
  */
-(( namespace )=> {
+//(( namespace )=> {
   const input = document.createElement( 'input' );
   input.style.position = 'absolute';
   input.style.top = '-99999px';
   document.body.appendChild( input );
 
-  namespace.clipboard = {
+  module.exports = {
 
     /**
      * 将文本复制进剪切板
@@ -31,4 +31,4 @@
       return input.value;
     }
   };
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );
+//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );

@@ -21,13 +21,8 @@
   ] ,
   "background" : {
     "scripts" : [
-      "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
-      "/vendor/translation.js/browser/translation.js" ,
-      "/public/my-ts.js" ,
-      "/background-scripts/messages.js" ,
-      "/background-scripts/menus.js" ,
-      "/background-scripts/install.js" ,
-      "/background-scripts/commands.js"
+      "/scripts/commons2.js",
+      "/scripts/bg.js"
     ]
   } ,
   "content_scripts" : [
@@ -39,12 +34,15 @@
       ] ,
       "css" : [] ,
       "js" : [
-        "/vendor/vue/dist/vue.js" ,
-        "/vendor/interact/dist/interact.js" ,
-        "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
-        "/vendor/selection-widget/dist/vue-st.js" ,
-        "/content-scripts/initST.js",
-        "/content-scripts/bootstrap.js"
+        //        "/vendor/vue/dist/vue.js" ,
+        //        "/vendor/interact/dist/interact.js" ,
+        //        "/vendor/chrome-storage-wrapper/release/chrome-storage.js" ,
+        //        "/vendor/selection-widget/dist/vue-st.js" ,
+        //        "/content-scripts/initST.js",
+        //        "/content-scripts/bootstrap.js"
+        "/scripts/commons2.js",
+        "/scripts/commons1.js",
+        "/scripts/content.js"
       ] ,
       "all_frames" : true ,
       "run_at" : "document_start"

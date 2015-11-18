@@ -24,8 +24,9 @@
  * @requires chromeStorage
  * @requires Vue
  */
-(( storage , Vue )=> {
-
+//(( storage , Vue )=> {
+const Vue = require( 'vue' );
+const storage = require('chrome-storage-wrapper');
   Vue.config.debug = true;
 
   storage
@@ -49,4 +50,4 @@
         }
       } );
     } );
-})( chromeStorage , Vue );
+//})( chromeStorage , Vue );

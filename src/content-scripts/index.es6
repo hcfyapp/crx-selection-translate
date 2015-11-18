@@ -1,9 +1,10 @@
+
 /**
  * @files 决定什么时候启动 st。
  * @requires CRX.initST
  */
-(( namespace )=> {
-  const {initST} = namespace;
+//(( namespace )=> {
+  const initST = require('./initST');
 
   // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
   const MOUSE_UP = 'ontouch' in window ? 'touchend' : 'mouseup' ,
@@ -42,4 +43,4 @@
       }
     } );
   } );
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );
+//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );

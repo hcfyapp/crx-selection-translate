@@ -4,3 +4,4 @@
 /src/vendor/
 /**/*.map
 /src/*/*.css
+/src/scripts/

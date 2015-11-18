@@ -3,7 +3,8 @@
  * @requires chromeStorage
  */
 
-(( namespace , storage )=> {
+//(( namespace , storage )=> {
+  const storage = require('chrome-storage-wrapper');
   const {runtime,tabs} = chrome ,
     defaultConfig = {
       autoPlay : false ,
@@ -41,4 +42,4 @@
         } );
     }
   } );
-})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
+//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
