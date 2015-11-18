@@ -1,5 +1,5 @@
-const webpack = require( 'webpack' );
-var CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
+const webpack = require( 'webpack' ) ,
+  CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 
 module.exports = {
   entry : {
@@ -35,9 +35,9 @@ module.exports = {
     } ) ,
 
     // bg      : chrome-storage-wrapper
-    // content : chrome-storage-wrapper vue
     // options : chrome-storage-wrapper vue
-    // popup   : chrome-storage-wrapper vue
+    // content : chrome-storage-wrapper vue interact.js selection-widget
+    // popup   : chrome-storage-wrapper vue selection-widget
     new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons2.js' , [ 'bg' , 'commons1.js' ] )
   ]

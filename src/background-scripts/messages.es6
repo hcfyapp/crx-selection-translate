@@ -1,10 +1,6 @@
 /**
  * @files 用于处理其他页面发送过来的命令
- * @requires CRX.ts
- * @requires CRX.clipboard
  */
-//(( namespace )=> {
-//  const {ts,clipboard} = namespace ,
 const ts = require( '../public/my-ts' ) ,
   clipboard = require( '../public/clipboard' ) ,
   {runtime,tabs} = chrome ,
@@ -60,4 +56,3 @@ runtime.onMessage.addListener( ( msgObj , sender , response )=> {
   // 发送回执需要在事件监听里返回 true
   return true;
 } );
-//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );

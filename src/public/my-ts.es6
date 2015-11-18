@@ -1,8 +1,6 @@
 /**
  * @files 基于 translation.js 创建自己的翻译实例
- * @requires Translation
  */
-//(( namespace )=> {
 const timeout = 3000 ,
   ts = new (require( 'translation.js' ))();
 
@@ -18,4 +16,3 @@ ts.create( 'YouDao' , {
 } );
 
 module.exports = ts;
-//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );

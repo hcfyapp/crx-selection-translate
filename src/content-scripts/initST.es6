@@ -1,15 +1,17 @@
 /**
  * @files 初始化 st 对象的方法
- * @requires ST
- * @requires chromeStorage
  */
-//(( namespace , storage )=> {
 const storage = require( 'chrome-storage-wrapper' );
+
 require( 'vue' );
 require( 'interact.js' );
 
 // 下面这个模块依赖上面两个全局变量
 const ST = require( 'selection-widget' );
+
+let p;
+module.exports = ()=> p || (p = initST());
+
 function initST() {
   const storageKeys = [
     'ignoreChinese' , 'ignoreNumLike' , 'showBtn' ,
@@ -131,7 +133,3 @@ function initST() {
       }
     } );
 }
-
-let p;
-module.exports = ()=> p || (p = initST());
-//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
