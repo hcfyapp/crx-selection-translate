@@ -1,4 +1,4 @@
-require('./commands');
-require('./install');
-require('./menus');
-require('./messages');
+import './commands';
+import './install';
+import './menus';
+import './messages';

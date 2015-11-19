@@ -2,7 +2,7 @@
  * 划词翻译在网页上的右键菜单，目前只有一个菜单项，并且只会在选中单词的右键菜单里出现
  */
 
-const storage = require( 'chrome-storage-wrapper' );
+import storage from 'chrome-storage-wrapper';
 const {contextMenus} = chrome;
 let created = false;
 

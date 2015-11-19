@@ -1,1 +1,1 @@
-require( '../public/bootstrap-lite.scss' );
+import '../public/bootstrap-lite.scss';

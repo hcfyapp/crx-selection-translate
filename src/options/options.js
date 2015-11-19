@@ -23,11 +23,10 @@
  * 设置页
  */
 
-require( '../public/bootstrap-lite.scss' );
-require( './options.scss' );
-
-const Vue = require( 'vue' ) ,
-  storage = require( 'chrome-storage-wrapper' );
+import '../public/bootstrap-lite.scss';
+import './options.scss';
+import Vue from 'vue';
+import storage from 'chrome-storage-wrapper';
 
 Vue.config.debug = true;
 

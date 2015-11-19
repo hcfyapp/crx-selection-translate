@@ -6,7 +6,7 @@ input.style.position = 'absolute';
 input.style.top = '-99999px';
 document.body.appendChild( input );
 
-module.exports = {
+export default {
 
   /**
    * 将文本复制进剪切板

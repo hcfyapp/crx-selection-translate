@@ -10,7 +10,7 @@ require( 'interact.js' );
 const ST = require( 'selection-widget' );
 
 let p;
-module.exports = ()=> p || (p = initST());
+export default ()=> p || (p = initST());
 
 function initST() {
   const storageKeys = [

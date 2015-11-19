@@ -1,8 +1,8 @@
 /**
  * 扩展从旧版升级至新版或安装时要写入默认设置
  */
-const storage = require( 'chrome-storage-wrapper' ) ,
-  {runtime,tabs} = chrome ,
+import storage from 'chrome-storage-wrapper';
+const {runtime,tabs} = chrome ,
   defaultConfig = {
     autoPlay : false ,
     showMenu : true ,

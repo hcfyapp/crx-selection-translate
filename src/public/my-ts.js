@@ -15,4 +15,4 @@ ts.create( 'YouDao' , {
   timeout
 } );
 
-module.exports = ts;
+export default ts;

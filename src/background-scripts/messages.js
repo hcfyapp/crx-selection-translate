@@ -1,9 +1,11 @@
 /**
  * @files 用于处理其他页面发送过来的命令
  */
-const ts = require( '../public/my-ts' ) ,
-  clipboard = require( '../public/clipboard' ) ,
-  {runtime,tabs} = chrome ,
+
+import ts from '../public/my-ts';
+import clipboard from '../public/clipboard';
+
+const {runtime,tabs} = chrome ,
 
   actions = {
 
