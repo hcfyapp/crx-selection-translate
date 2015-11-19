@@ -1,46 +1,39 @@
+const initST = require( './initST' );
+
+// 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
+const MOUSE_UP = 'ontouch' in window ? 'touchend' : 'mouseup' ,
+  selection = getSelection();
+
+document.addEventListener( MOUSE_UP , firstMouseUp );
 
 /**
- * @files 决定什么时候启动 st。
- * @requires CRX.initST
+ * mouseup 事件监听函数，用于检测用户第一次产生拖蓝的动作
+ * @param {MouseEvent} e
  */
-//(( namespace )=> {
-  const initST = require('./initST');
+function firstMouseUp( e ) {
+  if ( selection.toString().trim() ) {
+    removeFirstMouseUp();
+    initST().then( st => st.$emit( 'mouseup' , e ) );
+  }
+}
 
-  // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
-  const MOUSE_UP = 'ontouch' in window ? 'touchend' : 'mouseup' ,
-    selection = getSelection();
+/**
+ * 取消对上面的 mouseUp 事件的监听。
+ * 用户的其他操作启动了 st 之后就不需要继续监听 mouseup 事件了
+ */
+function removeFirstMouseUp() {
+  removeFirstMouseUp = ()=> {};
+  document.removeEventListener( MOUSE_UP , firstMouseUp );
+}
 
-  document.addEventListener( MOUSE_UP , firstMouseUp );
-
-  /**
-   * mouseup 事件监听函数，用于检测用户第一次产生拖蓝的动作
-   * @param {MouseEvent} e
-   */
-  function firstMouseUp( e ) {
-    if ( selection.toString().trim() ) {
-      removeFirstMouseUp();
-      initST().then( st => st.$emit( 'mouseup' , e ) );
+// 接收来自后台的消息，见 /background-scripts/commands.es6
+chrome.runtime.onMessage.addListener( msg => {
+  initST().then( st => {
+    removeFirstMouseUp();
+    switch ( msg.action ) {
+      case 'translate': // 快捷键：翻译网页上选中的文本
+        st.translate();
+        break;
     }
-  }
-
-  /**
-   * 取消对上面的 mouseUp 事件的监听。
-   * 用户的其他操作启动了 st 之后就不需要继续监听 mouseup 事件了
-   */
-  function removeFirstMouseUp() {
-    removeFirstMouseUp = ()=> {};
-    document.removeEventListener( MOUSE_UP , firstMouseUp );
-  }
-
-  // 接收来自后台的消息，见 /background-scripts/commands.es6
-  chrome.runtime.onMessage.addListener( msg => {
-    initST().then( st => {
-      removeFirstMouseUp();
-      switch ( msg.action ) {
-        case 'translate': // 快捷键：翻译网页上选中的文本
-          st.translate();
-          break;
-      }
-    } );
   } );
-//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) );
+} );

@@ -28,7 +28,7 @@ module.exports = {
       } ,
       {
         test : /\.scss$/ ,
-        loader : ExtractTextPlugin.extract( "style-loader" , "css-loader!sass-loader" )
+        loader : ExtractTextPlugin.extract( "style-loader" , "css-loader?sourceMap!sass-loader?sourceMap" )
       }
     ]
   } ,
@@ -47,5 +47,7 @@ module.exports = {
     new CommonsChunkPlugin( 'commons2.js' , [ 'bg' , 'commons1.js' ] ) ,
 
     new ExtractTextPlugin( "[name].css" )
-  ]
+  ] ,
+  watch : true ,
+  devtool : "#source-map"
 };

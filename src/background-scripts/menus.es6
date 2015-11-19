@@ -59,6 +59,3 @@ function sendCommand( command ) {
     } );
   } );
 }
-
-//})( typeof CRX !== 'undefined' ? CRX : (window.CRX = {}) , chromeStorage );
-
