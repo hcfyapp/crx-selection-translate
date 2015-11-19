@@ -5,6 +5,7 @@ import storage from 'chrome-storage-wrapper';
 import 'vue';
 import 'interact.js';
 import ST from 'selection-widget';
+import template from './tpl.html';
 
 let p;
 export default ()=> p || (p = initST());
@@ -24,31 +25,7 @@ function initST() {
       const {runtime} = chrome ,
         {host} = location ,
         st = new ST( {
-          template : `
-      <div>
-        <div class="st-box" v-bind:style="boxStyle">
-          <header><span>图钉</span>这里是翻译窗口的头部<span>设置</span></header>
-          <div>
-            <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
-            <select v-model="query.from">
-              <option value="">自动判断</option>
-              <option value="en">英语</option>
-            </select>
-            <select v-model="query.to">
-              <option value="">自动选择</option>
-              <option value="zh">中文</option>
-            </select>
-            <select v-model="query.api">
-              <option value="YouDao">有道翻译</option>
-              <option value="BaiDu">百度翻译</option>
-            </select>
-            <button type="button" v-on:click="translate">翻译</button>
-          </div>
-          <div>{{result.result}}</div>
-        </div>
-        <div class="st-btn" v-bind:style="btnStyle">译</div>
-      </div>
-      ` ,
+          template ,
           _btn : '.st-btn' ,
           _box : '.st-box' ,
           _drag : 'header' ,
