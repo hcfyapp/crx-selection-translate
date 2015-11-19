@@ -1,13 +1,10 @@
 /**
  * @files 初始化 st 对象的方法
  */
-const storage = require( 'chrome-storage-wrapper' );
-
-require( 'vue' );
-require( 'interact.js' );
-
-// 下面这个模块依赖上面两个全局变量
-const ST = require( 'selection-widget' );
+import storage from 'chrome-storage-wrapper';
+import 'vue';
+import 'interact.js';
+import ST from 'selection-widget';
 
 let p;
 export default ()=> p || (p = initST());
