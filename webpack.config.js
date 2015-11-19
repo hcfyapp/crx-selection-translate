@@ -13,13 +13,10 @@ module.exports = {
     path : "./src/bundle" ,
     filename : "[name].js"
   } ,
-  resolve : {
-    extensions : [ '' , '.es6' , '.js' ]
-  } ,
   module : {
     loaders : [
       {
-        test : /\.es6?$/ ,
+        test : /\.js$/ ,
         exclude : /node_modules/ ,
         loader : 'babel' ,
         query : {
