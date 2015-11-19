@@ -7,8 +7,7 @@ module.exports = {
     bg : "./src/background-scripts" ,
     content : "./src/content-scripts" ,
     options : "./src/options/options" ,
-    popup : './src/popup' ,
-    'bs-lite' : './src/public/bootstrap-lite.scss'
+    popup : './src/popup'
   } ,
   output : {
     path : "./src/bundle" ,
@@ -46,7 +45,6 @@ module.exports = {
     // popup   : bootstrap-lite.scss
     new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons2.js' , [ 'bg' , 'commons1.js' ] ) ,
-    new CommonsChunkPlugin( 'lite.js' , ['bs-lite'] ) ,
 
     new ExtractTextPlugin( "[name].css" )
   ]
