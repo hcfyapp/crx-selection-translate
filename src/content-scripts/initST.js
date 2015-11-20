@@ -43,6 +43,35 @@ function initST() {
               from : '' ,
               to : ''
             }
+          } ,
+          methods : {
+
+            // 打开设置页
+            openOptions() {
+              send( {
+                action : 'openTab' ,
+                data : {
+                  url : 'options/index.html'
+                }
+              } );
+            } ,
+
+            // 复制文本
+            copy( textOrTextArray ) {
+              if ( Array.isArray( textOrTextArray ) ) {
+                textOrTextArray = textOrTextArray.join( '\n' );
+              }
+              send( {
+                action : 'copy' ,
+                data : textOrTextArray
+              } );
+            } ,
+
+            // 播放
+            play( textOrTextArray ) {
+              // todo 在后台使用 howler 实现语音播放
+              alert( 'todo' );
+            }
           }
         } );
 
