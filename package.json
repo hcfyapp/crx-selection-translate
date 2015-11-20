@@ -13,7 +13,7 @@
     "bootstrap-sass": "^3.3.5",
     "chrome-storage-wrapper": "^0.1.4",
     "interact.js": "^1.2.6",
-    "selection-widget": "^0.5.1",
+    "selection-widget": "^0.6.0",
     "translation.js": "^0.1.2",
     "vue": "^1.0.8"
   },

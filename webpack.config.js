@@ -35,8 +35,6 @@ module.exports = {
   } ,
   plugins : [
     new webpack.ProvidePlugin( {
-      Vue : 'vue' ,
-      interact : 'interact.js' ,
       'window.interact' : 'interact.js'
     } ) ,
 
