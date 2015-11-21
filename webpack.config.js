@@ -34,11 +34,6 @@ module.exports = {
     ]
   } ,
   plugins : [
-    new webpack.ProvidePlugin( {
-      'Vue' : 'vue' ,
-      'window.interact' : 'interact.js' ,
-      interact : 'interact.js'
-    } ) ,
 
     // bg      : chrome-storage-wrapper
     // options : chrome-storage-wrapper vue                  bootstrap-lite.scss

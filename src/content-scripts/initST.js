@@ -2,9 +2,12 @@
  * @files 初始化 st 对象的方法
  */
 import storage from 'chrome-storage-wrapper';
-import 'interact.js';
+import interact from  'interact.js';
 import ST from 'selection-widget';
 import template from './tpl.html';
+
+// 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
+global.interact = interact;
 
 let p;
 export default ()=> p || (p = initST());
