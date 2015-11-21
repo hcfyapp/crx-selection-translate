@@ -24,6 +24,7 @@ const {runtime,tabs} = chrome ,
      * @returns {Promise}
      */
     play : queryObj => {
+      // todo 不能仅仅只是返回语音 url,要直接在后台播放
       return ts.audio( queryObj );
     } ,
 

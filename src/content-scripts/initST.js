@@ -46,7 +46,9 @@ function initST() {
           } ,
           methods : {
 
-            // 打开设置页
+            /**
+             * 打开设置页
+             */
             openOptions() {
               send( {
                 action : 'openTab' ,
@@ -56,7 +58,10 @@ function initST() {
               } );
             } ,
 
-            // 复制文本
+            /**
+             * 复制文本
+             * @param {String|String[]} textOrTextArray
+             */
             copy( textOrTextArray ) {
               if ( Array.isArray( textOrTextArray ) ) {
                 textOrTextArray = textOrTextArray.join( '\n' );
@@ -67,10 +72,23 @@ function initST() {
               } );
             } ,
 
-            // 播放
-            play( textOrTextArray ) {
-              // todo 在后台使用 howler 实现语音播放
-              alert( 'todo' );
+            /**
+             * 播放语音
+             * @param {String|String[]} textOrTextArray
+             * @param {Boolean} [isFrom] - 默认情况下会读取 result.to 作为语音的语种,若这个值为 true 则使用 result.from
+             */
+            play( textOrTextArray , isFrom ) {
+              if ( Array.isArray( textOrTextArray ) ) {
+                textOrTextArray = textOrTextArray.join( '\n' );
+              }
+              send( {
+                action : 'play' ,
+                data : {
+                  text : textOrTextArray ,
+                  api : this.result.api.id ,
+                  from : this.result[ isFrom ? 'from' : 'to' ]
+                }
+              } );
             }
           }
         } );

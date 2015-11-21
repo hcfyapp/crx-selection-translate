@@ -21,7 +21,7 @@
     <div v-hide="loading">
       <div v-show="result.phonetic">
         <span v-text="result.phonetic"></span>
-        <span @click="play(query.text)">朗读</span>
+        <span @click="play(query.text,true)">朗读</span>
         <span @click="copy(result.phonetic)">复制</span>
       </div>
       <div>
