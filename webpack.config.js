@@ -35,15 +35,18 @@ module.exports = {
   } ,
   plugins : [
     new webpack.ProvidePlugin( {
-      'window.interact' : 'interact.js'
+      'Vue' : 'vue' ,
+      'window.interact' : 'interact.js' ,
+      interact : 'interact.js'
     } ) ,
 
     // bg      : chrome-storage-wrapper
-    // options : chrome-storage-wrapper vue bootstrap-lite.scss
-    // content : chrome-storage-wrapper vue interact.js selection-widget
-    // popup   : bootstrap-lite.scss
-    new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'options' ] ) ,
-    new CommonsChunkPlugin( 'commons2.js' , [ 'bg' , 'commons1.js' ] ) ,
+    // options : chrome-storage-wrapper vue                  bootstrap-lite.scss
+    // content : chrome-storage-wrapper vue selection-widget interact.js
+    // popup   : chrome-storage-wrapper vue selection-widget bootstrap-lite.scss
+    new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'popup' ] ) ,
+    new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
+    new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,
 
     new ExtractTextPlugin( "[name].css" )
   ] ,

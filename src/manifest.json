@@ -21,7 +21,7 @@
   ] ,
   "background" : {
     "scripts" : [
-      "/bundle/commons2.js",
+      "/bundle/commons3.js",
       "/bundle/bg.js"
     ]
   } ,
@@ -34,6 +34,7 @@
       ] ,
       "css" : [] ,
       "js" : [
+        "/bundle/commons3.js",
         "/bundle/commons2.js",
         "/bundle/commons1.js",
         "/bundle/content.js"
