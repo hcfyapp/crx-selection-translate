@@ -11,36 +11,41 @@ const app = new Vue( {
   el : '#app'
 } );
 
-const st = new ST( {
-  el : '#st-box' ,
-  parent : app ,
-  data : {
-    query : {
-      from : '' ,
-      to : ''
-    } ,
-    result : {
-      phonetic : '' ,
-      detailed : [] ,
-      result : '' ,
-      linkToResult : '' ,
-      response : {} ,
-      api : {
-        name : ''
+storage
+  .get( 'defaultApi' )
+  .then( ( {defaultApi:api} ) => {
+    const st = new ST( {
+      el : '#st-box' ,
+      parent : app ,
+      data : {
+        query : {
+          from : '' ,
+          to : '' ,
+          api
+        } ,
+        result : {
+          phonetic : '' ,
+          detailed : [] ,
+          result : '' ,
+          linkToResult : '' ,
+          response : {} ,
+          api : {
+            name : ''
+          }
+        }
+      } ,
+      template ,
+      methods : {
+        openOptions(){}
+      } ,
+      _btn : '.st-btn' ,
+      _box : '.st-box' ,
+      _getResult( queryObj ) {
+        return Promise.resolve( {
+          result : queryObj.text
+        } );
       }
-    }
-  } ,
-  template ,
-  methods : {
-    openOptions(){}
-  } ,
-  _btn : '.st-btn' ,
-  _box : '.st-box' ,
-  _getResult( queryObj ) {
-    return Promise.resolve( {
-      result : queryObj.text
     } );
-  }
-} );
 
-st.inline = true;
+    st.inline = true;
+  } );
