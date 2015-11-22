@@ -121,16 +121,7 @@ function initST() {
         const {defaultApi,excludeDomains} = items;
 
         if ( excludeDomains ) {
-          const hasExclude = excludeDomains.some( domain => {
-            if ( domain === host ) {
-              st.selection = false;
-              return true;
-            }
-          } );
-
-          if ( !hasExclude ) {
-            st.selection = true;
-          }
+          st.selection = !excludeDomains.some( domain => domain === host );
           delete items.excludeDomains;
         }
 
