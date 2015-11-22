@@ -3,7 +3,7 @@ import './popup.scss';
 import Vue from 'vue';
 import ST from 'selection-widget';
 import storage from 'chrome-storage-wrapper';
-import template from './tpl.html';
+import template from '../content-scripts/tpl.html';
 
 Vue.config.debug = true;
 
@@ -31,6 +31,9 @@ const st = new ST( {
     }
   } ,
   template ,
+  methods : {
+    openOptions(){}
+  } ,
   _btn : '.st-btn' ,
   _box : '.st-box' ,
   _getResult( queryObj ) {

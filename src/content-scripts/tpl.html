@@ -1,6 +1,6 @@
 <div>
   <div class="st-box" :style="boxStyle">
-    <header><span @click="pinned=!pinned">图钉</span><span @click="openOptions">设置</span></header>
+    <header v-if="!inline"><span @click="pinned=!pinned">图钉</span><span @click="openOptions">设置</span></header>
     <div>
       <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
       <select v-model="query.from">
@@ -24,8 +24,8 @@
         <span @click="play(query.text,true)">朗读</span>
         <span @click="copy(result.phonetic)">复制</span>
       </div>
-      <div>
-        <ul v-show="result.detailed && result.detailed.length">
+      <div v-show="result.detailed && result.detailed.length">
+        <ul>
           <li v-for="d in result.detailed" v-text="d"></li>
         </ul>
         <span @click="copy(result.detailed)">复制</span>
@@ -35,7 +35,7 @@
         <span @click="play(query.result)">朗读</span>
         <span @click="copy(result.result)">复制</span>
       </div>
-      <div>via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></div>
+      <div v-show="result.api.name">via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></div>
     </div>
   </div>
   <div class="st-btn" :style="btnStyle">译</div>
