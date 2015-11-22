@@ -31,13 +31,13 @@ function initST() {
           _btn : '.st-btn' ,
           _box : '.st-box' ,
           _drag : 'header' ,
-          _getResult( queryObj ) {
-            if ( !st.boxPos.show && defApi ) {
-              queryObj.api = defApi;
+          _getResult() {
+            if ( !this.boxPos.show && defApi ) {
+              this.query.api = defApi;
             }
             return send( {
               action : 'translate' ,
-              data : queryObj
+              data : this.query
             } ).catch( error => ({ error }) );
           } ,
           data : {
@@ -45,6 +45,16 @@ function initST() {
               api : options.defaultApi ,
               from : '' ,
               to : ''
+            } ,
+            result : {
+              phonetic : '' ,
+              detailed : [] ,
+              result : '' ,
+              linkToResult : '' ,
+              response : {} ,
+              api : {
+                name : ''
+              }
             }
           } ,
           methods : {
