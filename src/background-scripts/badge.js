@@ -34,7 +34,7 @@ function updateBadge( tabId ) {
  * @returns {Promise} - 值为选中标签页的 window.location 对象,但是当标签页是 chrome:// 协议时(比如空白的新标签页和 chrome 设置页)则值是 false
  */
 function getActiveUrl( activeTabId ) {
-  return new Promise( ( resolve , reject ) => tabs.sendMessage( activeTabId , 'getUrl' , locationObj => {
+  return new Promise( ( resolve , reject ) => tabs.sendMessage( activeTabId , { action : 'get location' } , locationObj => {
     if ( locationObj ) {
       resolve( locationObj );
     } else {
