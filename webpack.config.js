@@ -43,7 +43,11 @@ module.exports = {
     new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,
 
-    new ExtractTextPlugin( "[name].css" )
+    new ExtractTextPlugin( "[name].css" ) ,
+
+    new webpack.DefinePlugin( {
+      DEBUG : true
+    } )
   ] ,
   watch : true ,
   devtool : "#source-map"
