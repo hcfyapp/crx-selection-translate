@@ -1,5 +1,3 @@
-import './messages';
-
 import initST from './initST';
 
 // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
@@ -29,13 +27,19 @@ function removeFirstMouseUp() {
 }
 
 // 接收来自后台的消息，见 /background-scripts/commands.es6
-chrome.runtime.onMessage.addListener( msg => {
-  initST().then( st => {
-    removeFirstMouseUp();
-    switch ( msg.action ) {
-      case 'translate': // 快捷键：翻译网页上选中的文本
+chrome.runtime.onMessage.addListener( ( msg , sender , response ) => {
+  switch ( msg.action ) {
+    case 'translate': // 快捷键：翻译网页上选中的文本
+      initST().then( st => {
+        removeFirstMouseUp();
         st.translate();
-        break;
-    }
-  } );
+      } );
+      break;
+    case 'getUrl': // 将 tab 的 url 报告给扩展程序
+      if ( self === top ) {
+        response( JSON.parse( JSON.stringify( location ) ) );
+        return true;
+      }
+      break;
+  }
 } );
