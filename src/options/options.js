@@ -6,7 +6,7 @@
  * @property {Boolean} [defaultApi="GoogleCn"] - 默认的翻译引擎
  * @property {Boolean} [defaultTo="auto"] - 默认的目标语言
  *
- * @property {Boolean} [needCtrl=false] - *是否需要 Ctrl 键配合。todo 在 Mac 上换成 Command 键
+ * @property {Boolean} [needCtrl=false] - *是否需要 Ctrl 键配合。
  * @property {Boolean} [showBtn=true] - *是否显示翻译按钮。之前它的名字是 showTranslateButton，需要做一个转换
  * @property {Boolean} [ignoreChinese=true] - *忽略中文
  * @property {Boolean} [ignoreNumLike=true] - *忽略类数字组合

@@ -27,7 +27,7 @@ function removeFirstMouseUp() {
 }
 
 // 接收来自后台的消息，见 /background-scripts/commands.es6
-chrome.runtime.onMessage.addListener( ( msg , sender , response ) => {
+chrome.runtime.onMessage.addListener( ( msg , sender , sendResponse ) => {
   switch ( msg.action ) {
     case 'translate': // 快捷键：翻译网页上选中的文本
       initST().then( st => {
@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener( ( msg , sender , response ) => {
       break;
     case 'getUrl': // 将 tab 的 url 报告给扩展程序
       if ( self === top ) {
-        response( JSON.parse( JSON.stringify( location ) ) );
+        sendResponse( JSON.parse( JSON.stringify( location ) ) );
         return true;
       }
       break;

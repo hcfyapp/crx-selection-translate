@@ -2,7 +2,7 @@
  * @files 初始化 st 对象的方法
  */
 import storage from 'chrome-storage-wrapper';
-import interact from  'interact.js';
+import interact from 'interact.js';
 import ST from 'selection-widget';
 import template from './tpl.html';
 

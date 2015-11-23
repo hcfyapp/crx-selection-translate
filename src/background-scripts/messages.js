@@ -53,8 +53,8 @@ const {runtime,tabs} = chrome ,
 // 后台用于接收命令的入口，msgObj 有且只有两个属性：
 // {String} action - 要进行的操作
 // {*} data - 此操作需要的数据
-runtime.onMessage.addListener( ( msgObj , sender , response )=> {
-  actions[ msgObj.action ]( msgObj.data ).then( response );
+runtime.onMessage.addListener( ( msgObj , sender , sendResponse )=> {
+  actions[ msgObj.action ]( msgObj.data ).then( sendResponse );
 
   // 发送回执需要在事件监听里返回 true
   return true;
