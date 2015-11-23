@@ -38,7 +38,9 @@ function initST() {
             return send( {
               action : 'translate' ,
               data : this.query
-            } ).catch( error => ({ error }) );
+            } )
+              .catch( error => ({ error }) )
+              .then( resultObj => this.result = resultObj );
           } ,
           data : {
             query : {

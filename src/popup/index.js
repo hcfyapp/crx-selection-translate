@@ -40,10 +40,9 @@ storage
       } ,
       _btn : '.st-btn' ,
       _box : '.st-box' ,
-      _getResult( queryObj ) {
-        return Promise.resolve( {
-          result : queryObj.text
-        } );
+      _getResult() {
+        this.result.result = this.query.text;
+        return Promise.resolve();
       }
     } );
 
