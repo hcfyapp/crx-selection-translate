@@ -35,6 +35,8 @@ chrome.runtime.onMessage.addListener( ( msg , sender , sendResponse ) => {
         st.translate();
       } );
       break;
+
+    // todo 这里有一个 bug：扩展程序发过来的消息是字符串 'getUrl' 而不是 { action:'getUrl' }，所以这个分支永远走不进来
     case 'getUrl': // 将 tab 的 url 报告给扩展程序
       if ( self === top ) {
         sendResponse( JSON.parse( JSON.stringify( location ) ) );
