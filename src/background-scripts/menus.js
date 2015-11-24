@@ -34,7 +34,7 @@ function createMenus() {
       id : 'menu-translate' ,
       title : '翻译“%s”' ,
       contexts : [ 'selection' ] ,
-      documentUrlPatterns : [ "http://*/*" , "https://*/*" , "file:///*" , "about:blank" ] // 不要让菜单出现在 chrome-* 页面下
+      documentUrlPatterns : [ 'http://*/*' , 'https://*/*' , 'file:///*' , 'about:blank' ] // 不要让菜单出现在 chrome-* 页面下
     } );
   }
 }

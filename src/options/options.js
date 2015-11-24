@@ -3,8 +3,8 @@
  * @property {Boolean} [autoPlay=false] - 自动朗读
  * @property {Boolean} [showMenu=true] - 是否启用右键菜单
  * @property {Boolean} [autoClipboard=true] - 打开翻译盒子时自动翻译剪切板里的文本
- * @property {Boolean} [defaultApi="GoogleCn"] - 默认的翻译引擎
- * @property {Boolean} [defaultTo="auto"] - 默认的目标语言
+ * @property {Boolean} [defaultApi='GoogleCn'] - 默认的翻译引擎
+ * @property {Boolean} [defaultTo='auto'] - 默认的目标语言
  *
  * @property {Boolean} [needCtrl=false] - *是否需要 Ctrl 键配合。
  * @property {Boolean} [showBtn=true] - *是否显示翻译按钮。之前它的名字是 showTranslateButton，需要做一个转换
@@ -16,7 +16,7 @@
  * 准备加入的设置项：
  * @property {String[]} excludeDomains - 在哪些网站下不要启用划词翻译，并且在这些网站下把图标变灰。这个功能抄袭自 Ad Blocker
  * @property {RegExp[]} ignoresText - *匹配这些正则表达式的文本不要翻译
- * @property {String} [defaultAudio="Google"] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
+ * @property {String} [defaultAudio='Google'] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
  * */
 
 /**

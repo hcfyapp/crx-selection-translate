@@ -1,17 +1,17 @@
 const webpack = require( 'webpack' ) ,
   CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin ,
-  ExtractTextPlugin = require( "extract-text-webpack-plugin" );
+  ExtractTextPlugin = require( 'extract-text-webpack-plugin' );
 
 module.exports = {
   entry : {
-    bg : "./src/background-scripts" ,
-    content : "./src/content-scripts" ,
-    options : "./src/options/options" ,
+    bg : './src/background-scripts' ,
+    content : './src/content-scripts' ,
+    options : './src/options/options' ,
     popup : './src/popup'
   } ,
   output : {
-    path : "./src/bundle" ,
-    filename : "[name].js"
+    path : './src/bundle' ,
+    filename : '[name].js'
   } ,
   module : {
     loaders : [
@@ -20,7 +20,7 @@ module.exports = {
         exclude : /node_modules/ ,
         loader : 'babel' ,
         query : {
-          "presets" : [ "es2015" ]
+          presets : [ 'es2015' ]
         }
       } ,
       {
@@ -29,7 +29,7 @@ module.exports = {
       } ,
       {
         test : /\.scss$/ ,
-        loader : ExtractTextPlugin.extract( "style-loader" , "css-loader?sourceMap!sass-loader?sourceMap" )
+        loader : ExtractTextPlugin.extract( 'style-loader' , 'css-loader?sourceMap!sass-loader?sourceMap' )
       }
     ]
   } ,
@@ -43,12 +43,12 @@ module.exports = {
     new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,
 
-    new ExtractTextPlugin( "[name].css" ) ,
+    new ExtractTextPlugin( '[name].css' ) ,
 
     new webpack.DefinePlugin( {
       DEBUG : true
     } )
   ] ,
   watch : true ,
-  devtool : "#source-map"
+  devtool : '#source-map'
 };
