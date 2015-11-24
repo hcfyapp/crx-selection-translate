@@ -25,7 +25,10 @@
 
 import '../public/bootstrap-lite.scss';
 import './options.scss';
+
+import 'babel-polyfill';
 import Vue from 'vue';
+
 import storage from 'chrome-storage-wrapper';
 
 Vue.config.debug = true;

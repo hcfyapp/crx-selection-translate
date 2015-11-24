@@ -18,7 +18,7 @@ export function getTabLocation( tabId ) {
     }
 
     tabIdPromise
-      .then( tabId => tabs.sendMessage( tabId , 'getUrl' , locationObj => {
+      .then( tabId => tabs.sendMessage( tabId , { action : 'get location' } , locationObj => {
         if ( locationObj ) {
           resolve( locationObj );
         } else {
@@ -27,3 +27,8 @@ export function getTabLocation( tabId ) {
       } ) );
   } );
 }
+
+/**
+ * 空函数
+ */
+export function noop() {}

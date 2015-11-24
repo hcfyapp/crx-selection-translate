@@ -1,3 +1,5 @@
+import 'babel-polyfill';
+
 import initST from './initST';
 
 // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
