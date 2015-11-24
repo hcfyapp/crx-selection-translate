@@ -4,10 +4,10 @@ const webpack = require( 'webpack' ) ,
 
 module.exports = {
   entry : {
-    bg : './src/background-scripts' ,
-    content : './src/content-scripts' ,
-    options : './src/options/options' ,
-    popup : './src/popup'
+    bg : './src/background-scripts/' ,
+    content : './src/content-scripts/' ,
+    options : './src/options/' ,
+    popup : './src/popup/'
   } ,
   output : {
     path : './src/bundle' ,
