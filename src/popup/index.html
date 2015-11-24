@@ -6,11 +6,10 @@
     <link rel="stylesheet" href="../bundle/popup.css">
   </head>
   <body id="app">
-    <section>
-      <!--todo 根据当前网址决定显示启用还是禁用-->
-      <div>对当前网站<span>启用</span><span>禁用</span></div>
+    <section v-show="canInject">
+      <div @click="switchEnable">对当前网站<span v-show="enabled">启用</span><span v-else>禁用</span></div>
     </section>
-    <section id="st-box"></section>
+    <st-box v-ref:st></st-box>
     <script src="../bundle/commons3.js"></script>
     <script src="../bundle/commons2.js"></script>
     <script src="../bundle/commons1.js"></script>

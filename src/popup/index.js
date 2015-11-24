@@ -1,50 +1,81 @@
 import '../public/bootstrap-lite.scss';
 import './popup.scss';
+
+import 'babel-polyfill';
 import Vue from 'vue';
-import ST from 'selection-widget';
+import createST from 'selection-widget';
 import storage from 'chrome-storage-wrapper';
+
 import template from '../content-scripts/tpl.html';
+import * as util from '../public/util';
 
 Vue.config.debug = true;
 
-const app = new Vue( {
-  el : '#app'
-} );
-
 storage
   .get( 'defaultApi' )
-  .then( ( {defaultApi:api} ) => {
-    const st = new ST( {
-      el : '#st-box' ,
-      parent : app ,
-      data : {
-        query : {
-          from : '' ,
-          to : '' ,
-          api
-        } ,
-        result : {
-          phonetic : '' ,
-          detailed : [] ,
-          result : '' ,
-          linkToResult : '' ,
-          response : {} ,
-          api : {
-            name : ''
+  .then( ( { defaultApi } )=> {
+    const stConfig = createST( {
+      template ,
+      btn : '.st-btn' ,
+      box : '.st-box' ,
+      getResult() {
+        this.result = { result : this.query.text };
+        return Promise.resolve();
+      } ,
+      mixins : [
+        {
+          data() {
+            return {
+              query : {
+                from : '' ,
+                to : '' ,
+                api : defaultApi
+              } ,
+              result : {
+                phonetic : '' ,
+                detailed : [] ,
+                result : '' ,
+                linkToResult : '' ,
+                response : {} ,
+                api : {
+                  name : ''
+                }
+              }
+            };
+          } ,
+          methods : {
+            openOptions : util.noop
           }
         }
+      ]
+    } );
+
+    const app = new Vue( {
+      el : '#app' ,
+      data : {
+        canInject : false ,
+        enabled : false
       } ,
-      template ,
       methods : {
-        openOptions(){}
+        switchEnable() {
+          const enabled = this.enabled = !this.enabled;
+          // todo
+        }
       } ,
-      _btn : '.st-btn' ,
-      _box : '.st-box' ,
-      _getResult() {
-        this.result.result = this.query.text;
-        return Promise.resolve();
+      components : {
+        'st-box' : stConfig
       }
     } );
 
-    st.inline = true;
+    app.$refs.st.inline = true;
   } );
+
+Promise.all( [
+  util.getTabLocation() ,
+  storage.get( [ 'excludeDomains' , 'defaultApi' ] )
+] ).then( ( [locationObj, { excludeDomains , defaultApi }] ) => {
+
+  const {host} = locationObj;
+  app.enabled = !excludeDomains.some( domain => domain === host );
+  app.canInject = true;
+} , util.noop );
