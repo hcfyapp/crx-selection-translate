@@ -19,38 +19,32 @@
  * @property {String} [defaultAudio='Google'] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
  * */
 
-/**
- * 设置页
- */
+import 'babel-polyfill';
+import Vue from 'vue';
+import storage from 'chrome-storage-wrapper';
 
 import '../public/bootstrap-lite.scss';
 import './options.scss';
 
-import 'babel-polyfill';
-import Vue from 'vue';
-
-import storage from 'chrome-storage-wrapper';
-
 Vue.config.debug = true;
 
-storage
-  .getAll()
-  .then( options => {
-    const manifest = chrome.runtime.getManifest();
+(async function () {
+  const options = await storage.getAll() ,
+    manifest = chrome.runtime.getManifest();
 
-    new Vue( {
-      el : 'body' ,
-      data : {
-        options ,
-        version : manifest.version ,
-        showAdd : false ,
-        tmpDomain : ''
-      } ,
-      watch : {
-        options : {
-          handler : newVal => storage.set( newVal ) ,
-          deep : true
-        }
+  new Vue( {
+    el : 'body' ,
+    data : {
+      options ,
+      version : manifest.version ,
+      showAdd : false ,
+      tmpDomain : ''
+    } ,
+    watch : {
+      options : {
+        handler : newVal => storage.set( newVal ) ,
+        deep : true
       }
-    } );
+    }
   } );
+})();

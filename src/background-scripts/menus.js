@@ -3,6 +3,7 @@
  */
 
 import storage from 'chrome-storage-wrapper';
+
 const {contextMenus} = chrome;
 let created = false;
 

@@ -7,7 +7,7 @@ import '../public/bootstrap-lite.scss';
 import './popup.scss';
 
 import template from '../content-scripts/tpl.html';
-import * as util from '../public/util';
+import util from '../public/util';
 
 Vue.config.debug = true;
 
