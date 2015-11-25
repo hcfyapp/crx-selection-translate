@@ -19,7 +19,7 @@ const {runtime,tabs} = chrome ,
   };
 
 // 安装时提示用户划词翻译已升级至最新版
-runtime.onInstalled.addListener( async function ( details ) {
+runtime.onInstalled.addListener( async details => {
   const {reason} = details;
 
   if ( reason === 'install' ) { // 安装了新版 todo 网址待更新

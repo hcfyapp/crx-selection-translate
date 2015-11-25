@@ -11,7 +11,7 @@ import template from './tpl.html';
 // 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
 window.interact = interact;
 
-const initST = async function () {
+const initST = async ()=> {
   let defApi = '';
   const {runtime} = chrome ,
     {host} = location ,

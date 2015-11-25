@@ -11,7 +11,7 @@ import util from '../public/util';
 
 Vue.config.debug = true;
 
-(async function () {
+(async ()=> {
   let host;
   const [ {excludeDomains , defaultApi} , locationObj ] = await Promise.all( [
       storage.get( [ 'excludeDomains' , 'defaultApi' ] ) ,

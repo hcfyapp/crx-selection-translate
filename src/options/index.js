@@ -28,7 +28,7 @@ import './options.scss';
 
 Vue.config.debug = true;
 
-(async function () {
+(async ()=> {
   const options = await storage.getAll() ,
     manifest = chrome.runtime.getManifest();
 
