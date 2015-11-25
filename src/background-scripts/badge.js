@@ -18,8 +18,15 @@ storage
   .get( 'excludeDomains' )
   .then( assignDomains );
 
-storage.addChangeListener( assignDomains , { keys : [ 'excludeDomains' ] } );
+storage.addChangeListener( items => {
+  assignDomains( items );
+  updateBadge();
+} , { keys : [ 'excludeDomains' ] } );
 
+/**
+ * 更新扩展图标上的 off 标签
+ * @param {Number} [tabId] - 根据哪个标签页的 location object 来更新图标。默认为当前选中的标签页
+ */
 function updateBadge( tabId ) {
   util.getTabLocation( tabId )
     .then( location => {

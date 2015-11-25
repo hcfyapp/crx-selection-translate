@@ -3,10 +3,10 @@ const {tabs} = chrome;
 /**
  * 获取标签页的 window.location 对象
  * @param {Number} [tabId] - tab id，默认为当前选中的标签页的 id
- * @returns {Promise}
+ * @returns {Promise} - 由于某些标签页扩展没有权限访问（例如 chrome 设置），所以最终的 locationObj 有可能是 undefined
  */
 export function getTabLocation( tabId ) {
-  return new Promise( ( resolve , reject ) => {
+  return new Promise( resolve => {
     let tabIdPromise;
 
     if ( tabId ) {
@@ -18,13 +18,7 @@ export function getTabLocation( tabId ) {
     }
 
     tabIdPromise
-      .then( tabId => tabs.sendMessage( tabId , { action : 'get location' } , locationObj => {
-        if ( locationObj ) {
-          resolve( locationObj );
-        } else {
-          reject();
-        }
-      } ) );
+      .then( tabId => tabs.sendMessage( tabId , { action : 'get location' } , resolve ) );
   } );
 }
 
