@@ -1,24 +1,27 @@
 {
-  "version" : "v4" ,
-  "repo" : "borisyankov/DefinitelyTyped" ,
-  "ref" : "master" ,
-  "path" : "typings" ,
-  "bundle" : "typings/tsd.d.ts" ,
-  "installed" : {
-    "es6-promise/es6-promise.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "webrtc/MediaStream.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "chrome/chrome.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "filewriter/filewriter.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
-    } ,
-    "filesystem/filesystem.d.ts" : {
-      "commit" : "35989a3ab4834b8e8b2b56788f1d4fc46a25dc8d"
+  "version": "v4",
+  "repo": "borisyankov/DefinitelyTyped",
+  "ref": "master",
+  "path": "typings",
+  "bundle": "typings/tsd.d.ts",
+  "installed": {
+    "es6-promise/es6-promise.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    },
+    "webrtc/MediaStream.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    },
+    "chrome/chrome.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    },
+    "filewriter/filewriter.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    },
+    "filesystem/filesystem.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+    },
+    "vue/vue.d.ts": {
+      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
     }
   }
 }
