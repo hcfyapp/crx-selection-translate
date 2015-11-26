@@ -17,7 +17,7 @@ module.exports = {
     loaders : [
       {
         test : /\.js$/ ,
-        exclude : /node_modules/ ,
+        exclude : /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget)\1)/ ,
         loader : 'babel' ,
         query : {
           presets : [ 'es2015' , 'stage-3' ] ,
