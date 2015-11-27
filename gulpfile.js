@@ -2,68 +2,88 @@ const config = {
   src : './src' ,
   dist : './dist' ,
   files : {
-    js : [ 'bundle/*.js' ] ,
-    css : [ 'bundle/*.css' ] ,
-    html : [ '*/index.html' ] ,
-    json : [ 'manifest.json' ] ,
-    copy : [ 'logo.png' ]
+    html : [ './src/*/index.html' ] ,
+    json : [ './src/manifest.json' ] ,
+    copy : [ './src/logo.png' , './src/bundle/*.{js,css}' , '!./src/bundle/bs-lite.js' ]
   }
 };
 
-const del = require( 'del' ) ,
+const webpack = require( 'webpack' ) ,
+  del = require( 'del' ) ,
   gulp = require( 'gulp' ) ,
   htmlmin = require( 'gulp-htmlmin' ) ,
-  minifyCss = require( 'gulp-minify-css' ) ,
-  uglify = require( 'gulp-uglify' ) ,
   jsonmin = require( 'gulp-jsonmin' );
 
+const webpackConfig = require( './webpack.config' );
+
 gulp.task( 'clean' , clean );
-gulp.task( 'js' , [ 'clean' ] , js );
-gulp.task( 'css' , [ 'clean' ] , css );
 gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'json' , [ 'clean' ] , json );
-gulp.task( 'copy' , [ 'clean' ] , copy );
-gulp.task( 'default' , [ 'js' , 'css' , 'html' , 'json' , 'copy' ] );
+gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
+gulp.task( 'copy' , [ 'webpackP' ] , copy );
+gulp.task( 'default' , [ 'html' , 'json' , 'copy' ] );
 
+/**
+ * 删除上一次生成的文件夹
+ * @returns {Promise}
+ */
 function clean() {
   return del( config.dist );
 }
 
-function js() {
-  return gulp.src( wrapSrc( config.files.js ) , { base : config.src } )
-    .pipe( uglify().on( 'error' , function ( e ) {
-      console.log( e );
-    } ) )
-    .pipe( gulp.dest( config.dist ) );
+/**
+ * 使用 webpack 来精简 js、css 及模板。这个函数只是以 node API 的形式执行了 npm run webpack -- -p
+ * @param {Function} done
+ */
+function webpackP( done ) {
+  webpackConfig.watch = false;
+  delete webpackConfig.devtool;
+
+  webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG 变量的定义
+
+  webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
+    compress : {
+      warnings : false
+    }
+  } ) );
+  webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
+
+  webpack( webpackConfig , err => {
+    if ( err ) {
+      throw err;
+    } else {
+      done();
+    }
+  } );
 }
 
-function css() {
-  return gulp.src( wrapSrc( config.files.css ) , { base : config.src } )
-    .pipe( minifyCss() )
-    .pipe( gulp.dest( config.dist ) );
-}
-
+/**
+ * 精简 html。其实只精简了 index.html ，模板都由 webpack 负责精简。
+ */
 function html() {
-  return gulp.src( wrapSrc( config.files.html ) , { base : config.src } )
+  return gulp.src( config.files.html , { base : config.src } )
     .pipe( htmlmin( {
       removeComments : true ,
+      removeAttributeQuotes : true ,
       collapseWhitespace : true ,
       processScripts : [ 'text/html' ]
     } ) )
     .pipe( gulp.dest( config.dist ) );
 }
 
+/**
+ * 精简 json。目前只有 manifest.json 用到了。
+ */
 function json() {
-  return gulp.src( wrapSrc( config.files.json ) )
+  return gulp.src( config.files.json )
     .pipe( jsonmin() )
     .pipe( gulp.dest( config.dist ) );
 }
 
+/**
+ * 复制文件。这个函数负责将 webpack 精简过后的 js 与 css 复制到 dist 文件夹。
+ */
 function copy() {
-  return gulp.src( wrapSrc( config.files.copy ) )
+  return gulp.src( config.files.copy , { base : config.src } )
     .pipe( gulp.dest( config.dist ) );
-}
-
-function wrapSrc( arr ) {
-  return arr.map( url => config.src + '/' + url )
 }
