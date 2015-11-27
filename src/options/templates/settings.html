@@ -1,0 +1,112 @@
+<h3>设置</h3>
+
+<h4>朗读</h4>
+
+<div class="o-group">
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.autoPlay">
+      自动朗读
+    </label>
+
+    <div class="help-block">翻译结果显示后，如果有朗读按钮，就自动朗读。</div>
+  </div>
+</div>
+
+<h4>辅助功能</h4>
+
+<div class="o-group">
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.needCtrl">
+      配合 Ctrl 键使用划词翻译
+    </label>
+
+    <div class="help-block">勾选此选项后，需要先按下 Ctrl
+      键再划词，才会显示翻译结果。如果你是想先划词后再决定翻译与否，你需要使用划词翻译预定义的<a target="_blank" href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助#快捷键">快捷键</a>。
+    </div>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.showMenu">
+      将翻译按钮加入右键菜单
+    </label>
+
+    <div class="help-block">勾选后，在<b>选中的文本</b>上单击右键，弹出的菜单内会有“翻译选中文本”的菜单项。</div>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.showBtn">
+      划词后显示翻译按钮
+    </label>
+
+    <div class="help-block">若勾选此选项，那么划词后不会直接显示翻译结果，而是会显示一个按钮，点击之后才会翻译。</div>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.autoClipboard">
+      打开翻译盒子时，自动翻译剪切板内的文本
+    </label>
+  </div>
+</div>
+
+<h4>翻译筛选</h4>
+
+<div class="o-group">
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.ignoreChinese">
+      忽略中文
+    </label>
+
+    <div class="help-block">翻译文本里有一个或以上的汉字时，不显示翻译结果。</div>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.ignoreNumLike">
+      忽略数字与符号组成的文本
+    </label>
+
+    <div class="help-block">如果文本是由<b>数字、点、括号、空格、横线、加号和圆点（即•，多用于密码框）</b>组成的，则忽略，例如 (+012)
+      34567。这一选项会忽略电话号码、整数与小数。
+    </div>
+  </div>
+</div>
+
+<h4>翻译引擎</h4>
+
+<div class="o-group">
+  <p>设置划词翻译时默认使用的翻译引擎。</p>
+
+  <p>
+    <label class="radio-inline">
+      <input type="radio" name="a" value="YouDao" v-model="options.defaultApi"> 有道翻译
+    </label>
+    <label class="radio-inline">
+      <input type="radio" name="a" value="BaiDu" v-model="options.defaultApi"> 百度翻译
+    </label>
+  </p>
+
+  <div class="help-block">
+    <a target="_blank" href="https://github.com/lmk123/crx-selection-translate/wiki/使用帮助#谷歌翻译国外与谷歌翻译国内有什么区别我该如何选择">不知道该选择“谷歌翻译(国外)”还是“谷歌翻译(国内)”？</a>另外，默认的翻译引擎可能并不适合你的喜好，你可以对比不同引擎的翻译结果，选择出最适合你的那一个。比如，有道翻译可能更适合想要详细了解英文单词释义的朋友。
+  </div>
+</div>
+
+<h4>域名筛选
+  <small>v6.0.0 版新增</small>
+</h4>
+
+<div class="o-group">
+  <p>在这些域名下，划词翻译将不会启用，并且浏览器地址栏右边的图标会变成灰色。</p>
+
+  <div v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</div>
+  <ul v-show="options.excludeDomains.length">
+    <li v-for="domain in options.excludeDomains">{{domain}}
+      <button type="button" v-on:click="options.excludeDomains.splice($index,1)">删除</button>
+    </li>
+  </ul>
+  <div v-show="showAdd">
+    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" v-on:keyup.enter="options.excludeDomains.push(tmpDomain),tmpDomain='',showAdd=false">
+  </div>
+  <button type="button" v-show="!showAdd" v-on:click="showAdd=true">新增</button>
+</div>

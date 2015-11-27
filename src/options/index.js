@@ -17,33 +17,53 @@
  * @property {String[]} excludeDomains - 在哪些网站下不要启用划词翻译，并且在这些网站下把图标变灰。这个功能抄袭自 Ad Blocker
  * @property {RegExp[]} ignoresText - *匹配这些正则表达式的文本不要翻译
  * @property {String} [defaultAudio='Google'] - 默认的语音引擎。在上一版本中这个设置项叫 defaultSpeak，但是没有开放出来
- * */
+ */
 
 import 'babel-polyfill';
 import Vue from 'vue';
+import VueRouter from 'vue-router';
 import storage from 'chrome-storage-wrapper';
+
+import * as templates from './templates/index';
 
 import './options.scss';
 
 Vue.config.debug = true;
 
-(async ()=> {
-  const options = await storage.getAll() ,
-    manifest = chrome.runtime.getManifest();
+Vue.use( VueRouter );
 
-  new Vue( {
-    el : 'body' ,
-    data : {
-      options ,
-      version : manifest.version ,
-      showAdd : false ,
-      tmpDomain : ''
-    } ,
-    watch : {
-      options : {
-        handler : newVal => storage.set( newVal ) ,
-        deep : true
+const router = new VueRouter();
+
+router.map( {
+  '/' : {
+    component : {
+      template : templates.settings ,
+      data : ()=>({
+        options : {
+          excludeDomains : []
+        } ,
+        showAdd : false ,
+        tmpDomain : ''
+      }) ,
+      watch : {
+        options : {
+          handler : newVal => storage.set( newVal ) ,
+          deep : true
+        }
+      } ,
+      route : {
+        async data() {
+          const options = await storage.getAll();
+          return { options };
+        }
       }
     }
-  } );
-})();
+  } ,
+  '/about' : {
+    component : {
+      template : templates.about
+    }
+  }
+} );
+
+router.start( {} , 'body' );
