@@ -63,7 +63,25 @@ router.map( {
     component : {
       template : templates.about
     }
+  } ,
+  '/voices' : {
+    component : {
+      template : templates.voices ,
+      data : ()=>({
+        voices : []
+      }) ,
+      route : {
+        async data() {
+          const voices = await new Promise( r => chrome.tts.getVoices( r ) );
+          return { voices };
+        }
+      }
+    }
   }
+} );
+
+router.redirect( {
+  '*' : '/'
 } );
 
 router.start( {} , 'body' );

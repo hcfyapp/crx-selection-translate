@@ -1,0 +1,21 @@
+<div v-show="$loadingRouteData">正在加载……</div>
+<div v-else>
+  <table class="table table-striped table-bordered table-condensed">
+    <tr>
+      <th>序号</th>
+      <th>名称</th>
+      <th>支持的语言</th>
+      <th>性别</th>
+      <th>网络语音</th>
+      <th>语音来源</th>
+    </tr>
+    <tr v-for="voice in voices">
+      <td v-text="$index + 1"></td>
+      <td v-text="voice.voiceName"></td>
+      <td v-text="voice.lang || '未知'"></td>
+      <td v-text="voice.gender && voice.gender == 'female' ? '女声' : '男声'"></td>
+      <td v-text="voice.remote ? '是' : '否'"></td>
+      <td v-text="voice.extensionId === 'neajdppkdcdipfabeoofebfddakdcjhd' ? 'Chrome' : (voice.extensionId || '操作系统') "></td>
+    </tr>
+  </table>
+</div>
