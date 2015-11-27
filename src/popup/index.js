@@ -8,7 +8,9 @@ import './popup.scss';
 import template from '../content-scripts/tpl.html';
 import util from '../public/util';
 
-Vue.config.debug = true;
+if ( DEBUG ) {
+  Vue.config.debug = true;
+}
 
 (async ()=> {
   let host;

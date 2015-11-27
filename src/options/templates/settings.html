@@ -100,7 +100,7 @@
   <p>在这些域名下，划词翻译将不会启用，并且浏览器地址栏右边的图标会变成灰色。</p>
 
   <div v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</div>
-  <ul v-show="options.excludeDomains.length">
+  <ul v-else>
     <li v-for="domain in options.excludeDomains">{{domain}}
       <button type="button" v-on:click="options.excludeDomains.splice($index,1)">删除</button>
     </li>

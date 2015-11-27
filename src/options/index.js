@@ -28,7 +28,10 @@ import * as templates from './templates/index';
 
 import './options.scss';
 
-Vue.config.debug = true;
+if ( !DEBUG ) {
+  // 不能开启 Vue.config.debug，否则会报错导致程序中断
+  Vue.config.silent = true;
+}
 
 Vue.use( VueRouter );
 
@@ -39,9 +42,7 @@ router.map( {
     component : {
       template : templates.settings ,
       data : ()=>({
-        options : {
-          excludeDomains : []
-        } ,
+        options : {} ,
         showAdd : false ,
         tmpDomain : ''
       }) ,
