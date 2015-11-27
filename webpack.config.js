@@ -7,7 +7,8 @@ module.exports = {
     bg : './src/background-scripts/' ,
     content : './src/content-scripts/' ,
     options : './src/options/' ,
-    popup : './src/popup/'
+    popup : './src/popup/' ,
+    'bs-lite' : './src/public/bootstrap-lite.scss'
   } ,
   output : {
     path : './src/bundle' ,
@@ -37,9 +38,9 @@ module.exports = {
   plugins : [
 
     // bg      : chrome-storage-wrapper
-    // options : chrome-storage-wrapper vue                  bootstrap-lite.scss
+    // options : chrome-storage-wrapper vue
     // content : chrome-storage-wrapper vue selection-widget interact.js
-    // popup   : chrome-storage-wrapper vue selection-widget bootstrap-lite.scss
+    // popup   : chrome-storage-wrapper vue selection-widget
     new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'popup' ] ) ,
     new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,

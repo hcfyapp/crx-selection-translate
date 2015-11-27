@@ -3,7 +3,6 @@ import Vue from 'vue';
 import createST from 'selection-widget';
 import storage from 'chrome-storage-wrapper';
 
-import '../public/bootstrap-lite.scss';
 import './popup.scss';
 
 import template from '../content-scripts/tpl.html';
