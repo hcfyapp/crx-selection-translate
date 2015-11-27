@@ -17,7 +17,8 @@
     "storage" ,
     "clipboardWrite" ,
     "clipboardRead" ,
-    "activeTab"
+    "activeTab" ,
+    "tts"
   ] ,
   "background" : {
     "scripts" : [
