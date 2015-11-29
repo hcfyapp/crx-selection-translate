@@ -24,14 +24,12 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import storage from 'chrome-storage-wrapper';
 
+import locales from '../public/locales';
 import * as templates from './templates/index';
 
 import './options.scss';
 
-if ( !DEBUG ) {
-  // 不能开启 Vue.config.debug，否则会报错导致程序中断
-  Vue.config.silent = true;
-}
+Vue.config.debug = true;
 
 Vue.use( VueRouter );
 
@@ -42,7 +40,9 @@ router.map( {
     component : {
       template : templates.settings ,
       data : ()=>({
-        options : {} ,
+        options : {
+          excludeDomains : [] // 防止应用启动时模版报错
+        } ,
         showAdd : false ,
         tmpDomain : ''
       }) ,
@@ -71,6 +71,11 @@ router.map( {
       data : ()=>({
         voices : []
       }) ,
+      methods : {
+        getLocaleName( voiceLang ) {
+          return voiceLang ? (locales[ voiceLang ] || voiceLang) : '未知';
+        }
+      } ,
       route : {
         async data() {
           const voices = await new Promise( r => chrome.tts.getVoices( r ) );
