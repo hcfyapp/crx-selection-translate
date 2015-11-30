@@ -45,7 +45,7 @@ if ( DEBUG ) {
         'st-box' : widget
       }
     } ) ,
-    {st} =app.$refs;
+    {st} = app.$refs;
 
   st.inline = true;
   st.query.api = defaultApi;
