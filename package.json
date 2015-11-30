@@ -14,7 +14,7 @@
     "bootstrap-sass": "^3.3.6",
     "chrome-storage-wrapper": "^0.1.4",
     "interact.js": "^1.2.6",
-    "selection-widget": "^0.9.1",
+    "selection-widget": "^0.9.2",
     "translation.js": "^0.1.5",
     "vue": "^1.0.10",
     "vue-router": "^0.7.7"

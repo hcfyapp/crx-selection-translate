@@ -1,11 +1,10 @@
 import 'babel-polyfill';
 import Vue from 'vue';
-import createST from 'selection-widget';
 import storage from 'chrome-storage-wrapper';
 
 import './popup.scss';
 
-import template from '../content-scripts/tpl.html';
+import widget from '../public/widget/index';
 import util from '../public/util';
 
 if ( DEBUG ) {
@@ -18,39 +17,6 @@ if ( DEBUG ) {
       storage.get( [ 'excludeDomains' , 'defaultApi' ] ) ,
       util.getTabLocation()
     ] ) ,
-    stConfig = createST( {
-      template ,
-      btn : '.st-btn' ,
-      box : '.st-box' ,
-      getResult() {
-        this.result = { result : this.query.text };
-        return Promise.resolve();
-      } ,
-      mixins : [
-        {
-          data : ()=> ({
-            query : {
-              from : '' ,
-              to : '' ,
-              api : defaultApi
-            } ,
-            result : {
-              phonetic : '' ,
-              detailed : [] ,
-              result : '' ,
-              linkToResult : '' ,
-              response : {} ,
-              api : {
-                name : ''
-              }
-            }
-          }) ,
-          methods : {
-            openOptions : util.noop
-          }
-        }
-      ]
-    } ) ,
     app = new Vue( {
       el : '#app' ,
       data : {
@@ -76,11 +42,13 @@ if ( DEBUG ) {
         }
       } ,
       components : {
-        'st-box' : stConfig
+        'st-box' : widget
       }
-    } );
+    } ) ,
+    {st} =app.$refs;
 
-  app.$refs.st.inline = true;
+  st.inline = true;
+  st.query.api = defaultApi;
 
   if ( locationObj ) {
     host = locationObj.host;
