@@ -1,6 +1,12 @@
 import template from './voices.html';
 import locales from '../../public/locales';
 
+const localesHash = {};
+
+locales.forEach( locale => {
+  localesHash[ locale.localeId ] = locale[ 'zh-CN' ];
+} );
+
 export default {
   template ,
   data : ()=>({
@@ -11,14 +17,7 @@ export default {
       if ( !voiceLang ) {
         return '未知';
       }
-      let name;
-      locales.some( locale => {
-        if ( locale.localeId === voiceLang ) {
-          name = locale[ 'zh-CN' ];
-          return true;
-        }
-      } );
-      return name || voiceLang;
+      return localesHash[ voiceLang ] || voiceLang;
     }
   } ,
   route : {
