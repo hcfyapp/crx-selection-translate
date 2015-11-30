@@ -73,7 +73,17 @@ router.map( {
       }) ,
       methods : {
         getLocaleName( voiceLang ) {
-          return voiceLang ? (locales[ voiceLang ] || voiceLang) : '未知';
+          if ( !voiceLang ) {
+            return '未知';
+          }
+          let name;
+          locales.some( locale => {
+            if ( locale.localeId === voiceLang ) {
+              name = locale[ 'zh-CN' ];
+              return true;
+            }
+          } );
+          return name || voiceLang;
         }
       } ,
       route : {

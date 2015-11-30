@@ -19,12 +19,15 @@
 (function () {
   var localesTr = document.querySelectorAll( 'table tr' ) ,
     localesTrArray = Array.prototype.slice.call( localesTr , 1 ) ,
-    locales = {};
+    locales = [];
 
   localesTrArray.forEach( function ( tr ) {
     var tds = tr.children;
 
-    locales[ tds[ 0 ].textContent.trim() ] = tds[ 1 ].textContent.trim();
+    locales.push( {
+      localeId : tds[ 0 ].textContent.trim() ,
+      'zh-CN' : tds[ 1 ].textContent.trim()
+    } );
   } );
 
   copy( JSON.stringify( locales ) );
