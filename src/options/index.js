@@ -22,16 +22,14 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import storage from 'chrome-storage-wrapper';
-
-import * as templates from './templates/index';
 
 import './options.scss';
 
-if ( !DEBUG ) {
-  // 不能开启 Vue.config.debug，否则会报错导致程序中断
-  Vue.config.silent = true;
-}
+import settings from './settings/index';
+import about from './about/index';
+import voices from './voices/index';
+
+Vue.config.debug = true;
 
 Vue.use( VueRouter );
 
@@ -39,45 +37,13 @@ const router = new VueRouter();
 
 router.map( {
   '/' : {
-    component : {
-      template : templates.settings ,
-      data : ()=>({
-        options : {} ,
-        showAdd : false ,
-        tmpDomain : ''
-      }) ,
-      watch : {
-        options : {
-          handler : newVal => storage.set( newVal ) ,
-          deep : true
-        }
-      } ,
-      route : {
-        async data() {
-          const options = await storage.getAll();
-          return { options };
-        }
-      }
-    }
+    component : settings
   } ,
   '/about' : {
-    component : {
-      template : templates.about
-    }
+    component : about
   } ,
   '/voices' : {
-    component : {
-      template : templates.voices ,
-      data : ()=>({
-        voices : []
-      }) ,
-      route : {
-        async data() {
-          const voices = await new Promise( r => chrome.tts.getVoices( r ) );
-          return { voices };
-        }
-      }
-    }
+    component : voices
   }
 } );
 

@@ -5,7 +5,7 @@
 import ts from '../public/my-ts';
 import clipboard from '../public/clipboard';
 
-const {runtime,tabs} = chrome ,
+const {runtime,tabs,tts} = chrome ,
 
   actions = {
 
@@ -23,10 +23,19 @@ const {runtime,tabs} = chrome ,
      * @param {Query} queryObj
      * @returns {Promise}
      */
-    play : queryObj => {
-      // todo 不能仅仅只是返回语音 url,要直接在后台播放
-      return ts.audio( queryObj );
-    } ,
+    play : queryObj => new Promise( ( resolve , reject )=> {
+      // todo 如果没有 queryObj.from,则使用 google 检测语种
+      tts.speak( queryObj.text , {
+        lang : queryObj.from
+      } , ()=> {
+        const {lastError} = runtime;
+        if ( lastError ) {
+          reject( lastError );
+        } else {
+          resolve();
+        }
+      } );
+    } ) ,
 
     /**
      * 复制文本到剪切板

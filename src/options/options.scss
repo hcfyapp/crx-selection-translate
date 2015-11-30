@@ -12,23 +12,4 @@ main {
   width: 650px;
 }
 
-h3 {
-  border-bottom: 1px solid #eee;
-  padding-bottom: 20px;
-}
-
-h4 {
-  margin-top: 30px;
-}
-
-.o-group {
-  padding-left: 1em;
-}
-
-.checkbox {
-  margin-bottom: 20px;
-}
-
-.help-block {
-  margin-top: 0;
-}
+@import "settings/settings";

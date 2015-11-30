@@ -12,7 +12,7 @@
     <tr v-for="voice in voices">
       <td v-text="$index + 1"></td>
       <td v-text="voice.voiceName"></td>
-      <td v-text="voice.lang || '未知'"></td>
+      <td v-text="getLocaleName(voice.lang)"></td>
       <td v-text="voice.gender && voice.gender == 'female' ? '女声' : '男声'"></td>
       <td v-text="voice.remote ? '是' : '否'"></td>
       <td v-text="voice.extensionId === 'neajdppkdcdipfabeoofebfddakdcjhd' ? 'Chrome' : (voice.extensionId || '操作系统') "></td>
