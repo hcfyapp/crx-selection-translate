@@ -22,12 +22,12 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import storage from 'chrome-storage-wrapper';
-
-import locales from '../public/locales';
-import * as templates from './templates/index';
 
 import './options.scss';
+
+import settings from './settings/index';
+import about from './about/index';
+import voices from './voices/index';
 
 Vue.config.debug = true;
 
@@ -37,62 +37,13 @@ const router = new VueRouter();
 
 router.map( {
   '/' : {
-    component : {
-      template : templates.settings ,
-      data : ()=>({
-        options : {
-          excludeDomains : [] // 防止应用启动时模版报错
-        } ,
-        showAdd : false ,
-        tmpDomain : ''
-      }) ,
-      watch : {
-        options : {
-          handler : newVal => storage.set( newVal ) ,
-          deep : true
-        }
-      } ,
-      route : {
-        async data() {
-          const options = await storage.getAll();
-          return { options };
-        }
-      }
-    }
+    component : settings
   } ,
   '/about' : {
-    component : {
-      template : templates.about
-    }
+    component : about
   } ,
   '/voices' : {
-    component : {
-      template : templates.voices ,
-      data : ()=>({
-        voices : []
-      }) ,
-      methods : {
-        getLocaleName( voiceLang ) {
-          if ( !voiceLang ) {
-            return '未知';
-          }
-          let name;
-          locales.some( locale => {
-            if ( locale.localeId === voiceLang ) {
-              name = locale[ 'zh-CN' ];
-              return true;
-            }
-          } );
-          return name || voiceLang;
-        }
-      } ,
-      route : {
-        async data() {
-          const voices = await new Promise( r => chrome.tts.getVoices( r ) );
-          return { voices };
-        }
-      }
-    }
+    component : voices
   }
 } );
 
