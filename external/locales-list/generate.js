@@ -57,7 +57,7 @@
     locales = locales.concat( localesHash[ baseName ] );
   } );
 
-  document.getElementById( 'copyMe' ).value = 'export default ' + JSON.stringify( locales ) + ';';
+  document.getElementById( 'copyMe' ).value = '/*\n * 注意：不要直接编辑这份文件，它是由 ../../external/locales-list/index.html 生成的！\n */\nexport default ' + JSON.stringify( locales ) + ';';
 
   /**
    * 将语种加入到区域列表中
