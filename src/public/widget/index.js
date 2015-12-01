@@ -4,9 +4,21 @@
 
 import createST from 'selection-widget';
 
+import locales from '../locales';
 import template from './tpl.html';
 
 const {runtime} = chrome;
+
+// 去掉 locales 里的 *-* 类语种，除了 zh-CN、zh-TW 和 zh-HK（百度翻译里的粤语）
+const translateLocales = [];
+
+locales.forEach( locale => {
+  const {localeId} = locale;
+
+  if ( !localeId.includes( '-' ) || ( localeId === 'zh-CN' || localeId == 'zh-TW' || localeId == 'zh-HK' ) ) {
+    translateLocales.push( locale );
+  }
+} );
 
 export default createST( {
   template ,
@@ -25,6 +37,7 @@ export default createST( {
   mixins : [
     {
       data : ()=>({
+        locales : translateLocales ,
         query : {
           api : '' ,
           from : '' ,

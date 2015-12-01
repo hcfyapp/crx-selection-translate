@@ -5,11 +5,11 @@
       <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
       <select v-model="query.from">
         <option value="">自动判断</option>
-        <option value="en">英语</option>
+        <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
       </select>
       <select v-model="query.to">
         <option value="">自动选择</option>
-        <option value="zh">中文</option>
+        <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
       </select>
       <select v-model="query.api">
         <option value="YouDao">有道翻译</option>
