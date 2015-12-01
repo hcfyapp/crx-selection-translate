@@ -36,19 +36,22 @@ Vue.use( VueRouter );
 const router = new VueRouter();
 
 router.map( {
-  '/' : {
+  '/options' : {
+    name : 'options' ,
     component : settings
   } ,
-  '/about' : {
-    component : about
-  } ,
   '/voices' : {
+    name : 'voices' ,
     component : voices
+  } ,
+  '/about' : {
+    name : 'about' ,
+    component : about
   }
 } );
 
 router.redirect( {
-  '*' : '/'
+  '*' : { name : 'options' }
 } );
 
 router.start( {} , 'body' );

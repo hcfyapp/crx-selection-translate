@@ -4,12 +4,51 @@ body {
   cursor: default;
 }
 
-nav {
+#left-menu {
   width: 250px;
+  $activePaddingLeft: 20px;
+  $activeBorderLeft: 6px;
+
+  h3 {
+    padding-left: $activePaddingLeft + $activeBorderLeft;
+    margin-bottom: 20px;
+  }
+
+  a {
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    color: #999;
+    cursor: pointer;
+    padding-left: $activePaddingLeft + $activeBorderLeft;
+
+    &.v-link-active {
+      color: #464e5a;
+      border-left: $activeBorderLeft solid #4e5764;
+      padding-left: $activePaddingLeft;
+      cursor: default;
+    }
+
+    &:hover {
+      color: #464e5a;
+      text-decoration: none;
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: none;
+    }
+  }
+
 }
 
 main {
   width: 650px;
+
+  h3 {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+  }
 }
 
 @import "settings/settings";

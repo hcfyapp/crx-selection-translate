@@ -7,15 +7,14 @@
     <link rel="stylesheet" href="../bundle/options.css">
   </head>
   <body class="clearfix">
-    <nav class="pull-left">
-      <h1>划词翻译</h1>
-      <ul class="list-unstyled">
-        <li><a v-link="{path:'/'}">设置</a></li>
-        <li><a v-link="{path:'/voices'}">支持的语音</a></li>
-        <li><a v-link="{path:'/about'}">关于</a></li>
-        <li><a href="#">使用帮助</a></li>
-        <li><a href="#">常见问题</a></li>
-      </ul>
+    <nav class="pull-left" id="left-menu">
+      <h3>划词翻译</h3>
+
+      <div>
+        <a v-link="{name:'options'}">设置</a>
+        <a v-link="{name:'voices'}">支持的语音</a>
+        <a v-link="{name:'about'}">关于</a>
+      </div>
     </nav>
     <main class="pull-left">
       <router-view></router-view>
