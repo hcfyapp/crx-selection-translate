@@ -18,7 +18,7 @@ if ( DEBUG ) {
       util.getTabLocation()
     ] ) ,
     app = new Vue( {
-      el : '#app' ,
+      el : 'body' ,
       data : {
         canInject : false ,
         enabled : false
