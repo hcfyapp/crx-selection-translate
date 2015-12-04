@@ -48,7 +48,10 @@
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "tsd": "^0.6.5",
-    "webpack": "^1.12.9"
+    "webpack": "^1.12.9",
+    "isparta-loader": "^2.0.0",
+    "karma-coverage": "^0.5.3",
+    "karma-coveralls": "^1.1.2"
   },
   "author": "Milk Lee <milk.lee@qq.com>",
   "license": "GPLv3",

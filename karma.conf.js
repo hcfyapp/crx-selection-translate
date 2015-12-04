@@ -4,6 +4,18 @@ const path = require( 'path' ) ,
 
 c.entry = {}; // 清空 entry
 delete c.watch; // 关闭 watch 模式
+delete c.devtool;
+
+c.module.loaders.shift();
+
+// 必须告诉 isparta 我使用了哪些 babel 设置，见 https://github.com/deepsweet/isparta-loader/issues/10
+c.isparta = {
+  embedSource : true ,
+  noAutoWrap : true ,
+  babel : {
+    presets : [ 'es2015' , 'stage-3' ]
+  }
+};
 
 c.plugins.splice( 0 , 3 ); // 清空 webpack 优化
 c.plugins.pop(); // 清空开发模式定义
@@ -11,6 +23,25 @@ c.plugins.push( new webpack.DefinePlugin( { // 切换为测试模式，此模式
   DEBUG : false ,
   TEST : true
 } ) );
+
+c.module.preLoaders = [
+  {
+    test : /\.js$/ ,
+    exclude : [
+      /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget)\1)/ ,
+      path.resolve( 'src/' ) // 必须得用 path.resolve
+    ] ,
+    loader : 'babel' ,
+    query : {
+      presets : [ 'es2015' , 'stage-3' ]
+    }
+  } ,
+  {
+    test : /\.js$/ ,
+    include : path.resolve( 'src/' ) ,
+    loader : 'isparta'
+  }
+];
 
 module.exports = function ( config ) {
   config.set( {
@@ -23,7 +54,22 @@ module.exports = function ( config ) {
       'tests/index.js' : [ 'webpack' ]
     } ,
     webpack : c ,
-    reporters : [ 'progress' ] ,
+    reporters : [ 'progress' , 'coverage' ] ,
+    coverageReporter : {
+      dir : 'coverage' ,
+      reporters : [
+        {
+          type : 'html' ,
+          subdir : function ( browser ) {
+            return 'html/' + browser.toLowerCase().split( /[ /-]/ )[ 0 ];
+          }
+        } ,
+        {
+          type : 'lcov' ,
+          subdir : 'lcov'
+        }
+      ]
+    } ,
     port : 9876 ,
     colors : true ,
     logLevel : config.LOG_INFO ,
