@@ -18,6 +18,12 @@ window.chrome = {
     }
   } ,
   runtime : {
+    getManifest() {
+      return { version : '' };
+    } ,
+    requestUpdateCheck( fb ) {
+      fb( '随便一个字符串' , {} );
+    } ,
     onInstalled : {
       addListener() {}
     } ,
