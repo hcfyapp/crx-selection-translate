@@ -29,7 +29,9 @@ import settings from './settings/index';
 import about from './about/index';
 import voices from './voices/index';
 
-Vue.config.debug = true;
+if ( DEBUG ) {
+  Vue.config.debug = true;
+}
 
 Vue.use( VueRouter );
 
