@@ -15,7 +15,7 @@ if ( DEBUG ) {
 const main = async ()=> {
   let host; // 保存当前标签页的 host，用于给 switchEnable 方法进行判断
   const app = new Vue( {
-    el : TEST ? document.createElement( 'div' ) : 'body' ,
+    el : document.createElement( 'div' ) ,
     template ,
     data : {
       canInject : false ,
@@ -41,6 +41,9 @@ const main = async ()=> {
     } ,
     components : {
       'st-box' : widget
+    } ,
+    compiled() {
+      this.$appendTo( 'body' );
     }
   } );
 
