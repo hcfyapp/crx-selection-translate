@@ -54,7 +54,8 @@ module.exports = {
     new ExtractTextPlugin( '[name].css' ) ,
 
     new webpack.DefinePlugin( {
-      DEBUG : true
+      DEBUG : true ,
+      TEST : false
     } )
   ] ,
   watch : true ,
