@@ -6,22 +6,25 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "es6-promise/es6-promise.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "webrtc/MediaStream.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "chrome/chrome.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "filewriter/filewriter.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "filesystem/filesystem.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     },
     "vue/vue.d.ts": {
-      "commit": "b2d17b5dad042e293e77d09f2a30d281325cb606"
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
+    },
+    "jasmine/jasmine.d.ts": {
+      "commit": "e5a27ea95e47b95333784f1f0d590127b4e39a89"
     }
   }
 }
