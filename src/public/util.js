@@ -16,10 +16,5 @@ export default {
     }
 
     return new Promise( resolve => tabs.sendMessage( tabId , { action : 'get location' } , resolve ) );
-  } ,
-
-  /**
-   * 仅仅是一个空函数
-   */
-  noop() {}
+  }
 }
