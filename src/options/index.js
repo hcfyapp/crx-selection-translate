@@ -29,6 +29,7 @@ import settings from './settings/index';
 import about from './about/index';
 import voices from './voices/index';
 
+/* istanbul ignore if */
 if ( DEBUG ) {
   Vue.config.debug = true;
 }
