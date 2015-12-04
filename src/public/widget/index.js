@@ -2,7 +2,7 @@
  * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
  */
 
-import createST from 'selection-widget';
+import widgetMixin from 'selection-widget';
 
 import locales from '../locales';
 import template from './tpl.html';
@@ -20,90 +20,84 @@ locales.forEach( locale => {
   }
 } );
 
-export default createST( {
+export default {
   template ,
-  btn : '.st-btn' ,
-  box : '.st-box' ,
-  drag : 'header' ,
-  getResult() {
-    this.$emit( 'beforeQuery' );
-    return send( {
-      action : 'translate' ,
-      data : this.query
-    } )
-      .catch( error => ({ error }) )
-      .then( resultObj => this.result = resultObj );
-  } ,
-  mixins : [
-    {
-      data : ()=>({
-        locales : translateLocales ,
-        query : {
-          api : '' ,
-          from : '' ,
-          to : ''
-        } ,
-        result : {
-          phonetic : '' ,
-          detailed : [] ,
-          result : '' ,
-          linkToResult : '' ,
-          response : {} ,
-          api : {
-            name : ''
-          }
-        }
-      }) ,
-      methods : {
-
-        /**
-         * 打开设置页
-         */
-        openOptions() {
-          send( {
-            action : 'openTab' ,
-            data : {
-              url : 'options/index.html'
-            }
-          } );
-        } ,
-
-        /**
-         * 复制文本
-         * @param {String|String[]} textOrTextArray
-         */
-        copy( textOrTextArray ) {
-          if ( Array.isArray( textOrTextArray ) ) {
-            textOrTextArray = textOrTextArray.join( '\n' );
-          }
-          send( {
-            action : 'copy' ,
-            data : textOrTextArray
-          } );
-        } ,
-
-        /**
-         * 播放语音
-         * @param {String|String[]} textOrTextArray
-         * @param {Boolean} [isFrom] - 默认情况下会读取 result.to 作为语音的语种,若这个值为 true 则使用 result.from
-         */
-        play( textOrTextArray , isFrom ) {
-          if ( Array.isArray( textOrTextArray ) ) {
-            textOrTextArray = textOrTextArray.join( '\n' );
-          }
-          send( {
-            action : 'play' ,
-            data : {
-              text : textOrTextArray ,
-              api : this.result.api.id ,
-              from : this.result[ isFrom ? 'from' : 'to' ]
-            }
-          } );
-        }
+  data : ()=>({
+    locales : translateLocales ,
+    query : {
+      api : '' ,
+      from : '' ,
+      to : ''
+    } ,
+    result : {
+      phonetic : '' ,
+      detailed : [] ,
+      result : '' ,
+      linkToResult : '' ,
+      response : {} ,
+      api : {
+        name : ''
       }
     }
-  ]
-} );
+  }) ,
+  methods : {
+    getResult() {
+      this.$emit( 'beforeQuery' );
+      return send( {
+        action : 'translate' ,
+        data : this.query
+      } )
+        .catch( error => ({ error }) )
+        .then( resultObj => this.result = resultObj );
+    } ,
+
+    /**
+     * 打开设置页
+     */
+    openOptions() {
+      send( {
+        action : 'openTab' ,
+        data : {
+          url : 'options/index.html'
+        }
+      } );
+    } ,
+
+    /**
+     * 复制文本
+     * @param {String|String[]} textOrTextArray
+     */
+    copy( textOrTextArray ) {
+      if ( Array.isArray( textOrTextArray ) ) {
+        textOrTextArray = textOrTextArray.join( '\n' );
+      }
+      send( {
+        action : 'copy' ,
+        data : textOrTextArray
+      } );
+    } ,
+
+    /**
+     * 播放语音
+     * @param {String|String[]} textOrTextArray
+     * @param {Boolean} [isFrom] - 默认情况下会读取 result.to 作为语音的语种,若这个值为 true 则使用 result.from
+     */
+    play( textOrTextArray , isFrom ) {
+      if ( Array.isArray( textOrTextArray ) ) {
+        textOrTextArray = textOrTextArray.join( '\n' );
+      }
+      send( {
+        action : 'play' ,
+        data : {
+          text : textOrTextArray ,
+          api : this.result.api.id ,
+          from : this.result[ isFrom ? 'from' : 'to' ]
+        }
+      } );
+    }
+  } ,
+  mixins : [ widgetMixin ]
+};
 
 /**
  * 传递消息到后台的方法

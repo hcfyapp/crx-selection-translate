@@ -1,6 +1,6 @@
 <div>
-  <div class="st-box" :style="boxStyle">
-    <header v-if="!inline"><span v-on:click="pinned=!pinned">图钉</span><span v-on:click="openOptions">设置</span></header>
+  <div v-el:st-box :style="boxStyle">
+    <header v-if="!inline" v-el:st-drag><span v-on:click="pinned=!pinned">图钉</span><span v-on:click="openOptions">设置</span></header>
     <div>
       <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
       <select v-model="query.from">
@@ -38,5 +38,5 @@
       <div v-show="result.api.name">via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></div>
     </div>
   </div>
-  <div class="st-btn" :style="btnStyle">译</div>
+  <div v-el:st-btn :style="btnStyle">译</div>
 </div>
