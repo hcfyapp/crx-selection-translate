@@ -8,6 +8,7 @@ import widget from '../public/widget/index';
 import util from '../public/util';
 import template from './tpl.html';
 
+/* istanbul ignore if */
 if ( DEBUG ) {
   Vue.config.debug = true;
 }
@@ -36,7 +37,7 @@ const main = async ()=> {
           ex.push( host );
         }
 
-        storage.set( 'excludeDomains' , ex );
+        return storage.set( 'excludeDomains' , ex );
       }
     } ,
     components : {
@@ -61,14 +62,16 @@ const main = async ()=> {
     app.enabled = !excludeDomains.some( domain => domain === host );
     app.canInject = true;
   }
-
+  /* istanbul ignore next */
   return TEST ? app : undefined;
 };
 
+/* istanbul ignore if */
 if ( !TEST ) {
   main();
 }
 
+/* istanbul ignore next */
 export default TEST ? main : undefined;
 
 

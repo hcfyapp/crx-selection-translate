@@ -4,9 +4,8 @@ const path = require( 'path' ) ,
 
 c.entry = {}; // 清空 entry
 delete c.watch; // 关闭 watch 模式
-delete c.devtool;
 
-c.module.loaders.shift();
+c.module.loaders.shift(); // 删除开发模式的 babel-loader，替换为下面的 preLoader
 
 // 必须告诉 isparta 我使用了哪些 babel 设置，见 https://github.com/deepsweet/isparta-loader/issues/10
 c.isparta = {
