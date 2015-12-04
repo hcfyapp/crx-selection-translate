@@ -9,7 +9,7 @@ locales.forEach( locale => {
 
 export default {
   template ,
-  data : ()=>({
+  data : ()=> ({
     voices : []
   }) ,
   methods : {

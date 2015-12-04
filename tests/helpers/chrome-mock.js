@@ -17,6 +17,13 @@ window.chrome = {
       addListener() {}
     }
   } ,
+  tts : {
+    getVoices( cb ) {
+      cb( [
+        { name : '语音名字' , lang : '语音语种' }
+      ] );
+    }
+  } ,
   runtime : {
     getManifest() {
       return { version : '' };
