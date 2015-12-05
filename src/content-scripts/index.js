@@ -5,6 +5,7 @@ import initST from './initST';
 const main = async ()=> {
 
   // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
+  /* istanbul ignore next */
   const MOUSE_UP = 'ontouch' in window ? 'touchend' : 'mouseup' ,
     selection = getSelection() ,
 
