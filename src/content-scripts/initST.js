@@ -10,7 +10,7 @@ import widget from '../public/widget/index';
 // 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
 window.interact = interact;
 
-const initST = async ()=> {
+export default async ()=> {
   let defApi = '';
   const {host} = location ,
     storageKeys = [
@@ -58,6 +58,3 @@ const initST = async ()=> {
     Object.assign( st , items );
   }
 };
-
-let p;
-export default ()=> p || (p = initST());
