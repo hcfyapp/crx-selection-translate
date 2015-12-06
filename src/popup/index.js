@@ -62,8 +62,10 @@ const main = async ()=> {
     app.enabled = !excludeDomains.some( domain => domain === host );
     app.canInject = true;
   }
-  /* istanbul ignore next */
-  return TEST ? app : undefined;
+  /* istanbul ignore if */
+  if ( TEST ) {
+    return app;
+  }
 };
 
 /* istanbul ignore if */
