@@ -10,6 +10,8 @@ window.chrome = {
     }
   } ,
   tabs : {
+    sendMessage() {} ,
+    query() {} ,
     onUpdated : {
       addListener() {}
     } ,

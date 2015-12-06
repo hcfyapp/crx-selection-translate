@@ -4,16 +4,28 @@
  * 当前划词翻译里只有一个命令 translate，上一版中的 web（网页翻译）命令在这一版被移到 popup 里了
  */
 
-chrome.commands.onCommand.addListener( command => {
-  switch ( command ) {
-    case 'translate':
-      chrome.tabs.query( { active : true } , tabs => {
-        chrome.tabs.sendMessage( tabs[ 0 ].id , {
-          action : 'translate' ,
-          data : null
-        } );
-      } );
-      break;
-  }
-} );
 
+const {tabs} = chrome;
+
+const main = ()=> {
+  chrome.commands.onCommand.addListener( command => {
+    switch ( command ) {
+      case 'translate':
+        tabs.query( { active : true } , tabArr => {
+          tabs.sendMessage( tabArr[ 0 ].id , {
+            action : 'translate' ,
+            data : null
+          } );
+        } );
+        break;
+    }
+  } );
+};
+
+/* istanbul ignore if */
+if ( !TEST ) {
+  main();
+}
+
+/* istanbul ignore next */
+export default TEST ? main : undefined;

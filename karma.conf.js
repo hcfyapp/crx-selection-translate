@@ -4,6 +4,7 @@ const path = require( 'path' ) ,
 
 c.entry = {}; // 清空 entry
 delete c.watch; // 关闭 watch 模式
+c.devtool = '#inline-source-map';
 
 c.module.loaders.shift(); // 删除开发模式的 babel-loader，替换为下面的 preLoader
 
