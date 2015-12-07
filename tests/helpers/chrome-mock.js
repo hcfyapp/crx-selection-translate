@@ -1,4 +1,7 @@
 window.chrome = {
+  browserAction : {
+    setBadgeText() {}
+  } ,
   commands : {
     onCommand : {
       addListener() {}
