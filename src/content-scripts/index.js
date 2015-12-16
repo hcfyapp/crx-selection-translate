@@ -1,8 +1,10 @@
 import 'babel-polyfill';
+import {Client} from 'connect.io';
 
 import initST from './initST';
 
 const main = async ()=> {
+  const client = new Client( chrome.runtime.id );
 
   // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
   /* istanbul ignore next */
@@ -32,22 +34,16 @@ const main = async ()=> {
 
   document.addEventListener( MOUSE_UP , firstMouseUp );
 
-  // 接收来自后台的消息，见 /background-scripts/commands.es6
-  chrome.runtime.onMessage.addListener( ( msg , sender , sendResponse ) => {
-    switch ( msg.action ) {
-      case 'translate': // 快捷键：翻译网页上选中的文本
-        init().then( st => {
-          removeFirstMouseUp();
-          st.translate();
-        } );
-        break;
+  client.on( 'translate' , ()=> {
+    init().then( st => {
+      removeFirstMouseUp();
+      st.translate();
+    } );
+  } );
 
-      case 'get location': // 将 tab 的 url 报告给扩展程序
-        if ( self === top ) {
-          sendResponse( JSON.parse( JSON.stringify( location ) ) );
-          return true;
-        }
-        break;
+  client.on( 'get location' , ( data , sendResponse )=> {
+    if ( self === top ) {
+      sendResponse( JSON.parse( JSON.stringify( location ) ) );
     }
   } );
 
