@@ -1,6 +1,6 @@
 <div>
   <div v-el:st-box :style="boxStyle">
-    <header v-if="!inline" v-el:st-drag><span v-on:click="pinned=!pinned">图钉</span><span v-on:click="openOptions">设置</span></header>
+    <header v-if="!inline" v-el:st-drag><span @click="pinned=!pinned">图钉</span><span @click="openOptions">设置</span></header>
     <div>
       <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
       <select v-model="query.from">
@@ -15,25 +15,25 @@
         <option value="YouDao">有道翻译</option>
         <option value="BaiDu">百度翻译</option>
       </select>
-      <button type="button" v-on:click="translate">翻译</button>
+      <button type="button" @click="translate">翻译</button>
     </div>
     <div v-show="loading">正在查询，请稍候……</div>
     <div v-else>
       <div v-show="result.phonetic">
         <span v-text="result.phonetic"></span>
-        <span v-on:click="play(query.text,true)">朗读</span>
-        <span v-on:click="copy(result.phonetic)">复制</span>
+        <span @click="play(query.text,true)">朗读</span>
+        <span @click="copy(result.phonetic)">复制</span>
       </div>
       <div v-show="result.detailed && result.detailed.length">
         <ul>
           <li v-for="d in result.detailed" v-text="d"></li>
         </ul>
-        <span v-on:click="copy(result.detailed)">复制</span>
+        <span @click="copy(result.detailed)">复制</span>
       </div>
       <div v-show="result.result">
         <div v-text="result.result"></div>
-        <span v-on:click="play(query.result)">朗读</span>
-        <span v-on:click="copy(result.result)">复制</span>
+        <span @click="play(query.result)">朗读</span>
+        <span @click="copy(result.result)">复制</span>
       </div>
       <div v-show="result.api.name">via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></div>
     </div>

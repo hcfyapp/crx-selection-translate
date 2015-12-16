@@ -27,7 +27,7 @@ module.exports = {
       } ,
       {
         test : /\.html$/ ,
-        loader : 'html'
+        loader : 'vue-html'
       } ,
       {
         test : /\.scss$/ ,

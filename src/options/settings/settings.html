@@ -102,11 +102,11 @@
   <div v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</div>
   <ul v-else>
     <li v-for="domain in options.excludeDomains">{{domain}}
-      <button type="button" v-on:click="options.excludeDomains.splice($index,1)">删除</button>
+      <button type="button" @click="options.excludeDomains.splice($index,1)">删除</button>
     </li>
   </ul>
   <div v-show="showAdd">
-    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" v-on:keyup.enter="options.excludeDomains.push(tmpDomain),tmpDomain='',showAdd=false">
+    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" @keyup.enter="options.excludeDomains.push(tmpDomain),tmpDomain='',showAdd=false">
   </div>
-  <button type="button" v-show="!showAdd" v-on:click="showAdd=true">新增</button>
+  <button type="button" v-show="!showAdd" @click="showAdd=true">新增</button>
 </div>
