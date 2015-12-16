@@ -5,7 +5,7 @@
 import widgetMixin from 'selection-widget';
 
 import locales from '../locales';
-import template from './tpl.html';
+import template from './template.html';
 
 const {runtime} = chrome;
 

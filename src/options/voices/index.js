@@ -1,4 +1,4 @@
-import template from './voices.html';
+import template from './template.html';
 import locales from '../../public/locales';
 
 const localesHash = {};

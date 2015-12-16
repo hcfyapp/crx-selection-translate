@@ -1,4 +1,4 @@
-import template from './about.html';
+import template from './template.html';
 
 const {runtime} = chrome;
 

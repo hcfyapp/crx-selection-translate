@@ -1,6 +1,6 @@
 import storage from 'chrome-storage-wrapper';
 
-import template from './settings.html';
+import template from './template.html';
 
 export default {
   template ,
