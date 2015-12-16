@@ -12,7 +12,8 @@ const webpack = require( 'webpack' ) ,
   del = require( 'del' ) ,
   gulp = require( 'gulp' ) ,
   htmlmin = require( 'gulp-htmlmin' ) ,
-  jsonmin = require( 'gulp-jsonmin' );
+  jsonmin = require( 'gulp-jsonmin' ) ,
+  zip = require( 'gulp-zip' );
 
 const webpackConfig = require( './webpack.config' );
 
@@ -21,7 +22,7 @@ gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
 gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ 'html' , 'json' , 'copy' ] );
+gulp.task( 'default' , [ 'html' , 'json' , 'copy' ] , zipPack );
 
 /**
  * 删除上一次生成的文件夹
@@ -86,4 +87,13 @@ function json() {
 function copy() {
   return gulp.src( config.files.copy , { base : config.src } )
     .pipe( gulp.dest( config.dist ) );
+}
+
+/**
+ * 打包文件为一个压缩包
+ */
+function zipPack() {
+  return gulp.src( config.dist + '/**/*' )
+    .pipe( zip( 'build.zip' ) )
+    .pipe( gulp.dest( './' ) );
 }
