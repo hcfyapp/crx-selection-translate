@@ -17,10 +17,11 @@ export default {
 
     return new Promise( ( resolve ) => {
       const client = new Client( tabId , 0 );
-      client.send( 'get location' , ( error , location ) => {
-        resolve( location );
-        client.disconnect();
-      } );
+      client.send( 'get location' , true )
+        .then( location => {
+          resolve( location );
+          client.disconnect();
+        } , ( e )=> resolve() ); // 获取出错时仍然让此状态成功
     } );
   }
 }

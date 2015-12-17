@@ -50,6 +50,7 @@ function removeAll() {
 
 /**
  * 发送命令到内容脚本
+ * todo 使用 connect.io ，或者，connect.io 应该有一个发送一次性消息的方法
  * @param command
  */
 function sendCommand( command ) {
