@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import './server';
 
 import client from './client';
 import initST from './initST';
@@ -38,12 +39,6 @@ const main = async ()=> {
       removeFirstMouseUp();
       st.translate();
     } );
-  } );
-
-  client.on( 'get location' , ( data , sendResponse )=> {
-    if ( self === top ) {
-      sendResponse( JSON.parse( JSON.stringify( location ) ) );
-    }
   } );
 
   let p;
