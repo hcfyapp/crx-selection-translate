@@ -1,10 +1,9 @@
 import 'babel-polyfill';
-import {Client} from 'connect.io';
 
+import client from './client';
 import initST from './initST';
 
 const main = async ()=> {
-  const client = new Client( chrome.runtime.id );
 
   // 在用户第一次产生有拖蓝的 mouseup 事件时启动 st
   /* istanbul ignore next */

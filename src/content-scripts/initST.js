@@ -5,6 +5,7 @@ import Vue from 'vue';
 import storage from 'chrome-storage-wrapper';
 import interact from 'interact.js';
 
+import client from './client';
 import widget from '../public/widget/index';
 
 // 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
@@ -19,7 +20,7 @@ export default async ()=> {
     ] ,
     options = await storage.get( storageKeys );
 
-  const st = new Vue( widget );
+  const st = new Vue( widget( client ) );
 
   st.$on( 'beforeQuery' , function () {
     if ( !this.boxPos.show && defApi ) {

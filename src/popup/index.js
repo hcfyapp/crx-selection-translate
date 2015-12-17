@@ -5,6 +5,7 @@ import storage from 'chrome-storage-wrapper';
 import './popup.scss';
 
 import widget from '../public/widget/index';
+import {Client} from 'connect.io';
 import util from '../public/util';
 import template from './tpl.html';
 
@@ -12,6 +13,8 @@ import template from './tpl.html';
 if ( DEBUG ) {
   Vue.config.debug = true;
 }
+
+const client = new Client();
 
 const main = async ()=> {
   let host; // 保存当前标签页的 host，用于给 switchEnable 方法进行判断
@@ -41,7 +44,7 @@ const main = async ()=> {
       }
     } ,
     components : {
-      'st-box' : widget
+      'st-box' : widget( client )
     } ,
     compiled() {
       this.$appendTo( 'body' );
