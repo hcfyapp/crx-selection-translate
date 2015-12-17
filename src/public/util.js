@@ -17,7 +17,7 @@ export default {
 
     return new Promise( ( resolve ) => {
       const client = new Client( tabId , 0 );
-      client.send( 'get location' , ( location ) => {
+      client.send( 'get location' , ( error , location ) => {
         resolve( location );
         client.disconnect();
       } );

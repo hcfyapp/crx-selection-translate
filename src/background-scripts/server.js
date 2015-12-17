@@ -18,7 +18,10 @@ server.on( 'connect' , client => {
      */
     ( queryObj , sendResponse )=> {
       console.log( '收到翻译请求：' , queryObj );
-      ts.translate( queryObj ).then( sendResponse );
+      ts.translate( queryObj ).then(
+        data => sendResponse( null , data ) ,
+        e => sendResponse( e )
+      );
     } );
 
   client.on( 'play' ,
@@ -45,21 +48,18 @@ server.on( 'connect' , client => {
     /**
      * 复制文本到剪切板
      * @param {String} text
-     * @param {Function} sendResponse
      */
-    ( text , sendResponse )=> {
+    ( text )=> {
       clipboard.write( text );
-      sendResponse();
     } );
 
   client.on( 'openTab' ,
     /**
      * 打开新网页
      * @param {chrome.tabs.CreateProperties} tabOptions
-     * @param {Function} sendResponse
      */
-    ( tabOptions , sendResponse )=> {
-      tabs.create( tabOptions , sendResponse );
+    ( tabOptions )=> {
+      tabs.create( tabOptions );
     } );
 } );
 export default server;

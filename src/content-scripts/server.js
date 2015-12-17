@@ -9,7 +9,7 @@ const server = new Server();
 server.on( 'connect' , client => {
   client.on( 'get location' , ( data , sendResponse )=> {
     if ( self === top ) {
-      sendResponse( JSON.parse( JSON.stringify( location ) ) );
+      sendResponse( null , JSON.parse( JSON.stringify( location ) ) );
     }
   } );
 } );

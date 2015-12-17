@@ -41,12 +41,14 @@ export default client => {
     }) ,
     methods : {
       getResult() {
-        return new Promise( resolve => {
-
+        return new Promise( ( resolve , reject ) => {
           this.$emit( 'beforeQuery' );
-          client.send( 'translate' , this.query , resultObj => {
-            this.result = resultObj;
-            resolve();
+          client.send( 'translate' , this.query , ( error , resultObj ) => {
+            if ( error ) {
+              reject( error );
+            } else {
+              resolve( this.result = resultObj );
+            }
           } );
         } );
       } ,
