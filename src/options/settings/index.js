@@ -11,6 +11,13 @@ export default {
     showAdd : false ,
     tmpDomain : ''
   }) ,
+  methods : {
+    addExclude() {
+      this.options.excludeDomains.push( this.tmpDomain );
+      this.tmpDomain = '';
+      this.showAdd = false;
+    }
+  } ,
   watch : {
     options : {
       handler : newVal => storage.set( newVal ) ,

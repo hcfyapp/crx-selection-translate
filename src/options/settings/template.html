@@ -106,7 +106,7 @@
     </li>
   </ul>
   <div v-show="showAdd">
-    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" @keyup.enter="options.excludeDomains.push(tmpDomain),tmpDomain='',showAdd=false">
+    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" @keyup.enter="addExclude">
   </div>
   <button type="button" v-show="!showAdd" @click="showAdd=true">新增</button>
 </div>
