@@ -7,9 +7,9 @@ import {Server} from 'connect.io';
 const server = new Server();
 
 server.on( 'connect' , client => {
-  client.on( 'get location' , ( data , sendResponse )=> {
+  client.on( 'get location' , ( data , resolve )=> {
     if ( self === top ) {
-      sendResponse( null , JSON.parse( JSON.stringify( location ) ) );
+      resolve( JSON.parse( JSON.stringify( location ) ) );
     }
   } );
 } );

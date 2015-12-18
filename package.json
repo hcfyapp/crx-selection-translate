@@ -13,7 +13,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "chrome-storage-wrapper": "^0.1.4",
-    "connect.io": "^0.3.0",
+    "connect.io": "^0.4.0",
     "interact.js": "^1.2.6",
     "selection-widget": "^0.10.0",
     "translation.js": "^0.1.5",

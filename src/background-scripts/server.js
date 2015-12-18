@@ -14,32 +14,31 @@ server.on( 'connect' , client => {
     /**
      * 获取翻译结果
      * @param {Query} queryObj
-     * @param {Function} sendResponse
+     * @param {Function} resolve
+     * @param {Function} reject
      */
-    ( queryObj , sendResponse )=> {
+    ( queryObj , resolve , reject )=> {
       console.log( '收到翻译请求：' , queryObj );
-      ts.translate( queryObj ).then(
-        data => sendResponse( null , data ) ,
-        e => sendResponse( e )
-      );
+      ts.translate( queryObj ).then( resolve , reject );
     } );
 
   client.on( 'play' ,
     /**
      * 播放语音
      * @param {Query} queryObj
-     * @param {Function} sendResponse
+     * @param {Function} resolve
+     * @param {Function} reject
      */
-    ( queryObj , sendResponse )=> {
+    ( queryObj , resolve , reject )=> {
       // todo 如果没有 queryObj.from,则使用 google 检测语种
       tts.speak( queryObj.text , {
         lang : queryObj.from
       } , ()=> {
         const {lastError} = runtime;
         if ( lastError ) {
-          sendResponse( lastError );
+          reject( lastError );
         } else {
-          sendResponse();
+          resolve();
         }
       } );
     } );

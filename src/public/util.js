@@ -1,4 +1,4 @@
-import {Client} from 'connect.io';
+import {send} from 'connect.io';
 
 export default {
 
@@ -11,17 +11,15 @@ export default {
 
     if ( !tabId ) {
       tabId = await new Promise( resolve => {
-        tabs.query( { active : true } , ( [{id}] ) => resolve( id ) );
+        chrome.tabs.query( { active : true } , ( [{id}] ) => resolve( id ) );
       } );
     }
 
-    return new Promise( ( resolve ) => {
-      const client = new Client( tabId , 0 );
-      client.send( 'get location' , true )
-        .then( location => {
-          resolve( location );
-          client.disconnect();
-        } , ( e )=> resolve() ); // 获取出错时仍然让此状态成功
-    } );
+    return send( {
+      tabId ,
+      frameId : 0 ,
+      name : 'get location' ,
+      needResponse : true
+    } ).catch( ()=> {} ); // 获取出错时仍然让此状态成功，只是值是 undefined
   }
 }
