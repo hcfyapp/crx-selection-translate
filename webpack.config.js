@@ -38,15 +38,15 @@ module.exports = {
   plugins : [
 
     // 模块依赖分布表：
-    // bg      : babel-polyfill chrome-storage-wrapper
+    // bg      : babel-polyfill chrome-storage-wrapper connect.io
     // options : babel-polyfill chrome-storage-wrapper vue public/locales.js
-    // content : babel-polyfill chrome-storage-wrapper vue public/locales.js selection-widget interact.js
-    // popup   : babel-polyfill chrome-storage-wrapper vue public/locales.js selection-widget
+    // content : babel-polyfill chrome-storage-wrapper vue public/locales.js selection-widget interact.js connect.io
+    // popup   : babel-polyfill chrome-storage-wrapper vue public/locales.js selection-widget connect.io
 
     // 所以：
     // commons3.js 包含 babel-polyfill chrome-storage-wrapper
     // commons2.js 包含 vue public/locales.js
-    // commons1.js 包含 selection-widget
+    // commons1.js 包含 selection-widget connect.io
     new CommonsChunkPlugin( 'commons1.js' , [ 'content' , 'popup' ] ) ,
     new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,
