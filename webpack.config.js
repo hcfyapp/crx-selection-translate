@@ -18,7 +18,7 @@ module.exports = {
     loaders : [
       {
         test : /\.js$/ ,
-        exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io)\1)/ ] ,
+        exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome\-env)\1)/ ] ,
         loader : 'babel' ,
         query : {
           presets : [ 'es2015' , 'stage-3' ] ,

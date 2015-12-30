@@ -10,6 +10,10 @@ function getDiffOptions() {
 
 describe( '关于页面' , ()=> {
 
+  beforeAll( ()=> {
+    spyOn( chrome.runtime , 'getManifest' ).and.returnValue( { version : '' } );
+  } );
+
   it( '当有可用更新时会显示新版本号' , ()=> {
     spyOn( chrome.runtime , 'requestUpdateCheck' ).and.callFake( fn => {
       fn( 'update_available' , { version : 'hello' } );

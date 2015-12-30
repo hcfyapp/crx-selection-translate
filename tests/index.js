@@ -1,5 +1,5 @@
 require( 'babel-polyfill' );
-require( './helpers/chrome-mock' );
+require( 'chrome-env' );
 
 // require all `./tests/src/**/*spec.js`
 const testsContext = require.context( './src/' , true , /spec\.js$/ );

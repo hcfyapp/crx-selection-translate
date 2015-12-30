@@ -13,9 +13,7 @@ babelLoaderConfig.exclude.push( path.resolve( 'src/' ) );
 c.isparta = {
   embedSource : true ,
   noAutoWrap : true ,
-  babel : {
-    presets : babelLoaderConfig.query.presets
-  }
+  babel : babelLoaderConfig.query
 };
 
 c.plugins.splice( 0 , 3 ); // 清空 webpack 优化

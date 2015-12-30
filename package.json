@@ -40,6 +40,7 @@
     "gulp-jsonmin": "^1.0.2",
     "gulp-zip": "^3.0.2",
 
+    "chrome-env": "^0.0.6",
     "jasmine-core": "^2.4.1",
     "phantomjs": "^1.9.18",
     "karma": "^0.13.14",
