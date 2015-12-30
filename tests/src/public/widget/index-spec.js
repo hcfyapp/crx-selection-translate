@@ -15,11 +15,12 @@ describe( '翻译组件' , ()=> {
   let vm;
   beforeEach( ()=> {
     vm = createWidget();
+    spyOn( fakeClient , 'send' );
   } );
 
   it( '获取结果前会触发一次事件、并发送 translate 命令至后台以获取结果' , ( done )=> {
     spyOn( vm , '$emit' );
-    spyOn( fakeClient , 'send' ).and.returnValue( Promise.resolve( '翻译结果' ) );
+    fakeClient.send.and.returnValue( Promise.resolve( '翻译结果' ) );
     vm.getResult();
     expect( vm.$emit ).toHaveBeenCalledWith( 'beforeQuery' );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'translate' , vm.query , true );
@@ -30,7 +31,6 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '打开设置页时会发送 openTab 命令到后台' , ()=> {
-    spyOn( fakeClient , 'send' );
     vm.openOptions();
     expect( fakeClient.send ).toHaveBeenCalledWith( 'openTab' , {
       url : 'options/index.html'
@@ -38,7 +38,6 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '复制文本时会发送 copy 命令到后台' , ()=> {
-    spyOn( fakeClient , 'send' );
     vm.copy( 'text' );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'copy' , 'text' );
 
@@ -48,6 +47,29 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '播放语音时会发送 play 命令至后台' , ()=> {
-    // todo
+    vm.result.api.id = '翻译 API 的 id';
+    vm.result.from = '翻译结果的源语种';
+    vm.result.to = '翻译结果的目标语种';
+
+    vm.play( 'test' );
+    expect( fakeClient.send ).toHaveBeenCalledWith( 'play' , {
+      text : 'test' ,
+      api : '翻译 API 的 id' ,
+      from : '翻译结果的目标语种'
+    } );
+
+    vm.play( 'test' , true );
+    expect( fakeClient.send ).toHaveBeenCalledWith( 'play' , {
+      text : 'test' ,
+      api : '翻译 API 的 id' ,
+      from : '翻译结果的源语种'
+    } );
+
+    vm.play( [ 't' , 'e' ] );
+    expect( fakeClient.send ).toHaveBeenCalledWith( 'play' , {
+      text : 't\ne' ,
+      api : '翻译 API 的 id' ,
+      from : '翻译结果的目标语种'
+    } );
   } );
 } );
