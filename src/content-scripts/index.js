@@ -1,3 +1,7 @@
+// todo 内容脚本待重构
+// 原因在于内容脚本的逻辑混杂在了一起（client、server、init、st等等），
+// 没有做到很好的松耦合
+
 import 'babel-polyfill';
 
 import server from './server';
