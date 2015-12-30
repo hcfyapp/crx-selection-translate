@@ -5,7 +5,6 @@
     "url": "git+https://github.com/lmk123/crx-selection-translate.git"
   },
   "scripts": {
-    "tsd": "tsd",
     "webpack": "webpack",
     "gulp": "gulp",
     "karma": "karma"
@@ -13,7 +12,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
     "chrome-storage-wrapper": "^0.1.4",
-    "connect.io": "^0.4.0",
+    "connect.io": "^1.0.0",
     "interact.js": "^1.2.6",
     "selection-widget": "^0.10.0",
     "translation.js": "^0.1.5",
@@ -27,15 +26,22 @@
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-stage-3": "^6.3.13",
+    "vue-html-loader": "^1.0.0",
+    "node-sass": "^3.4.2",
+    "sass-loader": "^3.1.2",
     "css-loader": "^0.23.0",
-    "del": "^2.2.0",
+    "style-loader": "^0.13.0",
     "extract-text-webpack-plugin": "^0.9.1",
+    "webpack": "^1.12.9",
+
+    "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-htmlmin": "^1.3.0",
     "gulp-jsonmin": "^1.0.2",
     "gulp-zip": "^3.0.2",
-    "vue-html-loader": "^1.0.0",
+
     "jasmine-core": "^2.4.1",
+    "phantomjs": "^1.9.18",
     "karma": "^0.13.14",
     "karma-chrome-launcher": "^0.2.1",
     "karma-firefox-launcher": "^0.1.6",
@@ -44,12 +50,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-safari-launcher": "^0.1.1",
     "karma-webpack": "^1.7.0",
-    "node-sass": "^3.4.2",
-    "phantomjs": "^1.9.18",
-    "sass-loader": "^3.1.2",
-    "style-loader": "^0.13.0",
-    "tsd": "^0.6.5",
-    "webpack": "^1.12.9",
+
     "isparta-loader": "^2.0.0",
     "karma-coverage": "^0.5.3",
     "karma-coveralls": "^1.1.2"
