@@ -3,6 +3,7 @@
  */
 
 import storage from 'chrome-storage-wrapper';
+import {send} from 'connect.io';
 
 const {contextMenus} = chrome;
 let created = false;
@@ -54,9 +55,9 @@ function removeAll() {
  */
 function sendCommand( command ) {
   chrome.tabs.query( { active : true } , function ( tabs ) {
-    chrome.tabs.sendMessage( tabs[ 0 ].id , {
-      action : command ,
-      data : null
+    send( {
+      tabId : tabs[ 0 ].id ,
+      name : command
     } );
   } );
 }

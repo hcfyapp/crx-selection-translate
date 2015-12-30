@@ -6,15 +6,14 @@ c.entry = {}; // 清空 entry
 delete c.watch; // 关闭 watch 模式
 c.devtool = '#inline-source-map';
 
-c.module.loaders.shift(); // 删除开发模式的 babel-loader，替换为下面的 preLoader
+const babelLoaderConfig = c.module.loaders.shift();
+babelLoaderConfig.exclude.push( path.resolve( 'src/' ) );
 
 // 必须告诉 isparta 我使用了哪些 babel 设置，见 https://github.com/deepsweet/isparta-loader/issues/10
 c.isparta = {
   embedSource : true ,
   noAutoWrap : true ,
-  babel : {
-    presets : [ 'es2015' , 'stage-3' ]
-  }
+  babel : babelLoaderConfig.query
 };
 
 c.plugins.splice( 0 , 3 ); // 清空 webpack 优化
@@ -25,17 +24,7 @@ c.plugins.push( new webpack.DefinePlugin( { // 切换为测试模式，此模式
 } ) );
 
 c.module.preLoaders = [
-  {
-    test : /\.js$/ ,
-    exclude : [
-      /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget)\1)/ ,
-      path.resolve( 'src/' ) // 必须得用 path.resolve
-    ] ,
-    loader : 'babel' ,
-    query : {
-      presets : [ 'es2015' , 'stage-3' ]
-    }
-  } ,
+  babelLoaderConfig ,
   {
     test : /\.js$/ ,
     include : path.resolve( 'src/' ) ,

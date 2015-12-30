@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 
+import server from './server';
+import client from './client';
 import initST from './initST';
 
 const main = async ()=> {
@@ -32,23 +34,11 @@ const main = async ()=> {
 
   document.addEventListener( MOUSE_UP , firstMouseUp );
 
-  // 接收来自后台的消息，见 /background-scripts/commands.es6
-  chrome.runtime.onMessage.addListener( ( msg , sender , sendResponse ) => {
-    switch ( msg.action ) {
-      case 'translate': // 快捷键：翻译网页上选中的文本
-        init().then( st => {
-          removeFirstMouseUp();
-          st.translate();
-        } );
-        break;
-
-      case 'get location': // 将 tab 的 url 报告给扩展程序
-        if ( self === top ) {
-          sendResponse( JSON.parse( JSON.stringify( location ) ) );
-          return true;
-        }
-        break;
-    }
+  server.on( 'translate' , ()=> {
+    init().then( st => {
+      removeFirstMouseUp();
+      st.translate();
+    } );
   } );
 
   let p;

@@ -3,5 +3,5 @@ import 'babel-polyfill';
 import './commands';
 import './install';
 import './menus';
-import './messages';
+import './server';
 import './badge';

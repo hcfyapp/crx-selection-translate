@@ -4,6 +4,7 @@
  * 当前划词翻译里只有一个命令 translate，上一版中的 web（网页翻译）命令在这一版被移到 popup 里了
  */
 
+import {send} from 'connect.io';
 
 const {tabs} = chrome;
 
@@ -12,9 +13,9 @@ const main = ()=> {
     switch ( command ) {
       case 'translate':
         tabs.query( { active : true } , tabArr => {
-          tabs.sendMessage( tabArr[ 0 ].id , {
-            action : 'translate' ,
-            data : null
+          send( {
+            tabId : tabArr[ 0 ].id ,
+            name : 'translate'
           } );
         } );
         break;
