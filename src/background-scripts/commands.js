@@ -4,7 +4,8 @@
  * 当前划词翻译里只有一个命令 translate，上一版中的 web（网页翻译）命令在这一版被移到 popup 里了
  */
 
-//todo 使用 connect.io ，或者，connect.io 应该有一个发送一次性消息的方法
+import {send} from 'connect.io';
+
 const {tabs} = chrome;
 
 const main = ()=> {
@@ -12,9 +13,9 @@ const main = ()=> {
     switch ( command ) {
       case 'translate':
         tabs.query( { active : true } , tabArr => {
-          tabs.sendMessage( tabArr[ 0 ].id , {
-            action : 'translate' ,
-            data : null
+          send( {
+            tabId : tabArr[ 0 ].id ,
+            name : 'translate'
           } );
         } );
         break;

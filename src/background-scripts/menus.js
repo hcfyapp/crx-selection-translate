@@ -3,6 +3,7 @@
  */
 
 import storage from 'chrome-storage-wrapper';
+import {send} from 'connect.io';
 
 const {contextMenus} = chrome;
 let created = false;
@@ -50,14 +51,13 @@ function removeAll() {
 
 /**
  * 发送命令到内容脚本
- * todo 使用 connect.io ，或者，connect.io 应该有一个发送一次性消息的方法
  * @param command
  */
 function sendCommand( command ) {
   chrome.tabs.query( { active : true } , function ( tabs ) {
-    chrome.tabs.sendMessage( tabs[ 0 ].id , {
-      action : command ,
-      data : null
+    send( {
+      tabId : tabs[ 0 ].id ,
+      name : command
     } );
   } );
 }

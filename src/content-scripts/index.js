@@ -1,6 +1,6 @@
 import 'babel-polyfill';
-import './server';
 
+import server from './server';
 import client from './client';
 import initST from './initST';
 
@@ -34,7 +34,7 @@ const main = async ()=> {
 
   document.addEventListener( MOUSE_UP , firstMouseUp );
 
-  client.on( 'translate' , ()=> {
+  server.on( 'translate' , ()=> {
     init().then( st => {
       removeFirstMouseUp();
       st.translate();
