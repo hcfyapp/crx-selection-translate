@@ -16,7 +16,7 @@
     "interact.js": "^1.2.6",
     "selection-widget": "^0.10.0",
     "translation.js": "^0.1.5",
-    "vue": "^1.0.11-csp",
+    "vue": "^1.0.13-csp",
     "vue-router": "^0.7.7"
   },
   "devDependencies": {
