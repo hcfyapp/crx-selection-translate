@@ -40,7 +40,7 @@ module.exports = function ( config ) {
       'tests/index.js'
     ] ,
     preprocessors : {
-      'tests/index.js' : [ 'webpack' ]
+      'tests/index.js' : [ 'webpack' , 'sourcemap' ]
     } ,
     webpack : c ,
     reporters : [ 'progress' , 'coverage' ] ,
