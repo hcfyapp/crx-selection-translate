@@ -1,17 +1,15 @@
-/**
- * @files 初始化 st 对象的方法
- */
 import Vue from 'vue';
-import storage from 'chrome-storage-wrapper';
 import interact from 'interact.js';
+import storage from 'chrome-storage-wrapper';
 
 import client from './client';
 import widget from '../public/widget/index';
 
-// 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
-window.interact = interact;
-
-export default async ()=> {
+/**
+ * 将翻译窗口与扩展的 storage “绑定”起来
+ * @param st
+ */
+async function bindStorage( st ) {
   let defApi = '';
   const {host} = location ,
     storageKeys = [
@@ -19,8 +17,6 @@ export default async ()=> {
       'needCtrl' , 'defaultApi' , 'excludeDomains'
     ] ,
     options = await storage.get( storageKeys );
-
-  const st = new Vue( widget( client ) );
 
   st.$on( 'beforeQuery' , function () {
     if ( !this.boxPos.show && defApi ) {
@@ -32,12 +28,8 @@ export default async ()=> {
 
   st.query.api = defApi;
 
-  st.$appendTo( 'body' );
-
   // 在设置变更时保持同步
   storage.addChangeListener( storageChanged , { keys : storageKeys } );
-
-  return st;
 
   /**
    * 处理设置变化
@@ -58,4 +50,16 @@ export default async ()=> {
 
     Object.assign( st , items );
   }
+}
+
+// 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
+window.interact = interact;
+let st;
+export default async ()=> {
+  if ( !st ) {
+    st = new Vue( widget( client ) );
+    await bindStorage( st );
+    st.$appendTo( 'body' );
+  }
+  return st;
 };
