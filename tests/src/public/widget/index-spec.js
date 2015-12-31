@@ -23,7 +23,7 @@ describe( '翻译组件' , ()=> {
     fakeClient.send.and.returnValue( Promise.resolve( '翻译结果' ) );
     vm.getResult();
     expect( vm.$emit ).toHaveBeenCalledWith( 'beforeQuery' );
-    expect( fakeClient.send ).toHaveBeenCalledWith( 'translate' , vm.query , true );
+    expect( fakeClient.send ).toHaveBeenCalledWith( 'get translate result' , vm.query , true );
     vm.$nextTick( ()=> {
       expect( vm.result ).toBe( '翻译结果' );
       done();
