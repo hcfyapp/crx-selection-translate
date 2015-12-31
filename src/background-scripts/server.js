@@ -10,7 +10,7 @@ const {runtime,tabs,tts} = chrome ,
 
 server.on( 'connect' , client => {
 
-  client.on( 'translate' ,
+  client.on( 'get translate result' ,
     /**
      * 获取翻译结果
      * @param {Query} queryObj

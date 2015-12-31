@@ -43,7 +43,7 @@ export default client => {
       getResult() {
         this.$emit( 'beforeQuery' );
         return client
-          .send( 'translate' , this.query , true )
+          .send( 'get translate result' , this.query , true )
           .then( resultObj => {
             this.result = resultObj
           } );
