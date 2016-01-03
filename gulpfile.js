@@ -41,6 +41,11 @@ function webpackP( done ) {
   delete webpackConfig.devtool;
 
   webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG 变量的定义
+  webpackConfig.plugins.push( new webpack.DefinePlugin( {
+    DEBUG : false ,
+    TEST : false ,
+    'process.env.NODE_ENV' : "'production'" // 删除 vue 的开发环境 hooks
+  } ) );
 
   webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
     compress : {
