@@ -19,7 +19,7 @@
  + [chrome-storage-wrapper](https://github.com/lmk123/chrome-storage-wrapper) - 对 `chrome.storage` 的简单封装，基于 Promise。
  + [chrome-env](https://github.com/lmk123/chrome-env) - 给单元测试环境添加 `window.chrome`。
 
-如果你喜欢这个项目，请给个 Star 并介绍给你的朋友 :)
+你可以[点这里查看重构进度](https://github.com/lmk123/crx-selection-translate/issues/46)。如果你喜欢这个项目，请给个 Star 并介绍给你的朋友 :)
 
 ## 许可
 
