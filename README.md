@@ -17,7 +17,6 @@
  + [selection-widget](https://github.com/lmk123/selection-widget) - 划词翻译的翻译窗口。
  + [translation.js](https://github.com/lmk123/translation.js) - 划词翻译的核心翻译功能，被设计用于 Node.js，但同时也能用于浏览器端。
  + [chrome-storage-wrapper](https://github.com/lmk123/chrome-storage-wrapper) - 对 `chrome.storage` 的简单封装，基于 Promise。
- + [chrome-promise](https://github.com/lmk123/chrome-promise) - 将 chrome.* API 的回调方式变成基于 Promise 的调用方式。
  + [chrome-env](https://github.com/lmk123/chrome-env) - 给单元测试环境添加 `window.chrome`。
 
 如果你喜欢这个项目，请给个 Star 并介绍给你的朋友 :)
