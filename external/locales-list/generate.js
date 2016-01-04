@@ -39,11 +39,11 @@
   // 添加 en-IN 与 es-US
   addLocale( {
     localeId : 'en-IN' ,
-    'zh-CN' : '英语-印度'
+    'zh-CN' : '英语(印度)'
   } );
   addLocale( {
     localeId : 'es-US' ,
-    'zh-CN' : '西班牙语-美国'
+    'zh-CN' : '西班牙语(美国)'
   } );
 
   // 在优先排序列表里的区域先排序
