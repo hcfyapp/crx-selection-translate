@@ -31,11 +31,13 @@ function removeFirstMouseUp() {
 }
 
 // 第一次收到翻译命令时就解除 mouse up 检测
-server.on( 'connect' , client => {
+server.on( 'connect' , onConnect );
+function onConnect( client ) {
   client.once( 'translate' , ()=> {
     removeFirstMouseUp();
+    server.removeListener( 'connect' , onConnect );
   } );
-} );
+}
 
 function main() {
   document.addEventListener( MOUSE_UP , firstMouseUp );
