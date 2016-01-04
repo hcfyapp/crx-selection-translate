@@ -3,7 +3,7 @@
  */
 import storage from 'chrome-storage-wrapper';
 
-const {runtime,tabs} = chrome ,
+const {runtime} = chrome ,
   defaultConfig = {
     autoPlay : false ,
     showMenu : true ,
@@ -22,11 +22,9 @@ const {runtime,tabs} = chrome ,
 runtime.onInstalled.addListener( async details => {
   const {reason} = details;
 
-  if ( reason === 'install' ) { // 安装了新版 todo 网址待更新
-    tabs.create( { url : 'http://www.limingkai.cn/' } );
+  if ( reason === 'install' ) { // 安装新版
     storage.set( defaultConfig );
   } else if ( reason === 'update' && details.previousVersion[ 0 ] === '5' ) { // 从旧版升级
-    tabs.create( { url : 'https://www.baidu.com' } );
     const items = await storage.get( [
       'autoClipboard' , 'autoPlay' , 'defaultApi' ,
       'defaultTo' , 'ignoreChinese' , 'ignoreNumLike' ,
