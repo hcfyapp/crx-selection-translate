@@ -16,7 +16,7 @@
     "interact.js": "^1.2.6",
     "selection-widget": "^0.10.0",
     "translation.js": "^0.1.5",
-    "vue": "^1.0.13-csp",
+    "vue": "1.0.13-csp",
     "vue-router": "^0.7.7"
   },
   "devDependencies": {
@@ -31,7 +31,7 @@
     "sass-loader": "^3.1.2",
     "css-loader": "^0.23.0",
     "style-loader": "^0.13.0",
-    "extract-text-webpack-plugin": "^0.9.1",
+    "extract-text-webpack-plugin": "^1.0.0",
     "webpack": "^1.12.9",
 
     "del": "^2.2.0",
