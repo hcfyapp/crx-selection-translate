@@ -4,6 +4,7 @@ import storage from 'chrome-storage-wrapper';
 
 import client from './client';
 import widget from '../public/widget/index';
+import util from '../public/util';
 
 /**
  * 将翻译窗口与扩展的 storage “绑定”起来
@@ -39,7 +40,7 @@ async function bindStorage( st ) {
     const {defaultApi,excludeDomains} = items;
 
     if ( excludeDomains ) {
-      st.selection = !excludeDomains.some( domain => domain === host );
+      st.selection = util.isHostEnabled( location , excludeDomains );
       delete items.excludeDomains;
     }
 

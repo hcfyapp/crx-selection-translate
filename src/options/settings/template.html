@@ -97,7 +97,7 @@
 </h4>
 
 <div class="o-group">
-  <p>在这些域名下，划词翻译将不会启用，并且浏览器地址栏右边的图标会添加 <span class="text-danger">off</span> 字样。</p>
+  <p>在以这些域名结尾的网站里，划词翻译将会被禁用，并且浏览器地址栏右边的图标会添加 <span class="text-danger">off</span> 字样。</p>
 
   <p class="text-info" v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</p>
   <ul v-else>
@@ -115,4 +115,10 @@
   <p v-else>
     <button type="button" class="btn btn-primary" @click="showAddForm">新增</button>
   </p>
+
+  <p>注意：在一些 Chrome 扩展程序无权访问的标签页里，划词翻译也会被禁用，例如
+    <span class="text-danger">chrome://*</span>、<span class="text-danger">chrome-extension://*</span>、<span class="text-danger">https://chrome.google.com/*</span>
+    等，但你仍然可以通过翻译盒子获取翻译结果。</p>
+
+  <p>匹配规则：如果你添加一条“.com”，那么所有以它结尾的网站如“baidu.com”、“google.com” 都会被禁用划词翻译。</p>
 </div>

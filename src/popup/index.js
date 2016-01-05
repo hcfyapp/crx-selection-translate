@@ -81,7 +81,7 @@ const main = async ()=> {
 
   if ( locationObj ) {
     host = locationObj.host;
-    app.enabled = !excludeDomains.some( domain => domain === host );
+    app.enabled = util.isHostEnabled( locationObj , excludeDomains );
     app.canInject = true;
   }
   /* istanbul ignore if */
