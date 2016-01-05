@@ -1,4 +1,5 @@
 <section v-show="canInject">
   <div @click="switchEnable">对当前网站<span v-show="enabled">启用</span><span v-else>禁用</span></div>
+  <div @click="webTranslate('youdao')">翻译当前网页</div>
 </section>
 <st-box v-ref:st></st-box>

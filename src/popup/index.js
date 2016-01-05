@@ -5,7 +5,7 @@ import storage from 'chrome-storage-wrapper';
 import './popup.scss';
 
 import widget from '../public/widget/index';
-import {Client} from 'connect.io';
+import {Client,send} from 'connect.io';
 import util from '../public/util';
 import template from './tpl.html';
 
@@ -41,6 +41,25 @@ const main = async ()=> {
         }
 
         return storage.set( 'excludeDomains' , ex );
+      } ,
+
+      /**
+       * 使用指定的网页翻译当前标签页
+       * @param {String} webName
+       */
+      async webTranslate( webName ) {
+        const tabId = await new Promise( resolve => {
+          chrome.tabs.query( { active : true } , ( [{id}] ) => resolve( id ) );
+        } );
+
+        send( {
+          tabId ,
+          name : 'web translate' ,
+          data : webName ,
+          needResponse : true
+        } ).then( ()=> {
+          window.close();
+        } );
       }
     } ,
     components : {
