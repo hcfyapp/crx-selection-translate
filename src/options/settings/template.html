@@ -97,16 +97,22 @@
 </h4>
 
 <div class="o-group">
-  <p>在这些域名下，划词翻译将不会启用，并且浏览器地址栏右边的图标会变成灰色。</p>
+  <p>在这些域名下，划词翻译将不会启用，并且浏览器地址栏右边的图标会添加 <span class="text-danger">off</span> 字样。</p>
 
-  <div v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</div>
+  <p class="text-info" v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</p>
   <ul v-else>
     <li v-for="domain in options.excludeDomains">{{domain}}
-      <button type="button" @click="options.excludeDomains.splice($index,1)">删除</button>
+      <button type="button" class="btn btn-default" @click="options.excludeDomains.splice($index,1)">删除</button>
     </li>
   </ul>
-  <div v-show="showAdd">
-    <input type="text" placeholder="按回车键确认" v-model="tmpDomain" @keyup.enter="addExclude">
-  </div>
-  <button type="button" v-show="!showAdd" @click="showAdd=true">新增</button>
+  <form class="form-inline" v-show="showAdd" @submit.prevent="addExclude">
+    <div class="form-group">
+      <input type="text" class="form-control" style="width:250px;" placeholder="输入网站域名，如 baidu.com" required v-el:domain-input v-model="tmpDomain">
+    </div>
+    <button type="submit" class="btn btn-default">添加</button>
+    <button type="button" class="btn btn-link" @click="cancelAdd">取消</button>
+  </form>
+  <p v-else>
+    <button type="button" class="btn btn-primary" @click="showAddForm">新增</button>
+  </p>
 </div>

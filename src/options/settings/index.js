@@ -12,9 +12,28 @@ export default {
     tmpDomain : ''
   }) ,
   methods : {
+
+    /**
+     * 添加禁用域名
+     */
     addExclude() {
       this.options.excludeDomains.push( this.tmpDomain );
+      this.cancelAdd();
+    } ,
+
+    /**
+     * 显示添加禁用域名的表单
+     */
+    showAddForm() {
       this.tmpDomain = '';
+      this.showAdd = true;
+      this.$nextTick( ()=> this.$els.domainInput.focus() );
+    } ,
+
+    /**
+     * 取消添加禁用域名
+     */
+    cancelAdd() {
       this.showAdd = false;
     }
   } ,
