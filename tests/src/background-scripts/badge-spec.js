@@ -1,6 +1,7 @@
 import storage from 'chrome-storage-wrapper';
 import util from '../../../src/public/util';
 import main from '../../../src/background-scripts/badge';
+
 describe( '后台网页' , ()=> {
   let onUpdatedCb , onActivatedCb , onStorageChangeCb;
 
@@ -32,7 +33,7 @@ describe( '后台网页' , ()=> {
         onUpdatedCb( 0 , {} , { id : 0 , active : true } );
         setTimeout( ()=> {
           expect( util.getTabLocation ).toHaveBeenCalledWith( 0 );
-          expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : '' } );
+          expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : 'off' } );
           done();
         } , 0 );
       } );
@@ -44,7 +45,7 @@ describe( '后台网页' , ()=> {
       } );
       setTimeout( ()=> {
         expect( util.getTabLocation ).toHaveBeenCalledWith( 100 );
-        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : '' } );
+        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : 'off' } );
         done();
       } , 0 );
     } );
@@ -55,7 +56,7 @@ describe( '后台网页' , ()=> {
       } );
       setTimeout( ()=> {
         expect( util.getTabLocation ).toHaveBeenCalledWith( undefined );
-        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : '' } );
+        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : 'off' } );
         done();
       } , 0 );
     } );
@@ -63,13 +64,13 @@ describe( '后台网页' , ()=> {
 
   describe( '会设置不同的图标状态' , ()=> {
 
-    it( '当无法获取当前网页的 url 时会取消 badge' , done => {
+    it( '当无法获取当前网页的 url 时会显示 off' , done => {
       spyOn( util , 'getTabLocation' ).and.callFake( ()=> undefined );
       main();
       onActivatedCb( { tabId : 300 } );
       setTimeout( ()=> {
         expect( util.getTabLocation ).toHaveBeenCalledWith( 300 );
-        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : '' } );
+        expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : 'off' } );
         done();
       } , 0 );
     } );
