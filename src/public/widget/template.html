@@ -27,7 +27,7 @@
         <button type="button" @click="translate">翻译</button>
       </div>
     </div>
-    <div v-show="loading">正在查询，请稍候……</div>
+    <div class="__translate-result__" v-show="loading">正在查询，请稍候……</div>
     <div class="__translate-result__" v-else>
       <div v-show="result.phonetic">
         <span v-text="result.phonetic"></span>
@@ -46,8 +46,8 @@
         <span @click="copy(result.result)">复制</span>
       </div>
     </div>
-    <footer v-show="!loading">
-      <span v-show="result.api.name">via
+    <footer>
+      <span v-show="!loading && result.api.name">via
         <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></span>
     </footer>
   </div>

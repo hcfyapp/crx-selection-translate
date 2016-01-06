@@ -20,11 +20,11 @@
   $baseBackgroundColor: #32cd74;
   $baseFontColor: #fff;
   font-size: 14px;
-  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
   text-align: left;
 
   // 通用样式
   &, & * {
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
   }
 
@@ -51,6 +51,12 @@
 
     button {
       margin-left: 10%;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
     }
 
     > header {
@@ -91,6 +97,10 @@
     > .__translate-result__ {
       padding: 10px;
       background-color: $baseFontColor;
+
+      > div:not(:last-child) {
+        margin-bottom: 10px;
+      }
     }
 
     > footer {
