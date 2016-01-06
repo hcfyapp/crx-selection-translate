@@ -42,7 +42,7 @@
       </div>
       <div v-show="result.result">
         <div v-text="result.result"></div>
-        <span @click="play(query.result)">朗读</span>
+        <span @click="play(result.result)">朗读</span>
         <span @click="copy(result.result)">复制</span>
       </div>
     </div>
