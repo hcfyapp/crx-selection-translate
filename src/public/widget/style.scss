@@ -1,5 +1,45 @@
 @charset "utf-8";
 
-body {
-  background-color: red;
+#__selection-translator__ {
+  font-size: 14px;
+  font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+
+  // 通用样式
+  &, & * {
+    box-sizing: content-box;
+  }
+
+  // 翻译窗口的样式
+  > .__st-box__ {
+    background-color: #32cd74;
+    border: 1px solid #32cd74;
+    box-shadow: 2px 2px 6px #89cda6;
+
+    > header {
+      height: 50px;
+      line-height: 50px;
+    }
+
+    > .__translate-result__ {
+      padding: 10px;
+      background-color: #fff;
+    }
+
+    > footer {
+      padding: 5px 10px;
+      text-align: right;
+    }
+  }
+
+  // 翻译按钮的样式
+  > .__st-btn__ {
+    $w: 20px;
+    width: $w;
+    height: $w;
+    line-height: $w;
+    color: #fff;
+    text-align: center;
+    cursor: pointer;
+    background-color: #32cd74;
+  }
 }
