@@ -32,7 +32,9 @@
         "https://*/*" ,
         "file:///*"
       ] ,
-      "css" : [] ,
+      "css" : [
+        "/bundle/commons1.js.css"
+      ] ,
       "js" : [
         "/bundle/commons3.js",
         "/bundle/commons2.js",

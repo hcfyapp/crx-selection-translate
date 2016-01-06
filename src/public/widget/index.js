@@ -1,7 +1,7 @@
 /**
  * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
  */
-
+import './style.scss';
 import widgetMixin from 'selection-widget';
 
 import locales from '../locales';
