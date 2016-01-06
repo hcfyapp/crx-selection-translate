@@ -6,23 +6,26 @@
     </header>
     <div class="__query-form__">
       <div>
-        <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
-        <button type="button" @click="translate">翻译</button>
+        <textarea v-model="query.text" placeholder="输入要翻译的句子或单词"></textarea>
       </div>
-      <div>
+      <div class="__horizontal__">
         <select v-model="query.from">
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
+        <div>至</div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
       </div>
-      <select v-model="query.api">
-        <option value="YouDao">有道翻译</option>
-        <option value="BaiDu">百度翻译</option>
-      </select>
+      <div class="__horizontal__">
+        <select v-model="query.api">
+          <option value="YouDao">有道翻译</option>
+          <option value="BaiDu">百度翻译</option>
+        </select>
+        <button type="button" @click="translate">翻译</button>
+      </div>
     </div>
     <div v-show="loading">正在查询，请稍候……</div>
     <div class="__translate-result__" v-else>
@@ -43,8 +46,9 @@
         <span @click="copy(result.result)">复制</span>
       </div>
     </div>
-    <footer v-show="!loading && result.api.name">
-      via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a>
+    <footer v-show="!loading">
+      <span v-show="result.api.name">via
+        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></span>
     </footer>
   </div>
   <div class="__st-btn__" v-el:st-btn :style="btnStyle">译</div>

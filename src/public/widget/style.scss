@@ -1,33 +1,105 @@
 @charset "utf-8";
 
+%clear-fix {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+%normal-line-height {
+  $h: 25px;
+  height: $h;
+  min-height: $h;
+  max-height: $h;
+  line-height: $h;
+}
+
 #__selection-translator__ {
+  $baseBackgroundColor: #32cd74;
+  $baseFontColor: #fff;
   font-size: 14px;
   font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+  text-align: left;
 
   // 通用样式
   &, & * {
-    box-sizing: content-box;
+    box-sizing: border-box;
   }
 
   // 翻译窗口的样式
   > .__st-box__ {
-    background-color: #32cd74;
-    border: 1px solid #32cd74;
-    box-shadow: 2px 2px 6px #89cda6;
+    min-width: 250px;
+    background-color: $baseBackgroundColor;
+    border-left: 1px solid $baseBackgroundColor;
+    border-right: 1px solid $baseBackgroundColor;
+
+    button, select, textarea {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    select, button {
+      width: 45%;
+    }
+
+    select, button {
+      @extend %normal-line-height;
+    }
+
+    button {
+      margin-left: 10%;
+    }
 
     > header {
       height: 50px;
       line-height: 50px;
     }
 
+    > .__query-form__ {
+
+      > div {
+        margin-bottom: 5px;
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        padding: 2px;
+      }
+
+      > .__horizontal__ {
+        @extend %clear-fix;
+
+        > * {
+          float: left;
+        }
+
+        div {
+          @extend %normal-line-height;
+          width: 10%;
+          text-align: center;
+        }
+      }
+
+    }
+
     > .__translate-result__ {
       padding: 10px;
-      background-color: #fff;
+      background-color: $baseFontColor;
     }
 
     > footer {
       padding: 5px 10px;
       text-align: right;
+
+      &, & a {
+        color: $baseFontColor;
+      }
     }
   }
 
@@ -37,9 +109,9 @@
     width: $w;
     height: $w;
     line-height: $w;
-    color: #fff;
+    color: $baseFontColor;
     text-align: center;
     cursor: pointer;
-    background-color: #32cd74;
+    background-color: $baseBackgroundColor;
   }
 }
