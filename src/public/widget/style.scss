@@ -56,8 +56,7 @@
   > .__st-box__ {
     min-width: 250px;
     background-color: $baseBackgroundColor;
-    border-left: 1px solid $baseBackgroundColor;
-    border-right: 1px solid $baseBackgroundColor;
+    border: 1px solid $baseBackgroundColor;
 
     button, select, textarea {
       border: 0;
