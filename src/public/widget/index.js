@@ -48,7 +48,15 @@ export default client => {
           .then( resultObj => {
             this.result = resultObj
           } );
+      } ,
 
+      /**
+       * 交换源语种与目标语种
+       */
+      exchangeLocale() {
+        const {to,from} = this.query;
+        this.query.to = from;
+        this.query.from = to;
       } ,
 
       /**

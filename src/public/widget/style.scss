@@ -16,6 +16,12 @@
   line-height: $h;
 }
 
+@mixin apply-to-icon {
+  [class^="st-icon-"], [class*=" st-icon-"] {
+    @content
+  }
+}
+
 #__selection-translator__ {
   $baseBackgroundColor: #32cd74;
   $baseFontColor: #fff;
@@ -26,6 +32,15 @@
   &, & * {
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
+  }
+
+  @include apply-to-icon {
+    color: #fff;
+    cursor: pointer;
+
+    &:hover {
+      color: #000;
+    }
   }
 
   // 翻译窗口的样式
@@ -62,23 +77,20 @@
     > header {
       height: 50px;
       line-height: 50px;
+
+      .__pinned__:before {
+        transform: rotate(-45deg);
+      }
+
+      @include apply-to-icon {
+        font-size: 22px;
+      }
     }
 
     > .__query-form__ {
 
       > div {
         margin-bottom: 5px;
-      }
-
-      textarea {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        min-width: 100%;
-        padding: 2px;
-      }
-
-      > .__horizontal__ {
         @extend %clear-fix;
 
         > * {
@@ -90,6 +102,14 @@
           width: 10%;
           text-align: center;
         }
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        padding: 2px;
       }
 
     }

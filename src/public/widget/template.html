@@ -1,25 +1,25 @@
 <div id="__selection-translator__">
   <div class="__st-box__" v-el:st-box :style="boxStyle">
     <header v-if="!inline" v-el:st-drag>
-      <span class="st-icon-pin" @click="pinned=!pinned"></span>
+      <span class="st-icon-pin" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></span>
       <span class="st-icon-cog" @click="openOptions"></span>
     </header>
     <div class="__query-form__">
       <div>
         <textarea v-model="query.text" placeholder="输入要翻译的句子或单词"></textarea>
       </div>
-      <div class="__horizontal__">
+      <div>
         <select v-model="query.from">
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-        <div class="st-icon-exchange"></div>
+        <div><span class="st-icon-exchange" @click="exchangeLocale"></span></div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
       </div>
-      <div class="__horizontal__">
+      <div>
         <select v-model="query.api">
           <option value="YouDao">有道翻译</option>
           <option value="BaiDu">百度翻译</option>
