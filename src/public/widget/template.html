@@ -1,8 +1,8 @@
 <div id="__selection-translator__">
   <div class="__st-box__" v-el:st-box :style="boxStyle">
     <header v-if="!inline" v-el:st-drag>
-      <span @click="pinned=!pinned">图钉</span>
-      <span @click="openOptions">设置</span>
+      <span class="st-icon-pin" @click="pinned=!pinned"></span>
+      <span class="st-icon-cog" @click="openOptions"></span>
     </header>
     <div class="__query-form__">
       <div>
@@ -13,7 +13,7 @@
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-        <div>至</div>
+        <div class="st-icon-exchange"></div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
