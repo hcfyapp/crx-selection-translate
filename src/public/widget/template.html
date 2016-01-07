@@ -1,8 +1,8 @@
 <div id="__selection-translator__">
   <div class="__st-box__" v-el:st-box :style="boxStyle">
     <header v-if="!inline" v-el:st-drag>
-      <span class="st-icon-pin" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></span>
-      <span class="st-icon-cog" @click="openOptions"></span>
+      <span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></span>
+      <span class="st-icon-cog" title="设置" @click="openOptions"></span>
     </header>
     <div class="__query-form__">
       <div>
@@ -30,9 +30,9 @@
     <div class="__translate-result__" v-show="loading">正在查询，请稍候……</div>
     <div class="__translate-result__" v-else>
       <div v-show="result.phonetic">
-        <span v-text="result.phonetic"></span>
+        /<span v-text="result.phonetic"></span>/
         <span @click="play(query.text,true)">朗读</span>
-        <span @click="copy(result.phonetic)">复制</span>
+        <span @click="copy('/'+result.phonetic+'/')">复制</span>
       </div>
       <div v-show="result.detailed && result.detailed.length">
         <ul>

@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+%transition-all {
+  transition: all .2s;
+}
+
 %clear-fix {
   &::after {
     content: '';
@@ -25,6 +29,7 @@
 #__selection-translator__ {
   $baseBackgroundColor: #32cd74;
   $baseFontColor: #fff;
+  $baseFontHoverColor: #9a6a16;
   font-size: 14px;
   text-align: left;
 
@@ -38,8 +43,12 @@
     color: #fff;
     cursor: pointer;
 
+    &, &:before {
+      @extend %transition-all;
+    }
+
     &:hover {
-      color: #000;
+      color: $baseFontHoverColor;
     }
   }
 
@@ -78,7 +87,10 @@
       height: 50px;
       line-height: 50px;
 
-      .__pinned__:before {
+      .st-icon-pin:before {
+        transform: rotate(0deg);
+      }
+      .__pinned__.st-icon-pin:before {
         transform: rotate(-45deg);
       }
 
@@ -129,6 +141,12 @@
 
       &, & a {
         color: $baseFontColor;
+      }
+      a {
+        @extend %transition-all;
+      }
+      a:hover {
+        color: $baseFontHoverColor;
       }
     }
   }
