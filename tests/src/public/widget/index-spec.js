@@ -46,11 +46,19 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '复制文本时会发送 copy 命令到后台' , ()=> {
-    vm.copy( 'text' );
+    vm.copy( 'text' , {
+      target : {
+        textContent : ''
+      }
+    } );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'copy' , 'text' );
 
     const texts = [ 't' , 'e' , 'x' , 't' ];
-    vm.copy( texts );
+    vm.copy( texts , {
+      target : {
+        textContent : ''
+      }
+    } );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'copy' , texts.join( '\n' ) );
   } );
 
