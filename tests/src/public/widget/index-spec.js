@@ -30,6 +30,14 @@ describe( '翻译组件' , ()=> {
     } );
   } );
 
+  it( 'exchangeLocale 可以交换源语种与目标语种' , ()=> {
+    vm.query.to = 'hello';
+    vm.query.from = 'world';
+    vm.exchangeLocale();
+    expect( vm.query.to ).toBe( 'world' );
+    expect( vm.query.from ).toBe( 'hello' );
+  } );
+
   it( '打开设置页时会发送 openTab 命令到后台' , ()=> {
     vm.openOptions();
     expect( fakeClient.send ).toHaveBeenCalledWith( 'openTab' , {
