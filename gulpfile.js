@@ -4,7 +4,7 @@ const config = {
   files : {
     html : [ './src/*/index.html' ] ,
     json : [ './src/manifest.json' ] ,
-    copy : [ './src/logo.png' , './src/bundle/*.{js,css}' , '!./src/bundle/bs-lite.js' ]
+    copy : [ './src/logo.png' , './src/bundle/*.{js,css,eot,svg,ttf,woff}' , '!./src/bundle/bs-lite.js' ]
   }
 };
 
