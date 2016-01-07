@@ -19,15 +19,26 @@ module.exports = {
       {
         test : /\.js$/ ,
         exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome\-env)\1)/ ] ,
-        loader : 'babel' ,
+        loader : 'babel-loader' ,
         query : {
           presets : [ 'es2015' , 'stage-3' ] ,
           plugins : [ 'transform-runtime' ]
         }
       } ,
       {
+        test : /\.(eot|svg|ttf|woff2?)/ ,
+        loader : 'file-loader' ,
+        query : {
+          name : '[name].[ext]'
+        }
+      } ,
+      {
         test : /\.html$/ ,
-        loader : 'vue-html'
+        loader : 'vue-html-loader'
+      } ,
+      {
+        test : /\.css$/ ,
+        loader : ExtractTextPlugin.extract( 'style-loader' , 'css-loader?sourceMap' )
       } ,
       {
         test : /\.scss$/ ,
