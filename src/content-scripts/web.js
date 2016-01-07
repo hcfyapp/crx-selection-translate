@@ -7,6 +7,10 @@
  * @see http://fanyi.youdao.com/web2/
  */
 export function youdao() {
+  if ( 'https:' === location.protocol ) {
+    return alert( '有道网页翻译不支持 https 网站。' );
+  }
+
   const element = document.createElement( 'script' );
   element.id = 'outfox_seed_js';
   element.charset = 'utf-8';
