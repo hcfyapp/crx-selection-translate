@@ -31,19 +31,25 @@
     <div class="__translate-result__" v-else>
       <div v-show="result.phonetic">
         /<span v-text="result.phonetic"></span>/
-        <span @click="play(query.text,true)">朗读</span>
-        <span @click="copy('/'+result.phonetic+'/')">复制</span>
+        <div class="__copy-and-read__">
+          <span @click="play(query.text,true)">朗读</span>
+          <span @click="copy('/'+result.phonetic+'/',$event)">复制</span>
+        </div>
       </div>
       <div v-show="result.detailed && result.detailed.length">
         <ul>
           <li v-for="d in result.detailed" v-text="d"></li>
         </ul>
-        <span @click="copy(result.detailed)">复制</span>
+        <div class="__copy-and-read__">
+          <span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</span>
+        </div>
       </div>
       <div v-show="result.result">
         <div v-text="result.result"></div>
-        <span @click="play(result.result)">朗读</span>
-        <span @click="copy(result.result)">复制</span>
+        <div class="__copy-and-read__">
+          <span class="__copy-and-read__" @click="play(result.result)">朗读</span>
+          <span class="__copy-and-read__" @click="copy(result.result,$event)">复制</span>
+        </div>
       </div>
     </div>
     <footer>

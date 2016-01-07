@@ -71,12 +71,18 @@ export default client => {
       /**
        * 复制文本
        * @param {String|String[]} textOrTextArray
+       * @param {MouseEvent} event
        */
-      copy( textOrTextArray ) {
+      copy( textOrTextArray , event ) {
         if ( Array.isArray( textOrTextArray ) ) {
           textOrTextArray = textOrTextArray.join( '\n' );
         }
         client.send( 'copy' , textOrTextArray );
+
+        const {target} = event ,
+          original = target.textContent;
+        target.textContent = '已复制';
+        setTimeout( ()=> target.textContent = original , 2000 );
       } ,
 
       /**

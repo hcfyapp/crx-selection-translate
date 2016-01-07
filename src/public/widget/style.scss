@@ -130,7 +130,23 @@
       background-color: $baseFontColor;
 
       > div:not(:last-child) {
-        margin-bottom: 10px;
+        margin-bottom: 5px;
+      }
+
+      .__copy-and-read__ > span {
+        @extend %transition-all;
+        display: inline-block;
+        margin-right: 10px;
+        height: 20px;
+        line-height: 20px;
+        cursor: pointer;
+        opacity: 0;
+        color: #12813e;
+        font-size: 12px;
+      }
+
+      &:hover .__copy-and-read__ > span {
+        opacity: 1;
       }
     }
 
