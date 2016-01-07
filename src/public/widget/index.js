@@ -1,7 +1,8 @@
 /**
  * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
  */
-
+import '../fontello/css/fontello.css';
+import './style.scss';
 import widgetMixin from 'selection-widget';
 
 import locales from '../locales';
@@ -47,7 +48,15 @@ export default client => {
           .then( resultObj => {
             this.result = resultObj
           } );
+      } ,
 
+      /**
+       * 交换源语种与目标语种
+       */
+      exchangeLocale() {
+        const {to,from} = this.query;
+        this.query.to = from;
+        this.query.from = to;
       } ,
 
       /**
@@ -62,12 +71,18 @@ export default client => {
       /**
        * 复制文本
        * @param {String|String[]} textOrTextArray
+       * @param {MouseEvent} event
        */
-      copy( textOrTextArray ) {
+      copy( textOrTextArray , event ) {
         if ( Array.isArray( textOrTextArray ) ) {
           textOrTextArray = textOrTextArray.join( '\n' );
         }
         client.send( 'copy' , textOrTextArray );
+
+        const {target} = event ,
+          original = target.textContent;
+        target.textContent = '已复制';
+        setTimeout( ()=> target.textContent = original , 2000 );
       } ,
 
       /**

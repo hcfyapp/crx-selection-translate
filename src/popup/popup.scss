@@ -1,4 +1,15 @@
 @charset "utf-8";
 body {
-  width: 400px;
+  width: 300px;
+  background-color: #32cd74;
+
+  .functions {
+    color: #fff;
+    -webkit-user-select: none;
+    user-select: none;
+
+    > div {
+      margin-bottom: 5px;
+    }
+  }
 }

@@ -21,7 +21,7 @@
   ] ,
   "background" : {
     "scripts" : [
-      "/bundle/commons3.js",
+      "/bundle/commons3.js" ,
       "/bundle/bg.js"
     ]
   } ,
@@ -32,11 +32,13 @@
         "https://*/*" ,
         "file:///*"
       ] ,
-      "css" : [] ,
+      "css" : [
+        "/bundle/commons1.js.css"
+      ] ,
       "js" : [
-        "/bundle/commons3.js",
-        "/bundle/commons2.js",
-        "/bundle/commons1.js",
+        "/bundle/commons3.js" ,
+        "/bundle/commons2.js" ,
+        "/bundle/commons1.js" ,
         "/bundle/content.js"
       ] ,
       "all_frames" : true ,
@@ -68,5 +70,9 @@
   } ,
   "minimum_chrome_version" : "26" ,
   "web_accessible_resources" : [
+    "bundle/*.eot" ,
+    "bundle/*.svg" ,
+    "bundle/*.ttf" ,
+    "bundle/*.woff"
   ]
 }

@@ -1,42 +1,61 @@
-<div>
-  <div v-el:st-box :style="boxStyle">
-    <header v-if="!inline" v-el:st-drag><span @click="pinned=!pinned">图钉</span><span @click="openOptions">设置</span></header>
-    <div>
-      <input type="text" v-model="query.text" placeholder="输入要翻译的句子或单词">
-      <select v-model="query.from">
-        <option value="">自动判断</option>
-        <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
-      </select>
-      <select v-model="query.to">
-        <option value="">自动选择</option>
-        <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
-      </select>
-      <select v-model="query.api">
-        <option value="YouDao">有道翻译</option>
-        <option value="BaiDu">百度翻译</option>
-      </select>
-      <button type="button" @click="translate">翻译</button>
+<div id="__selection-translator__">
+  <div class="__st-box__" v-el:st-box :style="boxStyle">
+    <header v-if="!inline" v-el:st-drag>
+      <span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></span>
+      <span class="st-icon-cog" title="设置" @click="openOptions"></span>
+    </header>
+    <div class="__query-form__">
+      <div>
+        <textarea v-model="query.text" placeholder="输入要翻译的句子或单词"></textarea>
+      </div>
+      <div>
+        <select v-model="query.from">
+          <option value="">自动判断</option>
+          <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
+        </select>
+        <div><span class="st-icon-exchange" @click="exchangeLocale"></span></div>
+        <select v-model="query.to">
+          <option value="">自动选择</option>
+          <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
+        </select>
+      </div>
+      <div>
+        <select v-model="query.api">
+          <option value="YouDao">有道翻译</option>
+          <option value="BaiDu">百度翻译</option>
+        </select>
+        <button type="button" @click="translate">翻译</button>
+      </div>
     </div>
-    <div v-show="loading">正在查询，请稍候……</div>
-    <div v-else>
+    <div class="__translate-result__" v-show="loading">正在查询，请稍候……</div>
+    <div class="__translate-result__" v-else>
       <div v-show="result.phonetic">
-        <span v-text="result.phonetic"></span>
-        <span @click="play(query.text,true)">朗读</span>
-        <span @click="copy(result.phonetic)">复制</span>
+        /<span v-text="result.phonetic"></span>/
+        <div class="__copy-and-read__">
+          <span @click="play(query.text,true)">朗读</span>
+          <span @click="copy('/'+result.phonetic+'/',$event)">复制</span>
+        </div>
       </div>
       <div v-show="result.detailed && result.detailed.length">
         <ul>
           <li v-for="d in result.detailed" v-text="d"></li>
         </ul>
-        <span @click="copy(result.detailed)">复制</span>
+        <div class="__copy-and-read__">
+          <span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</span>
+        </div>
       </div>
       <div v-show="result.result">
         <div v-text="result.result"></div>
-        <span @click="play(result.result)">朗读</span>
-        <span @click="copy(result.result)">复制</span>
+        <div class="__copy-and-read__">
+          <span class="__copy-and-read__" @click="play(result.result)">朗读</span>
+          <span class="__copy-and-read__" @click="copy(result.result,$event)">复制</span>
+        </div>
       </div>
-      <div v-show="result.api.name">via <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></div>
     </div>
+    <footer>
+      <span v-show="!loading && result.api.name">via
+        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></span>
+    </footer>
   </div>
-  <div v-el:st-btn :style="btnStyle">译</div>
+  <div class="__st-btn__" v-el:st-btn :style="btnStyle">译</div>
 </div>

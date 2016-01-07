@@ -1,0 +1,180 @@
+@charset "utf-8";
+
+%transition-all {
+  transition: all .2s;
+}
+
+%clear-fix {
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+%normal-line-height {
+  $h: 25px;
+  height: $h;
+  min-height: $h;
+  max-height: $h;
+  line-height: $h;
+}
+
+@mixin apply-to-icon {
+  [class^="st-icon-"], [class*=" st-icon-"] {
+    @content
+  }
+}
+
+#__selection-translator__ {
+  $baseBackgroundColor: #32cd74;
+  $baseFontColor: #fff;
+  $baseFontHoverColor: #9a6a16;
+  font-size: 14px;
+  text-align: left;
+
+  // 通用样式
+  &, & * {
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
+
+  @include apply-to-icon {
+    color: #fff;
+    cursor: pointer;
+
+    &, &:before {
+      @extend %transition-all;
+    }
+
+    &:hover {
+      color: $baseFontHoverColor;
+    }
+  }
+
+  // 翻译窗口的样式
+  > .__st-box__ {
+    min-width: 250px;
+    background-color: $baseBackgroundColor;
+    border: 1px solid $baseBackgroundColor;
+
+    button, select, textarea {
+      border: 0;
+      border-radius: 0;
+      padding: 0;
+    }
+
+    select, button {
+      width: 45%;
+    }
+
+    select, button {
+      @extend %normal-line-height;
+    }
+
+    button {
+      margin-left: 10%;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+    }
+
+    > header {
+      height: 50px;
+      line-height: 50px;
+
+      .st-icon-pin:before {
+        transform: rotate(0deg);
+      }
+      .__pinned__.st-icon-pin:before {
+        transform: rotate(-45deg);
+      }
+
+      @include apply-to-icon {
+        font-size: 22px;
+      }
+    }
+
+    > .__query-form__ {
+
+      > div {
+        margin-bottom: 5px;
+        @extend %clear-fix;
+
+        > * {
+          float: left;
+        }
+
+        div {
+          @extend %normal-line-height;
+          width: 10%;
+          text-align: center;
+        }
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        min-width: 100%;
+        padding: 2px;
+      }
+
+    }
+
+    > .__translate-result__ {
+      padding: 10px;
+      background-color: $baseFontColor;
+
+      > div:not(:last-child) {
+        margin-bottom: 5px;
+      }
+
+      .__copy-and-read__ > span {
+        @extend %transition-all;
+        display: inline-block;
+        margin-right: 10px;
+        height: 20px;
+        line-height: 20px;
+        cursor: pointer;
+        opacity: 0;
+        color: #12813e;
+        font-size: 12px;
+      }
+
+      &:hover .__copy-and-read__ > span {
+        opacity: 1;
+      }
+    }
+
+    > footer {
+      padding: 5px 10px;
+      text-align: right;
+
+      &, & a {
+        color: $baseFontColor;
+      }
+      a {
+        @extend %transition-all;
+      }
+      a:hover {
+        color: $baseFontHoverColor;
+      }
+    }
+  }
+
+  // 翻译按钮的样式
+  > .__st-btn__ {
+    $w: 20px;
+    width: $w;
+    height: $w;
+    line-height: $w;
+    color: $baseFontColor;
+    text-align: center;
+    cursor: pointer;
+    background-color: $baseBackgroundColor;
+  }
+}

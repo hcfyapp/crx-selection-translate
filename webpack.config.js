@@ -12,6 +12,11 @@ module.exports = {
   } ,
   output : {
     path : './src/bundle' ,
+    // 内容脚本引用了扩展里的字体文件，所以在 css 文件里需要带上下面的前缀
+    // @see https://developer.chrome.com/extensions/manifest/web_accessible_resources
+    // @see https://developer.chrome.com/extensions/i18n#overview-predefined
+    // @see http://webpack.github.io/docs/configuration.html#output-publicpath
+    publicPath : 'chrome-extension://__MSG_@@extension_id__/bundle/' ,
     filename : '[name].js'
   } ,
   module : {
@@ -19,15 +24,26 @@ module.exports = {
       {
         test : /\.js$/ ,
         exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome\-env)\1)/ ] ,
-        loader : 'babel' ,
+        loader : 'babel-loader' ,
         query : {
           presets : [ 'es2015' , 'stage-3' ] ,
           plugins : [ 'transform-runtime' ]
         }
       } ,
       {
+        test : /\.(eot|svg|ttf|woff2?)/ ,
+        loader : 'file-loader' ,
+        query : {
+          name : '[name].[ext]'
+        }
+      } ,
+      {
         test : /\.html$/ ,
-        loader : 'vue-html'
+        loader : 'vue-html-loader'
+      } ,
+      {
+        test : /\.css$/ ,
+        loader : ExtractTextPlugin.extract( 'style-loader' , 'css-loader?sourceMap' )
       } ,
       {
         test : /\.scss$/ ,
