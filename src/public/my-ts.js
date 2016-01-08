@@ -16,4 +16,8 @@ ts.create( 'YouDao' , {
   timeout
 } );
 
+ts.create( 'Bing' , { timeout } );
+ts.create( 'Google' , { timeout : 5000 } );
+ts.create( 'GoogleCN' , { timeout } );
+
 export default ts;
