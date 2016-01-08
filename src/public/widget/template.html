@@ -32,6 +32,7 @@
     </div>
     <div class="__translate-result__" v-show="loading">正在查询，请稍候……</div>
     <div class="__translate-result__" v-else>
+      <div v-show="result.error" v-text="result.error"></div>
       <div v-show="result.phonetic">
         /<span v-text="result.phonetic"></span>/
         <div class="__copy-and-read__">

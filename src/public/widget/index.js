@@ -30,6 +30,7 @@ export default client => {
         to : ''
       } ,
       result : {
+        error : '' ,
         phonetic : '' ,
         detailed : [] ,
         result : '' ,
@@ -46,7 +47,7 @@ export default client => {
         return client
           .send( 'get translate result' , this.query , true )
           .then( resultObj => {
-            this.result = resultObj
+            this.result = resultObj;
           } );
       } ,
 

@@ -15,11 +15,16 @@ server.on( 'connect' , client => {
      * 获取翻译结果
      * @param {Query} queryObj
      * @param {Function} resolve
-     * @param {Function} reject
      */
-    ( queryObj , resolve , reject )=> {
+    ( queryObj , resolve )=> {
       console.log( '收到翻译请求：' , queryObj );
-      ts.translate( queryObj ).then( resolve , reject );
+      ts.translate( queryObj ).then( resolve , ( errorMsg )=> {
+        let error = errorMsg;
+        if ( 'GoogleCN' === queryObj.api ) {
+          error += '小提示：使用谷歌翻译（国内）时请确保你没有开启某高科技软件。';
+        }
+        resolve( { error } );
+      } );
     } );
 
   client.on( 'play' ,
