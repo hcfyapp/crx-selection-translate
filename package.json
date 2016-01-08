@@ -15,7 +15,7 @@
     "connect.io": "^1.0.0",
     "interact.js": "^1.2.6",
     "selection-widget": "^0.10.0",
-    "translation.js": "^0.1.5",
+    "translation.js": "^0.2.0",
     "vue": "1.0.13-csp",
     "vue-router": "^0.7.7"
   },
