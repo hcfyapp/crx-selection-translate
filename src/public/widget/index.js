@@ -19,7 +19,9 @@ locales.forEach( locale => {
   }
 } );
 
-const resolvedEmptyPromise = Promise.resolve();
+const resolvedEmptyPromise = Promise.resolve() ,
+  noop = ()=> {};
+
 export default client => {
   return {
     template ,
@@ -59,7 +61,10 @@ export default client => {
           .send( 'get translate result' , this.query , true )
           .then( resultObj => {
             this.result = resultObj;
-          } );
+          } , noop );
+        // 只有在一种特殊情况下才会走进 catch 分支:
+        // 消息发送出去后但还没得到响应时就被后台断开了连接.
+        // 不过出现这种情况的可能性极低.
       } ,
 
       /**
