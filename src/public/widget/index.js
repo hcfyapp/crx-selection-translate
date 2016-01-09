@@ -19,6 +19,7 @@ locales.forEach( locale => {
   }
 } );
 
+const resolvedEmptyPromise = Promise.resolve();
 export default client => {
   return {
     template ,
@@ -41,9 +42,19 @@ export default client => {
         }
       }
     }) ,
+    created() {
+      client.once( 'disconnect' , ()=> {
+        this.result = {
+          error : '连接到翻译引擎时发生了错误，请刷新网页或重启浏览器后再试。'
+        }
+      } );
+    } ,
     methods : {
       getResult() {
         this.$emit( 'beforeQuery' );
+        if ( client.disconnected ) {
+          return resolvedEmptyPromise;
+        }
         return client
           .send( 'get translate result' , this.query , true )
           .then( resultObj => {
