@@ -2,7 +2,8 @@ import Vue from 'vue';
 import widget from '../../../../src/public/widget/index';
 
 const fakeClient = {
-  send() {}
+  send() {},
+  once() {}
 };
 
 function createWidget() {
