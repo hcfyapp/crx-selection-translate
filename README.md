@@ -1,3 +1,5 @@
+**注意：你现在看到的是暂未发布至 Chrome 网上应用店的划词翻译 v6.0 版！v6.0 版会在完成[这些功能](https://github.com/lmk123/crx-selection-translate/issues/46)后发布，v5.6.1 的源码在 [v5.x-master 分支](https://github.com/lmk123/crx-selection-translate/tree/5.x-master)。**
+
 # 划词翻译
 
 [![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
@@ -5,21 +7,49 @@
 [![dependencies Status](https://img.shields.io/david/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate)
 [![devDependencies Status](https://img.shields.io/david/dev/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate#info=devDependencies)
 
-简单、方便、快速的 Chrome 翻译扩展。
+让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
 
-## 注意！
+[![available in the chrome web store](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 
-**目前托管在 Chrome 网上商店的版本见 [5.x-master 分支](https://github.com/lmk123/crx-selection-translate/tree/5.x-master)。**
+**注意：安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！**
 
-主分支为正在开发的 v6.0 版，这一版的划词翻译将多种开发 Chrome 扩展的常用功能分离了出来并基于它们完全重写：
+## 特点
+
+ + 划词即显示翻译结果，简单、方便、迅速，并且支持多种语言的朗读。
+ + 支持多种翻译引擎：[有道翻译](http://fanyi.youdao.com/)、[百度翻译](http://fanyi.baidu.com/)、[谷歌翻译](https://translate.google.com/)（含[谷歌中国翻译](http://translate.google.cn/)）、[必应词典](http://cn.bing.com/dict/)。
+ + 集成[有道网页翻译](http://fanyi.youdao.com/web2/)，弥补国内 Chrome 网页翻译总是出错的不足。
+ + 麻雀虽小，五脏俱全。
+
+## 相关链接
+
+ + [发布日志](https://github.com/lmk123/crx-selection-translate/releases)
+ + [报告问题或提议新功能](https://github.com/lmk123/crx-selection-translate/issues/new)
+ + [Wiki](https://github.com/lmk123/crx-selection-translate/wiki)
+
+## 参与开发
+
+我们欢迎并鼓励开发者参与开发！请按照以下步骤搭建开发环境：
+
+ 1. Fork 并创建自己的特性分支（例如 `style-improve`），然后将代码克隆到本地
+ 2. 运行 `npm i` 安装项目依赖
+ 3. 运行 `npm run webpack`，项目的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)下会生成一个名为 `bundle` 的文件夹
+ 4. 在 Chrome 浏览器的[扩展程序页面](chrome://extensions/)（chrome://extensions/）勾选开发者模式，点击“加载已解压的扩展程序”，将路径指向代码库的  [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)
+
+之后，你就可以更改代码并在浏览器中查看效果了。
+
+### 划词翻译的子项目
+
+为了方便维护，划词翻译将一些功能分离了出来，如果你是想对以下功能进行调整，请前往对应的代码仓库：
+
+ + [selection-widget](https://github.com/lmk123/selection-widget) - 划词翻译的翻译窗口。
+ + [translation.js](https://github.com/lmk123/translation.js) - 划词翻译的翻译引擎。
+
+还有一些是从划词翻译分离出来的功能库，你可能会想要改进它们：
 
  + [connect.io](https://github.com/lmk123/connect.io) - Chrome 扩展/应用里的实时、双向、基于事件且 Promise 友好的通信库，启发自 Socket.io。
- + [selection-widget](https://github.com/lmk123/selection-widget) - 划词翻译的翻译窗口。
- + [translation.js](https://github.com/lmk123/translation.js) - 划词翻译的核心翻译功能，被设计用于 Node.js，但同时也能用于浏览器端。
- + [chrome-storage-wrapper](https://github.com/lmk123/chrome-storage-wrapper) - 对 `chrome.storage` 的简单封装，基于 Promise。
- + [chrome-env](https://github.com/lmk123/chrome-env) - 给单元测试环境添加 `window.chrome`。
-
-你可以[点这里查看重构进度](https://github.com/lmk123/crx-selection-translate/issues/46)。如果你喜欢这个项目，请给个 Star 并介绍给你的朋友 :)
+ + [chrome-storage-wrapper](https://github.com/lmk123/chrome-storage-wrapper) **即将弃用** - 对 `chrome.storage` 的简单封装，基于 Promise。
+ + [chrome-call](https://github.com/lmk123/chrome-call) - 将 Chrome API 的使用回调函数接收结果的调用形式改为返回 Promise 对象的调用形式。
+ + [chrome-env](https://github.com/lmk123/chrome-env) - 给非扩展程序运行环境添加 `window.chrome`，被设计用于单元测试。
 
 ## 许可
 
