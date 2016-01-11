@@ -2,10 +2,11 @@
  * @files 用于处理其他页面发送过来的命令
  */
 import {Server} from 'connect.io';
+import chromeCall from 'chrome-call';
 import ts from '../public/my-ts';
 import clipboard from '../public/clipboard';
 
-const {runtime,tabs,tts} = chrome ,
+const {tabs} = chrome ,
   server = new Server();
 
 server.on( 'connect' , client => {
@@ -17,7 +18,6 @@ server.on( 'connect' , client => {
      * @param {Function} resolve
      */
     ( queryObj , resolve )=> {
-      console.log( '收到翻译请求：' , queryObj );
       ts.translate( queryObj ).then( resolve , ( errorMsg )=> {
         let error = errorMsg;
         if ( 'GoogleCN' === queryObj.api ) {
@@ -36,16 +36,9 @@ server.on( 'connect' , client => {
      */
     ( queryObj , resolve , reject )=> {
       // todo 如果没有 queryObj.from,则使用 google 检测语种
-      tts.speak( queryObj.text , {
+      chromeCall( 'tts.speak' , queryObj.text , {
         lang : queryObj.from
-      } , ()=> {
-        const {lastError} = runtime;
-        if ( lastError ) {
-          reject( lastError );
-        } else {
-          resolve();
-        }
-      } );
+      } ).then( resolve , reject );
     } );
 
   client.on( 'copy' ,
