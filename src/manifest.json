@@ -17,6 +17,7 @@
     "clipboardWrite" ,
     "clipboardRead" ,
     "activeTab" ,
+    "identity" ,
     "tts"
   ] ,
   "background" : {
@@ -68,7 +69,7 @@
       "description" : "翻译网页中选中的文本"
     }
   } ,
-  "minimum_chrome_version" : "26" ,
+  "minimum_chrome_version" : "29" ,
   "web_accessible_resources" : [
     "bundle/*.eot" ,
     "bundle/*.svg" ,
