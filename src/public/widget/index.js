@@ -28,9 +28,10 @@ export default client => {
     data : ()=>({
       locales : translateLocales ,
       query : {
-        api : '' ,
+        text : '' ,
         from : '' ,
-        to : ''
+        to : '' ,
+        api : ''
       } ,
       result : {
         error : '' ,
