@@ -13,12 +13,12 @@
     "bootstrap-sass": "^3.3.6",
     "chrome-call": "^1.0.2",
     "chrome-storage-wrapper": "^0.1.4",
-    "connect.io": "^1.0.0",
+    "connect.io": "^1.0.1",
     "interact.js": "^1.2.6",
-    "selection-widget": "^0.10.0",
+    "selection-widget": "^0.10.1",
     "translation.js": "^0.3.0",
-    "vue": "1.0.13-csp",
-    "vue-router": "^0.7.7"
+    "vue": "1.0.14-csp",
+    "vue-router": "^0.7.8"
   },
   "devDependencies": {
     "babel-core": "^6.4.0",
@@ -34,7 +34,7 @@
     "css-loader": "^0.23.1",
     "style-loader": "^0.13.0",
     "extract-text-webpack-plugin": "^1.0.1",
-    "webpack": "^1.12.10",
+    "webpack": "^1.12.11",
 
     "del": "^2.2.0",
     "gulp": "^3.9.0",
