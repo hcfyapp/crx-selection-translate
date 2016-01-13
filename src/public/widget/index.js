@@ -36,7 +36,7 @@ export default client => {
         error : '' ,
         phonetic : '' ,
         detailed : [] ,
-        result : '' ,
+        result : [] ,
         linkToResult : '' ,
         response : {} ,
         api : {
@@ -61,6 +61,7 @@ export default client => {
           .send( 'get translate result' , this.query , true )
           .then( resultObj => {
             this.result = resultObj;
+            this.$log( 'result' );
           } , noop );
         // 只有在一种特殊情况下才会走进 catch 分支:
         // 消息发送出去后但还没得到响应时就被后台断开了连接.
@@ -113,7 +114,7 @@ export default client => {
         }
         client.send( 'play' , {
           text : textOrTextArray ,
-          api : this.result.api.id ,
+          api : this.query.api ,
           from : this.result[ isFrom ? 'from' : 'to' ]
         } );
       }

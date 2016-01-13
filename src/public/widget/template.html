@@ -48,8 +48,8 @@
           <span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</span>
         </div>
       </div>
-      <div v-show="result.result">
-        <div v-text="result.result"></div>
+      <div v-show="result.result&&result.result.length">
+        <div v-for="text in result.result" v-text="text"></div>
         <div class="__copy-and-read__">
           <span class="__copy-and-read__" @click="play(result.result)">朗读</span>
           <span class="__copy-and-read__" @click="copy(result.result,$event)">复制</span>

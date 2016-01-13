@@ -34,10 +34,20 @@ server.on( 'connect' , client => {
      * @param {Function} resolve
      * @param {Function} reject
      */
-    ( queryObj , resolve , reject )=> {
-      // todo 如果没有 queryObj.from,则使用 google 检测语种
+    async ( queryObj , resolve , reject )=> {
+      let {from} = queryObj;
+
+      if ( !from ) {
+        try {
+          from = await ts.detect( queryObj );
+        }
+        catch ( e ) {
+          return reject();
+        }
+      }
+
       chromeCall( 'tts.speak' , queryObj.text , {
-        lang : queryObj.from
+        lang : from
       } ).then( resolve , reject );
     } );
 
