@@ -64,7 +64,7 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '播放语音时会发送 play 命令至后台' , ()=> {
-    vm.result.api.id = '翻译 API 的 id';
+    vm.query.api = '翻译 API 的 id';
     vm.result.from = '翻译结果的源语种';
     vm.result.to = '翻译结果的目标语种';
 
