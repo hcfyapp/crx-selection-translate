@@ -3,7 +3,7 @@
   "description" : "支持谷歌、百度、有道、必应四大翻译和朗读引擎，可以方便的查看、复制和朗读不同引擎的翻译结果。" ,
   "manifest_version" : 2 ,
   "version" : "6.0.0.107" ,
-  "homepage_url" : "https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad/support" ,
+  "homepage_url" : "https://github.com/lmk123/crx-selection-translate" ,
   "icons" : {
     "128" : "/logo.png" ,
     "16" : "/logo.png" ,
