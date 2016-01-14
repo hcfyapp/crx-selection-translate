@@ -15,8 +15,6 @@ const webpack = require( 'webpack' ) ,
   jsonmin = require( 'gulp-jsonmin' ) ,
   zip = require( 'gulp-zip' );
 
-const webpackConfig = require( './webpack.config' );
-
 gulp.task( 'clean' , clean );
 gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'json' , [ 'clean' ] , json );
@@ -37,14 +35,20 @@ function clean() {
  * @param {Function} done
  */
 function webpackP( done ) {
+  const webpackConfig = require( './webpack.config' );
   webpackConfig.watch = false;
   delete webpackConfig.devtool;
+
+  webpackConfig.resolve = {
+    alias : { // 生产环境切换至 vue.min.js
+      vue : require( 'path' ).resolve( __dirname , './node_modules/vue/dist/vue.min.js' )
+    }
+  };
 
   webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG 变量的定义
   webpackConfig.plugins.push( new webpack.DefinePlugin( {
     DEBUG : false ,
-    TEST : false ,
-    'process.env.NODE_ENV' : "'production'" // 删除 vue 的开发环境 hooks
+    TEST : false
   } ) );
 
   webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
