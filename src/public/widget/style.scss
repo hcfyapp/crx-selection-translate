@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+$baseBackgroundColor: #32cd74;
+$baseFontColor: #fff;
+$baseFontHoverColor: #9a6a16;
+
 %transition-all {
   transition: all .2s;
 }
@@ -12,7 +16,7 @@
   }
 }
 
-%normal-line-height {
+%base-line-height {
   $h: 25px;
   height: $h;
   min-height: $h;
@@ -27,20 +31,33 @@
 }
 
 #__selection-translator__ {
-  $baseBackgroundColor: #32cd74;
-  $baseFontColor: #fff;
-  $baseFontHoverColor: #9a6a16;
-  font-size: 14px;
-  text-align: left;
 
   // 通用样式
   &, & * {
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  st-header, st-div, st-footer, st-ul, st-li {
+    display: block;
+  }
+
+  st-span {
+    display: inline;
+  }
+
+  textarea {
+    color: #000;
+    background-color: #fff;
+    height: 40px;
+    min-height: 40px;
   }
 
   @include apply-to-icon {
-    color: #fff;
+    color: $baseFontColor;
     cursor: pointer;
 
     &, &:before {
@@ -69,20 +86,16 @@
     }
 
     select, button {
-      @extend %normal-line-height;
+      @extend %base-line-height;
     }
 
     button {
       margin-left: 10%;
+      text-align: center;
     }
 
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-
-    > header {
+    // header
+    > st-header {
       height: 50px;
       line-height: 50px;
 
@@ -98,9 +111,10 @@
       }
     }
 
+    // 查询表单
     > .__query-form__ {
 
-      > div {
+      > st-div {
         margin-bottom: 5px;
         @extend %clear-fix;
 
@@ -108,8 +122,8 @@
           float: left;
         }
 
-        div {
-          @extend %normal-line-height;
+        st-div {
+          @extend %base-line-height;
           width: 10%;
           text-align: center;
         }
@@ -125,7 +139,9 @@
 
     }
 
+    // 翻译结果
     > .__translate-result__ {
+      color: #000;
       padding: 10px;
       background-color: $baseFontColor;
 
@@ -133,24 +149,25 @@
         margin-bottom: 5px;
       }
 
-      .__copy-and-read__ > span {
+      .__copy-and-read__ > st-span {
         @extend %transition-all;
         display: inline-block;
         margin-right: 10px;
-        height: 20px;
-        line-height: 20px;
+        height: 16px;
+        line-height: 16px;
         cursor: pointer;
         opacity: 0;
         color: #12813e;
         font-size: 12px;
       }
 
-      &:hover .__copy-and-read__ > span {
+      &:hover .__copy-and-read__ > st-span {
         opacity: 1;
       }
     }
 
-    > footer {
+    // footer
+    > st-footer {
       padding: 5px 10px;
       text-align: right;
 

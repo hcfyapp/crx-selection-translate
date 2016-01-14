@@ -1,25 +1,25 @@
-<div id="__selection-translator__">
-  <div class="__st-box__" v-el:st-box :style="boxStyle">
-    <header v-if="!inline" v-el:st-drag>
-      <span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></span>
-      <span class="st-icon-cog" title="设置" @click="openOptions"></span>
-    </header>
-    <div class="__query-form__">
-      <div>
+<st-div id="__selection-translator__">
+  <st-div class="__st-box__" v-el:st-box :style="boxStyle">
+    <st-header v-if="!inline" v-el:st-drag>
+      <st-span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></st-span>
+      <st-span class="st-icon-cog" title="设置" @click="openOptions"></st-span>
+    </st-header>
+    <st-div class="__query-form__">
+      <st-div>
         <textarea v-model="query.text" placeholder="输入要翻译的句子或单词"></textarea>
-      </div>
-      <div>
+      </st-div>
+      <st-div>
         <select v-model="query.from">
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-        <div><span class="st-icon-exchange" @click="exchangeLocale"></span></div>
+        <st-div><st-span class="st-icon-exchange" @click="exchangeLocale"></st-span></st-div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-      </div>
-      <div>
+      </st-div>
+      <st-div>
         <select v-model="query.api">
           <option value="YouDao">有道翻译</option>
           <option value="BaiDu">百度翻译</option>
@@ -28,38 +28,38 @@
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
         <button type="button" @click="translate">翻译</button>
-      </div>
-    </div>
-    <div class="__translate-result__" v-show="loading">正在查询，请稍候……</div>
-    <div class="__translate-result__" v-else>
-      <div v-show="result.error" v-text="result.error"></div>
-      <div v-show="result.phonetic">
-        /<span v-text="result.phonetic"></span>/
-        <div class="__copy-and-read__">
-          <span @click="play(query.text,true)">朗读</span>
-          <span @click="copy('/'+result.phonetic+'/',$event)">复制</span>
-        </div>
-      </div>
-      <div v-show="result.detailed && result.detailed.length">
-        <ul>
-          <li v-for="d in result.detailed" v-text="d"></li>
-        </ul>
-        <div class="__copy-and-read__">
-          <span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</span>
-        </div>
-      </div>
-      <div v-show="result.result&&result.result.length">
-        <div v-for="text in result.result" v-text="text"></div>
-        <div class="__copy-and-read__">
-          <span class="__copy-and-read__" @click="play(result.result)">朗读</span>
-          <span class="__copy-and-read__" @click="copy(result.result,$event)">复制</span>
-        </div>
-      </div>
-    </div>
-    <footer>
-      <span v-show="!loading && result.api.name">via
-        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></span>
-    </footer>
-  </div>
-  <div class="__st-btn__" v-el:st-btn :style="btnStyle">译</div>
-</div>
+      </st-div>
+    </st-div>
+    <st-div class="__translate-result__" v-show="loading">正在查询，请稍候……</st-div>
+    <st-div class="__translate-result__" v-else>
+      <st-div v-show="result.error" v-text="result.error"></st-div>
+      <st-div v-show="result.phonetic">
+        /<st-span v-text="result.phonetic"></st-span>/
+        <st-div class="__copy-and-read__">
+          <st-span @click="play(query.text,true)">朗读</st-span>
+          <st-span @click="copy('/'+result.phonetic+'/',$event)">复制</st-span>
+        </st-div>
+      </st-div>
+      <st-div v-show="result.detailed && result.detailed.length">
+        <st-ul>
+          <st-li v-for="d in result.detailed" v-text="d"></st-li>
+        </st-ul>
+        <st-div class="__copy-and-read__">
+          <st-span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</st-span>
+        </st-div>
+      </st-div>
+      <st-div v-show="result.result&&result.result.length">
+        <st-div v-for="text in result.result" v-text="text"></st-div>
+        <st-div class="__copy-and-read__">
+          <st-span class="__copy-and-read__" @click="play(result.result)">朗读</st-span>
+          <st-span class="__copy-and-read__" @click="copy(result.result,$event)">复制</st-span>
+        </st-div>
+      </st-div>
+    </st-div>
+    <st-footer>
+      <st-span v-show="!loading && result.api.name">via
+        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></st-span>
+    </st-footer>
+  </st-div>
+  <st-div class="__st-btn__" v-el:st-btn :style="btnStyle">译</st-div>
+</st-div>
