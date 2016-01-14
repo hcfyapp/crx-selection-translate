@@ -176,6 +176,7 @@ $baseFontHoverColor: #9a6a16;
       }
       a {
         @extend %transition-all;
+        text-decoration: none;
       }
       a:hover {
         color: $baseFontHoverColor;
