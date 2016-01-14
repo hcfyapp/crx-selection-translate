@@ -54,7 +54,7 @@ router.map( {
 } );
 
 router.redirect( {
-  '*' : { name : 'options' }
+  '*' : '/options'
 } );
 
 router.start( {} , 'body' );
