@@ -7,12 +7,8 @@ import './popup.scss';
 import widget from '../public/widget/index';
 import {Client,send} from 'connect.io';
 import util from '../public/util';
+import clipboard from '../public/clipboard';
 import template from './tpl.html';
-
-/* istanbul ignore if */
-if ( DEBUG ) {
-  Vue.config.debug = true;
-}
 
 const client = new Client();
 
@@ -79,6 +75,14 @@ const main = async ()=> {
   st.inline = true;
   st.showForm = true;
   st.query.api = defaultApi;
+
+  const c = clipboard.read();
+  if ( c ) {
+    st.query.text = c;
+    st.translate();
+  }
+
+  setTimeout( ()=> st.$els.textarea.focus() , 200 );
 
   if ( locationObj ) {
     host = locationObj.host;

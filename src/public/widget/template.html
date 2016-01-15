@@ -7,7 +7,7 @@
     </st-header>
     <st-div class="__query-form__" v-show="showForm">
       <st-div>
-        <textarea v-model="query.text" placeholder="输入要翻译的句子或单词"></textarea>
+        <textarea placeholder="输入要翻译的句子或单词" v-model="query.text" v-el:textarea></textarea>
       </st-div>
       <st-div>
         <select v-model="query.from">
