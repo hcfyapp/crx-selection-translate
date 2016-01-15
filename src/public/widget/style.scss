@@ -9,7 +9,7 @@ $baseFontHoverColor: #9a6a16;
 }
 
 %clear-fix {
-  &::after {
+  &:after {
     content: '';
     display: block;
     clear: both;
@@ -52,8 +52,8 @@ $baseFontHoverColor: #9a6a16;
   textarea {
     color: #000;
     background-color: #fff;
-    height: 40px;
-    min-height: 40px;
+    height: 46px;
+    min-height: 46px;
   }
 
   @include apply-to-icon {
@@ -71,7 +71,7 @@ $baseFontHoverColor: #9a6a16;
 
   // 翻译窗口的样式
   > .__st-box__ {
-    min-width: 250px;
+    width: 250px;
     background-color: $baseBackgroundColor;
     border: 1px solid $baseBackgroundColor;
 
