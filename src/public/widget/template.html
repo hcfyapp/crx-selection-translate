@@ -7,7 +7,7 @@
     </st-header>
     <st-div class="__query-form__" v-show="showForm">
       <st-div>
-        <textarea placeholder="输入要翻译的句子或单词" v-model="query.text" v-el:textarea></textarea>
+        <textarea placeholder="输入要翻译的句子或单词" v-model="query.text" v-el:textarea @keyup.enter="ctrlEnter" @keyup="safeTranslate | debounce 600"></textarea>
       </st-div>
       <st-div>
         <select v-model="query.from">
@@ -28,7 +28,7 @@
           <option value="Google">谷歌翻译</option>
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
-        <button type="button" @click="translate">翻译</button>
+        <button type="button" @click="safeTranslate">翻译</button>
       </st-div>
     </st-div>
     <st-div class="__translate-result__" v-show="loading">正在查询，请稍候……</st-div>

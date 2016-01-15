@@ -54,6 +54,30 @@ export default client => {
       } );
     } ,
     methods : {
+
+      /**
+       * 翻译快捷键：Ctrl + Enter
+       * @param event
+       */
+      ctrlEnter( event ) {
+        if ( event.ctrlKey ) {
+          this.safeTranslate();
+        }
+      } ,
+
+      /**
+       * 仅当有文本时才翻译
+       */
+      safeTranslate() {
+        if ( this.query.text.trim() ) {
+          this.translate();
+        }
+      } ,
+
+      /**
+       * 从后台网页获取查询结果
+       * @returns {Promise}
+       */
       getResult() {
         this.$emit( 'beforeQuery' );
         if ( client.disconnected ) {
