@@ -53,13 +53,27 @@ async function bindStorage( st ) {
   }
 }
 
-// 将 interact 注册在全局对象上,这样 ST 初始化时就能读取到了
-window.interact = interact;
+/**
+ * 让翻译窗口可拖动
+ * @param st
+ */
+function draggable( st ) {
+  const {boxPos,$els} = st;
+  interact( $els.stDrag )
+    .draggable( {
+      onmove : event => {
+        boxPos.translateX += event.dx;
+        boxPos.translateY += event.dy;
+      }
+    } );
+}
+
 let st;
 export default async ()=> {
   if ( !st ) {
     st = new Vue( widget( client ) );
     await bindStorage( st );
+    draggable( st );
     st.$appendTo( 'body' );
   }
   return st;
