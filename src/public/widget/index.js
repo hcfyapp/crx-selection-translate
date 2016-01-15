@@ -27,6 +27,7 @@ export default client => {
     template ,
     data : ()=>({
       locales : translateLocales ,
+      showForm : false ,
       query : {
         text : '' ,
         from : '' ,

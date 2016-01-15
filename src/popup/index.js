@@ -77,6 +77,7 @@ const main = async ()=> {
     ] );
 
   st.inline = true;
+  st.showForm = true;
   st.query.api = defaultApi;
 
   if ( locationObj ) {
