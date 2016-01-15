@@ -67,8 +67,8 @@ const main = async ()=> {
   } );
 
   const {st} = app.$refs ,
-    [ {excludeDomains , defaultApi} , locationObj ] = await Promise.all( [
-      storage.get( [ 'excludeDomains' , 'defaultApi' ] ) ,
+    [ {excludeDomains , defaultApi,autoClipboard} , locationObj ] = await Promise.all( [
+      storage.get( [ 'excludeDomains' , 'defaultApi' , 'autoClipboard' ] ) ,
       util.getTabLocation()
     ] );
 
@@ -76,10 +76,12 @@ const main = async ()=> {
   st.showForm = true;
   st.query.api = defaultApi;
 
-  const c = clipboard.read();
-  if ( c ) {
-    st.query.text = c;
-    st.translate();
+  if ( autoClipboard ) {
+    const c = clipboard.read();
+    if ( c ) {
+      st.query.text = c;
+      st.translate();
+    }
   }
 
   setTimeout( ()=> st.$els.textarea.focus() , 200 );
