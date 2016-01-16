@@ -19,6 +19,16 @@ const main = ()=> {
           } );
         } );
         break;
+
+      case 'web':
+        chrome.tabs.query( { active : true } , ( [{id}] ) => {
+          send( {
+            tabId : id ,
+            name : 'web translate' ,
+            data : 'youdao'
+          } );
+        } );
+        break;
     }
   } );
 };
