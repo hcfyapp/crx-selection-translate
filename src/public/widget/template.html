@@ -29,7 +29,7 @@
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
         <st-div class="__action-list__">
-          <st-div class="__button__" @click="safeTranslate">翻译</st-div>
+          <st-div class="__button__" @click="safeTranslate">翻译 <st-span class="st-icon-down-dir"></st-span></st-div>
           <st-div class="__expand__">
             <st-div class="__button__" @click="play(query.text,true)">朗读</st-div>
             <st-div class="__button__" @click="copy(query.text,$event)">复制</st-div>
