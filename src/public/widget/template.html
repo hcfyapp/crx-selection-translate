@@ -14,7 +14,7 @@
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-        <st-div><st-span class="st-icon-exchange" @click="exchangeLocale"></st-span></st-div>
+        <st-div class="__exchange__"><st-span class="st-icon-exchange" @click="exchangeLocale"></st-span></st-div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
@@ -28,7 +28,13 @@
           <option value="Google">谷歌翻译</option>
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
-        <button type="button" @click="safeTranslate">翻译</button>
+        <st-div class="__action-list__">
+          <st-div class="__button__" @click="safeTranslate">翻译</st-div>
+          <st-div class="__expand__">
+            <st-div class="__button__" @click="play(query.text,true)">朗读</st-div>
+            <st-div class="__button__" @click="copy(query.text,$event)">复制</st-div>
+          </st-div>
+        </st-div>
       </st-div>
     </st-div>
     <st-div class="__translate-result__" v-show="loading">正在查询，请稍候……</st-div>
@@ -37,7 +43,6 @@
       <st-div v-show="result.phonetic">
         /<st-span v-text="result.phonetic"></st-span>/
         <st-div class="__copy-and-read__">
-          <st-span @click="play(query.text,true)">朗读</st-span>
           <st-span @click="copy('/'+result.phonetic+'/',$event)">复制</st-span>
         </st-div>
       </st-div>

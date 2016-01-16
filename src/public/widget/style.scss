@@ -75,23 +75,18 @@ $baseFontHoverColor: #9a6a16;
     background-color: $baseBackgroundColor;
     border: 1px solid $baseBackgroundColor;
 
-    button, select, textarea {
+    .__action-list__, select, textarea {
       border: 0;
       border-radius: 0;
       padding: 0;
     }
 
-    select, button {
+    select, .__action-list__ {
       width: 45%;
     }
 
-    select, button {
+    select, .__action-list__ {
       @extend %base-line-height;
-    }
-
-    button {
-      margin-left: 10%;
-      text-align: center;
     }
 
     // header
@@ -100,14 +95,14 @@ $baseFontHoverColor: #9a6a16;
       padding: 8px 0;
 
       .st-icon-pin:before, .st-icon-down-open:before {
-        transform: rotate(0deg);
+        transform: translateY(0) rotate(0deg);
       }
       .__pinned__.st-icon-pin:before {
         transform: rotate(-45deg);
       }
 
       .__open__.st-icon-down-open:before {
-        transform: rotate(-180deg);
+        transform: translateY(3px) rotate(-180deg);
       }
 
       .st-icon-cog, .st-icon-down-open {
@@ -136,7 +131,7 @@ $baseFontHoverColor: #9a6a16;
           float: left;
         }
 
-        st-div {
+        .__exchange__ {
           @extend %base-line-height;
           width: 10%;
           text-align: center;
@@ -151,6 +146,37 @@ $baseFontHoverColor: #9a6a16;
         padding: 2px;
       }
 
+      .__action-list__ {
+        margin-left: 10%;
+        text-align: center;
+
+        .__button__ {
+          @extend %base-line-height;
+          text-align: center;
+          cursor: pointer;
+          color: #000;
+          -webkit-user-select: none;
+          user-select: none;
+
+          &:hover {
+            background-color: #fff;
+          }
+        }
+
+        &:hover .__expand__ {
+          display: block;
+        }
+
+        .__expand__ {
+          @extend %clear-fix;
+          display: none;
+
+          st-div {
+            width: 50%;
+            float: left;
+          }
+        }
+      }
     }
 
     // 翻译结果
