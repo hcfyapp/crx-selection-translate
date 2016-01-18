@@ -83,14 +83,12 @@ function restrictBox( st ) {
   }
 
   // 右边
-  // todo 当有垂直滚动条时，translateX 的值应该减 10
   const rightDiff = rect.right - window.innerWidth;
   if ( rightDiff > 0 ) {
     boxPos.translateX -= rightDiff;
   }
 
   // 下边
-  // todo 当有水平滚动条时，translateY 的值应该减 10
   const bottomDiff = rect.bottom - window.innerHeight;
   if ( bottomDiff > 0 ) {
     boxPos.translateY -= bottomDiff;
