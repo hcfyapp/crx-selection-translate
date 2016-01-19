@@ -11,7 +11,7 @@
 
 让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
 
-**注意：安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！**
+**注意：**安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！
 
 ## 特点
 
@@ -30,7 +30,7 @@
 
 我们欢迎并鼓励开发者参与开发！请按照以下步骤搭建开发环境：
 
- 1. [Fork](https://github.com/lmk123/crx-selection-translate/fork) 项目之后将代码克隆到本地
+ 1. Fork 项目之后将代码克隆到本地
  2. 运行 `npm i` 安装项目依赖
  3. 运行 `npm run webpack`，项目的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)下会生成一个名为 `bundle` 的文件夹
  4. 在 Chrome 浏览器的扩展程序页面（chrome://extensions/）勾选开发者模式，点击“加载已解压的扩展程序”，将路径指向代码库的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)
