@@ -210,16 +210,19 @@ $baseFontHoverColor: #9a6a16;
         margin-bottom: 5px;
       }
 
-      .__copy-and-read__ > st-span {
-        @extend %transition-all;
+      .__copy-and-read__ > st-span, .__retry__ {
         display: inline-block;
         margin-right: 10px;
+        cursor: pointer;
+        color: #12813e;
+      }
+
+      .__copy-and-read__ > st-span {
+        @extend %transition-all;
         height: 16px;
         line-height: 16px;
-        cursor: pointer;
-        opacity: 0;
-        color: #12813e;
         font-size: 12px;
+        opacity: 0;
       }
 
       &:hover .__copy-and-read__ > st-span {
