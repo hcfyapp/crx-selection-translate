@@ -31,7 +31,7 @@ module.exports = {
         }
       } ,
       {
-        test : /\.(eot|svg|ttf|woff2?)/ ,
+        test : /\.woff/ ,
         loader : 'file-loader' ,
         query : {
           name : '[name].[ext]'
