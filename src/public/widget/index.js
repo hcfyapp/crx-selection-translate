@@ -132,16 +132,16 @@ export default client => {
       /**
        * 播放语音
        * @param {String|String[]} textOrTextArray
-       * @param {Boolean} [isFrom] - 默认情况下会读取 result.to 作为语音的语种,若这个值为 true 则使用 result.from
+       * @param {String} [lang] - 文本的语种
        */
-      play( textOrTextArray , isFrom ) {
+      play( textOrTextArray , lang ) {
         if ( Array.isArray( textOrTextArray ) ) {
           textOrTextArray = textOrTextArray.join( '\n' );
         }
         client.send( 'play' , {
           text : textOrTextArray ,
           api : this.query.api ,
-          from : this.result[ isFrom ? 'from' : 'to' ]
+          from : lang
         } );
       }
     } ,

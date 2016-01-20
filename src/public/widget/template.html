@@ -31,7 +31,7 @@
         <st-div class="__action-list__">
           <st-div class="__button__ __btn-translate__" @click="safeTranslate">翻译<st-span class="st-icon-down-dir"></st-span></st-div>
           <st-div class="__expand__">
-            <st-div class="__button__" @click="play(query.text,true)">朗读</st-div>
+            <st-div class="__button__" @click="play(query.text,query.from)">朗读</st-div>
             <st-div class="__button__" @click="copy(query.text,$event)">复制</st-div>
           </st-div>
         </st-div>
@@ -60,7 +60,7 @@
       <st-div v-show="result.result&&result.result.length">
         <st-div v-for="text in result.result" v-text="text"></st-div>
         <st-div class="__copy-and-read__">
-          <st-span class="__copy-and-read__" @click="play(result.result)">朗读</st-span>
+          <st-span class="__copy-and-read__" @click="play(result.result,result.to)">朗读</st-span>
           <st-span class="__copy-and-read__" @click="copy(result.result,$event)">复制</st-span>
         </st-div>
       </st-div>
