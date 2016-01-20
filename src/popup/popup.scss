@@ -8,5 +8,10 @@ body {
     -webkit-user-select: none;
     user-select: none;
     padding: 5px;
+
+    [role="button"]:hover {
+      background-color: #fff;
+      color: #000;
+    }
   }
 }

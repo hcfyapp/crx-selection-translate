@@ -72,6 +72,7 @@ const main = async ()=> {
       util.getTabLocation()
     ] );
 
+  st.result.error = '请输入想要翻译的单词或句子。';
   st.inline = true;
   st.showForm = true;
   st.query.api = defaultApi;
