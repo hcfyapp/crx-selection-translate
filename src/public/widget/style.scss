@@ -60,7 +60,7 @@ $baseFontHoverColor: #9a6a16;
     color: $baseFontColor;
     cursor: pointer;
 
-    &, &:before {
+    &:not(.st-icon-down-dir), &:not(.st-icon-down-dir)::before {
       @extend %transition-all;
     }
 
@@ -150,16 +150,37 @@ $baseFontHoverColor: #9a6a16;
         margin-left: 10%;
         text-align: center;
 
+        .st-icon-down-dir {
+          color: #000;
+          position: absolute;
+          right: 0;
+          top: 2px;
+        }
+
+        .__btn-translate__:hover .st-icon-down-dir {
+          color: #fff;
+        }
+
+        &:hover .__button__ {
+          outline: 1px solid #9a6a16;
+        }
+
+        .__btn-translate__ {
+          position: relative;
+        }
+
         .__button__ {
           @extend %base-line-height;
           text-align: center;
           cursor: pointer;
+          background-color: #fff;
           color: #000;
           -webkit-user-select: none;
           user-select: none;
 
           &:hover {
-            background-color: #fff;
+            background-color: #9a6a16;
+            color: #fff;
           }
         }
 
