@@ -1,6 +1,5 @@
 /**
  * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
- * todo 自动朗读功能
  */
 import '../fontello/css/fontello.css';
 import './style.scss';

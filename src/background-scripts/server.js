@@ -42,7 +42,13 @@ server.on( 'connect' , client => {
           from = await ts.detect( queryObj );
         }
         catch ( e ) {
-          return reject();
+          queryObj.api = 'Google';
+          try {
+            from = await ts.detect( queryObj );
+          }
+          catch ( e ) {
+            return reject();
+          }
         }
       }
 

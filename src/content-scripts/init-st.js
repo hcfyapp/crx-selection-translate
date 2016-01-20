@@ -15,13 +15,22 @@ async function bindStorage( st ) {
   const {host} = location ,
     storageKeys = [
       'ignoreChinese' , 'ignoreNumLike' , 'showBtn' ,
-      'needCtrl' , 'defaultApi' , 'excludeDomains'
+      'needCtrl' , 'defaultApi' , 'excludeDomains' , 'autoPlay'
     ] ,
     options = await storage.get( storageKeys );
 
   st.$on( 'beforeQuery' , function () {
     if ( !this.boxPos.show && defApi ) {
       this.query.api = defApi;
+    }
+  } );
+
+  st.$on( 'after translate' , function () {
+    const {query} = this ,
+      {text} = query;
+
+    if ( this.autoPlay && text.length < 50 ) {
+      this.play( text , query.from );
     }
   } );
 
