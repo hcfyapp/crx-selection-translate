@@ -20,10 +20,8 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '获取结果前会触发一次事件、并发送 translate 命令至后台以获取结果' , ( done )=> {
-    spyOn( vm , '$emit' );
     fakeClient.send.and.returnValue( Promise.resolve( '翻译结果' ) );
     vm.getResult();
-    expect( vm.$emit ).toHaveBeenCalledWith( 'beforeQuery' );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'get translate result' , vm.query , true );
     vm.$nextTick( ()=> {
       expect( vm.result ).toBe( '翻译结果' );
