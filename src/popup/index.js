@@ -1,6 +1,7 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 import storage from 'chrome-storage-wrapper';
+import chromeCall from 'chrome-call';
 
 import './popup.scss';
 
@@ -44,11 +45,9 @@ const main = async ()=> {
        * @param {String} webName
        */
       async webTranslate( webName ) {
-        const tabId = await new Promise( resolve => {
-          chrome.tabs.query( { active : true } , ( [{id}] ) => resolve( id ) );
-        } );
+        const tabId = (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
 
-        send( {
+        return send( {
           tabId ,
           name : 'web translate' ,
           data : webName ,
@@ -67,7 +66,7 @@ const main = async ()=> {
   } );
 
   const {st} = app.$refs ,
-    [ {excludeDomains , defaultApi,autoClipboard} , locationObj ] = await Promise.all( [
+    [ {excludeDomains , defaultApi , autoClipboard} , locationObj ] = await Promise.all( [
       storage.get( [ 'excludeDomains' , 'defaultApi' , 'autoClipboard' ] ) ,
       util.getTabLocation()
     ] );

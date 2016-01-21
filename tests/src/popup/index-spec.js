@@ -1,5 +1,6 @@
 import storage from 'chrome-storage-wrapper';
 import util from '../../../src/public/util';
+import {Client} from 'connect.io';
 
 import main from '../../../src/popup/index';
 
@@ -11,7 +12,8 @@ describe( '弹出页' , ()=> {
     beforeEach( async done => { // 异步函数内仍然需要结合 done 来使用
       spyOn( storage , 'get' ).and.returnValue( Promise.resolve( {
         excludeDomains : [] ,
-        defaultApi : 'BaiDu'
+        defaultApi : 'BaiDu' ,
+        autoClipboard : true
       } ) );
       spyOn( util , 'getTabLocation' ).and.returnValue( Promise.resolve() );
       app = await main();
@@ -25,6 +27,26 @@ describe( '弹出页' , ()=> {
 
     it( '会调整 st 的初始翻译引擎' , ()=> {
       expect( st.query.api ).toBe( 'BaiDu' );
+    } );
+
+    it( '网页翻译功能会发送一个消息到当前标签页' , async ( done )=> {
+      const app = await main();
+
+      spyOn( window , 'close' );
+      spyOn( chrome.tabs , 'query' ).and.callFake( ( options , cb )=> {
+        cb( [ { id : 888 } ] );
+      } );
+      spyOn( chrome.tabs , 'connect' ).and.callThrough();
+      spyOn( Client.prototype , 'send' ).and.returnValue( Promise.resolve() );
+
+      await app.webTranslate( 'YouDao' );
+
+      expect( chrome.tabs.connect ).toHaveBeenCalledWith( 888 , {
+        frameId : undefined ,
+        name : '{"_namespace":"default"}'
+      } );
+      expect( window.close ).toHaveBeenCalled();
+      done();
     } );
   } );
 
