@@ -19,9 +19,9 @@ async function bindStorage( st ) {
     ] ,
     options = await storage.get( storageKeys );
 
-  st.$on( 'beforeQuery' , function () {
-    if ( !this.boxPos.show && defApi ) {
-      this.query.api = defApi;
+  st.$watch( 'boxPos.show' , ( newValue )=> {
+    if ( !newValue ) {
+      st.query.api = defApi;
     }
   } );
 

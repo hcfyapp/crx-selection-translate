@@ -79,7 +79,6 @@ export default client => {
        * @returns {Promise}
        */
       getResult() {
-        this.$emit( 'beforeQuery' );
         if ( client.disconnected ) {
           return resolvedEmptyPromise;
         }
