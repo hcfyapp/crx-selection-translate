@@ -55,6 +55,9 @@ async function bindStorage( st ) {
 
     if ( defaultApi ) {
       defApi = defaultApi;
+      if ( !st.boxPos.show ) {
+        st.query.api = defApi;
+      }
       delete items.defaultApi;
     }
 
