@@ -1,13 +1,13 @@
 import Vue from 'vue';
-import widget from '../../../../src/public/widget/index';
+import Widget from '../../../../src/public/widget/index';
 
 const fakeClient = {
-  send() {},
+  send() {} ,
   once() {}
 };
 
 function createWidget() {
-  const vm = new Vue( widget( fakeClient ) );
+  const vm = new Widget( { client : fakeClient } );
   vm.$appendTo( 'body' );
   return vm;
 }
