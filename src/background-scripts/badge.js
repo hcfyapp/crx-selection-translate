@@ -31,7 +31,7 @@ export async function updateBadge( tabId ) {
   browserAction.setBadgeText( { text : enable ? '' : 'off' } );
 }
 
-if ( !TEST ) {
+if ( process.env.NODE_ENV !== 'testing' ) {
   chrome.storage.onChanged.addListener( onStorageChanged );
   tabs.onUpdated.addListener( onTabsUpdated );
   tabs.onActivated.addListener( onTabsActivated );
