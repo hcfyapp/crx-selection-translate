@@ -44,10 +44,10 @@ function main() {
 }
 
 /* istanbul ignore if */
-if ( !TEST ) {
+if ( process.env.NODE_ENV !== 'testing' ) {
   main();
 }
 
 /* istanbul ignore next */
-export default TEST ? main : undefined;
+export default process.env.NODE_ENV === 'testing' ? main : undefined;
 

@@ -39,16 +39,10 @@ function webpackP( done ) {
   webpackConfig.watch = false;
   delete webpackConfig.devtool;
 
-  webpackConfig.resolve = {
-    alias : { // 生产环境切换至 vue.min.js
-      vue : require( 'path' ).resolve( __dirname , './node_modules/vue/dist/vue.min.js' )
-    }
-  };
-
-  webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG 变量的定义
+  webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG_MODEL 变量的定义
   webpackConfig.plugins.push( new webpack.DefinePlugin( {
-    DEBUG : false ,
-    TEST : false
+    DEBUG_MODEL : false ,
+    'process.env.NODE_ENV' : "'production'"
   } ) );
 
   webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {

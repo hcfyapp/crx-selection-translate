@@ -30,7 +30,7 @@ import about from './about/index';
 import voices from './voices/index';
 
 /* istanbul ignore if */
-if ( DEBUG ) {
+if ( DEBUG_MODEL ) {
   Vue.config.debug = true;
 }
 

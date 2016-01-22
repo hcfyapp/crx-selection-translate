@@ -70,8 +70,8 @@ module.exports = {
     new ExtractTextPlugin( '[name].css' ) ,
 
     new webpack.DefinePlugin( {
-      DEBUG : true ,
-      TEST : false
+      DEBUG_MODEL : true ,
+      'process.env.NODE_ENV' : "'development'"
     } )
   ] ,
   watch : true ,
