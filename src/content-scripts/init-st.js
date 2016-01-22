@@ -3,7 +3,7 @@ import interact from 'interact.js';
 import storage from 'chrome-storage-wrapper';
 
 import client from './client';
-import widget from '../public/widget/index';
+import Widget from '../public/widget/index';
 import util from '../public/util';
 
 /**
@@ -130,7 +130,7 @@ function draggable( st ) {
 let st;
 export default async ()=> {
   if ( !st ) {
-    st = new Vue( widget( client ) );
+    st = new Widget( { client } );
     await bindStorage( st );
     draggable( st );
     st.$appendTo( 'body' );

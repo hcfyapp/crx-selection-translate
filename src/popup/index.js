@@ -5,7 +5,7 @@ import chromeCall from 'chrome-call';
 
 import './popup.scss';
 
-import widget from '../public/widget/index';
+import Widget from '../public/widget/index';
 import {Client,send} from 'connect.io';
 import util from '../public/util';
 import clipboard from '../public/clipboard';
@@ -58,7 +58,7 @@ const main = async ()=> {
       }
     } ,
     components : {
-      'st-box' : widget( client )
+      'st-box' : Widget.extend( { client } )
     } ,
     compiled() {
       this.$appendTo( 'body' );
