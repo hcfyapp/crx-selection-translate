@@ -1,16 +1,23 @@
-export const changeCallbacks = [];
+export const listeners = [];
 
-chrome.storage.onChanged.addListener( ( changedItems , area )=> {
+/**
+ * 唯一的事件处理函数。使用此函数分发事件。
+ * @param {Object} changedItems
+ * @param {String} area
+ */
+export function onStorageChanged( changedItems , area ) {
   const changedNewValue = {};
 
   for ( let key in changedItems ) {
     changedNewValue[ key ] = changedItems[ key ].newValue;
   }
 
-  changeCallbacks.forEach( ( realListener ) => {
+  listeners.forEach( ( realListener ) => {
     realListener( changedNewValue , area );
   } );
-} );
+}
+
+chrome.storage.onChanged.addListener( onStorageChanged );
 
 const {isArray} = Array;
 
@@ -57,7 +64,7 @@ export default function ( keys , areas , listener ) {
     }
   }
 
-  changeCallbacks.push( realListener );
+  listeners.push( realListener );
 
-  return ()=> changeCallbacks.splice( changeCallbacks.indexOf( realListener ) , 1 );
+  return ()=> listeners.splice( listeners.indexOf( realListener ) , 1 );
 }
