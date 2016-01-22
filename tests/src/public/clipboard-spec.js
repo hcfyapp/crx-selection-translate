@@ -1,4 +1,4 @@
-import clipboard from '../../../src/public/clipboard';
+import * as clipboard from '../../../src/public/clipboard';
 
 describe( '剪切板模块' , ()=> {
   beforeEach( ()=> {

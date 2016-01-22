@@ -4,7 +4,7 @@
 import {Server} from 'connect.io';
 import chromeCall from 'chrome-call';
 import ts from '../public/my-ts';
-import clipboard from '../public/clipboard';
+import {write} from '../public/clipboard';
 
 const server = new Server();
 

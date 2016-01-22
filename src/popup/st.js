@@ -1,7 +1,7 @@
 import client from './client';
 import Widget from '../public/widget/index';
 import chromeCall from 'chrome-call';
-import clipboard from '../public/clipboard';
+import {read} from '../public/clipboard';
 
 export default Widget.extend( {
   client ,
@@ -13,7 +13,7 @@ export default Widget.extend( {
 
     this.query.api = defaultApi;
     if ( autoClipboard ) {
-      const c = clipboard.read();
+      const c = read();
       if ( c ) {
         this.query.text = c;
         this.translate();
