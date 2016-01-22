@@ -5,38 +5,29 @@
  */
 
 import {send} from 'connect.io';
+import chromeCall from 'chrome-call';
 
-const {tabs} = chrome;
+export async function onCommand( command ) {
 
-const main = ()=> {
-  chrome.commands.onCommand.addListener( command => {
-    switch ( command ) {
-      case 'translate':
-        tabs.query( { active : true } , tabArr => {
-          send( {
-            tabId : tabArr[ 0 ].id ,
-            name : 'translate'
-          } );
-        } );
-        break;
+  const tabId = (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
 
-      case 'web':
-        chrome.tabs.query( { active : true } , ( [{id}] ) => {
-          send( {
-            tabId : id ,
-            name : 'web translate' ,
-            data : 'youdao'
-          } );
-        } );
-        break;
-    }
-  } );
-};
+  switch ( command ) {
+    case 'translate':
+      send( {
+        tabId ,
+        name : 'translate'
+      } );
+      break;
 
-/* istanbul ignore if */
-if ( !TEST ) {
-  main();
+    case 'web':
+      send( {
+        tabId ,
+        name : 'web translate' ,
+        data : 'youdao'
+      } );
+      break;
+  }
 }
-
-/* istanbul ignore next */
-export default TEST ? main : undefined;
+if ( process.env.NODE_ENV !== 'testing' ) {
+  chrome.commands.onCommand.addListener( onCommand );
+}
