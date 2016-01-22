@@ -3,7 +3,7 @@ import template from './tpl.html';
 import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
 import util from '../public/util';
-import st from './st';
+import ST from './st';
 
 export default new Vue( {
   el : document.createElement( 'div' ) ,
@@ -21,14 +21,14 @@ export default new Vue( {
     async switchEnable() {
       const {_host} = this.$data ,
         enabled = this.enabled = !this.enabled ,
-        {excludeDomains:ex} = await chromeCall( 'storage.local.get' , 'excludeDomains' );
+        {excludeDomains} = await chromeCall( 'storage.local.get' , 'excludeDomains' );
 
       if ( enabled ) {
-        ex.splice( ex.indexOf( _host ) , 1 );
+        excludeDomains.splice( ex.indexOf( _host ) , 1 );
       } else {
-        ex.push( _host );
+        excludeDomains.push( _host );
       }
-      return chromeCall( 'storage.local.set' , 'excludeDomains' , ex );
+      return chromeCall( 'storage.local.set' , 'excludeDomains' , excludeDomains );
     } ,
 
     /**
@@ -49,7 +49,7 @@ export default new Vue( {
     }
   } ,
   components : {
-    'st-box' : st
+    'st-box' : ST
   } ,
   async compiled() {
     this.$appendTo( 'body' );

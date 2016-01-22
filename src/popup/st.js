@@ -6,7 +6,6 @@ import clipboard from '../public/clipboard';
 export default Widget.extend( {
   client ,
   async compiled() {
-    console.dir( this );
     this.inline = true;
     this.showForm = true;
 
