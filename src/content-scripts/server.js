@@ -8,33 +8,47 @@ import st from './st';
 
 const server = new Server();
 
-server.on( 'connect' , client => {
+/**
+ * 将自己的 location 对象报告给后台
+ * @param data
+ * @param {Function} resolve
+ */
+export function onGetLocation( data , resolve ) {
+  if ( self === top ) {
+    resolve( JSON.parse( JSON.stringify( location ) ) );
+  }
+}
 
-  // 报告标签页的地址给扩展程序
-  client.on( 'get location' , ( data , resolve )=> {
-    if ( self === top ) {
-      resolve( JSON.parse( JSON.stringify( location ) ) );
-    }
-  } );
+/**
+ * 接收到翻译命令时，翻译网页上的拖蓝
+ */
+export function onTranslate() {
+  st.query.text = getSelection().toString();
+  st.translate();
+}
 
-  // 翻译网页上选中文本的命令
-  client.on( 'translate' , ()=> {
-    st.query.text = getSelection().toString();
-    st.translate();
+/**
+ * 网页翻译
+ * @param {*} data
+ * @param {Function} resolve
+ * @param {Function} reject
+ */
+export function onWebTranslate( data , resolve , reject ) {
+  const w = web[ data ];
+  if ( w ) {
+    w();
+    resolve();
+  } else {
+    reject();
+  }
+}
 
-  } );
+export function onConnect( client ) {
+  client.on( 'get location' , onGetLocation );
+  client.on( 'translate' , onTranslate );
+  client.on( 'web translate' , onWebTranslate );
+}
 
-  // 网页翻译的命令。data 为指定的网页翻译名称
-  client.on( 'web translate' , ( data , resolve , reject )=> {
-    const w = web[ data ];
-    if ( w ) {
-      w();
-      resolve();
-    } else {
-      reject();
-    }
-
-  } );
-} );
+server.on( 'connect' , onConnect );
 
 export default server;
