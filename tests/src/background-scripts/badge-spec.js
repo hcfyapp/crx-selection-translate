@@ -1,5 +1,5 @@
 import storage from 'chrome-storage-wrapper';
-import util from '../../../src/public/util';
+import * as util from '../../../src/public/util';
 import main from '../../../src/background-scripts/badge';
 
 xdescribe( '后台网页' , ()=> {

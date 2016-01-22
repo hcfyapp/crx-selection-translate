@@ -1,5 +1,5 @@
 import chromeCall from 'chrome-call';
-import util from '../public/util';
+import {getTabLocation,isHostEnabled} from '../public/util';
 
 const {browserAction,tabs} = chrome;
 
@@ -25,8 +25,8 @@ export function onTabsActivated( { tabId } ) { updateBadge( tabId ); }
  * @param {Number} [tabId] - 根据哪个标签页的 location object 来更新图标。默认为当前选中的标签页
  */
 export async function updateBadge( tabId ) {
-  const location = await util.getTabLocation( tabId );
-  const enable = util.isHostEnabled( location , domains );
+  const location = await getTabLocation( tabId );
+  const enable = isHostEnabled( location , domains );
 
   browserAction.setBadgeText( { text : enable ? '' : 'off' } );
 }

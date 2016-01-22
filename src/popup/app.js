@@ -2,7 +2,7 @@ import Vue from 'vue';
 import template from './tpl.html';
 import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
-import util from '../public/util';
+import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
 import ST from './st';
 
 export default new Vue( {
@@ -36,10 +36,8 @@ export default new Vue( {
      * @param {String} webName
      */
     async webTranslate( webName ) {
-      const tabId = (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
-
       await send( {
-        tabId ,
+        tabId : await getCurrentTabId() ,
         name : 'web translate' ,
         data : webName ,
         needResponse : true
@@ -56,12 +54,12 @@ export default new Vue( {
 
     const [ {excludeDomains} , locationObj ] = await Promise.all( [
       chromeCall( 'storage.local.get' , 'excludeDomains' ) ,
-      util.getTabLocation()
+      getTabLocation()
     ] );
 
     if ( locationObj ) {
       this.$data._host = locationObj.host;
-      this.enabled = util.isHostEnabled( locationObj , excludeDomains );
+      this.enabled = isHostEnabled( locationObj , excludeDomains );
       this.canInject = true;
     }
   }

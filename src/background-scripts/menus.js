@@ -4,6 +4,7 @@
 
 import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
+import {getCurrentTabId} from '../public/util';
 
 const {contextMenus} = chrome;
 
@@ -21,9 +22,8 @@ export function onChromeLocalStorageChanged( items ) {
 }
 
 export async function onContextMenusClicked() {
-  const tabs = await chromeCall( 'tabs.query' , { active : true } );
   send( {
-    tabId : tabs[ 0 ].id ,
+    tabId : await getCurrentTabId() ,
     name : 'translate'
   } );
 }

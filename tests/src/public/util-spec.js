@@ -1,4 +1,4 @@
-import util from '../../../src/public/util';
+import * as util from '../../../src/public/util';
 import {Client} from 'connect.io';
 
 describe( '读取当前标签页的 location 对象的方法' , ()=> {

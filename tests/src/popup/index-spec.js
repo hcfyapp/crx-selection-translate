@@ -1,5 +1,5 @@
 import storage from 'chrome-storage-wrapper';
-import util from '../../../src/public/util';
+import * as util from '../../../src/public/util';
 import {Client} from 'connect.io';
 
 import main from '../../../src/popup/index';

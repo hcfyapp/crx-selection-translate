@@ -2,7 +2,7 @@
  * 将翻译窗口与扩展的 storage “绑定”起来
  * @param st
  */
-import util from '../../public/util';
+import {isHostEnabled} from '../../public/util';
 import chromeCall from 'chrome-call';
 import watch from '../../public/storage-watcher';
 
@@ -29,7 +29,7 @@ export default async function ( st ) {
     const {defaultApi,excludeDomains} = items;
 
     if ( excludeDomains ) {
-      this.selection = util.isHostEnabled( location , excludeDomains );
+      this.selection = isHostEnabled( location , excludeDomains );
       delete items.excludeDomains;
     }
 

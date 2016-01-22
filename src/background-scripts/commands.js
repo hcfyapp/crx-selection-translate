@@ -6,10 +6,11 @@
 
 import {send} from 'connect.io';
 import chromeCall from 'chrome-call';
+import {getCurrentTabId} from '../public/util';
 
 export async function onCommand( command ) {
 
-  const tabId = (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
+  const tabId = await getCurrentTabId();
 
   switch ( command ) {
     case 'translate':
