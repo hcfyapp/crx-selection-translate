@@ -4,7 +4,7 @@ import {Client} from 'connect.io';
 
 import main from '../../../src/popup/index';
 
-describe( '弹出页' , ()=> {
+xdescribe( '弹出页' , ()=> {
 
   describe( '无论当前 tab 能否 inject，总是' , ()=> {
     let app , st;
