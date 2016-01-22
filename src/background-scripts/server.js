@@ -6,73 +6,81 @@ import chromeCall from 'chrome-call';
 import ts from '../public/my-ts';
 import clipboard from '../public/clipboard';
 
-const {tabs} = chrome ,
-  server = new Server();
+const server = new Server();
 
-server.on( 'connect' , client => {
+/**
+ * 获取翻译结果
+ * @param {Query} queryObj
+ * @param {Function} resolve
+ */
+export async function onGetTranslateResult( queryObj , resolve ) {
+  try {
+    resolve( await ts.translate( queryObj ) );
+  }
+  catch ( errorMsg ) {
+    let error = errorMsg;
+    if ( 'GoogleCN' === queryObj.api ) {
+      error += '小提示：使用谷歌翻译（国内）时请确保你没有开启某高科技软件。';
+    }
+    resolve( { error } );
+  }
+}
+/**
+ * 播放语音
+ * @param {Query} queryObj
+ * @param {Function} resolve
+ * @param {Function} reject
+ */
+export async function onPlay( queryObj , resolve , reject ) {
+  let {from} = queryObj;
 
-  client.on( 'get translate result' ,
-    /**
-     * 获取翻译结果
-     * @param {Query} queryObj
-     * @param {Function} resolve
-     */
-    ( queryObj , resolve )=> {
-      ts.translate( queryObj ).then( resolve , ( errorMsg )=> {
-        let error = errorMsg;
-        if ( 'GoogleCN' === queryObj.api ) {
-          error += '小提示：使用谷歌翻译（国内）时请确保你没有开启某高科技软件。';
-        }
-        resolve( { error } );
-      } );
-    } );
-
-  client.on( 'play' ,
-    /**
-     * 播放语音
-     * @param {Query} queryObj
-     * @param {Function} resolve
-     * @param {Function} reject
-     */
-    async ( queryObj , resolve , reject )=> {
-      let {from} = queryObj;
-
-      if ( !from ) {
-        try {
-          from = await ts.detect( queryObj );
-        }
-        catch ( e ) {
-          queryObj.api = 'Google';
-          try {
-            from = await ts.detect( queryObj );
-          }
-          catch ( e ) {
-            return reject();
-          }
-        }
+  if ( !from ) {
+    try {
+      from = await ts.detect( queryObj );
+    }
+    catch ( e ) {
+      queryObj.api = 'Google';
+      try {
+        from = await ts.detect( queryObj );
       }
+      catch ( e ) {
+        return reject();
+      }
+    }
+  }
 
-      chromeCall( 'tts.speak' , queryObj.text , {
-        lang : from
-      } ).then( resolve , reject );
-    } );
+  try {
+    resolve( await chromeCall( 'tts.speak' , queryObj.text , {
+      lang : from
+    } ) );
+  }
+  catch ( e ) {
+    reject( e );
+  }
+}
 
-  client.on( 'copy' ,
-    /**
-     * 复制文本到剪切板
-     * @param {String} text
-     */
-    ( text )=> {
-      clipboard.write( text );
-    } );
+/**
+ * 复制文本到剪切板
+ * @param {String} text
+ */
+export function onCopy( text ) {
+  clipboard.write( text );
+}
 
-  client.on( 'openTab' ,
-    /**
-     * 打开新网页
-     * @param {chrome.tabs.CreateProperties} tabOptions
-     */
-    ( tabOptions )=> {
-      tabs.create( tabOptions );
-    } );
-} );
+/**
+ * 打开新网页
+ * @param {chrome.tabs.CreateProperties} tabOptions
+ */
+export function onOpenTab( tabOptions ) {
+  return chromeCall( 'tabs.create' , tabOptions );
+}
+
+export function onConnect( client ) {
+  client.on( 'get translate result' , onGetTranslateResult );
+  client.on( 'play' , onPlay );
+  client.on( 'copy' , onCopy );
+  client.on( 'openTab' , onOpenTab );
+}
+
+server.on( 'connect' , onConnect );
 export default server;
