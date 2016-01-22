@@ -4,7 +4,7 @@
 
 import {Server} from 'connect.io';
 import * as web from './web';
-import getST from './init-st';
+import st from './st';
 
 const server = new Server();
 
@@ -19,10 +19,9 @@ server.on( 'connect' , client => {
 
   // 翻译网页上选中文本的命令
   client.on( 'translate' , ()=> {
-    getST().then( st => {
-      st.query.text = getSelection().toString();
-      st.translate();
-    } );
+    st.query.text = getSelection().toString();
+    st.translate();
+
   } );
 
   // 网页翻译的命令。data 为指定的网页翻译名称

@@ -1,13 +1,13 @@
 import storage from 'chrome-storage-wrapper';
 import {Client} from 'connect.io';
 
-import getST from '../../../src/content-scripts/init-st';
+//import getST from '../../../src/content-scripts/init-st';
 import server from '../../../src/content-scripts/server';
-import main from '../../../src/content-scripts/lazy-bootstrap';
+//import main from '../../../src/content-scripts/lazy-bootstrap';
 
 const selection = getSelection();
 
-describe( '内容脚本里的划词翻译在第一次产生 mouseup 事件时' , ()=> {
+xdescribe( '内容脚本里的划词翻译在第一次产生 mouseup 事件时' , ()=> {
   let firstMouseUpHandler;
 
   beforeEach( ()=> {

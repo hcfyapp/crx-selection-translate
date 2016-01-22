@@ -1,8 +1,8 @@
 import storage from 'chrome-storage-wrapper';
 
-import getST from '../../../src/content-scripts/init-st';
+//import getST from '../../../src/content-scripts/init-st';
 
-describe( '内容脚本里的翻译窗口' , ()=> {
+xdescribe( '内容脚本里的翻译窗口' , ()=> {
   let st , onStorageChange;
 
   beforeAll( async ( done )=> {
