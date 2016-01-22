@@ -2,7 +2,7 @@ import storage from 'chrome-storage-wrapper';
 import util from '../../../src/public/util';
 import main from '../../../src/background-scripts/badge';
 
-describe( '后台网页' , ()=> {
+xdescribe( '后台网页' , ()=> {
   let onUpdatedCb , onActivatedCb , onStorageChangeCb;
 
   beforeEach( ()=> {
