@@ -3,28 +3,42 @@
  */
 
 import storage from 'chrome-storage-wrapper';
+import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
 
 const {contextMenus} = chrome;
-let created = false;
 
-storage.addChangeListener( items => {
-  if ( items.showMenu ) {
-    createMenus();
-  } else {
-    removeAll();
-  }
-} , { keys : [ 'showMenu' ] } );
+export let created = false;
 
-storage
-  .get( 'showMenu' )
-  .then( items => {
-    if ( items.showMenu ) {
+export function onChromeLocalStorageChanged( items ) {
+  const {showMenu} = items;
+  if ( showMenu ) {
+    if ( showMenu.newValue ) {
       createMenus();
+    } else {
+      removeAll();
     }
-  } );
+  }
+}
 
-contextMenus.onClicked.addListener( () => sendCommand( 'translate' ) );
+export async function onContextMenusClicked() {
+  const tabs = await chromeCall( 'tabs.query' , { active : true } );
+  send( {
+    tabId : tabs[ 0 ].id ,
+    name : 'translate'
+  } );
+}
+
+if ( process.env.NODE_ENV !== 'testing' ) {
+  chrome.storage.local.addChangeListener( onChromeLocalStorageChanged );
+  contextMenus.onClicked.addListener( onContextMenusClicked );
+  chromeCall( 'storage.local.get' , 'showMenu' )
+    .then( items => {
+      if ( items.showMenu ) {
+        createMenus();
+      }
+    } );
+}
 
 /**
  * 创建菜单
@@ -47,17 +61,4 @@ function createMenus() {
 function removeAll() {
   created = false;
   contextMenus.removeAll();
-}
-
-/**
- * 发送命令到内容脚本
- * @param command
- */
-function sendCommand( command ) {
-  chrome.tabs.query( { active : true } , function ( tabs ) {
-    send( {
-      tabId : tabs[ 0 ].id ,
-      name : command
-    } );
-  } );
 }
