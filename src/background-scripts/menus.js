@@ -2,7 +2,6 @@
  * 划词翻译在网页上的右键菜单，目前只有一个菜单项，并且只会在选中单词的右键菜单里出现
  */
 
-import storage from 'chrome-storage-wrapper';
 import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
 
