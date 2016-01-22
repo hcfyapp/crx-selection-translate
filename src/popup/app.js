@@ -38,14 +38,14 @@ export default new Vue( {
     async webTranslate( webName ) {
       const tabId = (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
 
-      return send( {
+      await send( {
         tabId ,
         name : 'web translate' ,
         data : webName ,
         needResponse : true
-      } ).then( ()=> {
-        window.close();
       } );
+
+      window.close();
     }
   } ,
   components : {
