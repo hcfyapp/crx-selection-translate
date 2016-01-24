@@ -35,6 +35,7 @@ export async function getTabLocation( tabId ) {
 
 /**
  * 判断某一个 location 对象是否应该启用
+ * @todo 重构：当没有 locationObj 的时候将默认值设为当前选中标签页的 locationObj
  * @param {Location|undefined} locationObj
  * @param {String[]} disabledDomainList
  * @returns {boolean} - 如果应该启用，则返回 true，否则为 false
