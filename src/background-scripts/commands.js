@@ -29,6 +29,8 @@ export async function onCommand( command ) {
       break;
   }
 }
+
+/* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
   chrome.commands.onCommand.addListener( onCommand );
 }
