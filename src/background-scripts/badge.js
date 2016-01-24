@@ -1,24 +1,20 @@
 import chromeCall from 'chrome-call';
+import watcher from '../public/storage-watcher';
 import {getTabLocation,isHostEnabled} from '../public/util';
-
-const {browserAction,tabs} = chrome;
 
 export let domains = [];
 
 export function onStorageChanged( changedItems ) {
-  const {excludeDomains} = changedItems;
-  if ( excludeDomains ) {
-    domains = excludeDomains.newValue;
-  }
+  domains = changedItems.excludeDomains;
 }
 
-export function onTabsUpdated( tabId , changeInfo , tab ) {
+export async function onTabsUpdated( tabId , changeInfo , tab ) {
   if ( tab.active ) {
-    updateBadge( tabId );
+    await updateBadge( tabId );
   }
 }
 
-export function onTabsActivated( { tabId } ) { updateBadge( tabId ); }
+export async function onTabsActivated( { tabId } ) { await updateBadge( tabId ); }
 
 /**
  * 更新扩展图标上的 off 标签
@@ -27,14 +23,15 @@ export function onTabsActivated( { tabId } ) { updateBadge( tabId ); }
 export async function updateBadge( tabId ) {
   const location = await getTabLocation( tabId );
   const enable = isHostEnabled( location , domains );
-
-  browserAction.setBadgeText( { text : enable ? '' : 'off' } );
+  chrome.browserAction.setBadgeText( { text : enable ? '' : 'off' } );
 }
 
+/* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  chrome.storage.onChanged.addListener( onStorageChanged );
+  watcher( 'excludeDomains' , 'local' , onStorageChanged );
+  const {tabs} = chrome;
   tabs.onUpdated.addListener( onTabsUpdated );
   tabs.onActivated.addListener( onTabsActivated );
   chromeCall( 'storage.local.get' , 'excludeDomains' )
-    .then( ( {excludeDomains} )=> domains = excludeDomains );
+    .then( onStorageChanged );
 }
