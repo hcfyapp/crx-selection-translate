@@ -35,27 +35,32 @@ export async function onPlay( queryObj , resolve , reject ) {
   let {from} = queryObj;
 
   if ( !from ) {
-    try {
-      from = await ts.detect( queryObj );
-    }
-    catch ( e ) {
-      queryObj.api = 'Google';
+    const tryApi = [ queryObj.api , 'Google' , 'GoogleCN' ] ,
+      {length} = tryApi;
+
+    let cur = 0;
+    const tryGetLang = async ()=> {
+      queryObj.api = tryApi[ cur ];
       try {
         from = await ts.detect( queryObj );
       }
       catch ( e ) {
-        return reject();
+        if ( cur >= length ) {
+          reject( e );
+        } else {
+          cur += 1;
+          await tryGetLang();
+        }
       }
-    }
+    };
+
+    await tryGetLang();
   }
 
-  try {
-    resolve( await chromeCall( 'tts.speak' , queryObj.text , {
+  if ( from ) {
+    resolve( chromeCall( 'tts.speak' , queryObj.text , {
       lang : from
     } ) );
-  }
-  catch ( e ) {
-    reject( e );
   }
 }
 
@@ -64,7 +69,7 @@ export async function onPlay( queryObj , resolve , reject ) {
  * @param {String} text
  */
 export function onCopy( text ) {
-  clipboard.write( text );
+  write( text );
 }
 
 /**
@@ -75,12 +80,14 @@ export function onOpenTab( tabOptions ) {
   return chromeCall( 'tabs.create' , tabOptions );
 }
 
-export function onConnect( client ) {
-  client.on( 'get translate result' , onGetTranslateResult );
-  client.on( 'play' , onPlay );
-  client.on( 'copy' , onCopy );
-  client.on( 'openTab' , onOpenTab );
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  server.on( 'connect' , ( client )=> {
+    client.on( 'get translate result' , onGetTranslateResult );
+    client.on( 'play' , onPlay );
+    client.on( 'copy' , onCopy );
+    client.on( 'openTab' , onOpenTab );
+  } );
 }
 
-server.on( 'connect' , onConnect );
 export default server;
