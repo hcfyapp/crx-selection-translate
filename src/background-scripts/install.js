@@ -43,6 +43,7 @@ export async function onInstalled( details ) {
   }
 }
 
+/* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
   runtime.onInstalled.addListener( onInstalled );
 }
