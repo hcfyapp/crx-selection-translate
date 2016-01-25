@@ -30,19 +30,19 @@ export default function ( st ) {
     let {defaultApi,excludeDomains} = items;
 
     if ( excludeDomains ) {
-      this.selection = await isHostEnabled( location , excludeDomains );
+      st.selection = await isHostEnabled( location , excludeDomains );
       delete items.excludeDomains;
     }
 
     if ( defaultApi ) {
       defApi = defaultApi;
-      if ( !this.boxPos.show ) {
-        this.query.api = defApi;
+      if ( !st.boxPos.show ) {
+        st.query.api = defApi;
       }
       delete items.defaultApi;
     }
 
-    Object.assign( this , items );
+    Object.assign( st , items );
   }
 
   /* istanbul ignore next */
