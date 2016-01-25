@@ -8,16 +8,12 @@ export default Widget.extend( {
   async compiled() {
     this.inline = true;
     this.showForm = true;
-
     const {defaultApi , autoClipboard} = await chromeCall( 'storage.local.get' , [ 'defaultApi' , 'autoClipboard' ] );
 
     this.query.api = defaultApi;
     if ( autoClipboard ) {
-      const c = read();
-      if ( c ) {
-        this.query.text = c;
-        this.translate();
-      }
+      this.query.text = read();
+      this.safeTranslate();
     }
   } ,
   ready() {
