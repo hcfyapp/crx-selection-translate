@@ -23,6 +23,7 @@ const {isArray} = Array;
 
 /**
  * 监听 chrome storage 的变化
+ * @todo 添加一个功能，当传递一个参数后，会先查询一次监听的那些键并调用一次回调
  * @param {String|String[]} keys
  * @param {String|String[]} [areas]
  * @param {Function} listener
