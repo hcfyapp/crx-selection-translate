@@ -8,6 +8,7 @@ import st from './st';
 
 const server = new Server();
 
+/* istanbul ignore next */
 /**
  * 将自己的 location 对象报告给后台
  * @param data
