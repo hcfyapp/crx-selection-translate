@@ -25,11 +25,11 @@ export default async function ( st ) {
     }
   } );
 
-  st.$on( 'storage changed' , function ( items ) {
+  st.$on( 'storage changed' , async function ( items ) {
     const {defaultApi,excludeDomains} = items;
 
     if ( excludeDomains ) {
-      this.selection = isHostEnabled( location , excludeDomains );
+      this.selection = await isHostEnabled( location , excludeDomains );
       delete items.excludeDomains;
     }
 

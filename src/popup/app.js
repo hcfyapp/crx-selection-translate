@@ -5,7 +5,7 @@ import {send} from 'connect.io';
 import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
 import ST from './st';
 
-export default new Vue( {
+export const appOptions = {
   el : document.createElement( 'div' ) ,
   template ,
   data : {
@@ -52,15 +52,17 @@ export default new Vue( {
   async compiled() {
     this.$appendTo( 'body' );
 
-    const [ {excludeDomains} , locationObj ] = await Promise.all( [
-      chromeCall( 'storage.local.get' , 'excludeDomains' ) ,
-      getTabLocation()
-    ] );
+    const locationObj = await getTabLocation();
 
     if ( locationObj ) {
       this.$data._host = locationObj.host;
-      this.enabled = isHostEnabled( locationObj , excludeDomains );
+      this.enabled = await isHostEnabled( locationObj );
       this.canInject = true;
     }
   }
-} );
+};
+
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  new Vue( appOptions );
+}

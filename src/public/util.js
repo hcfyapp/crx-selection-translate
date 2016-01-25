@@ -1,6 +1,8 @@
 import {send} from 'connect.io';
 import chromeCall from 'chrome-call';
 
+export function noop() {}
+
 /**
  * 返回当前选中的标签页的 tab id
  * @returns {Promise.<Number>}
@@ -30,17 +32,16 @@ export async function getTabLocation( tabId ) {
     frameId : 0 ,
     name : 'get location' ,
     needResponse : true
-  } ).catch( ()=> {} ); // 获取出错时仍然让此状态成功，只是值是 undefined
+  } ).catch( noop ); // 获取出错时仍然让此状态成功，只是值是 undefined
 }
 
 /**
  * 判断某一个 location 对象是否应该启用
- * @todo 重构：当没有 locationObj 的时候将默认值设为当前选中标签页的 locationObj
- * @param {Location|undefined} locationObj
- * @param {String[]} disabledDomainList
- * @returns {boolean} - 如果应该启用，则返回 true，否则为 false
+ * @param {Location|undefined} [locationObj] - 默认为当前选中标签页的 location 对象
+ * @param {String[]} disabledDomainList - 默认为 chrome.storage.local 里的 excludeDomains 设置项
+ * @returns {Boolean} - 如果应该启用，则返回 true，否则为 false
  */
-export function isHostEnabled( locationObj , disabledDomainList ) {
+export async function isHostEnabled( locationObj = await getTabLocation() , disabledDomainList = (await chromeCall( 'storage.local.get' , 'excludeDomains' )).excludeDomains ) {
   if ( !locationObj ) { // 有些标签页无法获取它的 location 对象，例如 chrome://，此时判断为 false
     return false;
   }
