@@ -30,31 +30,28 @@ import about from './about/index';
 import voices from './voices/index';
 
 /* istanbul ignore if */
-if ( DEBUG_MODEL ) {
-  Vue.config.debug = true;
+if ( process.env.NODE_ENV !== 'testing' ) {
+  Vue.use( VueRouter );
+  const router = new VueRouter();
+
+  router.map( {
+    '/options' : {
+      name : 'options' ,
+      component : settings
+    } ,
+    '/voices' : {
+      name : 'voices' ,
+      component : voices
+    } ,
+    '/about' : {
+      name : 'about' ,
+      component : about
+    }
+  } );
+
+  router.redirect( {
+    '*' : '/options'
+  } );
+
+  router.start( {} , 'body' );
 }
-
-Vue.use( VueRouter );
-
-const router = new VueRouter();
-
-router.map( {
-  '/options' : {
-    name : 'options' ,
-    component : settings
-  } ,
-  '/voices' : {
-    name : 'voices' ,
-    component : voices
-  } ,
-  '/about' : {
-    name : 'about' ,
-    component : about
-  }
-} );
-
-router.redirect( {
-  '*' : '/options'
-} );
-
-router.start( {} , 'body' );
