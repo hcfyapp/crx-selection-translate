@@ -6,27 +6,28 @@ import {isHostEnabled} from '../../public/util';
 import chromeCall from 'chrome-call';
 import watch from '../../public/storage-watcher';
 
-export default async function ( st ) {
+export default function ( st ) {
   let defApi = '';
 
-  st.$watch( 'boxPos.show' , ( newValue )=> {
-    if ( !newValue ) {
-      st.query.api = defApi;
+  function onBoxPosShow( isShow ) {
+    if ( !isShow ) {
+      this.query.api = defApi;
     }
-  } );
+  }
 
-  st.$on( 'after translate' , function () {
+  function onAfterTranslate() {
     const {query} = this ,
       {text} = query;
 
-    // autoPlay 属性是在 $on 'storage changed' 的时候扩展进去的
+    // autoPlay 属性是在 onStorageChanged 的时候扩展进去的
     if ( this.autoPlay && text.length < 50 ) {
       this.play( text , query.from );
     }
-  } );
+  }
 
-  st.$on( 'storage changed' , async function ( items ) {
-    const {defaultApi,excludeDomains} = items;
+  async function onStorageChanged( items ) {
+    // 这里不能用 const，否则 Babel 又报错了
+    let {defaultApi,excludeDomains} = items;
 
     if ( excludeDomains ) {
       this.selection = await isHostEnabled( location , excludeDomains );
@@ -42,19 +43,25 @@ export default async function ( st ) {
     }
 
     Object.assign( this , items );
-  } );
+  }
 
-  if ( process.env.NODE_ENV !== 'testing' ) {
+  /* istanbul ignore next */
+  if ( process.env.NODE_ENV === 'testing' ) {
+    st.__onBoxShow = onBoxPosShow;
+    st.__afterTs = onAfterTranslate;
+    st.__onStorageChanged = onStorageChanged;
+  } else {
+    st.$watch( 'boxPos.show' , onBoxPosShow );
+    st.$on( 'after translate' , onAfterTranslate );
+
     const storageKeys = [
       'ignoreChinese' , 'ignoreNumLike' , 'showBtn' ,
       'needCtrl' , 'defaultApi' , 'excludeDomains' , 'autoPlay'
     ];
 
-    st.$emit( 'storage changed' , await chromeCall( 'storage.local.get' , storageKeys ) );
+    chromeCall( 'storage.local.get' , storageKeys ).then( onStorageChanged );
 
     // 在设置变更时保持同步
-    watch( storageKeys , 'local' , ( changed )=> {
-      st.$emit( 'storage changed' , changed );
-    } );
+    watch( storageKeys , 'local' , onStorageChanged );
   }
 }
