@@ -18,8 +18,7 @@ c.isparta = {
 
 c.plugins.splice( 0 , 3 ); // 清空 webpack 优化
 c.plugins.pop(); // 清空开发模式定义
-c.plugins.push( new webpack.DefinePlugin( { // 切换为测试模式，此模式下会 export 很多函数出来以供测试
-  DEBUG_MODEL : false ,
+c.plugins.push( new webpack.DefinePlugin( { // 切换为测试环境
   'process.env.NODE_ENV' : "'testing'"
 } ) );
 

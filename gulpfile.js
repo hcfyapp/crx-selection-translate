@@ -39,9 +39,8 @@ function webpackP( done ) {
   webpackConfig.watch = false;
   delete webpackConfig.devtool;
 
-  webpackConfig.plugins.pop(); // 删除最后一个的 DEBUG_MODEL 变量的定义
+  webpackConfig.plugins.pop();
   webpackConfig.plugins.push( new webpack.DefinePlugin( {
-    DEBUG_MODEL : false ,
     'process.env.NODE_ENV' : "'production'"
   } ) );
 
