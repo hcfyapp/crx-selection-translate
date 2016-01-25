@@ -5,19 +5,17 @@
 import chromeCall from 'chrome-call';
 import {send} from 'connect.io';
 import {getCurrentTabId} from '../public/util';
+import watcher from '../public/storage-watcher';
 
-const {contextMenus} = chrome;
+const callContextMenus = chromeCall.scope( chrome.contextMenus );
 
 export let created = false;
 
 export function onChromeLocalStorageChanged( items ) {
-  const {showMenu} = items;
-  if ( showMenu ) {
-    if ( showMenu.newValue ) {
-      createMenus();
-    } else {
-      removeAll();
-    }
+  if ( items.showMenu ) {
+    createMenus();
+  } else {
+    removeAll();
   }
 }
 
@@ -28,24 +26,21 @@ export async function onContextMenusClicked() {
   } );
 }
 
+/* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  chrome.storage.onChanged.addListener( onChromeLocalStorageChanged );
+  chromeCall( 'storage.local.get' , 'showMenu' ).then( onChromeLocalStorageChanged );
+  watcher( 'showMenu' , 'local' , onChromeLocalStorageChanged );
   contextMenus.onClicked.addListener( onContextMenusClicked );
-  chromeCall( 'storage.local.get' , 'showMenu' )
-    .then( items => {
-      if ( items.showMenu ) {
-        createMenus();
-      }
-    } );
 }
 
 /**
  * 创建菜单
+ * @return {Promise}
  */
 function createMenus() {
   if ( !created ) {
     created = true;
-    contextMenus.create( {
+    return callContextMenus( 'create' , {
       id : 'menu-translate' ,
       title : '翻译“%s”' ,
       contexts : [ 'selection' ] ,
@@ -56,8 +51,9 @@ function createMenus() {
 
 /**
  * 删除所有菜单
+ * @return {Promise}
  */
 function removeAll() {
   created = false;
-  contextMenus.removeAll();
+  return callContextMenus( 'removeAll' );
 }
