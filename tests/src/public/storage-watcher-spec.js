@@ -20,7 +20,9 @@ describe( '数据监控器' , ()=> {
       removeListener = main( 'x' , 'y' , spy );
     } );
 
-    afterEach( removeListener );
+    afterEach( ()=> {
+      removeListener();
+    } );
 
     it( '没有监听的字段变化不会触发回调' , ()=> {
       onStorageChanged( {
