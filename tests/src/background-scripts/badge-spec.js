@@ -9,7 +9,7 @@ describe( '扩展图标的徽章' , ()=> {
 
   it( '当标签页更新地址之后会更新' , async ( done ) => {
     await main.onTabsUpdated( 88 , null , { active : false } );
-    expect( chrome.browserAction.setBadgeText ).not.toHaveBeenCalledWith( { text : 'off' } );
+    expect( chrome.browserAction.setBadgeText ).not.toHaveBeenCalled();
 
     await main.onTabsUpdated( 88 , null , { active : true } );
     expect( chrome.browserAction.setBadgeText ).toHaveBeenCalledWith( { text : 'off' } );

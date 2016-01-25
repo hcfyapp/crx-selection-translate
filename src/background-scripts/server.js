@@ -29,39 +29,28 @@ export async function onGetTranslateResult( queryObj , resolve ) {
  * 播放语音
  * @param {Query} queryObj
  * @param {Function} resolve
- * @param {Function} reject
  */
-export async function onPlay( queryObj , resolve , reject ) {
+export async function onPlay( queryObj , resolve ) {
   let {from} = queryObj;
 
+  // todo 优化判断语种的逻辑。读取三次开销太大，等待时间太长了
   if ( !from ) {
     const tryApi = [ queryObj.api , 'Google' , 'GoogleCN' ] ,
       {length} = tryApi;
 
-    let cur = 0;
-    const tryGetLang = async ()=> {
+    for ( let cur = 0 ; cur < length ; cur += 1 ) {
       queryObj.api = tryApi[ cur ];
       try {
         from = await ts.detect( queryObj );
+        break;
       }
-      catch ( e ) {
-        if ( cur >= length ) {
-          reject( e );
-        } else {
-          cur += 1;
-          await tryGetLang();
-        }
-      }
-    };
-
-    await tryGetLang();
+      catch ( e ) {}
+    }
   }
 
-  if ( from ) {
-    resolve( chromeCall( 'tts.speak' , queryObj.text , {
-      lang : from
-    } ) );
-  }
+  resolve( chromeCall( 'tts.speak' , queryObj.text , {
+    lang : from
+  } ) );
 }
 
 /**
