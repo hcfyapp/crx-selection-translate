@@ -7,16 +7,26 @@ import restrictBox from './restrict';
 
 export default function ( st ) {
 
-  const {boxPos} = st;
+  function restrict() {
+    restrictBox( st );
+  }
 
-  st.$on( 'after translate' , ()=> restrictBox( st ) );
+  function onMove( event ) {
+    const {boxPos} = st;
+    boxPos.translateX += event.dx;
+    boxPos.translateY += event.dy;
+  }
 
-  interact( st.$els.stDrag )
-    .draggable( {
-      onmove : event => {
-        boxPos.translateX += event.dx;
-        boxPos.translateY += event.dy;
-      } ,
-      onend : ()=> restrictBox( st )
-    } );
+  /* istanbul ignore next */
+  if ( process.env.NODE_ENV === 'testing' ) {
+    st.__restrict = restrict;
+    st.__onMove = onMove;
+  } else {
+    st.$on( 'after translate' , restrict );
+    interact( st.$els.stDrag )
+      .draggable( {
+        onmove : onMove ,
+        onend : restrict
+      } );
+  }
 }
