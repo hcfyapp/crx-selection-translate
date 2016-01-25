@@ -19,7 +19,7 @@ export async function getCurrentTabId() {
 /**
  * 获取标签页的 window.location 对象
  * @param {Number} [tabId] - tab id，默认为当前选中的标签页的 id
- * @returns {Promise} - 由于某些标签页扩展没有权限访问（例如 chrome://），所以最终的 locationObj 有可能是 undefined
+ * @returns {Promise} - 由于某些标签页扩展没有权限访问（例如 chrome://），所以最终的 locationObj 有可能是 null
  */
 export async function getTabLocation( tabId ) {
 
@@ -32,7 +32,7 @@ export async function getTabLocation( tabId ) {
     frameId : 0 ,
     name : 'get location' ,
     needResponse : true
-  } ).catch( noop ); // 获取出错时仍然让此状态成功，只是值是 undefined
+  } ).catch( ()=> null ); // 获取出错时仍然让此状态成功，只是值是 null，表示没有权限获取
 }
 
 /**
@@ -41,10 +41,14 @@ export async function getTabLocation( tabId ) {
  * @param {String[]} disabledDomainList - 默认为 chrome.storage.local 里的 excludeDomains 设置项
  * @returns {Boolean} - 如果应该启用，则返回 true，否则为 false
  */
-export async function isHostEnabled( locationObj = await getTabLocation() , disabledDomainList = (await chromeCall( 'storage.local.get' , 'excludeDomains' )).excludeDomains ) {
-  if ( !locationObj ) { // 有些标签页无法获取它的 location 对象，例如 chrome://，此时判断为 false
+export async function isHostEnabled( locationObj , disabledDomainList ) {
+  const location = locationObj || (locationObj === null ? locationObj : await getTabLocation());
+
+  if ( !location ) { // 有些标签页无法获取它的 location 对象，例如 chrome://，此时判断为 false
     return false;
   }
-  const {host} = locationObj;
-  return !disabledDomainList.some( domain => host.endsWith( domain ) );
+
+  const {host} = location;
+  const domains = disabledDomainList || (await chromeCall( 'storage.local.get' , 'excludeDomains' )).excludeDomains;
+  return !domains.some( domain => host.endsWith( domain ) );
 }
