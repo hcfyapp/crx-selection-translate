@@ -28,6 +28,20 @@ describe( '设置页' , ()=> {
         done();
       } );
     } );
+
+    it( 'showAddForm 会显示表单' , ()=> {
+      app.tmpDomain = 'w';
+      app.showAddForm();
+      expect( app.showAdd ).toBe( true );
+      expect( app.tmpDomain ).toBe( '' );
+    } );
+
+    it( 'addExclude 会添加规则' , ()=> {
+      app.tmpDomain = 'w';
+      app.addExclude();
+      expect( app.options.excludeDomains ).toEqual( [ 'w' ] );
+      expect( app.showAdd ).toBe( false );
+    } );
   } );
 
 } );
