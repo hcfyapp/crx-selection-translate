@@ -17,10 +17,10 @@ describe( '读取当前标签页的 location 对象的方法' , ()=> {
     done();
   } );
 
-  it( '若无法读取到 location，则 resolved 为 undefined' , async ( done )=> {
+  it( '若无法读取到 location，则 resolved 为 null' , async ( done )=> {
     Client.prototype.send.and.returnValue( Promise.reject() );
     const location = await util.getTabLocation();
-    expect( location ).toBeUndefined();
+    expect( location ).toBeNull();
     expect( Client.prototype.send ).toHaveBeenCalledWith( 'get location' , undefined , true );
     done();
   } );
