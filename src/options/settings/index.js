@@ -1,5 +1,4 @@
-import storage from 'chrome-storage-wrapper';
-
+import chromeCall from 'chrome-call';
 import template from './template.html';
 
 export default {
@@ -39,14 +38,13 @@ export default {
   } ,
   watch : {
     options : {
-      handler : newVal => storage.set( newVal ) ,
+      handler : newVal => chromeCall( 'storage.local.set' , newVal ) ,
       deep : true
     }
   } ,
   route : {
     async data() {
-      const options = await storage.getAll();
-      return { options };
+      return { options : await chromeCall( 'storage.local.get' , null ) };
     }
   }
 };
