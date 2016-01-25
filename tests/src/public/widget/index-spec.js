@@ -1,22 +1,12 @@
 import Vue from 'vue';
 import Widget from '../../../../src/public/widget/index';
 
-const fakeClient = {
-  send() {} ,
-  once() {}
-};
-
-function createWidget() {
-  const vm = new Widget( { client : fakeClient } );
-  vm.$appendTo( 'body' );
-  return vm;
-}
-
 describe( '翻译组件' , ()=> {
-  let vm;
+  let vm , fakeClient;
   beforeEach( ()=> {
-    vm = createWidget();
-    spyOn( fakeClient , 'send' );
+    fakeClient = jasmine.createSpyObj( 'client' , [ 'send' , 'once' ] );
+    vm = new Widget( { client : fakeClient } );
+    vm.$appendTo( 'body' );
   } );
 
   it( '获取结果前会触发一次事件、并发送 translate 命令至后台以获取结果' , ( done )=> {
@@ -27,6 +17,12 @@ describe( '翻译组件' , ()=> {
       expect( vm.result ).toBe( '翻译结果' );
       done();
     } );
+  } );
+
+  it( '若与后台网页的连接已断开则直接返回空 Promise' , async ( done )=> {
+    fakeClient.disconnected = true;
+    expect( await vm.getResult() ).toBeUndefined();
+    done();
   } );
 
   it( 'exchangeLocale 可以交换源语种与目标语种' , ()=> {
@@ -45,11 +41,13 @@ describe( '翻译组件' , ()=> {
   } );
 
   it( '复制文本时会发送 copy 命令到后台' , ()=> {
-    vm.copy( 'text' , {
+    const event = {
       target : {
-        textContent : ''
+        textContent : '呵呵哒'
       }
-    } );
+    };
+    jasmine.clock().install();
+    vm.copy( 'text' , event );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'copy' , 'text' );
 
     const texts = [ 't' , 'e' , 'x' , 't' ];
@@ -59,6 +57,10 @@ describe( '翻译组件' , ()=> {
       }
     } );
     expect( fakeClient.send ).toHaveBeenCalledWith( 'copy' , texts.join( '\n' ) );
+    expect( event.target.textContent ).toBe( '已复制' );
+    jasmine.clock().tick( 2001 );
+    expect( event.target.textContent ).toBe( '呵呵哒' );
+    jasmine.clock().uninstall();
   } );
 
   it( '播放语音时会发送 play 命令至后台' , ()=> {
@@ -76,6 +78,39 @@ describe( '翻译组件' , ()=> {
       text : 't\ne' ,
       api : '翻译 API 的 id' ,
       from : undefined
+    } );
+  } );
+
+  it( '在输入框中 ctrl + Enter 会调用翻译方法' , ()=> {
+    spyOn( vm , 'safeTranslate' );
+
+    vm.ctrlEnter( {
+      ctrlKey : true
+    } );
+    expect( vm.safeTranslate ).toHaveBeenCalled();
+
+    vm.ctrlEnter( {
+      ctrlKey : false
+    } );
+    expect( vm.safeTranslate.calls.count() ).toBe( 1 );
+  } );
+
+  it( '翻译方法会检查文本是否为空' , ()=> {
+    spyOn( vm , 'translate' );
+
+    vm.query.text = '   ';
+    vm.safeTranslate();
+    expect( vm.translate ).not.toHaveBeenCalled();
+
+    vm.query.text = ' x  ';
+    vm.safeTranslate();
+    expect( vm.translate ).toHaveBeenCalled();
+  } );
+
+  it( '连接断开时会设置 result.error' , ()=> {
+    fakeClient.once.calls.first().args[ 1 ]();
+    expect( vm.result ).toEqual( {
+      error : '连接到翻译引擎时发生了错误，请刷新网页或重启浏览器后再试。'
     } );
   } );
 } );
