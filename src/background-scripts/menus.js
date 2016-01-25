@@ -30,7 +30,7 @@ export async function onContextMenusClicked() {
 if ( process.env.NODE_ENV !== 'testing' ) {
   chromeCall( 'storage.local.get' , 'showMenu' ).then( onChromeLocalStorageChanged );
   watcher( 'showMenu' , 'local' , onChromeLocalStorageChanged );
-  contextMenus.onClicked.addListener( onContextMenusClicked );
+  chrome.contextMenus.onClicked.addListener( onContextMenusClicked );
 }
 
 /**
