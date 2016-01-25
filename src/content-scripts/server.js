@@ -24,7 +24,7 @@ export function onGetLocation( data , resolve ) {
  */
 export function onTranslate() {
   st.query.text = getSelection().toString();
-  st.translate();
+  st.safeTranslate();
 }
 
 /**
@@ -43,12 +43,13 @@ export function onWebTranslate( data , resolve , reject ) {
   }
 }
 
-export function onConnect( client ) {
-  client.on( 'get location' , onGetLocation );
-  client.on( 'translate' , onTranslate );
-  client.on( 'web translate' , onWebTranslate );
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  server.on( 'connect' , ( client )=> {
+    client.on( 'get location' , onGetLocation );
+    client.on( 'translate' , onTranslate );
+    client.on( 'web translate' , onWebTranslate );
+  } );
 }
-
-server.on( 'connect' , onConnect );
 
 export default server;
