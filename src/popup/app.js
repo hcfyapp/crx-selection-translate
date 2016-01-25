@@ -16,7 +16,8 @@ export const appOptions = {
   methods : {
 
     /**
-     * 切换是否在当前域名启用
+     * 切换是否在当前域名启用。
+     * 之所以不用 watch 是因为在 compiled 事件才会初始化 enabled
      */
     async switchEnable() {
       const {_host} = this.$data ,
@@ -24,11 +25,11 @@ export const appOptions = {
         {excludeDomains} = await chromeCall( 'storage.local.get' , 'excludeDomains' );
 
       if ( enabled ) {
-        excludeDomains.splice( ex.indexOf( _host ) , 1 );
+        excludeDomains.splice( excludeDomains.indexOf( _host ) , 1 );
       } else {
         excludeDomains.push( _host );
       }
-      return chromeCall( 'storage.local.set' , 'excludeDomains' , excludeDomains );
+      return chromeCall( 'storage.local.set' , { excludeDomains } );
     } ,
 
     /**
