@@ -92,6 +92,7 @@ $baseFontHoverColor: #9a6a16;
     // header
     > st-header {
       @extend %clear-fix;
+      cursor: move;
       padding: 8px 0;
 
       .st-icon-pin::before, .st-icon-down-open::before {

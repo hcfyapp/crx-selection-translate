@@ -24,6 +24,7 @@ export default function ( st ) {
   } else {
     st.$on( 'after translate' , restrict );
     interact( st.$els.stDrag )
+      .styleCursor( false )
       .draggable( {
         onmove : onMove ,
         onend : restrict
