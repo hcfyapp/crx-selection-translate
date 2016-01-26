@@ -1,5 +1,3 @@
-**注意：你现在看到的是暂未发布至 Chrome 网上应用店的划词翻译 v6.0 版！v6.0 版会在完成[这些功能](https://github.com/lmk123/crx-selection-translate/issues/46)后发布，v5.6.1 的源码在 [v5.x-master 分支](https://github.com/lmk123/crx-selection-translate/tree/5.x-master)。**
-
 # 划词翻译
 
 [![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
@@ -47,7 +45,6 @@
 还有一些是从划词翻译分离出来的功能库，你可能会想要改进它们：
 
  + [connect.io](https://github.com/lmk123/connect.io) - Chrome 扩展/应用里的实时、双向、基于事件且 Promise 友好的通信库，启发自 Socket.io。
- + [chrome-storage-wrapper](https://github.com/lmk123/chrome-storage-wrapper) **即将弃用** - 对 `chrome.storage` 的简单封装，基于 Promise。
  + [chrome-call](https://github.com/lmk123/chrome-call) - 将 Chrome API 的使用回调函数接收结果的调用形式改为返回 Promise 对象的调用形式。
  + [chrome-env](https://github.com/lmk123/chrome-env) - 给非扩展程序运行环境添加 `window.chrome`，被设计用于单元测试。
 
