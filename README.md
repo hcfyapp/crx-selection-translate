@@ -39,11 +39,7 @@
 
 为了方便维护，划词翻译将一些功能分离了出来，如果你是想对以下功能进行调整，请前往对应的代码仓库：
 
- + [selection-widget](https://github.com/lmk123/selection-widget) - 划词翻译的翻译窗口。
  + [translation.js](https://github.com/lmk123/translation.js) - 划词翻译的翻译引擎。
-
-还有一些是从划词翻译分离出来的功能库，你可能会想要改进它们：
-
  + [connect.io](https://github.com/lmk123/connect.io) - Chrome 扩展/应用里的实时、双向、基于事件且 Promise 友好的通信库，启发自 Socket.io。
  + [chrome-call](https://github.com/lmk123/chrome-call) - 将 Chrome API 的使用回调函数接收结果的调用形式改为返回 Promise 对象的调用形式。
  + [chrome-env](https://github.com/lmk123/chrome-env) - 给非扩展程序运行环境添加 `window.chrome`，被设计用于单元测试。

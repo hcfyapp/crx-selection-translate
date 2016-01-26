@@ -4,7 +4,7 @@
 import '../fontello/css/fontello.css';
 import './style.scss';
 import Vue from 'vue';
-import widgetMixin from 'selection-widget';
+import widgetMixin from './vue-st';
 
 import locales from '../locales';
 import template from './template.html';
