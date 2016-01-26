@@ -45,7 +45,7 @@
 
     "chrome-env": "^0.0.6",
     "jasmine-core": "^2.4.1",
-    "phantomjs": "^1.9.19",
+    "phantomjs": "^2.1.2",
     "karma": "^0.13.19",
     "karma-chrome-launcher": "^0.2.2",
     "karma-firefox-launcher": "^0.1.7",
