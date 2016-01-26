@@ -1,5 +1,11 @@
-// https://developers.google.com/analytics/devguides/collection/analyticsjs/
+/**
+ * 添加谷歌分析。
+ * @see https://developers.google.com/analytics/devguides/collection/analyticsjs/
+ */
+
 let ga;
+
+/* istanbul ignore next */
 if ( process.env.NODE_ENV === 'production' ) {
   (function ( i , s , o , g , r , a , m ) {
     i[ 'GoogleAnalyticsObject' ] = r;
@@ -18,4 +24,5 @@ if ( process.env.NODE_ENV === 'production' ) {
 } else {
   ga = ()=> {};
 }
+
 export default ga;
