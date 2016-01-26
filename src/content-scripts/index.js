@@ -1,5 +1,7 @@
 import 'babel-polyfill';
 
+import chromeCall from 'chrome-call';
+
 import st from './st';
 import server from './server';
 import {noop} from '../public/util';
@@ -13,9 +15,18 @@ const MOUSE_UP = 'ontouch' in window
  * mouseup 事件监听函数，用于检测用户第一次产生拖蓝的动作
  * @param {MouseEvent} e
  */
-export function firstMouseUp( e ) {
+export async function firstMouseUp( e ) {
   if ( selection.toString().trim() ) {
     removeFirstMouseUp();
+
+    if ( 'true' === document.body.contentEditable ) {
+      const {disableInEditable} = await chromeCall( 'storage.local.get' , 'disableInEditable' );
+      if ( disableInEditable ) {
+        st.$destroy();
+        return;
+      }
+    }
+
     st.$appendTo( 'body' );
     st.$emit( 'mouseup' , e );
   }

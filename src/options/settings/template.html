@@ -71,6 +71,14 @@
       34567。这一选项会忽略电话号码、整数与小数。
     </div>
   </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.disableInEditable">
+      在邮件编辑区域禁用划词翻译
+    </label>
+
+    <div class="help-block">启用此项可以避免 QQ 邮箱或 Outlook 邮箱的邮件末尾被插入一个“译”字。<span class="text-warning">需要重启浏览器使设置生效。</span></div>
+  </div>
 </div>
 
 <h4>翻译引擎</h4>

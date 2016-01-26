@@ -7,6 +7,7 @@ const chromeLocalStorage = chromeCall.scope( chrome.storage.local );
 
 const {runtime} = chrome ,
   defaultConfig = {
+    disableInEditable : false ,
     autoPlay : false ,
     showMenu : true ,
     autoClipboard : true ,
