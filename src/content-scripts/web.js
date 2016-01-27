@@ -13,11 +13,10 @@ export function youdao() {
     return alert( '有道网页翻译不支持 https 网站。' );
   }
 
-  const element = document.createElement( 'script' );
-  element.id = 'outfox_seed_js';
-  element.charset = 'utf-8';
-  element.src = 'http://fanyi.youdao.com/web2/seed.js?' + Date.parse( new Date() );
-  document.body.appendChild( element );
+  insertScript( 'http://fanyi.youdao.com/web2/seed.js?' + Date.now() , ( script )=> {
+    script.id = 'outfox_seed_js';
+    script.charset = 'utf-8';
+  } );
 }
 
 /**
@@ -38,11 +37,49 @@ export function bing() {
   msw.style.cssText = 'color:white;background-color:#555555;position:fixed;top:-99999px;';
   document.body.appendChild( msw );
 
-  setTimeout( function () {
-    var s = document.createElement( 'script' );
-    s.charset = 'UTF-8';
-    s.src = ((location && location.href && location.href.indexOf( 'https' ) == 0) ? 'https://ssl.microsofttranslator.com' : 'http://www.microsofttranslator.com') + '/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=True&ui=true&settings=Auto&from=';
-    var p = document.getElementsByTagName( 'head' )[ 0 ] || document.documentElement;
-    p.insertBefore( s , p.firstChild );
-  } , 0 );
+  insertScript( ((location.href.indexOf( 'https' ) === 0) ? 'https://ssl.microsofttranslator.com' : 'http://www.microsofttranslator.com') + '/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=True&ui=true&settings=Auto&from=' );
+}
+
+/**
+ * 谷歌网站翻译器
+ * @see http://translate.google.com/manager/website/?hl=zh-CN
+ */
+/* istanbul ignore next */
+export function google() {
+  const select = document.querySelector( '#google_translate_element .goog-te-combo' );
+  if ( select ) {
+    if ( !select.value ) {
+      select.value = 'zh-CN';
+    }
+    select.dispatchEvent( new Event( 'change' ) );
+    return;
+  }
+
+  const div = document.createElement( 'div' );
+  div.id = 'google_translate_element';
+  div.style.cssText = 'position:fixed;top:-99999px;';
+  document.body.appendChild( div );
+
+  insertScript( null , ( script )=> {
+    script.textContent = require( 'raw!./raw/google-web-cb.js' );
+    script.async = false;
+  } );
+
+  insertScript( 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit' )
+}
+
+/**
+ * 向内容脚本所在的网页插入脚本。脚本会在宿主网页的上下文环境中执行。
+ * @param {String} src
+ * @param {Function} [beforeAppend]
+ */
+/* istanbul ignore next */
+function insertScript( src , beforeAppend ) {
+  const script = document.createElement( 'script' );
+  if ( src ) {
+    script.src = src;
+  }
+  script.async = true;
+  ('function' === typeof beforeAppend) && beforeAppend( script );
+  document.head.appendChild( script );
 }
