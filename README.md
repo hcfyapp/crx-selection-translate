@@ -1,9 +1,9 @@
 # 划词翻译
 
-[![Build Status](https://travis-ci.org/lmk123/crx-selection-translate.svg)](https://travis-ci.org/lmk123/crx-selection-translate)
-[![Coverage Status](https://coveralls.io/repos/github/lmk123/crx-selection-translate/badge.svg?branch=master)](https://coveralls.io/github/lmk123/crx-selection-translate?branch=master)
-[![dependencies Status](https://david-dm.org/lmk123/crx-selection-translate.svg)](https://david-dm.org/lmk123/crx-selection-translate)
-[![devDependencies Status](https://david-dm.org/lmk123/crx-selection-translate/dev-status.svg)](https://david-dm.org/lmk123/crx-selection-translate#info=devDependencies)
+[![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
+[![Coverage Status](https://img.shields.io/coveralls/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://coveralls.io/github/lmk123/crx-selection-translate?branch=master)
+[![dependencies Status](https://img.shields.io/david/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate)
+[![devDependencies Status](https://img.shields.io/david/dev/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate#info=devDependencies)
 
 [![available in the chrome web store](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 
