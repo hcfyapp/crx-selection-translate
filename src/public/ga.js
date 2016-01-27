@@ -15,6 +15,7 @@ if ( process.env.NODE_ENV === 'production' ) {
   ga.l = Date.now();
 
   ga( 'create' , 'UA-43276752-4' , 'auto' );
+  ga( 'set' , 'checkProtocolTask' , null );
   window.ga = ga;
 
   const script = document.createElement( 'script' );
