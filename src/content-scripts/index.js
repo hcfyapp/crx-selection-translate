@@ -5,6 +5,7 @@ import chromeCall from 'chrome-call';
 import st from './st';
 import server from './server';
 import {noop} from '../public/util';
+import client from './client';
 
 const MOUSE_UP = 'ontouch' in window
   /* istanbul ignore next */ ? 'touchend'
@@ -20,9 +21,11 @@ export async function firstMouseUp( e ) {
     removeFirstMouseUp();
 
     if ( 'true' === document.body.contentEditable ) {
+      client.send( 'ga' , [ 'send' , 'event' , 'body 可编辑的情况' ] );
       const {disableInEditable} = await chromeCall( 'storage.local.get' , 'disableInEditable' );
       if ( disableInEditable ) {
         st.$destroy();
+        client.send( 'ga' , [ 'send' , 'event' , 'body 可编辑的情况' , '在 body 可编辑的情况下停用了' ] );
         return;
       }
     }
