@@ -15,7 +15,7 @@ const {runtime} = chrome ,
     defaultTo : 'auto' ,
     needCtrl : false ,
     showBtn : true ,
-    ignoreChinese : true ,
+    ignoreChinese : false ,
     ignoreNumLike : true ,
     excludeDomains : [] ,
     ignoresText : []
