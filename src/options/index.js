@@ -25,6 +25,10 @@ import VueRouter from 'vue-router';
 
 import './options.scss';
 
+import ga from '../public/ga';
+ga( 'set' , 'page' , '/options/index.html' );
+ga( 'send' , 'pageview' );
+
 import settings from './settings/index';
 import about from './about/index';
 import voices from './voices/index';
