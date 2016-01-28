@@ -42,7 +42,7 @@
       </st-div>
     </st-div>
     <st-div class="__translate-result__" v-show="loading">正在查询，请稍候……</st-div>
-    <st-div class="__translate-result__" v-else>
+    <st-div class="__translate-result__" v-show="showResult && !loading">
       <st-div v-show="result.error">
         <st-span v-text="result.error"></st-span>
         <st-span class="__retry__" @click="safeTranslate">重试</st-span>

@@ -25,6 +25,7 @@ export default {
     result : {} ,
 
     loading : false , // 是否正在查询中
+    showResult : true , // 是否显示翻译结果。inline 模式下，这个值会变成 false，并且在第一次翻译之后会变成 true。
 
     inline : false , // 是否为 inline 模式:总是显示,不会移动位置,改变大小或定位
     selection : true , // 是否响应划词事件
@@ -103,6 +104,7 @@ export default {
     translate() {
       this.loading = true;
       this.boxPos.show = true;
+      this.$emit( 'before translate' );
 
       return this
         .getResult()
@@ -113,6 +115,17 @@ export default {
         } );
     }
 
+  } ,
+  beforeCompile() {
+    const unwatch = this.$watch( 'inline' , ( value )=> {
+      if ( value ) {
+        unwatch();
+        this.showResult = false;
+        this.$once( 'before translate' , ()=> {
+          this.showResult = true;
+        } );
+      }
+    } );
   } ,
   ready() {
     const {$els} = this ,
