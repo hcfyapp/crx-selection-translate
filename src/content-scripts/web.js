@@ -13,6 +13,15 @@ export function youdao() {
     return alert( '有道网页翻译不支持 https 网站。' );
   }
 
+  const youdaoIframe = document.getElementById( 'OUTFOX_JTR_BAR' );
+  if ( youdaoIframe ) {
+    const translateButton = youdaoIframe.contentWindow.document.getElementById( 'switch' );
+    if ( translateButton.textContent === '重新翻译' ) {
+      translateButton.click();
+    }
+    return;
+  }
+
   insertScript( 'http://fanyi.youdao.com/web2/seed.js?' + Date.now() , ( script )=> {
     script.id = 'outfox_seed_js';
     script.charset = 'utf-8';
