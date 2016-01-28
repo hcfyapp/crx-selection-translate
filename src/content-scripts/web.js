@@ -50,11 +50,13 @@ export function bing() {
     return;
   }
 
-  const msw = document.createElement( 'div' );
-  msw.id = 'MicrosoftTranslatorWidget';
-  msw.classList.add( 'Dark' );
-  msw.style.cssText = 'color:white;background-color:#555555;position:fixed;top:-99999px;';
-  document.body.appendChild( msw );
+  if ( !document.getElementById( 'MicrosoftTranslatorWidget' ) ) {
+    const msw = document.createElement( 'div' );
+    msw.id = 'MicrosoftTranslatorWidget';
+    msw.classList.add( 'Dark' );
+    msw.style.cssText = 'color:white;background-color:#555555;position:fixed;top:-99999px;';
+    document.body.appendChild( msw );
+  }
 
   insertScript(
     ((location.href.indexOf( 'https' ) === 0)
@@ -78,10 +80,12 @@ export function google() {
     return;
   }
 
-  const div = document.createElement( 'div' );
-  div.id = 'google_translate_element';
-  div.style.cssText = 'position:fixed;top:-99999px;';
-  document.body.appendChild( div );
+  if ( !document.getElementById( 'google_translate_element' ) ) {
+    const div = document.createElement( 'div' );
+    div.id = 'google_translate_element';
+    div.style.cssText = 'position:fixed;top:-99999px;';
+    document.body.appendChild( div );
+  }
 
   insertScript( null , ( script )=> {
     script.textContent = require( 'raw!./raw/google-web-cb.js' );
