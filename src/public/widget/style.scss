@@ -207,6 +207,10 @@ $baseFontHoverColor: #9a6a16;
       padding: 10px;
       background-color: $baseFontColor;
 
+      .__phonetic__ {
+        margin-bottom: 15px;
+      }
+
       > div:not(:last-child) {
         margin-bottom: 5px;
       }

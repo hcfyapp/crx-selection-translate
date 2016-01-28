@@ -14,7 +14,9 @@
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
-        <st-div class="__exchange__"><st-span class="st-icon-exchange" @click="exchangeLocale"></st-span></st-div>
+        <st-div class="__exchange__">
+          <st-span class="st-icon-exchange" @click="exchangeLocale"></st-span>
+        </st-div>
         <select v-model="query.to">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
@@ -29,7 +31,9 @@
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
         <st-div class="__action-list__">
-          <st-div class="__button__ __btn-translate__" @click="safeTranslate">翻译<st-span class="st-icon-down-dir"></st-span></st-div>
+          <st-div class="__button__ __btn-translate__" @click="safeTranslate">翻译
+            <st-span class="st-icon-down-dir"></st-span>
+          </st-div>
           <st-div class="__expand__">
             <st-div class="__button__" @click="play(query.text,query.from)">朗读</st-div>
             <st-div class="__button__" @click="copy(query.text,$event)">复制</st-div>
@@ -43,25 +47,28 @@
         <st-span v-text="result.error"></st-span>
         <st-span class="__retry__" @click="safeTranslate">重试</st-span>
       </st-div>
-      <st-div v-show="result.phonetic">
-        /<st-span v-text="result.phonetic"></st-span>/
-        <st-div class="__copy-and-read__">
-          <st-span @click="copy('/'+result.phonetic+'/',$event)">复制</st-span>
+      <st-div v-else>
+        <st-div class="__phonetic__">
+          <st-span v-text="result.phonetic"></st-span>
+          <st-span class="__copy-and-read__">
+            <st-span @click="play(query.text,query.from)">朗读</st-span>
+            <st-span @click="copy('/'+result.phonetic+'/',$event)">复制</st-span>
+          </st-span>
         </st-div>
-      </st-div>
-      <st-div v-show="result.detailed && result.detailed.length">
-        <st-ul>
-          <st-li v-for="d in result.detailed" v-text="d"></st-li>
-        </st-ul>
-        <st-div class="__copy-and-read__">
-          <st-span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</st-span>
+        <st-div v-show="result.detailed && result.detailed.length">
+          <st-ul>
+            <st-li v-for="d in result.detailed" v-text="d"></st-li>
+          </st-ul>
+          <st-div class="__copy-and-read__">
+            <st-span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</st-span>
+          </st-div>
         </st-div>
-      </st-div>
-      <st-div v-show="result.result&&result.result.length">
-        <st-div v-for="text in result.result" v-text="text"></st-div>
-        <st-div class="__copy-and-read__">
-          <st-span class="__copy-and-read__" @click="play(result.result,result.to)">朗读</st-span>
-          <st-span class="__copy-and-read__" @click="copy(result.result,$event)">复制</st-span>
+        <st-div v-show="result.result&&result.result.length">
+          <st-div v-for="text in result.result" v-text="text"></st-div>
+          <st-div class="__copy-and-read__">
+            <st-span class="__copy-and-read__" @click="play(result.result,result.to)">朗读</st-span>
+            <st-span class="__copy-and-read__" @click="copy(result.result,$event)">复制</st-span>
+          </st-div>
         </st-div>
       </st-div>
     </st-div>

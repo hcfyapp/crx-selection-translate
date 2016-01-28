@@ -89,6 +89,10 @@ export default Vue.extend( {
       return this.$options.client
         .send( 'get translate result' , this.query , true )
         .then( resultObj => {
+          const {phonetic} = resultObj;
+          if ( phonetic ) {
+            resultObj.phonetic = '/' + phonetic + '/';
+          }
           this.result = resultObj;
         } , noop );
       // 只有在一种特殊情况下才会走进 catch 分支:
