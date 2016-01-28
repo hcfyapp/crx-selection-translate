@@ -7,18 +7,18 @@ const chromeLocalStorage = chromeCall.scope( chrome.storage.local );
 
 const {runtime} = chrome ,
   defaultConfig = {
-    disableInEditable : false ,
-    autoPlay : false ,
-    showMenu : true ,
-    autoClipboard : true ,
-    defaultApi : 'YouDao' ,
-    defaultTo : 'auto' ,
-    needCtrl : false ,
-    showBtn : true ,
-    ignoreChinese : false ,
-    ignoreNumLike : true ,
-    excludeDomains : [] ,
-    ignoresText : []
+    disableInEditable : false , // 是否在 document.body 可编辑的情况下禁用划词翻译
+    autoPlay : false , // 自动朗读
+    showMenu : true , // 是否将划词翻译添加到右键菜单
+    autoClipboard : true , // 打开弹出页时是否自动翻译剪切板内的文本
+    defaultApi : 'YouDao' , // 默认使用的翻译接口
+    defaultWeb : 'YouDao' , // Alt + Z 时默认使用的网页翻译
+    needCtrl : false , // 网页划词翻译是否要配合 Ctrl（Mac 下为 Command）使用
+    showBtn : true , // 网页划词翻译是否显示翻译按钮
+    ignoreChinese : false , // 网页划词翻译是否忽略中文
+    ignoreNumLike : true , // 网页划词翻译是否忽略无意义的文本组合，例如电话号码、密码符号等
+    excludeDomains : [] , // 以这些域名结尾的网址下会禁用网页划词翻译
+    ignoresText : [] // todo 匹配这些正则表达式的文本不要翻译
   };
 
 export async function onInstalled( details ) {
