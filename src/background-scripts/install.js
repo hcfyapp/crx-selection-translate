@@ -30,8 +30,8 @@ const {runtime} = chrome ,
 export async function addNewOptions( ...options ) {
   const defaultNewOptions = {};
 
-  options.forEach( ( k , v )=> {
-    defaultNewOptions[ k ] = v;
+  options.forEach( ( key )=> {
+    defaultNewOptions[ key ] = defaultConfig[ key ];
   } );
 
   const origalOptionsValue = await chromeLocalStorage( 'get' , defaultNewOptions );

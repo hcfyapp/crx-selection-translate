@@ -20,4 +20,13 @@ describe( '扩展' , ()=> {
     expect( chrome.storage.local.set ).toHaveBeenCalled();
     done();
   } );
+
+  it( '在从 v6.0.0 升级至最新版时会添加两个新的设置项' , async ( done )=> {
+    await onInstalled( { reason : 'update' , previousVersion : '6.0.0' } );
+    expect( chrome.storage.local.get ).toHaveBeenCalledWith( {
+      disableInEditable : false ,
+      defaultWeb : 'youdao'
+    } , jasmine.any( Function ) );
+    done();
+  } );
 } );
