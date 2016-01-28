@@ -35,7 +35,6 @@ function googleTranslateElementInit() {
         cb( select );
       } else {
         tryCount += 1;
-        console.log( tryCount );
         if ( tryCount > 10 ) {
           alert( '无法加载谷歌网页翻译。' );
         } else {
