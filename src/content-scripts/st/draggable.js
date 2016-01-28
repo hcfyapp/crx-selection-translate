@@ -22,7 +22,9 @@ export default function ( st ) {
     st.__restrict = restrict;
     st.__onMove = onMove;
   } else {
-    st.$on( 'after translate' , restrict );
+    st.$on( 'after translate' , ()=> {
+      st.$nextTick( restrict );
+    } );
     interact( st.$els.stDrag )
       .styleCursor( false )
       .draggable( {

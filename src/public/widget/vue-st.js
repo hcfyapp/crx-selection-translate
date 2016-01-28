@@ -111,7 +111,7 @@ export default {
         .then( ()=> {
           this.loading = false;
           this.boxPos.show = true;
-          this.$nextTick( ()=> this.$emit( 'after translate' ) );
+          this.$emit( 'after translate' );
         } );
     }
 
