@@ -21,10 +21,11 @@ export async function onCommand( command ) {
       break;
 
     case 'web':
+      const {defaultWeb} = await chromeCall( 'storage.local.get' , 'defaultWeb' );
       send( {
         tabId ,
         name : 'web translate' ,
-        data : 'youdao'
+        data : defaultWeb || 'youdao'
       } );
       break;
   }

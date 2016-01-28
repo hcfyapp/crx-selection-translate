@@ -4,22 +4,39 @@
 import chromeCall from 'chrome-call';
 
 const chromeLocalStorage = chromeCall.scope( chrome.storage.local );
+const {assign} = Object;
 
 const {runtime} = chrome ,
   defaultConfig = {
-    disableInEditable : false , // 是否在 document.body 可编辑的情况下禁用划词翻译
+    disableInEditable : false , // since v6.0.1 - 是否在 document.body 可编辑的情况下禁用划词翻译
+    defaultWeb : 'youdao' , // since v6.0.1 - Alt + Z 时默认使用的网页翻译
+    showBtn : true , // since v6.0.0 - 原本叫 showTranslateButton。网页划词翻译是否显示翻译按钮
     autoPlay : false , // 自动朗读
     showMenu : true , // 是否将划词翻译添加到右键菜单
     autoClipboard : true , // 打开弹出页时是否自动翻译剪切板内的文本
     defaultApi : 'YouDao' , // 默认使用的翻译接口
-    defaultWeb : 'YouDao' , // Alt + Z 时默认使用的网页翻译
     needCtrl : false , // 网页划词翻译是否要配合 Ctrl（Mac 下为 Command）使用
-    showBtn : true , // 网页划词翻译是否显示翻译按钮
     ignoreChinese : false , // 网页划词翻译是否忽略中文
     ignoreNumLike : true , // 网页划词翻译是否忽略无意义的文本组合，例如电话号码、密码符号等
     excludeDomains : [] , // 以这些域名结尾的网址下会禁用网页划词翻译
     ignoresText : [] // todo 匹配这些正则表达式的文本不要翻译
   };
+
+/**
+ * 添加新设置项的方法
+ * @param {...String} options
+ * @returns {Promise}
+ */
+export async function addNewOptions( ...options ) {
+  const defaultNewOptions = {};
+
+  options.forEach( ( k , v )=> {
+    defaultNewOptions[ k ] = v;
+  } );
+
+  const origalOptionsValue = await chromeLocalStorage( 'get' , defaultNewOptions );
+  return chromeLocalStorage( 'set' , assign( defaultNewOptions , origalOptionsValue ) );
+}
 
 export async function onInstalled( details ) {
   const {reason} = details;
@@ -29,18 +46,37 @@ export async function onInstalled( details ) {
     return;
   }
 
-  if ( reason === 'update' && details.previousVersion[ 0 ] === '5' ) { // 从旧版升级
-    const items = await chromeLocalStorage( 'get' , [
-      'autoClipboard' , 'autoPlay' , 'defaultApi' ,
-      'defaultTo' , 'ignoreChinese' , 'ignoreNumLike' ,
-      'needCtrl' , 'showMenu' , 'showTranslateButton'
-    ] );
+  if ( reason === 'update' ) {
+    const {previousVersion} = details;
 
-    items.showBtn = items.showTranslateButton;
-    delete items.showTranslateButton;
+    if ( previousVersion[ 0 ] === '5' ) { // 从 v5.x 升级
+      const items = await chromeLocalStorage( 'get' , [
+        'autoClipboard' , 'autoPlay' , 'defaultApi' ,
+        'defaultTo' , 'ignoreChinese' , 'ignoreNumLike' ,
+        'needCtrl' , 'showMenu' , 'showTranslateButton'
+      ] );
 
-    await chromeLocalStorage( 'clear' );
-    await chromeLocalStorage( 'set' , Object.assign( defaultConfig , items ) );
+      items.showBtn = items.showTranslateButton;
+      delete items.showTranslateButton;
+
+      await chromeLocalStorage( 'clear' );
+      await chromeLocalStorage( 'set' , assign( defaultConfig , items ) );
+      return;
+    }
+
+    switch ( previousVersion ) {
+      case '6.0.0':
+        addNewOptions( 'defaultWeb' , 'disableInEditable' );
+      // 这里故意没有写 break;
+      // 这是因为如果日后的版本添加了新的设置项可以这样写：
+      // case '6.0.0':
+      //   addNewOptions( 'x' );
+      // case '6.0.1':
+      //   addNewOptions( 'y' );
+      //
+      // 这样就能保证无论用户从哪个版本升级到最新版，都不会错失新添加的设置项及其默认值，
+      // 但是在开发阶段，当我点一下 Reload 的时候也会被重设为默认值
+    }
   }
 }
 
