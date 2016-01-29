@@ -21,10 +21,10 @@ $font-family-sans-serif: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, 
 // Core CSS
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/scaffolding";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/type";
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
+//@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/grid";
+//@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/forms";
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/tables";
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
+//@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/buttons";
 
 // Components
 @import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/navs";
@@ -32,4 +32,4 @@ $font-family-sans-serif: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, 
 // Components w/ JavaScript
 
 // Utility classes
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities";
+//@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap/utilities";

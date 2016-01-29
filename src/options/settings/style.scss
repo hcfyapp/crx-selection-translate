@@ -1,6 +1,6 @@
 @charset "utf-8";
 
-h4 {
+h4:not(:nth-of-type(1)) {
   margin-top: 30px;
 }
 

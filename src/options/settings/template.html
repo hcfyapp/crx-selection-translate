@@ -1,5 +1,3 @@
-<h3>设置</h3>
-
 <h4>朗读</h4>
 
 <div class="o-group">
@@ -78,7 +76,8 @@
       <small>v6.0.1 新增</small>
     </label>
 
-    <div class="help-block">启用此项可以避免 QQ 邮箱或 Outlook 邮箱的邮件末尾被插入一个“译”字。<span class="text-warning">需要重启浏览器使设置生效。</span></div>
+    <div class="help-block">启用此项可以避免 QQ 邮箱或 Outlook 邮箱的邮件末尾被插入一个“译”字。<span class="text-warning">需要重启浏览器使设置生效。</span>
+    </div>
   </div>
 </div>
 
@@ -145,15 +144,13 @@
       <button type="button" class="btn btn-default" @click="options.excludeDomains.splice($index,1)">删除</button>
     </li>
   </ul>
-  <form class="form-inline" v-show="showAdd" @submit.prevent="addExclude">
-    <div class="form-group">
-      <input type="text" class="form-control" style="width:250px;" placeholder="输入网站域名，如 baidu.com" required v-el:domain-input v-model="tmpDomain">
-    </div>
-    <button type="submit" class="btn btn-default">添加</button>
-    <button type="button" class="btn btn-link" @click="cancelAdd">取消</button>
+  <form v-show="showAdd" @submit.prevent="addExclude">
+    <input type="text" placeholder="输入网站域名，如 baidu.com" required style="width:250px" v-el:domain-input v-model="tmpDomain">
+    <button type="submit">添加</button>
+    <button type="button" @click="cancelAdd">取消</button>
   </form>
   <p v-else>
-    <button type="button" class="btn btn-primary" @click="showAddForm">新增</button>
+    <button type="button" @click="showAddForm">新增</button>
   </p>
 
   <p>注意：在一些 Chrome 扩展程序无权访问的标签页里，划词翻译也会被禁用，例如

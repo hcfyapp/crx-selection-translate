@@ -7,18 +7,20 @@
     <link rel="stylesheet" href="../bundle/options.css">
   </head>
   <body>
-    <ul class="nav nav-tabs">
-      <li v-link-active>
-        <a v-link="{name:'options',activeClass:'active'}">设置</a>
-      </li>
-      <li v-link-active>
-        <a v-link="{name:'voices',activeClass:'active'}">支持的语音</a>
-      </li>
-      <li v-link-active>
-        <a v-link="{name:'about',activeClass:'active'}">关于</a>
-      </li>
-    </ul>
-    <router-view></router-view>
+    <div id="wrap">
+      <ul class="nav nav-tabs">
+        <li v-link-active>
+          <a v-link="{name:'options',activeClass:'active'}">设置</a>
+        </li>
+        <li v-link-active>
+          <a v-link="{name:'voices',activeClass:'active'}">支持的语音</a>
+        </li>
+        <li v-link-active>
+          <a v-link="{name:'about',activeClass:'active'}">关于</a>
+        </li>
+      </ul>
+      <router-view></router-view>
+    </div>
     <script src="../bundle/commons3.js"></script>
     <script src="../bundle/commons2.js"></script>
     <script src="../bundle/options.js"></script>
