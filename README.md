@@ -1,5 +1,7 @@
 # 划词翻译
 
+[![Join the chat at https://gitter.im/lmk123/crx-selection-translate](https://badges.gitter.im/lmk123/crx-selection-translate.svg)](https://gitter.im/lmk123/crx-selection-translate?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
 [![Coverage Status](https://img.shields.io/coveralls/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://coveralls.io/github/lmk123/crx-selection-translate?branch=master)
 [![dependencies Status](https://img.shields.io/david/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate)
