@@ -59,6 +59,19 @@ export async function onInstalled( details ) {
       items.showBtn = items.showTranslateButton;
       delete items.showTranslateButton;
 
+      // v5.x 的 defaultApi 的格式是全小写字母，如 youdao baidu google google_cn bing，
+      // 但是自 v6.0 起我将它换成了首字母大写的形式：YouDao BaiDu Google GoogleCN Bing，
+      // 需要做一次转换
+      // @see https://github.com/lmk123/crx-selection-translate/blob/5.x-master/src/options.html#L69
+      // @see https://github.com/lmk123/translation.js/blob/master/lib/translation.js#L150
+      items.defaultApi = {
+          youdao : 'YouDao' ,
+          baidu : 'BaiDu' ,
+          google : 'Google' ,
+          google_cn : 'GoogleCN' ,
+          bing : 'Bing'
+        }[ items.defaultApi ] || 'YouDao';
+
       await chromeLocalStorage( 'clear' );
       await chromeLocalStorage( 'set' , assign( defaultConfig , items ) );
       return;
@@ -67,6 +80,17 @@ export async function onInstalled( details ) {
     switch ( previousVersion ) {
       case '6.0.0':
         addNewOptions( 'defaultWeb' , 'disableInEditable' );
+      case '6.0.1':
+        // 从 6.0.0 或 6.0.1 升级的用户都需要转换一下翻译接口的名字
+        let {defaultApi} = await chromeLocalStorage( 'get' , 'defaultApi' );
+        defaultApi = {
+            youdao : 'YouDao' ,
+            baidu : 'BaiDu' ,
+            google : 'Google' ,
+            google_cn : 'GoogleCN' ,
+            bing : 'Bing'
+          }[ defaultApi ] || 'YouDao';
+        chromeLocalStorage( 'set' , { defaultApi } );
       // 这里故意没有写 break;
       // 这是因为如果日后的版本添加了新的设置项可以这样写：
       // case '6.0.0':
@@ -74,8 +98,7 @@ export async function onInstalled( details ) {
       // case '6.0.1':
       //   addNewOptions( 'y' );
       //
-      // 这样就能保证无论用户从哪个版本升级到最新版，都不会错失新添加的设置项及其默认值，
-      // 但是在开发阶段，当我点一下 Reload 的时候也会被重设为默认值
+      // 这样就能保证无论用户从哪个版本升级到最新版，都不会错失新添加的设置项及其默认值
     }
   }
 }
