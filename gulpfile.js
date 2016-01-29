@@ -27,7 +27,7 @@ gulp.task( 'default' , [ 'html' , 'json' , 'copy' ] , zipPack );
  * @returns {Promise}
  */
 function clean() {
-  return del( config.dist );
+  return del( [ config.dist , './src/bundle' ] );
 }
 
 /**
