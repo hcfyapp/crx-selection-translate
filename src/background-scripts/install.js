@@ -23,19 +23,16 @@ const {runtime} = chrome ,
   };
 
 /**
- * 添加新设置项的方法
+ * 添加新设置项及其默认值的方法
  * @param {...String} options
  * @returns {Promise}
  */
 export async function addNewOptions( ...options ) {
   const defaultNewOptions = {};
-
   options.forEach( ( key )=> {
     defaultNewOptions[ key ] = defaultConfig[ key ];
   } );
-
-  const origalOptionsValue = await chromeLocalStorage( 'get' , defaultNewOptions );
-  return chromeLocalStorage( 'set' , assign( defaultNewOptions , origalOptionsValue ) );
+  return chromeLocalStorage( 'set' , defaultNewOptions );
 }
 
 export async function onInstalled( details ) {
