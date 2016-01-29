@@ -209,10 +209,10 @@ $baseFontHoverColor: #9a6a16;
 
       .__phonetic__ {
         margin-bottom: 10px;
-      }
 
-      > div:not(:last-child) {
-        margin-bottom: 5px;
+        st-span:first-child {
+          margin-right: 5px;
+        }
       }
 
       .__copy-and-read__ > st-span, .__retry__ {

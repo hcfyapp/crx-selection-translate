@@ -49,7 +49,7 @@
       </st-div>
       <st-div v-else>
         <st-div class="__phonetic__">
-          <st-span v-text="result.phonetic"></st-span>
+          <st-span v-show="result.phonetic" v-text="result.phonetic"></st-span>
           <st-span class="__copy-and-read__">
             <st-span @click="play(query.text,query.from)">朗读</st-span>
             <st-span v-show="result.phonetic" @click="copy(result.phonetic,$event)">复制</st-span>
