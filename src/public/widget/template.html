@@ -52,7 +52,7 @@
           <st-span v-text="result.phonetic"></st-span>
           <st-span class="__copy-and-read__">
             <st-span @click="play(query.text,query.from)">朗读</st-span>
-            <st-span @click="copy('/'+result.phonetic+'/',$event)">复制</st-span>
+            <st-span v-show="result.phonetic" @click="copy(result.phonetic,$event)">复制</st-span>
           </st-span>
         </st-div>
         <st-div v-show="result.detailed && result.detailed.length">
