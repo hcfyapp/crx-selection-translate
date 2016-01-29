@@ -47,10 +47,9 @@ describe( '后台网页' , ()=> {
   } );
 
   it( '在接收到打开标签页的消息时会打开标签页' , async ( done )=> {
-    const openObj = {};
     spyOn( chrome.tabs , 'create' ).and.callFake( ( x , cb )=> cb( {} ) );
-    await main.onOpenTab( openObj );
-    expect( chrome.tabs.create ).toHaveBeenCalledWith( openObj , jasmine.any( Function ) );
+    await main.onOpenOptions();
+    expect( chrome.tabs.create ).toHaveBeenCalledWith( { url : 'options/index.html' } , jasmine.any( Function ) );
     done();
   } );
 
@@ -62,7 +61,7 @@ describe( '后台网页' , ()=> {
     } );
 
     it( '若有指定源语种则直接播放' , async ( done )=> {
-      await main.onPlay( { text : 'x' , from : 'y' } , resolve  );
+      await main.onPlay( { text : 'x' , from : 'y' } , resolve );
       expect( chrome.tts.speak ).toHaveBeenCalledWith( 'x' , { lang : 'y' } , jasmine.any( Function ) );
       done();
     } );
@@ -75,7 +74,7 @@ describe( '后台网页' , ()=> {
 
       it( '会先尝试从翻译接口检测源语种' , async ( done )=> {
         ts.detect.and.returnValue( Promise.resolve( 'lang' ) );
-        await main.onPlay( queryObj , resolve  );
+        await main.onPlay( queryObj , resolve );
         expect( chrome.tts.speak ).toHaveBeenCalledWith( queryObj.text , { lang : 'lang' } , jasmine.any( Function ) );
         done();
       } );
@@ -90,7 +89,7 @@ describe( '后台网页' , ()=> {
 
       it( '若无法从翻译接口和 Google 检测到语种，则会尝试从 GoogleCN 获取' , async ( done )=> {
         ts.detect.and.returnValues( Promise.reject() , Promise.reject() , Promise.resolve( '3' ) );
-        await main.onPlay( queryObj , resolve  );
+        await main.onPlay( queryObj , resolve );
         expect( chrome.tts.speak ).toHaveBeenCalledWith( queryObj.text , { lang : '3' } , jasmine.any( Function ) );
         expect( queryObj.api ).toBe( 'GoogleCN' );
         done();

@@ -113,9 +113,7 @@ export default Vue.extend( {
      * 打开设置页
      */
     openOptions() {
-      this.$options.client.send( 'openTab' , {
-        url : 'options/index.html'
-      } );
+      this.$options.client.send( 'open options' );
     } ,
 
     /**

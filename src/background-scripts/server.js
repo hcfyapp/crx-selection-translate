@@ -69,13 +69,10 @@ export function onCopy( text ) {
   write( text );
 }
 
-/**
- * 打开新网页
- * @param {chrome.tabs.CreateProperties} tabOptions
- */
-export function onOpenTab( tabOptions ) {
-  return chromeCall( 'tabs.create' , tabOptions );
-}
+export const onOpenOptions =
+  chrome.runtime.openOptionsPage
+    ? ()=> chromeCall( 'runtime.openOptionsPage' )
+    : ()=> chromeCall( 'tabs.create' , { url : 'options/index.html' } );
 
 /**
  * 接收从内容脚本发送过来的谷歌分析数据
@@ -92,7 +89,7 @@ if ( process.env.NODE_ENV !== 'testing' ) {
     client.on( 'get translate result' , onGetTranslateResult );
     client.on( 'play' , onPlay );
     client.on( 'copy' , onCopy );
-    client.on( 'openTab' , onOpenTab );
+    client.on( 'open options' , onOpenOptions );
     client.on( 'ga' , onGA );
   } );
 }

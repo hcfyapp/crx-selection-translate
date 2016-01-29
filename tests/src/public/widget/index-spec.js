@@ -35,9 +35,7 @@ describe( '翻译组件' , ()=> {
 
   it( '打开设置页时会发送 openTab 命令到后台' , ()=> {
     vm.openOptions();
-    expect( fakeClient.send ).toHaveBeenCalledWith( 'openTab' , {
-      url : 'options/index.html'
-    } );
+    expect( fakeClient.send ).toHaveBeenCalledWith( 'open options' );
   } );
 
   it( '复制文本时会发送 copy 命令到后台' , ()=> {
