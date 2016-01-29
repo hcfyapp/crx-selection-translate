@@ -31,7 +31,7 @@ module.exports = {
         }
       } ,
       {
-        test : /\.woff/ ,
+        test : /\.woff$/ ,
         loader : 'file-loader' ,
         query : {
           name : '[name].[ext]'
