@@ -2,9 +2,9 @@ const config = {
   src : './src' ,
   dist : './dist' ,
   files : {
-    html : [ './src/*/index.html' ] ,
-    json : [ './src/manifest.json' ] ,
-    copy : [ './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js' ]
+    //html : [ './src/*/index.html' ] ,
+    //json : [ './src/manifest.json' ] ,
+    copy : [ './src/manifest.json' ,'./src/*/index.html' , './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js' ]
   }
 };
 
@@ -16,11 +16,11 @@ const webpack = require( 'webpack' ) ,
   zip = require( 'gulp-zip' );
 
 gulp.task( 'clean' , clean );
-gulp.task( 'html' , [ 'clean' ] , html );
-gulp.task( 'json' , [ 'clean' ] , json );
+//gulp.task( 'html' , [ 'clean' ] , html );
+//gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
 gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ 'html' , 'json' , 'copy' ] , zipPack );
+gulp.task( 'default' , [ /*'html' , 'json' , */'copy' ] , zipPack );
 
 /**
  * 删除上一次生成的文件夹
