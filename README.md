@@ -1,3 +1,5 @@
+**目前划词翻译被 Chrome 网上应用店删除了，详情见 [#101](https://github.com/lmk123/crx-selection-translate/issues/101)**
+
 # 划词翻译
 
 [![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
