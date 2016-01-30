@@ -44,12 +44,12 @@ function webpackP( done ) {
     'process.env.NODE_ENV' : "'production'"
   } ) );
 
-  webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
-    compress : {
-      warnings : false
-    }
-  } ) );
-  webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
+  //webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
+  //  compress : {
+  //    warnings : false
+  //  }
+  //} ) );
+  //webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
 
   webpack( webpackConfig , err => {
     if ( err ) {
