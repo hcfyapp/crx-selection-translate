@@ -3,7 +3,7 @@
  */
 
 import {Server} from 'connect.io';
-import * as web from './web';
+//import * as web from './web';
 import st from './st';
 
 const server = new Server();
@@ -34,22 +34,22 @@ export function onTranslate() {
  * @param {Function} resolve
  * @param {Function} reject
  */
-export function onWebTranslate( data , resolve , reject ) {
-  const w = web[ data ];
-  if ( w ) {
-    w();
-    resolve();
-  } else {
-    reject();
-  }
-}
+//export function onWebTranslate( data , resolve , reject ) {
+//  const w = web[ data ];
+//  if ( w ) {
+//    w();
+//    resolve();
+//  } else {
+//    reject();
+//  }
+//}
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
   server.on( 'connect' , ( client )=> {
     client.on( 'get location' , onGetLocation );
     client.on( 'translate' , onTranslate );
-    client.on( 'web translate' , onWebTranslate );
+    //client.on( 'web translate' , onWebTranslate );
   } );
 }
 
