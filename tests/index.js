@@ -1,6 +1,11 @@
 require( 'babel-polyfill' );
 require( 'chrome-env' );
 
+// todo 添加进 chrome-env
+chrome.runtime.getURL = function () {
+  return '';
+};
+
 const Vue = require( 'vue' );
 Vue.config.silent = true;
 
