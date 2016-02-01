@@ -1,8 +1,13 @@
 require( 'babel-polyfill' );
 require( 'chrome-env' );
 
-const Vue = require('vue');
+const Vue = require( 'vue' );
 Vue.config.silent = true;
+
+if ( !window.Audio ) {
+  window.Audio = function () {};
+  window.Audio.prototype.play = function () {};
+}
 
 // require all `./tests/src/**/*spec.js`
 const testsContext = require.context( './src/' , true , /-spec\.js$/ );

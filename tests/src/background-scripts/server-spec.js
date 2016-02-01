@@ -56,51 +56,35 @@ describe( '后台网页' , ()=> {
   describe( '在接收到播放命令时' , ()=> {
     let resolve;
     beforeEach( ()=> {
-      spyOn( chrome.tts , 'speak' ).and.callFake( ( x , y , cb )=> cb( {} ) );
+      spyOn( ts , 'detect' ).and.returnValue( Promise.resolve( 'y' ) );
+      spyOn( ts , 'audio' ).and.returnValues( Promise.reject() , Promise.resolve( 'hi' ) );
+      spyOn( Audio.prototype , 'play' );
       resolve = jasmine.createSpy( 'resolve' );
     } );
 
-    it( '若有指定源语种则直接播放' , async ( done )=> {
-      await main.onPlay( { text : 'x' , from : 'y' } , resolve );
-      expect( chrome.tts.speak ).toHaveBeenCalledWith( 'x' , { lang : 'y' } , jasmine.any( Function ) );
+    it( '若没有源语种则会使用谷歌翻译检测语种' , async ( done )=> {
+      const q = { text : 'x' };
+      try {
+        await main.onPlay( q , resolve );
+      }
+      catch ( e ) {
+        console.log( e );
+      }
+      expect( ts.detect ).toHaveBeenCalledWith( {
+        api : 'Google' ,
+        text : 'x'
+      } );
+      expect( q.from ).toBe( 'y' );
       done();
     } );
 
-    describe( '若没有源语种' , ()=> {
-      const queryObj = { text : 'x' };
-      beforeEach( ()=> {
-        spyOn( ts , 'detect' );
-      } );
-
-      it( '会先尝试从翻译接口检测源语种' , async ( done )=> {
-        ts.detect.and.returnValue( Promise.resolve( 'lang' ) );
-        await main.onPlay( queryObj , resolve );
-        expect( chrome.tts.speak ).toHaveBeenCalledWith( queryObj.text , { lang : 'lang' } , jasmine.any( Function ) );
-        done();
-      } );
-
-      it( '若无法从翻译接口检测到语种，则会尝试从 Google 获取' , async ( done )=> {
-        ts.detect.and.returnValues( Promise.reject() , Promise.resolve( 'twice' ) );
-        await main.onPlay( queryObj , resolve );
-        expect( chrome.tts.speak ).toHaveBeenCalledWith( queryObj.text , { lang : 'twice' } , jasmine.any( Function ) );
-        expect( queryObj.api ).toBe( 'Google' );
-        done();
-      } );
-
-      it( '若无法从翻译接口和 Google 检测到语种，则会尝试从 GoogleCN 获取' , async ( done )=> {
-        ts.detect.and.returnValues( Promise.reject() , Promise.reject() , Promise.resolve( '3' ) );
-        await main.onPlay( queryObj , resolve );
-        expect( chrome.tts.speak ).toHaveBeenCalledWith( queryObj.text , { lang : '3' } , jasmine.any( Function ) );
-        expect( queryObj.api ).toBe( 'GoogleCN' );
-        done();
-      } );
-
-      it( '若全都无法获取，则 reject' , async ( done )=> {
-        ts.detect.and.returnValues( Promise.reject() , Promise.reject() , Promise.reject() );
-        await main.onPlay( queryObj , resolve );
-        expect( queryObj.api ).toBe( 'GoogleCN' );
-        done();
-      } );
+    it( '会先尝试使用翻译接口、然后尝试使用谷歌朗读' , async ( done )=> {
+      const q = { text : 'x' , api : 'wtf' };
+      await main.onPlay( q , resolve );
+      expect( resolve ).toHaveBeenCalledWith( 'hi' );
+      expect( q.api ).toBe( 'Google' );
+      expect( Audio.prototype.play ).toHaveBeenCalled();
+      done();
     } );
   } );
 } );
