@@ -14,7 +14,7 @@ describe( '后台在接收到快捷键命令时' , ()=> {
     done();
   } );
 
-  xit( '如果是网页翻译命令，则通知选中标签页的内容脚本翻译' , async ( done )=> {
+  it( '如果是网页翻译命令，则通知选中标签页的内容脚本翻译' , async ( done )=> {
     spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> cb( { defaultWeb : 'test' } ) );
     await onCommand( 'web' );
     expect( Client.prototype.send ).toHaveBeenCalledWith( 'web translate' , 'test' , undefined );

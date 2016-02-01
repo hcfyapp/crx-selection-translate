@@ -38,7 +38,7 @@ describe( '内容脚本' , ()=> {
     expect( st.safeTranslate ).toHaveBeenCalled();
   } );
 
-  xdescribe( '接收到网页翻译命令时' , ()=> {
+  describe( '接收到网页翻译命令时' , ()=> {
     let resolve , reject;
     beforeEach( ()=> {
       resolve = jasmine.createSpy( 'x' );
