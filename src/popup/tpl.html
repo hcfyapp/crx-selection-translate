@@ -1,9 +1,9 @@
 <section class="text-center functions">
   <div v-show="canInject">
     <div role="button" @click="switchEnable" :title="'点击切换为'+(enabled?'禁':'启')+'用状态'">已对当前网站<span v-show="enabled">启用</span><span v-else>禁用</span></div>
-    <!--<div role="button" @click="webTranslate('youdao')">使用有道翻译当前网页</div>
+    <div role="button" @click="webTranslate('youdao')">使用有道翻译当前网页</div>
     <div role="button" @click="webTranslate('bing')">使用必应翻译当前网页</div>
-    <div role="button" @click="webTranslate('google')">使用谷歌翻译当前网页</div>-->
+    <div role="button" @click="webTranslate('google')">使用谷歌翻译当前网页</div>
   </div>
   <div v-else>
     划词翻译没有权限操作当前网页
