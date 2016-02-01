@@ -81,6 +81,7 @@
   } ,
   "minimum_chrome_version" : "29" ,
   "web_accessible_resources" : [
-    "bundle/fontello.woff"
+    "bundle/fontello.woff" ,
+    "content-scripts/web/embed/*"
   ]
 }
