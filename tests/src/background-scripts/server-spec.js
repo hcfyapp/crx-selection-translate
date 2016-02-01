@@ -57,7 +57,7 @@ describe( '后台网页' , ()=> {
     let resolve;
     beforeEach( ()=> {
       spyOn( ts , 'detect' ).and.returnValue( Promise.resolve( 'y' ) );
-      spyOn( ts , 'audio' ).and.returnValues( Promise.reject() , Promise.resolve( 'hi' ) );
+      spyOn( ts , 'audio' );
       spyOn( Audio.prototype , 'play' );
       resolve = jasmine.createSpy( 'resolve' );
     } );
@@ -78,11 +78,24 @@ describe( '后台网页' , ()=> {
       done();
     } );
 
-    it( '会先尝试使用翻译接口、然后尝试使用谷歌朗读' , async ( done )=> {
+    it( '会先尝试使用翻译接口朗读' , async ( done )=> {
+      ts.audio.and.returnValue( Promise.resolve( 'haha' ) );
+      const q = { text : 'x' , api : 'wtf' };
+      await main.onPlay( q , resolve );
+      expect( resolve ).toHaveBeenCalledWith( 'haha' );
+      expect( q.api ).toBe( 'wtf' );
+      expect( ts.audio.calls.count() ).toBe( 1 );
+      expect( Audio.prototype.play ).toHaveBeenCalled();
+      done();
+    } );
+
+    it( '若翻译接口无法朗读则使用谷歌朗读' , async ( done )=> {
+      ts.audio.and.returnValues( Promise.reject() , Promise.resolve( 'hi' ) );
       const q = { text : 'x' , api : 'wtf' };
       await main.onPlay( q , resolve );
       expect( resolve ).toHaveBeenCalledWith( 'hi' );
       expect( q.api ).toBe( 'Google' );
+      expect( ts.audio.calls.count() ).toBe( 2 );
       expect( Audio.prototype.play ).toHaveBeenCalled();
       done();
     } );
