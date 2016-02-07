@@ -2,6 +2,7 @@
 
 ## 如果你发现了一个问题
 
+ - 确保你已经阅读了[常见问题](https://github.com/lmk123/crx-selection-translate/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)及[使用帮助](https://github.com/lmk123/crx-selection-translate/wiki/%E4%BD%BF%E7%94%A8%E5%B8%AE%E5%8A%A9)但仍然没能解决你的问题。
  - 先尝试在[问题列表](https://github.com/lmk123/crx-selection-translate/issues)里搜索一下，因为你的问题很有可能已经有人提出来了。
  - 升级至[最新版的划词翻译](https://github.com/lmk123/crx-selection-translate/releases/latest)再重试一下是否还有同样的问题。
  - **清楚的描述你重现问题的步骤并提供尽可能多的信息。**例如：
