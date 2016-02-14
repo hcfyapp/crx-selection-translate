@@ -2,6 +2,13 @@ import bindStorage from '../../../../src/content-scripts/st/storage';
 
 describe( '绑定设置的函数' , ()=> {
   let fakeSt , playSpy;
+
+  beforeEach( ()=> {
+    spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> {
+      cb( { disableSelection : false } );
+    } );
+  } );
+
   beforeEach( ()=> {
     playSpy = jasmine.createSpy( 'play spy' );
     fakeSt = {

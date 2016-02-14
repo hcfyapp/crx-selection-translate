@@ -25,3 +25,21 @@ describe( '读取当前标签页的 location 对象的方法' , ()=> {
     done();
   } );
 } );
+
+describe( '判断当前是否应该启用划词翻译的方法' , ()=> {
+  it( '若全局禁用了划词翻译则判断为禁用' , async ( done )=> {
+    spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> {
+      cb( { disableSelection : true } );
+    } );
+    expect( await util.isHostEnabled() ).toBe( false );
+    done();
+  } );
+
+  it( '若无权获取当前标签页的 location 则判断为禁用，但是返回值为 null' , async ( done )=> {
+    spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> {
+      cb( { disableSelection : false } );
+    } );
+    expect( await util.isHostEnabled( null ) ).toBeNull();
+    done();
+  } );
+} );

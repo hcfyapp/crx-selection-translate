@@ -3,6 +3,9 @@ import * as main from '../../../src/background-scripts/badge';
 
 describe( '扩展图标的徽章' , ()=> {
   beforeEach( ()=> {
+    spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> {
+      cb( { disableSelection : false } );
+    } );
     spyOn( chrome.browserAction , 'setBadgeText' );
     spyOn( Client.prototype , 'send' ).and.returnValue( Promise.reject() );
   } );
