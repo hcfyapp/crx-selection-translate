@@ -9,12 +9,6 @@ import watch from '../../public/storage-watcher';
 export default function ( st ) {
   let defApi = '';
 
-  function onBoxPosShow( isShow ) {
-    if ( !isShow ) {
-      this.query.api = defApi;
-    }
-  }
-
   function onAfterTranslate() {
     const {query} = this ,
       {text} = query;
@@ -43,6 +37,12 @@ export default function ( st ) {
     }
 
     Object.assign( st , items );
+  }
+
+  function onBoxPosShow( isShow ) {
+    if ( !isShow ) {
+      this.query.api = defApi;
+    }
   }
 
   /* istanbul ignore next */
