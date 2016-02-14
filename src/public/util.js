@@ -42,6 +42,12 @@ export async function getTabLocation( tabId ) {
  * @returns {Boolean} - 如果应该启用，则返回 true，否则为 false；但如果没有权限获取当前标签页的 location 对象，则返回 null。
  */
 export async function isHostEnabled( locationObj , disabledDomainList ) {
+  const {disableSelection} = await chromeCall( 'storage.local.get' , 'disableSelection' );
+
+  if ( disableSelection ) {
+    return false;
+  }
+
   const location = locationObj || (locationObj === null ? locationObj : await getTabLocation());
 
   if ( !location ) { // 有些标签页无法获取它的 location 对象，例如 chrome://，此时判断为 false

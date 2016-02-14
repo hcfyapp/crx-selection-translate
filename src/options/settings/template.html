@@ -138,26 +138,37 @@
 </h4>
 
 <div class="o-group">
-  <p>在以这些域名结尾的网站里，划词翻译将会被禁用，并且浏览器地址栏右边的图标会添加 <span class="text-danger">off</span> 字样。</p>
+  <p>当划词翻译被禁用时，浏览器地址栏右边的图标会添加 <span class="text-danger">off</span> 字样。</p>
 
-  <p class="text-info" v-show="!options.excludeDomains.length">当前划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</p>
-  <ul v-else>
-    <li v-for="domain in options.excludeDomains">{{domain}}
-      <button type="button" class="btn btn-default" @click="options.excludeDomains.splice($index,1)">删除</button>
-    </li>
-  </ul>
-  <form v-show="showAdd" @submit.prevent="addExclude">
-    <input type="text" placeholder="输入网站域名，如 baidu.com" required style="width:250px" v-el:domain-input v-model="tmpDomain">
-    <button type="submit">添加</button>
-    <button type="button" @click="cancelAdd">取消</button>
-  </form>
-  <p v-else>
-    <button type="button" @click="showAddForm">新增</button>
-  </p>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" v-model="options.disableSelection">
+      在所有网站中禁用划词翻译
+    </label>
+  </div>
+
+  <div v-show="!options.disableSelection">
+    <p>或者在以这些域名结尾的网站里禁用划词翻译：</p>
+
+    <p class="text-info" v-show="!options.excludeDomains.length">目前，划词翻译在所有网站中都会启用，点击下面的按钮添加一个不启用的网站。</p>
+    <ul v-else>
+      <li v-for="domain in options.excludeDomains">{{domain}}
+        <button type="button" class="btn btn-default" @click="options.excludeDomains.splice($index,1)">删除</button>
+      </li>
+    </ul>
+    <form v-show="showAdd" @submit.prevent="addExclude">
+      <input type="text" placeholder="输入网站域名，如 baidu.com" required style="width:250px" v-el:domain-input v-model="tmpDomain">
+      <button type="submit">添加</button>
+      <button type="button" @click="cancelAdd">取消</button>
+    </form>
+    <p v-else>
+      <button type="button" @click="showAddForm">新增</button>
+    </p>
+
+    <p>匹配规则：如果你添加一条“.com”，那么所有以它结尾的网站如“baidu.com”、“google.com” 都会被禁用划词翻译。</p>
+  </div>
 
   <p>注意：在一些 Chrome 扩展程序无权访问的标签页里，划词翻译也会被禁用，例如
     <span class="text-danger">chrome://*</span>、<span class="text-danger">chrome-extension://*</span>、<span class="text-danger">https://chrome.google.com/*</span>
     等，但你仍然可以通过翻译盒子获取翻译结果。</p>
-
-  <p>匹配规则：如果你添加一条“.com”，那么所有以它结尾的网站如“baidu.com”、“google.com” 都会被禁用划词翻译。</p>
 </div>
