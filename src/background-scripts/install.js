@@ -23,6 +23,11 @@ const {runtime} = chrome ,
     ignoresText : [] // todo 匹配这些正则表达式的文本不要翻译
   };
 
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  runtime.onInstalled.addListener( onInstalled );
+}
+
 /**
  * 添加新设置项及其默认值的方法
  * @param {...String} options
@@ -104,9 +109,4 @@ export async function onInstalled( details ) {
       // 这样就能保证无论用户从哪个版本升级到最新版，都不会错失新添加的设置项及其默认值
     }
   }
-}
-
-/* istanbul ignore if */
-if ( process.env.NODE_ENV !== 'testing' ) {
-  runtime.onInstalled.addListener( onInstalled );
 }

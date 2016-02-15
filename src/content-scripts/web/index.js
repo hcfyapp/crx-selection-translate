@@ -1,3 +1,5 @@
+const basePath = chrome.runtime.getURL( '/content-scripts/web/embed/' );
+
 /**
  * 向内容脚本所在的网页插入脚本。脚本会在宿主网页的上下文环境中执行。
  * @param {String} src
@@ -5,10 +7,7 @@
  */
 function insertScript( src , beforeAppend ) {
   const script = document.createElement( 'script' );
-  if ( src ) {
-    script.src = src;
-  }
-  script.async = true;
+  script.src = src;
   ('function' === typeof beforeAppend) && beforeAppend( script );
   document.head.appendChild( script );
 }
@@ -33,7 +32,7 @@ export function youdao() {
     return;
   }
 
-  insertScript( 'http://fanyi.youdao.com/web2/seed.js?' + Date.now() , ( script )=> {
+  insertScript( basePath + 'youdao.js' , ( script )=> {
     script.id = 'outfox_seed_js';
     script.charset = 'utf-8';
   } );
@@ -58,12 +57,7 @@ export function bing() {
     document.body.appendChild( msw );
   }
 
-  insertScript(
-    ((location.href.indexOf( 'https' ) === 0)
-      /* istanbul ignore next */ ? 'https://ssl.microsofttranslator.com'
-      /* istanbul ignore next */ : 'http://www.microsofttranslator.com')
-    + '/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=True&ui=true&settings=Auto&from='
-  );
+  insertScript( basePath + 'bing.js' );
 }
 
 /**
@@ -87,10 +81,6 @@ export function google() {
     document.body.appendChild( div );
   }
 
-  insertScript( null , ( script )=> {
-    script.textContent = require( 'raw!./raw/google-web-cb.js' );
-    script.async = false;
-  } );
-
-  insertScript( 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit' )
+  insertScript( basePath + 'google-web-cb.js' );
+  insertScript( basePath + 'google.js' )
 }

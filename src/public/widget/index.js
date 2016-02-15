@@ -90,6 +90,7 @@ export default Vue.extend( {
         .send( 'get translate result' , this.query , true )
         .then( resultObj => {
           const {phonetic} = resultObj;
+          /* istanbul ignore if */
           if ( phonetic ) {
             resultObj.phonetic = '/' + phonetic + '/';
           }
