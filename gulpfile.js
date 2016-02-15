@@ -4,7 +4,10 @@ const config = {
   files : {
     //html : [ './src/*/index.html' ] ,
     //json : [ './src/manifest.json' ] ,
-    copy : [ './src/manifest.json' ,'./src/*/index.html' , './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js' ]
+    copy : [
+      './src/manifest.json' , './src/*/index.html' , './src/logo.png' , './src/bundle/*.{js,css,woff}' ,
+      './src/content-scripts/web/embed/*.js' , '!./src/bundle/bs-lite.js'
+    ]
   }
 };
 
