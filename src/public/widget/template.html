@@ -10,20 +10,20 @@
         <textarea placeholder="输入要翻译的句子或单词" v-model="query.text" v-el:textarea @keyup.enter="ctrlEnter" @keyup="safeTranslate | debounce 600"></textarea>
       </st-div>
       <st-div>
-        <select v-model="query.from">
+        <select v-model="query.from" @change="safeTranslate">
           <option value="">自动判断</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
         <st-div class="__exchange__">
           <st-span class="st-icon-exchange" @click="exchangeLocale"></st-span>
         </st-div>
-        <select v-model="query.to">
+        <select v-model="query.to" @change="safeTranslate">
           <option value="">自动选择</option>
           <option v-for="locale in locales" track-by="localeId" :value="locale.localeId" v-text="locale['zh-CN']"></option>
         </select>
       </st-div>
       <st-div>
-        <select v-model="query.api">
+        <select v-model="query.api" @change="safeTranslate">
           <option value="YouDao">有道翻译</option>
           <option value="BaiDu">百度翻译</option>
           <option value="Bing">必应翻译</option>
