@@ -71,7 +71,7 @@ describe( '后台网页' , ()=> {
         console.log( e );
       }
       expect( ts.detect ).toHaveBeenCalledWith( {
-        api : 'Google' ,
+        api : 'BaiDu' ,
         text : 'x'
       } );
       expect( q.from ).toBe( 'y' );
