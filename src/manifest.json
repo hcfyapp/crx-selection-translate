@@ -18,8 +18,7 @@
     "clipboardWrite" ,
     "clipboardRead" ,
     "activeTab" ,
-    "identity" ,
-    "tts"
+    "identity"
   ] ,
   "background" : {
     "scripts" : [
