@@ -44,7 +44,7 @@ export async function onPlay( queryObj , resolve ) {
   if ( !queryObj.from ) {
     try {
       queryObj.from = await ts.detect( {
-        api : 'Google' ,
+        api : 'BaiDu' ,
         text : queryObj.text
       } );
     }
