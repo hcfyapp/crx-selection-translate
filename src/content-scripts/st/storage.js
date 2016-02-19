@@ -9,12 +9,6 @@ import watch from '../../public/storage-watcher';
 export default function ( st ) {
   let defApi = '';
 
-  function onBoxPosShow( isShow ) {
-    if ( !isShow ) {
-      this.query.api = defApi;
-    }
-  }
-
   function onAfterTranslate() {
     const {query} = this ,
       {text} = query;
@@ -42,7 +36,17 @@ export default function ( st ) {
       delete items.defaultApi;
     }
 
+    if ( items.hasOwnProperty( 'disableSelection' ) ) {
+      st.selection = !items.disableSelection;
+    }
+
     Object.assign( st , items );
+  }
+
+  function onBoxPosShow( isShow ) {
+    if ( !isShow ) {
+      this.query.api = defApi;
+    }
   }
 
   /* istanbul ignore next */
@@ -55,7 +59,7 @@ export default function ( st ) {
     st.$on( 'after translate' , onAfterTranslate );
 
     const storageKeys = [
-      'ignoreChinese' , 'ignoreNumLike' , 'showBtn' ,
+      'ignoreChinese' , 'ignoreNumLike' , 'showBtn' , 'disableSelection' ,
       'needCtrl' , 'defaultApi' , 'excludeDomains' , 'autoPlay'
     ];
 

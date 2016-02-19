@@ -74,5 +74,5 @@ module.exports = {
     } )
   ] ,
   watch : true ,
-  devtool : '#source-map'
+  devtool : '#inline-source-map'
 };

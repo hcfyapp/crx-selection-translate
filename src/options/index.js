@@ -10,7 +10,6 @@ ga( 'send' , 'pageview' );
 
 import settings from './settings/index';
 import about from './about/index';
-import voices from './voices/index';
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
@@ -21,10 +20,6 @@ if ( process.env.NODE_ENV !== 'testing' ) {
     '/options' : {
       name : 'options' ,
       component : settings
-    } ,
-    '/voices' : {
-      name : 'voices' ,
-      component : voices
     } ,
     '/about' : {
       name : 'about' ,

@@ -8,6 +8,7 @@ const {assign} = Object;
 
 const {runtime} = chrome ,
   defaultConfig = {
+    disableSelection : false , // since v6.0.6 - 全局开关
     disableInEditable : false , // since v6.0.1 - 是否在 document.body 可编辑的情况下禁用划词翻译
     defaultWeb : 'youdao' , // since v6.0.1 - Alt + Z 时默认使用的网页翻译
     showBtn : true , // since v6.0.0 - 原本叫 showTranslateButton。网页划词翻译是否显示翻译按钮
@@ -21,6 +22,11 @@ const {runtime} = chrome ,
     excludeDomains : [] , // 以这些域名结尾的网址下会禁用网页划词翻译
     ignoresText : [] // todo 匹配这些正则表达式的文本不要翻译
   };
+
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  runtime.onInstalled.addListener( onInstalled );
+}
 
 /**
  * 添加新设置项及其默认值的方法
@@ -88,6 +94,11 @@ export async function onInstalled( details ) {
             bing : 'Bing'
           }[ defaultApi ] || 'YouDao';
         chromeLocalStorage( 'set' , { defaultApi } );
+      case '6.0.2':
+      case '6.0.3':
+      case '6.0.4':
+      case '6.0.5':
+        addNewOptions( 'disableSelection' );
       // 这里故意没有写 break;
       // 这是因为如果日后的版本添加了新的设置项可以这样写：
       // case '6.0.0':
@@ -98,9 +109,4 @@ export async function onInstalled( details ) {
       // 这样就能保证无论用户从哪个版本升级到最新版，都不会错失新添加的设置项及其默认值
     }
   }
-}
-
-/* istanbul ignore if */
-if ( process.env.NODE_ENV !== 'testing' ) {
-  runtime.onInstalled.addListener( onInstalled );
 }

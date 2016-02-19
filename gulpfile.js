@@ -2,9 +2,12 @@ const config = {
   src : './src' ,
   dist : './dist' ,
   files : {
-    //html : [ './src/*/index.html' ] ,
-    //json : [ './src/manifest.json' ] ,
-    copy : [ './src/manifest.json' ,'./src/*/index.html' , './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js' ]
+    html : [ './src/*/index.html' ] ,
+    json : [ './src/manifest.json' ] ,
+    js : [ './src/content-scripts/web/embed/*.js' ] ,
+    copy : [
+      './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js'
+    ]
   }
 };
 
@@ -13,14 +16,16 @@ const webpack = require( 'webpack' ) ,
   gulp = require( 'gulp' ) ,
   htmlmin = require( 'gulp-htmlmin' ) ,
   jsonmin = require( 'gulp-jsonmin' ) ,
+  jsmin = require( 'gulp-uglify' ) ,
   zip = require( 'gulp-zip' );
 
 gulp.task( 'clean' , clean );
-//gulp.task( 'html' , [ 'clean' ] , html );
-//gulp.task( 'json' , [ 'clean' ] , json );
+gulp.task( 'html' , [ 'clean' ] , html );
+gulp.task( 'js' , [ 'clean' ] , js );
+gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
 gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ /*'html' , 'json' , */'copy' ] , zipPack );
+gulp.task( 'default' , [ 'html' , 'js' , 'json' , 'copy' ] , zipPack );
 
 /**
  * 删除上一次生成的文件夹
@@ -44,12 +49,12 @@ function webpackP( done ) {
     'process.env.NODE_ENV' : "'production'"
   } ) );
 
-  //webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
-  //  compress : {
-  //    warnings : false
-  //  }
-  //} ) );
-  //webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
+  webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
+    compress : {
+      warnings : false
+    }
+  } ) );
+  webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
 
   webpack( webpackConfig , err => {
     if ( err ) {
@@ -58,6 +63,17 @@ function webpackP( done ) {
       done();
     }
   } );
+}
+
+/**
+ * 精简网页翻译功能需要嵌入到标签页内的脚本。
+ * 因为这部分脚本不是 webpack 的一部分，所以得单独拿出来精简
+ * @returns {*}
+ */
+function js() {
+  return gulp.src( config.files.js , { base : config.src } )
+    .pipe( jsmin() )
+    .pipe( gulp.dest( config.dist ) );
 }
 
 /**

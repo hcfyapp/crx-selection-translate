@@ -11,19 +11,19 @@ const callContextMenus = chromeCall.scope( chrome.contextMenus );
 
 export let created = false;
 
+export async function onContextMenusClicked() {
+  send( {
+    tabId : await getCurrentTabId() ,
+    name : 'translate'
+  } );
+}
+
 export function onChromeLocalStorageChanged( items ) {
   if ( items.showMenu ) {
     createMenus();
   } else {
     removeAll();
   }
-}
-
-export async function onContextMenusClicked() {
-  send( {
-    tabId : await getCurrentTabId() ,
-    name : 'translate'
-  } );
 }
 
 /* istanbul ignore if */

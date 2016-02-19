@@ -8,6 +8,11 @@ import {send} from 'connect.io';
 import chromeCall from 'chrome-call';
 import {getCurrentTabId} from '../public/util';
 
+/* istanbul ignore if */
+if ( process.env.NODE_ENV !== 'testing' ) {
+  chrome.commands.onCommand.addListener( onCommand );
+}
+
 export async function onCommand( command ) {
 
   const tabId = await getCurrentTabId();
@@ -29,9 +34,4 @@ export async function onCommand( command ) {
       } );
       break;
   }
-}
-
-/* istanbul ignore if */
-if ( process.env.NODE_ENV !== 'testing' ) {
-  chrome.commands.onCommand.addListener( onCommand );
 }

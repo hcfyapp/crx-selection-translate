@@ -4,10 +4,6 @@ import {getTabLocation,isHostEnabled} from '../public/util';
 
 export let domains = [];
 
-export function onStorageChanged( changedItems ) {
-  domains = changedItems.excludeDomains;
-}
-
 export async function onTabsUpdated( tabId , changeInfo , tab ) {
   if ( tab.active ) {
     await updateBadge( tabId );
@@ -23,6 +19,10 @@ export async function onTabsActivated( { tabId } ) { await updateBadge( tabId );
 export async function updateBadge( tabId ) {
   const enable = await isHostEnabled( await getTabLocation( tabId ) , domains );
   chrome.browserAction.setBadgeText( { text : enable ? '' : 'off' } );
+}
+
+export function onStorageChanged( changedItems ) {
+  domains = changedItems.excludeDomains;
 }
 
 /* istanbul ignore if */

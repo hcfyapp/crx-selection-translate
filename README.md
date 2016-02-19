@@ -1,5 +1,3 @@
-**目前划词翻译被 Chrome 网上应用店删除了，详情见 [#101](https://github.com/lmk123/crx-selection-translate/issues/101)**
-
 # 划词翻译
 
 [![Build Status](https://img.shields.io/travis/lmk123/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/lmk123/crx-selection-translate)
@@ -17,7 +15,7 @@
 
  + 划词即显示翻译结果，简单、方便、迅速，并且支持多种语言的朗读。
  + 支持多种翻译引擎：[有道翻译](http://fanyi.youdao.com/)、[百度翻译](http://fanyi.baidu.com/)、[谷歌翻译](https://translate.google.com/)（含[谷歌中国翻译](http://translate.google.cn/)）、[必应词典](http://cn.bing.com/dict/)。
- + 集成[有道网页翻译](http://fanyi.youdao.com/web2/)，弥补国内 Chrome 网页翻译总是出错的不足。
+ + 集成[有道网页翻译](http://fanyi.youdao.com/web2/)、[必应网页翻译](http://www.bing.com/widget/translator)与[谷歌网页翻译](http://translate.google.com/manager/website/?hl=zh-CN)，弥补国内 Chrome 网页翻译总是出错的不足。
  + 麻雀虽小，五脏俱全。
 
 ## 相关链接

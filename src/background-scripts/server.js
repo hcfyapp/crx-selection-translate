@@ -31,6 +31,7 @@ export async function onGetTranslateResult( queryObj , resolve ) {
   }
 }
 
+const audio = new Audio();
 /**
  * 播放语音
  * @param {Query} queryObj
@@ -38,26 +39,40 @@ export async function onGetTranslateResult( queryObj , resolve ) {
  */
 export async function onPlay( queryObj , resolve ) {
   ga( 'send' , 'event' , '语音播放' );
-  let {from} = queryObj;
 
-  // todo 优化判断语种的逻辑。读取三次开销太大，等待时间太长了
-  if ( !from ) {
-    const tryApi = [ queryObj.api , 'Google' , 'GoogleCN' ] ,
-      {length} = tryApi;
-
-    for ( let cur = 0 ; cur < length ; cur += 1 ) {
-      queryObj.api = tryApi[ cur ];
-      try {
-        from = await ts.detect( queryObj );
-        break;
-      }
-      catch ( e ) {}
+  // 先尝试判断语种
+  if ( !queryObj.from ) {
+    try {
+      queryObj.from = await ts.detect( {
+        api : 'BaiDu' ,
+        text : queryObj.text
+      } );
     }
+    catch ( e ) {}
   }
 
-  resolve( chromeCall( 'tts.speak' , queryObj.text , {
-    lang : from
-  } ) );
+  let audioUrl;
+
+  // 然后尝试使用翻译的接口朗读
+  try {
+    audioUrl = await ts.audio( queryObj );
+  }
+  catch ( e ) {}
+
+  // 最后尝试使用谷歌朗读
+  if ( !audioUrl ) {
+    queryObj.api = 'Google';
+    try {
+      audioUrl = await ts.audio( queryObj );
+    }
+    catch ( e ) {}
+  }
+
+  if ( audioUrl ) {
+    audio.src = audioUrl;
+    audio.play();
+  }
+  resolve( audioUrl );
 }
 
 /**
