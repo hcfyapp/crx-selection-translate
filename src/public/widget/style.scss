@@ -163,7 +163,7 @@ $baseFontHoverColor: #9a6a16;
         }
 
         &:hover .__button__ {
-          outline: 1px solid $baseFontHoverColor;
+          outline: 1px solid #a5a69e;
         }
 
         .__btn-translate__ {
@@ -180,7 +180,7 @@ $baseFontHoverColor: #9a6a16;
           user-select: none;
 
           &:hover {
-            background-color: $baseFontHoverColor;
+            background-color: #a5a69e;
             color: #fff;
           }
         }
