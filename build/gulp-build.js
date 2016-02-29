@@ -23,14 +23,19 @@ gulp.task( 'js' , [ 'clean' ] , js );
 gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
 gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ 'html' , 'js' , 'json' , 'copy' ] , zipPack );
+gulp.task( 'default' , [ 'html' , 'js' , 'json' , 'copy' ] , ( done )=> {
+  del( config.dist + '/bundle/bs-lite.js' )
+    .then( ()=> {
+      zipPack().on( 'finish' , ()=> done() );
+    } );
+} );
 
 /**
  * 删除上一次生成的文件夹
  * @returns {Promise}
  */
 function clean() {
-  return del( [ config.dist ] );
+  return del( config.dist );
 }
 
 /**
