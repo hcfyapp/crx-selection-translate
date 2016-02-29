@@ -5,9 +5,9 @@
     "url": "git+https://github.com/lmk123/crx-selection-translate.git"
   },
   "scripts": {
-    "webpack": "webpack",
-    "gulp": "gulp",
-    "karma": "karma"
+    "dev": "webpack --config build/webpack.dev.config.js",
+    "build": "gulp --cwd . --gulpfile build/gulp-build.js",
+    "test": "karma start build/karma.config.js"
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.6",
