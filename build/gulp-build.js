@@ -22,8 +22,8 @@ gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'js' , [ 'clean' ] , js );
 gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
-gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ 'html' , 'js' , 'json' , 'copy' ] , ( done )=> {
+gulp.task( 'copy' , [ 'clean' ] , copy );
+gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'json' , 'copy' ] , ( done )=> {
   del( config.dist + '/bundle/bs-lite.js' )
     .then( ()=> {
       zipPack().on( 'finish' , ()=> done() );
@@ -43,7 +43,7 @@ function clean() {
  * @param {Function} done
  */
 function webpackP( done ) {
-  webpack( require( './webpack.build.config' ) , err => {
+  webpack( require( './webpack.build.config.js' ) , err => {
     if ( err ) {
       throw err;
     } else {
