@@ -1,7 +1,7 @@
 /**
  * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
  */
-import '../fontello/css/fontello.css';
+import '../fontello/css/selection-translator.css';
 import './style.scss';
 import Vue from 'vue';
 import widgetMixin from './vue-st';

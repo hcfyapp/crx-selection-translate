@@ -1,6 +1,6 @@
 @font-face {
-  font-family: 'fontello';
-  src: url('../font/fontello.woff') format('woff');
+  font-family: 'selection-translator';
+  src: url('../font/selection-translator.woff') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -9,14 +9,14 @@
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
-    font-family: 'fontello';
-    src: url('../font/fontello.svg#fontello') format('svg');
+    font-family: 'selection-translator';
+    src: url('../font/selection-translator.svg#selection-translator') format('svg');
   }
 }
 */
 
  [class^="st-icon-"]:before, [class*=" st-icon-"]:before {
-  font-family: "fontello";
+  font-family: "selection-translator";
   font-style: normal;
   font-weight: normal;
   speak: none;

@@ -77,7 +77,7 @@ export default {
         zIndex : btnPos.zIndex ,
         left : 0 ,
         top : 0 ,
-        transform : `translateX(${btnPos.translateX}px) translateY(${btnPos.translateY}px) translateZ(0px)`
+        transform : `translateX(${btnPos.translateX}px) translateY(${btnPos.translateY}px)`
       };
     }
   } ,
