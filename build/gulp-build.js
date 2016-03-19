@@ -5,9 +5,7 @@ const config = {
     html : [ './src/*/index.html' ] ,
     json : [ './src/manifest.json' ] ,
     js : [ './src/content-scripts/web/embed/*.js' ] ,
-    copy : [
-      './src/logo.png' , './src/bundle/*.{js,css,woff}' , '!./src/bundle/bs-lite.js'
-    ]
+    copy : [ './src/logo.png' ]
   }
 };
 
@@ -24,39 +22,28 @@ gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'js' , [ 'clean' ] , js );
 gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
-gulp.task( 'copy' , [ 'webpackP' ] , copy );
-gulp.task( 'default' , [ 'html' , 'js' , 'json' , 'copy' ] , zipPack );
+gulp.task( 'copy' , [ 'clean' ] , copy );
+gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'json' , 'copy' ] , ( done )=> {
+  del( config.dist + '/bundle/bs-lite.js' )
+    .then( ()=> {
+      zipPack().on( 'finish' , ()=> done() );
+    } );
+} );
 
 /**
  * 删除上一次生成的文件夹
  * @returns {Promise}
  */
 function clean() {
-  return del( [ config.dist , './src/bundle' ] );
+  return del( config.dist );
 }
 
 /**
- * 使用 webpack 来精简 js、css 及模板。这个函数只是以 node API 的形式执行了 npm run webpack -- -p
+ * 使用 webpack 来精简 js、css 及模板
  * @param {Function} done
  */
 function webpackP( done ) {
-  const webpackConfig = require( './webpack.config' );
-  webpackConfig.watch = false;
-  delete webpackConfig.devtool;
-
-  webpackConfig.plugins.pop();
-  webpackConfig.plugins.push( new webpack.DefinePlugin( {
-    'process.env.NODE_ENV' : "'production'"
-  } ) );
-
-  webpackConfig.plugins.push( new webpack.optimize.UglifyJsPlugin( {
-    compress : {
-      warnings : false
-    }
-  } ) );
-  webpackConfig.plugins.push( new webpack.optimize.OccurenceOrderPlugin( true ) );
-
-  webpack( webpackConfig , err => {
+  webpack( require( './webpack.build.config.js' ) , err => {
     if ( err ) {
       throw err;
     } else {

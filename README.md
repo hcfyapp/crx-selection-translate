@@ -30,7 +30,7 @@
 
  1. Fork 项目之后将代码克隆到本地
  2. 运行 `npm i` 安装项目依赖
- 3. 运行 `npm run webpack`，项目的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)下会生成一个名为 `bundle` 的文件夹
+ 3. 运行 `npm run dev`，项目的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)下会生成一个名为 `bundle` 的文件夹
  4. 在 Chrome 浏览器的扩展程序页面（chrome://extensions/）勾选开发者模式，点击“加载已解压的扩展程序”，将路径指向代码库的 [src 文件夹](https://github.com/lmk123/crx-selection-translate/tree/master/src)
 
 之后，你就可以更改代码并在浏览器中查看效果了。

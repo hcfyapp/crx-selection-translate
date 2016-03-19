@@ -11,7 +11,6 @@ module.exports = {
     'bs-lite' : './src/public/bootstrap-lite.scss'
   } ,
   output : {
-    path : './src/bundle' ,
     // 内容脚本引用了扩展里的字体文件，所以在 css 文件里需要带上下面的前缀
     // @see https://developer.chrome.com/extensions/manifest/web_accessible_resources
     // @see https://developer.chrome.com/extensions/i18n#overview-predefined
@@ -67,12 +66,7 @@ module.exports = {
     new CommonsChunkPlugin( 'commons2.js' , [ 'commons1.js' , 'options' ] ) ,
     new CommonsChunkPlugin( 'commons3.js' , [ 'bg' , 'commons2.js' ] ) ,
 
-    new ExtractTextPlugin( '[name].css' ) ,
-
-    new webpack.DefinePlugin( {
-      'process.env.NODE_ENV' : "'development'"
-    } )
-  ] ,
-  watch : true ,
-  devtool : '#inline-source-map'
+    new ExtractTextPlugin( '[name].css' )
+  ]
 };
+

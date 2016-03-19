@@ -6,10 +6,5 @@ node_js:
 before_install:
   - npm install -g npm
 
-before_script:
-  - npm install karma-cli -g
-
-script: karma start --single-run --browsers PhantomJS --reporters progress,coverage,coveralls
-
 notifications:
   email: false
