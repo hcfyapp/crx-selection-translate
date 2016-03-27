@@ -73,4 +73,14 @@ describe( '绑定设置的函数' , ()=> {
     fakeSt.__onStorageChanged( { defaultApi : 'hello' } );
     expect( fakeSt.query.api ).toBe( 'hello' );
   } );
+
+  it( '在全局开关发生变化时会重设' , ()=> {
+    fakeSt.selection = true;
+    fakeSt.__onStorageChanged( { disableSelection : true } );
+    expect( fakeSt.selection ).toBe( false );
+
+    fakeSt.selection = false;
+    fakeSt.__onStorageChanged( { disableSelection : false } );
+    expect( fakeSt.selection ).toBe( true );
+  } );
 } );

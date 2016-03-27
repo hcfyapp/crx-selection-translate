@@ -361,3 +361,27 @@ describe( 'translate 方法' , ()=> {
     expect( st.translate.bind( st ) ).toThrow();
   } );
 } );
+
+describe( '在 beforeCompile 事件时' , ()=> {
+  it( '会监视 inline 属性' , ()=> {
+    const unwatch = jasmine.createSpy( 'unwatch' ) ,
+      $watch = jasmine.createSpy( 'watch' ).and.returnValue( unwatch ) ,
+      $once = jasmine.createSpy( 'once' ) ,
+      fake = {
+        $watch ,
+        $once
+      };
+    vueST.beforeCompile.call( fake );
+    expect( $watch ).toHaveBeenCalled();
+
+    const onInlineChange = $watch.calls.argsFor( 0 )[ 1 ];
+    onInlineChange( false );
+    expect( unwatch ).not.toHaveBeenCalled();
+    onInlineChange( true );
+    expect( unwatch ).toHaveBeenCalled();
+    expect( $once ).toHaveBeenCalled();
+    expect( fake.showResult ).toBe( false );
+    $once.calls.argsFor( 0 )[ 1 ]();
+    expect( fake.showResult ).toBe( true );
+  } );
+} );
