@@ -2,9 +2,12 @@
  * @files 复制、粘贴的模块，不能再内容脚本中运行。
  */
 export const input = document.createElement( 'input' );
-input.style.position = 'absolute';
-input.style.top = '-99999px';
-document.body.appendChild( input );
+
+window.onload = function() {
+    input.style.position = 'absolute';
+    input.style.top = '-99999px';
+    document.body.appendChild( input );
+}
 
 /**
  * 将文本复制进剪切板
