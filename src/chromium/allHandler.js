@@ -1,0 +1,9 @@
+document.write("<script src="chrome.tabs.executeScriptInFrame.js"></script>
+<script src="chromium/feature-detect.js"></script>
+<script src="chromium/preserve-referer.js"></script>
+<script src="chromium/pdfHandler.js"></script>
+<script src="chromium/extension-router.js"></script>
+<script src="chromium/pdfHandler-v2.js"></script>
+<script src="chromium/pdfHandler-vcros.js"></script>
+<script src="chromium/pageAction/background.js"></script>
+<script src="chromium/suppress-update.js"></script>");

@@ -18,34 +18,75 @@
     "clipboardWrite" ,
     "clipboardRead" ,
     "activeTab" ,
-    "identity"
+    "identity",
+    /* for pdf.js */
+    "fileBrowserHandler",
+    "webRequest",
+    "webRequestBlocking",
+    "<all_urls>",
+    "tabs",
+    "webNavigation",
+    "streamsPrivate"
   ] ,
   "background" : {
-    "scripts" : [
-      "/bundle/commons3.js" ,
-      "/bundle/bg.js"
-    ]
+    "page": "/allHandler.html"
   } ,
-  "content_scripts" : [
-    {
-      "matches" : [
-        "http://*/*" ,
-        "https://*/*" ,
-        "file:///*"
-      ] ,
-      "css" : [
+    "content_scripts" : [
+      /* for pdf */ {
+        "matches": [
+          "http://*/*.pdf",
+          "https://*/*.pdf",
+          "ftp://*/*.pdf",
+          "file://*/*.pdf"
+        ],
+        "run_at": "document_start",
+        "all_frames": true,
+        "css": ["/chromium/contentstyle.css"],
+        "js": ["/chromium/contentscript.js"]
+    },{
+        "matches" : [
+        "http://*/*",
+        "https://*/*",
+        "file://*"
+        ] ,
+        "css" : [
         "/bundle/commons1.js.css"
-      ] ,
-      "js" : [
+        ] ,
+        "js" : [
         "/bundle/commons3.js" ,
         "/bundle/commons2.js" ,
         "/bundle/commons1.js" ,
         "/bundle/content.js"
-      ] ,
-      "all_frames" : true ,
-      "run_at" : "document_start"
-    }
-  ] ,
+        ] ,
+        "all_frames" : true ,
+        "run_at" : "document_start"
+    }] ,
+    /* for pdf */
+  "file_browser_handlers": [{
+    "id": "open-as-pdf",
+    "default_title": "Open with PDF Viewer",
+    "file_filters": [
+      "filesystem:*.pdf"
+    ]
+  }],
+  "storage": {
+    "managed_schema": "chromium/preferences_schema.json"
+  },
+  "incognito": "split",
+  "web_accessible_resources": [
+    "/bundle/*.woff" ,
+    "/content-scripts/web/embed/*",
+    "getFrameId",
+    "/chromium/content/web/viewer.html",
+    "http:/*",
+    "https:/*",
+    "ftp:/*",
+    "file:/*",
+    "chrome-extension:/*",
+    "filesystem:/*",
+    "drive:*"
+  ],
+
   "options_page" : "/options/index.html" ,
   "options_ui" : {
     "page" : "/options/index.html" ,
@@ -78,9 +119,5 @@
       "description" : "翻译整个网页"
     }
   } ,
-  "minimum_chrome_version" : "29" ,
-  "web_accessible_resources" : [
-    "/bundle/*.woff" ,
-    "/content-scripts/web/embed/*"
-  ]
+  "minimum_chrome_version" : "29"
 }
