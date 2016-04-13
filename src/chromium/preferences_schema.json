@@ -12,7 +12,7 @@
       "description": "Default zoom level of the viewer. Accepted values: 'auto', 'page-actual', 'page-width', 'page-height', 'page-fit', or a zoom level in percents.",
       "type": "string",
       "pattern": "|auto|page-actual|page-width|page-height|page-fit|[0-9]+\\.?[0-9]*(,[0-9]+\\.?[0-9]*){0,2}",
-      "default": ""
+      "default": "auto"
     },
     "sidebarViewOnLoad": {
       "title": "Sidebar state on load",
@@ -24,7 +24,7 @@
         2,
         3
       ],
-      "default": 0
+      "default": 2
     },
     "enableHandToolOnLoad": {
       "title": "Activate Hand tool by default",
@@ -36,7 +36,7 @@
       "title": "Enable WebGL",
       "description": "Whether to enable WebGL.",
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "pdfBugEnabled": {
       "title": "Enable debugging tools",
