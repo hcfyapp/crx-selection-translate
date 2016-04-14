@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-$baseBackgroundColor: #32cd74;
+$baseBackgroundColor: #08f;
 $baseFontColor: #fff;
-$baseFontHoverColor: #9a6a16;
+$baseFontHoverColor: #ff3;
 
 %transition-all {
   transition: all .2s;
@@ -36,7 +36,7 @@ $baseFontHoverColor: #9a6a16;
   &, & * {
     font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 1.4;
     text-align: left;
   }
@@ -74,6 +74,10 @@ $baseFontHoverColor: #9a6a16;
     width: 250px;
     background-color: $baseBackgroundColor;
     border: 1px solid $baseBackgroundColor;
+    transform: translate3d(0,-2px,0);
+    transition: box-shadow .2s linear;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+	-webkit-tap-highlight-color: none;
 
     .__action-list__, select, textarea {
       border: 0;
@@ -104,8 +108,8 @@ $baseFontHoverColor: #9a6a16;
 		color: #fff;
 		width: 200px;
 		padding-left: 5px;
-		line-height: 2rem;
-		font-size: 1.4rem;
+		line-height: 24px;
+		font-size: 14px;
 	  }
 	  
       .__open__.st-icon-down-open::before {
@@ -122,7 +126,7 @@ $baseFontHoverColor: #9a6a16;
       }
 
       @include apply-to-icon {
-		line-height: 2rem;
+		line-height: 20px;
       }
     }
 
@@ -242,6 +246,7 @@ $baseFontHoverColor: #9a6a16;
 
     // footer
     > st-footer {
+	  height: 20px;
       padding-right: 5px;
 
       &, & a {
@@ -257,8 +262,8 @@ $baseFontHoverColor: #9a6a16;
 	  
 	  .via, .via a {
 		float: right;
-		line-height: 2rem;
-		font-size: 1.4rem;
+		line-height: 20px;
+		font-size: 12px;
 	  }
 
       .st-icon-pin::before, .st-icon-down-open::before {
@@ -269,7 +274,7 @@ $baseFontHoverColor: #9a6a16;
       }
 
       @include apply-to-icon {
-		line-height: 2rem;
+		line-height: 20px;
       }
     }
   }
