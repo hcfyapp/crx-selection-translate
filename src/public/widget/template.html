@@ -1,8 +1,8 @@
 <st-div id="__selection-translator__">
   <st-div class="__st-box__" v-el:st-box :style="boxStyle">
     <st-header v-if="!inline" v-el:st-drag>
-      <st-span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></st-span>
       <st-span class="st-icon-down-open" :class="{'__open__':showForm}" :title="showForm?'收起':'展开'" @click="showForm=!showForm"></st-span>
+	  <st-span class="st-text">{{query.text}}</st-span>
     </st-header>
     <st-div class="__query-form__" v-show="showForm">
       <st-div>
@@ -75,6 +75,7 @@
       <st-span class="via" v-show="!loading && result.api.name">
 	     via&nbsp;<a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a>
 	  </st-span>
+      <st-span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></st-span>
       <st-span class="st-icon-cog" title="设置" @click="openOptions"></st-span>
     </st-footer>
   </st-div>

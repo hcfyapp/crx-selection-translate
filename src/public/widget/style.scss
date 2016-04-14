@@ -94,13 +94,19 @@ $baseFontHoverColor: #9a6a16;
       @extend %clear-fix;
       cursor: move;
       padding: 0 0;
-
-      .st-icon-pin::before, .st-icon-down-open::before {
-        transform: translateY(0) rotate(0deg);
-      }
-      .__pinned__.st-icon-pin::before {
-        transform: rotate(-45deg);
-      }
+	  
+	  .st-text {
+	    display: block;
+		word-break: keep-all;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: #fff;
+		width: 200px;
+		padding-left: 5px;
+		line-height: 2rem;
+		font-size: 1.4rem;
+	  }
 	  
       .__open__.st-icon-down-open::before {
         transform: translateY(2px) rotate(-180deg);
@@ -254,6 +260,13 @@ $baseFontHoverColor: #9a6a16;
 		line-height: 2rem;
 		font-size: 1.4rem;
 	  }
+
+      .st-icon-pin::before, .st-icon-down-open::before {
+        transform: translateY(0) rotate(0deg);
+      }
+      .__pinned__.st-icon-pin::before {
+        transform: rotate(-45deg);
+      }
 
       @include apply-to-icon {
 		line-height: 2rem;
