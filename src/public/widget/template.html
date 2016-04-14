@@ -3,7 +3,6 @@
     <st-header v-if="!inline" v-el:st-drag>
       <st-span class="st-icon-pin" title="固定" @click="pinned=!pinned" :class="{'__pinned__':pinned}"></st-span>
       <st-span class="st-icon-down-open" :class="{'__open__':showForm}" :title="showForm?'收起':'展开'" @click="showForm=!showForm"></st-span>
-      <st-span class="st-icon-cog" title="设置" @click="openOptions"></st-span>
     </st-header>
     <st-div class="__query-form__" v-show="showForm">
       <st-div>
@@ -73,8 +72,10 @@
       </st-div>
     </st-div>
     <st-footer>
-      <st-span v-show="!loading && result.api.name">via
-        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></st-span>
+      <st-span class="via" v-show="!loading && result.api.name">
+	     via&nbsp;<a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a>
+	  </st-span>
+      <st-span class="st-icon-cog" title="设置" @click="openOptions"></st-span>
     </st-footer>
   </st-div>
   <st-div class="__st-btn__" v-el:st-btn :style="btnStyle">译</st-div>

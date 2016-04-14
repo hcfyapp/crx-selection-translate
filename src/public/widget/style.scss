@@ -93,7 +93,7 @@ $baseFontHoverColor: #9a6a16;
     > st-header {
       @extend %clear-fix;
       cursor: move;
-      padding: 8px 0;
+      padding: 0 0;
 
       .st-icon-pin::before, .st-icon-down-open::before {
         transform: translateY(0) rotate(0deg);
@@ -101,23 +101,22 @@ $baseFontHoverColor: #9a6a16;
       .__pinned__.st-icon-pin::before {
         transform: rotate(-45deg);
       }
-
+	  
       .__open__.st-icon-down-open::before {
         transform: translateY(2px) rotate(-180deg);
       }
-
-      .st-icon-cog, .st-icon-down-open {
+	  
+      .st-icon-down-open {
         float: right;
       }
-
+	  
       .st-icon-down-open {
-        font-size: 20px !important;
         position: relative;
         bottom: 1px;
       }
 
       @include apply-to-icon {
-        font-size: 22px;
+		line-height: 2rem;
       }
     }
 
@@ -237,8 +236,7 @@ $baseFontHoverColor: #9a6a16;
 
     // footer
     > st-footer {
-      padding: 5px 10px;
-      text-align: right;
+      padding-right: 5px;
 
       &, & a {
         color: $baseFontColor;
@@ -249,6 +247,16 @@ $baseFontHoverColor: #9a6a16;
       }
       a:hover {
         color: $baseFontHoverColor;
+      }
+	  
+	  .via, .via a {
+		float: right;
+		line-height: 2rem;
+		font-size: 1.4rem;
+	  }
+
+      @include apply-to-icon {
+		line-height: 2rem;
       }
     }
   }
