@@ -9,7 +9,7 @@ export function noop() {}
  */
 export async function getCurrentTabId() {
   try {
-    return (await chromeCall( 'tabs.query' , { active : true } ))[ 0 ].id;
+    return (await chromeCall( 'tabs.query' , { active : true , lastFocusedWindow:true } ))[ 0 ].id;
   }
   catch ( e ) {
     return Promise.reject( e );
