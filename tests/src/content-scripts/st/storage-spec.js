@@ -79,7 +79,7 @@ describe( '绑定设置的函数' , ()=> {
     fakeSt.__onStorageChanged( { disableSelection : true } );
     expect( fakeSt.selection ).toBe( false );
 
-    fakeSt.selection = false;
+    fakeSt.selection = true;
     fakeSt.__onStorageChanged( { disableSelection : false } );
     expect( fakeSt.selection ).toBe( true );
   } );
