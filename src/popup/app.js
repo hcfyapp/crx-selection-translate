@@ -6,7 +6,8 @@ import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
 import ST from './st';
 
 export const appOptions = {
-  el : document.createElement( 'div' ) ,
+  el : document.body ,
+  replace: false,
   template ,
   data : {
     _host : null ,
@@ -50,9 +51,7 @@ export const appOptions = {
   components : {
     'st-box' : ST
   } ,
-  async compiled() {
-    this.$appendTo( 'body' );
-
+  async ready() {
     const locationObj = await getTabLocation();
 
     if ( locationObj ) {
@@ -65,5 +64,7 @@ export const appOptions = {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  new Vue( appOptions );
+    window.onload = ()=> {
+      setTimeout( ()=> new Vue( appOptions ) , 0 );
+    };
 }
