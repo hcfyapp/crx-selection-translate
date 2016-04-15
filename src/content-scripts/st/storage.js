@@ -20,13 +20,7 @@ export default function ( st ) {
   }
 
   async function onStorageChanged( items ) {
-    // 这里不能用 const，否则 Babel 又报错了
-    let {defaultApi,excludeDomains} = items;
-
-    if ( excludeDomains ) {
-      st.selection = await isHostEnabled( location , excludeDomains );
-      delete items.excludeDomains;
-    }
+    const {defaultApi,excludeDomains} = items;
 
     if ( defaultApi ) {
       defApi = defaultApi;
@@ -36,8 +30,11 @@ export default function ( st ) {
       delete items.defaultApi;
     }
 
-    if ( items.hasOwnProperty( 'disableSelection' ) ) {
-      st.selection = !items.disableSelection;
+    if ( items.disableSelection ) {
+      st.selection = false;
+    } else if ( excludeDomains ) {
+      st.selection = await isHostEnabled( location , excludeDomains );
+      delete items.excludeDomains;
     }
 
     Object.assign( st , items );
