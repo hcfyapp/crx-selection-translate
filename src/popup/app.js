@@ -64,7 +64,7 @@ export const appOptions = {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-    window.onload = ()=> {
-      setTimeout( ()=> new Vue( appOptions ) , 0 );
-    };
+  window.onload = ()=> {
+    setTimeout( ()=> new Vue( appOptions ) , 0 );
+  };
 }
