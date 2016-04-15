@@ -23,6 +23,7 @@ export async function updateBadge( tabId ) {
 
 export function onStorageChanged( changedItems ) {
   domains = changedItems.excludeDomains;
+  updateBadge();
 }
 
 /* istanbul ignore if */
