@@ -2,7 +2,7 @@
   "name" : "划词翻译" ,
   "description" : "支持谷歌、百度、有道、必应四大翻译和朗读引擎，可以方便的查看、复制和朗读不同引擎的翻译结果。" ,
   "manifest_version" : 2 ,
-  "version" : "6.0.11" ,
+  "version" : "6.0.12" ,
   "homepage_url" : "https://github.com/lmk123/crx-selection-translate" ,
   "content_security_policy" : "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'" ,
   "icons" : {
