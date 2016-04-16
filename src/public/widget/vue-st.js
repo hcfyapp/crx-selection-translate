@@ -92,7 +92,6 @@ export default {
     }
   } ,
   methods : {
-
     getResult() {
       throw new Error( '请指定 getResult 方法！' );
     } ,
@@ -178,9 +177,51 @@ export default {
       }
     } );
 
-    /* istanbul ignore next */
+	var prevC, prevO, prevWord;
+	var pX;
+	var pY;
+	var isAlpha = function(str){return /[a-zA-Z']+/.test(str)};
+    this.$on( 'mousemove' , e => {
+		setTimeout( ()=> {
+			var r = document.caretRangeFromPoint(e.clientX, e.clientY);
+			if (!r) return true;
+
+			pX = e.pageX;
+			pY = e.pageY;
+			var so = r.startOffset, eo = r.endOffset;
+			if (prevC === r.startContainer && prevO === so) return true
+
+			prevC = r.startContainer;
+			prevO = so;
+			var tr = r.cloneRange(), text='';
+			if (r.startContainer.data) while (so >= 1){
+				tr.setStart(r.startContainer, --so);
+				text = tr.toString();
+				if (!isAlpha(text.charAt(0))){
+					tr.setStart(r.startContainer, so + 1);
+					break;
+				}
+			}
+			if (r.endContainer.data) while (eo < r.endContainer.data.length){
+				tr.setEnd(r.endContainer, ++eo);
+				text = tr.toString();
+				if (!isAlpha(text.charAt(text.length - 1))){
+					tr.setEnd(r.endContainer, eo - 1);
+					break;
+				}
+			}
+			
+			var word = tr.toString();
+			if (prevWord == word  ) return true;
+			prevWord = word;
+			if (word.length >= 1){ 
+			  this.$emit( 'select' , e , word );
+			}
+		} , 0 );
+    } );
+
+    events.push( listen( document , 'mousemove' , e => this.$emit( 'mousemove' , e ), true ) );
     events.push( listen( document , MOUSE_DOWN , e => this.$emit( 'mousedown' , e ) , true ) );
-    /* istanbul ignore next */
     events.push( listen( document , MOUSE_UP , e => this.$emit( 'mouseup' , e ) ) );
   } ,
   beforeDestroy() {
