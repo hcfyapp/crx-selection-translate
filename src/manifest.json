@@ -12,7 +12,7 @@
   } ,
   "author" : "Milk Lee <milk.lee@qq.com>" ,
   "permissions" : [
-    "*://*/*" ,
+    "<all_urls>" ,
     "contextMenus" ,
     "storage" ,
     "clipboardWrite" ,

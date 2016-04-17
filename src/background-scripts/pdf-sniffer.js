@@ -1,12 +1,7 @@
-// todo 代码里注释掉了使用 webNavigation 捕捉 file:// 协议的代码,
-// 因为新增一个 webNavigation 会导致更新后被 Chrome 停用的情况,
-// 需要使用 optional permissions
-// @see https://developer.chrome.com/extensions/permissions
-
 import watcher from '../public/storage-watcher';
 import chromeCall from 'chrome-call';
 
-const { webRequest, webNavigation } = chrome;
+const { webRequest } = chrome;
 
 const viewerPath = chrome.runtime.getURL( '/pdf-viewer/web/viewer.html' );
 
@@ -19,7 +14,7 @@ function getViewerURL( pdfUrl ) {
  * @param details
  * @returns {chrome.webRequest.BlockingResponse}
  */
-export function onBeforeRequestForFTP( details ) {
+export function onBeforeRequestForFTPAndFile( details ) {
   return {
     redirectUrl: getViewerURL( details.url )
   };
@@ -56,18 +51,6 @@ export function onHeadersReceivedForHTTP( details ) {
   }
 }
 
-/**
- * webRequest 不会捕捉 file:// 协议,只能使用 webNavigation 了
- * @param details
- */
-export function onBeforeNavigateForFile( details ) {
-  if ( details.frameId === 0 ) {
-    chrome.tabs.update( details.tabId, {
-      url: getViewerURL( details.url )
-    } );
-  }
-}
-
 export let enabled = false;
 
 // 开启 pdf 翻译
@@ -77,11 +60,13 @@ function enable() {
   }
   enabled = true;
   webRequest.onBeforeRequest.addListener(
-    onBeforeRequestForFTP,
+    onBeforeRequestForFTPAndFile,
     {
       urls: [
         'ftp://*/*.pdf',
-        'ftp://*/*.PDF'
+        'ftp://*/*.PDF',
+        'file://*/*.pdf',
+        'file://*/*.PDF'
       ],
       types: [ 'main_frame', 'sub_frame' ]
     },
@@ -96,18 +81,6 @@ function enable() {
     },
     [ 'blocking', 'responseHeaders' ]
   );
-
-  // webNavigation.onBeforeNavigate.addListener( onBeforeNavigateForFile, {
-  //   url: [
-  //     {
-  //       urlPrefix: 'file://',
-  //       pathSuffix: '.pdf'
-  //     }, {
-  //       urlPrefix: 'file://',
-  //       pathSuffix: '.PDF'
-  //     }
-  //   ]
-  // } );
 }
 
 // 关闭 pdf 翻译
@@ -116,9 +89,8 @@ function disable() {
     return;
   }
   enabled = false;
-  webRequest.onBeforeRequest.removeListener( onBeforeRequestForFTP );
+  webRequest.onBeforeRequest.removeListener( onBeforeRequestForFTPAndFile );
   webRequest.onHeadersReceived.removeListener( onHeadersReceivedForHTTP );
-  // webNavigation.onBeforeNavigate.removeListener( onBeforeNavigateForFile );
 }
 
 function onStorageChanged( items ) {
