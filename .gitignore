@@ -1,6 +1,6 @@
 /node_modules/
-/typings/
 /src/bundle/
+/src/pdf-viewer/
 /dist/
 /coverage/
 /build.zip
