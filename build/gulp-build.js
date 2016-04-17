@@ -2,10 +2,11 @@ const config = {
   src : './src' ,
   dist : './dist' ,
   files : {
-    html : [ './src/*/index.html' ] ,
+    html : [ './src/*/index.html' , './src/pdf-viewer/web/viewer.html' ] ,
     json : [ './src/manifest.json' ] ,
-    js : [ './src/content-scripts/web/embed/*.js' ] ,
-    copy : [ './src/logo.png' ]
+    css : [ './src/pdf-viewer/**/*.css' ] ,
+    js : [ './src/content-scripts/web/embed/*.js' , './src/pdf-viewer/**/*.js' ] ,
+    copy : [ './src/logo.png' , './src/pdf-viewer/**/*.{bcmap,png,svg,cur,properties}' ]
   }
 };
 
@@ -14,16 +15,18 @@ const webpack = require( 'webpack' ) ,
   gulp = require( 'gulp' ) ,
   htmlmin = require( 'gulp-htmlmin' ) ,
   jsonmin = require( 'gulp-jsonmin' ) ,
+  cssmin = require('gulp-clean-css') ,
   jsmin = require( 'gulp-uglify' ) ,
   zip = require( 'gulp-zip' );
 
 gulp.task( 'clean' , clean );
 gulp.task( 'html' , [ 'clean' ] , html );
 gulp.task( 'js' , [ 'clean' ] , js );
+gulp.task( 'css' , [ 'clean' ] , css );
 gulp.task( 'json' , [ 'clean' ] , json );
 gulp.task( 'webpackP' , [ 'clean' ] , webpackP );
 gulp.task( 'copy' , [ 'clean' ] , copy );
-gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'json' , 'copy' ] , ( done )=> {
+gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'css' , 'json' , 'copy' ] , ( done )=> {
   del( config.dist + '/bundle/bs-lite.js' )
     .then( ()=> {
       zipPack().on( 'finish' , ()=> done() );
@@ -63,6 +66,12 @@ function js() {
     .pipe( gulp.dest( config.dist ) );
 }
 
+function css() {
+  return gulp.src( config.files.css , { base : config.src } )
+    .pipe(cssmin())
+    .pipe(gulp.dest('dist'));
+}
+
 /**
  * 精简 html。其实只精简了 index.html ，模板都由 webpack 负责精简。
  */
@@ -72,7 +81,8 @@ function html() {
       removeComments : true ,
       removeAttributeQuotes : true ,
       collapseWhitespace : true ,
-      processScripts : [ 'text/html' ]
+      processScripts : [ 'text/html' ],
+      minifyCSS : true
     } ) )
     .pipe( gulp.dest( config.dist ) );
 }
