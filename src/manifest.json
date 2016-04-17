@@ -12,13 +12,15 @@
   } ,
   "author" : "Milk Lee <milk.lee@qq.com>" ,
   "permissions" : [
-    "*://*/*" ,
+    "<all_urls>" ,
     "contextMenus" ,
     "storage" ,
     "clipboardWrite" ,
     "clipboardRead" ,
     "activeTab" ,
-    "identity"
+    "identity",
+    "webRequest",
+    "webRequestBlocking"
   ] ,
   "background" : {
     "scripts" : [
