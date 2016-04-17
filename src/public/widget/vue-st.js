@@ -220,7 +220,9 @@ export default {
 		} , 0 );
     } );
 
-    events.push( listen( document , 'mousemove' , e => this.$emit( 'mousemove' , e ), true ) );
+	if (this.needCtrl){
+    events.push( listen( document , 'mousemove' , e => this.$emit( 'mousemove' , e ) ) );
+	}
     events.push( listen( document , MOUSE_DOWN , e => this.$emit( 'mousedown' , e ) , true ) );
     events.push( listen( document , MOUSE_UP , e => this.$emit( 'mouseup' , e ) ) );
   } ,

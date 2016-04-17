@@ -16,8 +16,8 @@ const MOUSE_UP = 'ontouch' in window
  * mouseup 事件监听函数，用于检测用户第一次产生拖蓝的动作
  * @param {MouseEvent} e
  */
-export async function firstMouseMove( e ) {
-    removeFirstMouseMove();
+export async function firstMouseUp( e ) {
+    removeFirstMouseUp();
 
     if ( 'true' === document.body.contentEditable ) {
       client.send( 'ga' , [ 'send' , 'event' , 'body 可编辑的情况' ] );
@@ -37,9 +37,9 @@ export async function firstMouseMove( e ) {
  * 取消对上面的 mouseUp 事件的监听。
  * 用户的其他操作启动了 st 之后就不需要继续监听 mouseup 事件了
  */
-export function removeFirstMouseMove() {
-  removeFirstMouseMove = noop;
-  document.removeEventListener( MOUSE_UP , firstMouseMove );
+export function removeFirstMouseUp() {
+	removeFirstMouseUp = noop;
+	document.removeEventListener( MOUSE_UP , firstMouseUp );
 }
 
 export function onTranslate() {
@@ -60,7 +60,6 @@ function onConnect( client ) {
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
   server.on( 'connect' , onConnect );
-  // document.addEventListener( MOUSE_UP , firstMouseUp );
-  document.addEventListener( "mousemove" , firstMouseMove );
+  document.addEventListener( MOUSE_UP , firstMouseUp );
 }
 
