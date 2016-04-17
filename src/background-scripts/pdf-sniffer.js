@@ -33,6 +33,7 @@ function disable() {
   if ( !enabled ) {
     return;
   }
+  enabled = false;
   chrome.webRequest.onBeforeRequest.removeListener(
     redirect2viewer,
     {
@@ -47,7 +48,6 @@ function disable() {
 }
 
 function onStorageChanged( items ) {
-  console.log( items );
   if ( items.pdf ) {
     enable();
   } else {

@@ -8,6 +8,7 @@ const {assign} = Object;
 
 const {runtime} = chrome ,
   defaultConfig = {
+    pdf : true , // since v6.1.0 - 是否启用 pdf 翻译
     disableSelection : false , // since v6.0.6 - 全局开关
     disableInEditable : false , // since v6.0.1 - 是否在 document.body 可编辑的情况下禁用划词翻译
     defaultWeb : 'youdao' , // since v6.0.1 - Alt + Z 时默认使用的网页翻译
@@ -99,6 +100,14 @@ export async function onInstalled( details ) {
       case '6.0.4':
       case '6.0.5':
         addNewOptions( 'disableSelection' );
+      case '6.0.6':
+      case '6.0.7':
+      case '6.0.8':
+      case '6.0.9':
+      case '6.0.10':
+      case '6.0.11':
+      case '6.0.12':
+        addNewOptions( 'pdf' );
       // 这里故意没有写 break;
       // 这是因为如果日后的版本添加了新的设置项可以这样写：
       // case '6.0.0':
