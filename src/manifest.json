@@ -18,7 +18,9 @@
     "clipboardWrite" ,
     "clipboardRead" ,
     "activeTab" ,
-    "identity"
+    "identity",
+    "webRequest",
+    "webRequestBlocking"
   ] ,
   "background" : {
     "scripts" : [
