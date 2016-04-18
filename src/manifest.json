@@ -84,6 +84,7 @@
   "minimum_chrome_version" : "29" ,
   "web_accessible_resources" : [
     "/bundle/*.woff" ,
-    "/content-scripts/web/embed/*"
+    "/content-scripts/web/embed/*",
+    "/pdf-viewer/*"
   ]
 }
