@@ -5,6 +5,7 @@
   "version" : "6.1.0" ,
   "homepage_url" : "https://github.com/lmk123/crx-selection-translate" ,
   "content_security_policy" : "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'" ,
+  "incognito": "split",
   "icons" : {
     "128" : "/logo.png" ,
     "16" : "/logo.png" ,
