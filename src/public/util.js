@@ -9,6 +9,11 @@ export function noop() {}
  */
 export async function getCurrentTabId() {
   try {
+    // todo 优化一下这里的报错.
+    // 右键单击扩展按钮,然后选择"审查弹出内容"时,这里会报一个错:
+    // can't read 'id' of undefined
+    // 我猜是因为 chrome 开发者工具先弹出来了,所以变成了 lastFocusedWindow,而扩展又没权限介入.
+    // 可是奇怪的是这个错误为什么没有被 try/catch 捕获到?
     return (await chromeCall( 'tabs.query' , { active : true , lastFocusedWindow : true } ))[ 0 ].id;
   }
   catch ( e ) {
