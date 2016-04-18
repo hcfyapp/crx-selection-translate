@@ -1,6 +1,9 @@
 /**
  * @files 复制、粘贴的模块，不能再内容脚本中运行。
  */
+
+import { noop } from './util';
+
 export let input;
 
 /**
@@ -8,7 +11,7 @@ export let input;
  * 这是因为当我使用 new Vue({el:'body'}) 时,body 下的内容都会被清空
  */
 function initInput() {
-  initInput = ()=> {};
+  initInput = noop;
   input = document.createElement( 'input' );
   input.style.position = 'absolute';
   input.style.top = '-99999px';
