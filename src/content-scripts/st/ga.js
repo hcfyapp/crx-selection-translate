@@ -2,7 +2,10 @@ import client from '../client';
 
 /* istanbul ignore next */
 function ga( ...args ) {
-  client.send( 'ga' , args );
+  try {
+    client.send( 'ga' , args );
+  }
+  catch ( e ) {}
 }
 
 export default function ( st ) {
