@@ -37,6 +37,9 @@ describe( '设置页' , ()=> {
     } );
 
     it( 'addExclude 会添加规则' , ()=> {
+      app.options = {
+        excludeDomains : []
+      };
       app.tmpDomain = 'w';
       app.addExclude();
       expect( app.options.excludeDomains ).toEqual( [ 'w' ] );

@@ -1,5 +1,9 @@
 import {listeners,onStorageChanged,default as main} from '../../../src/public/storage-watcher';
 
+// 虽然 watcher 会先查询一次 storage 并触发一次回调,
+// 但是在测试环境中 chrome.storage.local.get 不会执行回调函数
+// 所以下面的测试中, spy 最多只会被执行一次
+
 describe( '数据监控器' , ()=> {
   it( '只会报告变化数据的 newValue' , ()=> {
     const spy = jasmine.createSpy( 's' );
@@ -8,8 +12,8 @@ describe( '数据监控器' , ()=> {
       test : {
         newValue : 'x'
       }
-    } , 'y' );
-    expect( spy ).toHaveBeenCalledWith( { test : 'x' } , 'y' );
+    } , 'sync' );
+    expect( spy ).toHaveBeenCalledWith( { test : 'x' } , 'sync' );
     listeners.pop();
   } );
 
@@ -17,7 +21,7 @@ describe( '数据监控器' , ()=> {
     let spy , removeListener;
     beforeEach( ()=> {
       spy = jasmine.createSpy( 's' );
-      removeListener = main( 'x' , 'y' , spy );
+      removeListener = main( 'x' , spy );
     } );
 
     afterEach( ()=> {
@@ -29,7 +33,7 @@ describe( '数据监控器' , ()=> {
         z : {
           newValue : 'x'
         }
-      } , 'y' );
+      } , 'local' );
       expect( spy ).not.toHaveBeenCalled();
     } );
 
@@ -38,7 +42,7 @@ describe( '数据监控器' , ()=> {
         x : {
           newValue : 'x'
         }
-      } , 'z' );
+      } , 'sync' );
       expect( spy ).not.toHaveBeenCalled();
     } );
 
@@ -47,11 +51,11 @@ describe( '数据监控器' , ()=> {
         y : {
           newValue : 'x'
         }
-      } , 'y' );
+      } , 'local' );
       expect( spy ).not.toHaveBeenCalled();
     } );
 
-    it( '指定作用域的指定字段发生变化才会触发回调' , ()=> {
+    it( '监听的字段发生变化才会触发回调' , ()=> {
       onStorageChanged( {
         x : {
           newValue : 'x'
@@ -59,26 +63,26 @@ describe( '数据监控器' , ()=> {
         y : {
           newValue : 't'
         }
-      } , 'y' );
-      expect( spy ).toHaveBeenCalledWith( { x : 'x' } , 'y' );
+      } , 'local' );
+      expect( spy ).toHaveBeenCalledWith( { x : 'x' } , 'local' );
     } );
   } );
 
-  it( '的作用域可以忽略，此时会接收来自任何作用域的变化' , ()=> {
+  it( '的作用域可以忽略，此时会接收来自 local 作用域的变化' , ()=> {
     const spy = jasmine.createSpy( 's' );
     main( 'x' , spy );
     onStorageChanged( {
       x : {
         newValue : 'x'
       }
-    } , 'y' );
-    expect( spy ).toHaveBeenCalledWith( { x : 'x' } , 'y' );
+    } , 'local' );
+    expect( spy ).toHaveBeenCalledWith( { x : 'x' } , 'local' );
   } );
 
   describe( '的键和作用域可以为数组' , ()=> {
     it( '' , ()=> {
       const spy = jasmine.createSpy( 's' );
-      main( [ 'x' , 'y' ] , [ 'z' ] , spy );
+      main( [ 'x' , 'y' ] , [ 'sync' ] , spy );
       onStorageChanged( {
         x : {
           newValue : 'x'
@@ -89,13 +93,13 @@ describe( '数据监控器' , ()=> {
         a : {
           newValue : 'x'
         }
-      } , 'z' );
-      expect( spy ).toHaveBeenCalledWith( { x : 'x' , y : 'x' } , 'z' );
+      } , 'sync' );
+      expect( spy ).toHaveBeenCalledWith( { x : 'x' , y : 'x' } , 'sync' );
     } );
 
     it( '' , ()=> {
       const spy = jasmine.createSpy( 's' );
-      main( [ 'x' , 'y' ] , [ 'z' ] , spy );
+      main( [ 'x' , 'y' ] , [ 'sync' ] , spy );
       onStorageChanged( {
         x : {
           newValue : 'x'
@@ -106,7 +110,7 @@ describe( '数据监控器' , ()=> {
         a : {
           newValue : 'x'
         }
-      } , 'y' );
+      } , 'local' );
       expect( spy ).not.toHaveBeenCalled();
     } );
   } );
