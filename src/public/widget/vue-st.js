@@ -1,3 +1,7 @@
+/**
+ * @files 提取出来基本的 ST 组件配置
+ */
+
 const IS_TOUCH = 'ontouch' in window ,
   MOUSE_DOWN = IS_TOUCH
     /* istanbul ignore next */ ? 'touchstart'

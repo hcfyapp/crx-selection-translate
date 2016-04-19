@@ -2,7 +2,7 @@
  * @files 在这个文件里定义 chrome.storage 里所有的设置项及其默认值,
  * 然后使用此模块提供的默认函数替代 chrome.storage.local.get 方法,
  * 这样可以确保即使 chrome.storage 里是空的,
- * 每次获取设置时都能得到默认值
+ * 每次获取设置时也能得到默认值
  */
 
 import chromeCall from 'chrome-call';
@@ -31,6 +31,7 @@ const defaultOptions = {
  */
 export function getDefaultOptions( _keys ) {
   if ( _keys === null ) {
+    // todo 这里应该用深复制
     return Object.assign( {}, defaultOptions );
   }
   const keys = Array.isArray( _keys ) ? _keys : [ _keys ];
@@ -45,7 +46,7 @@ export function getDefaultOptions( _keys ) {
 /**
  * 使用默认设置读取 storage.local
  * 可以使用这个方法替代 chrome.storage.local.get
- * @param {null|String|String[]} keys
+ * @param {null|String|String[]} keys - 注意,如果是 null,那么会查询所有的默认项,不等于查询 chrome.storage 里的所有项!
  * @param {String} area - 从哪个存储区域读取设置
  * @returns {Promise}
  */

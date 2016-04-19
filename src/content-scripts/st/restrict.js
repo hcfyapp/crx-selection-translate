@@ -1,7 +1,7 @@
 /**
- * 保证翻译窗口总是在浏览器视口内
- * @this st
+ * @files 保证翻译窗口总是在浏览器视口内
  */
+
 export default function ( st ) {
   /**
    * @prop {Number} width - 元素的宽度

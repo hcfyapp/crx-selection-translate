@@ -1,10 +1,14 @@
+/**
+ * @files 工具函数
+ */
+
 import {send} from 'connect.io';
 import chromeCall from 'chrome-call';
 
 export function noop() {}
 
 /**
- * 返回当前选中的标签页的 tab id
+ * 返回当前窗口中选中的标签页的 tab id
  * @returns {Promise.<Number>}
  */
 export async function getCurrentTabId() {
@@ -41,7 +45,7 @@ export async function getTabLocation( tabId ) {
 }
 
 /**
- * 判断某一个 location 对象是否应该启用
+ * 判断某一个 location 对象是否应该启用划词翻译
  * @param {Location|undefined} [locationObj] - 默认为当前选中标签页的 location 对象
  * @param {String[]} [disabledDomainList] - 默认为 chrome.storage.local 里的 excludeDomains 设置项
  * @returns {Boolean} - 如果应该启用，则返回 true，否则为 false；但如果没有权限获取当前标签页的 location 对象，则返回 null。

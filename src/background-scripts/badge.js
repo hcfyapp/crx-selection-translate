@@ -1,3 +1,7 @@
+/**
+ * @files 当当前标签页在黑名单内,或者划词翻译没有权限访问此标签页(例如 chrome://* )时,在扩展按钮上添加 `off` 字样
+ */
+
 import watcher from '../public/storage-watcher';
 import {getTabLocation,isHostEnabled} from '../public/util';
 
@@ -31,6 +35,4 @@ if ( process.env.NODE_ENV !== 'testing' ) {
   const {tabs} = chrome;
   tabs.onUpdated.addListener( onTabsUpdated );
   tabs.onActivated.addListener( onTabsActivated );
-  // chromeCall( 'storage.local.get' , 'excludeDomains' )
-  //   .then( onStorageChanged );
 }

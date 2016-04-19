@@ -1,7 +1,7 @@
 /**
- * 让翻译窗口可拖动
- * @param st
+ * @files 让翻译窗口可拖动
  */
+
 import interact from 'interact.js';
 import restrictBox from './restrict';
 

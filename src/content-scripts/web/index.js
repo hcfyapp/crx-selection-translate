@@ -1,3 +1,7 @@
+/**
+ * @files 网页翻译集合
+ */
+
 const basePath = chrome.runtime.getURL( '/content-scripts/web/embed/' );
 
 /**

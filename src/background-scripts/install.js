@@ -1,5 +1,5 @@
 /**
- * 扩展从旧版升级至新版或安装时要写入默认设置
+ * @files 扩展从旧版升级至新版时要转换一下设置
  */
 import chromeCall from 'chrome-call';
 
@@ -35,6 +35,6 @@ export async function onInstalled( details ) {
     }[ items.defaultApi ] || 'YouDao';
 
     await chromeLocalStorage( 'clear' );
-    chromeLocalStorage( 'set', items );
+    chromeLocalStorage( 'set' , items );
   }
 }

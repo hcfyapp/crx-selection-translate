@@ -1,7 +1,5 @@
 /**
- * @files 先从 storage 里读取一次数据并触发回调函数,然后会持续监听 chrome.storage 的变化并调用回调函数.
- * 读取数据时会自动带上默认值.
- * 回调函数仅会接收到新值.
+ * @files 简化 storage 的监听逻辑
  */
 
 import getOptions from './default-options';
@@ -30,7 +28,8 @@ chrome.storage.onChanged.addListener( onStorageChanged );
 const {isArray} = Array;
 
 /**
- * 监听 chrome storage 的变化
+ * 先从 storage 里读取一次数据并触发回调函数,然后会持续监听 chrome.storage 的变化并调用回调函数.
+ * 读取数据时会自动带上默认值;回调函数仅会接收到新值.
  * @param {String|String[]} keys
  * @param {String|String[]} [areas] - 要监听的存储区域.默认为 local
  * @param {Function} listener

@@ -1,3 +1,7 @@
+/**
+ * @files 弹出页的 Vue App
+ */
+
 import Vue from 'vue';
 import template from './tpl.html';
 import chromeCall from 'chrome-call';
@@ -65,6 +69,7 @@ export const appOptions = {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
+  // 加快弹出页的打开速度
   window.onload = ()=> {
     setTimeout( ()=> new Vue( appOptions ) , 0 );
   };

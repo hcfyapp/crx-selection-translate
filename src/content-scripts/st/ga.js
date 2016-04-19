@@ -1,3 +1,7 @@
+/**
+ * @files 发送翻译结果展示事件到谷歌分析
+ */
+
 import client from '../client';
 
 /* istanbul ignore next */

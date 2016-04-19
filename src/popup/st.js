@@ -1,3 +1,7 @@
+/**
+ * @files 弹出页里的 ST 组件
+ */
+
 import client from './client';
 import Widget from '../public/widget/index';
 import getOptions from '../public/default-options';

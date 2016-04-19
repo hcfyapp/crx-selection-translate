@@ -1,3 +1,7 @@
+/**
+ * @files 探测到 pdf 文件就跳转到 viewer
+ */
+
 import watcher from '../public/storage-watcher';
 
 const { webRequest } = chrome;

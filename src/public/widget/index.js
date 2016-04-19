@@ -1,6 +1,7 @@
 /**
- * 内容页和 popup 页都用同样的模板与配置，所以单独抽离出来
+ * @files 基础 ST 组件,内容脚本和弹出页都会用到
  */
+
 import '../fontello/css/selection-translator.css';
 import './style.scss';
 import Vue from 'vue';

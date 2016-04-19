@@ -1,7 +1,7 @@
 /**
- * 将翻译窗口与扩展的 storage “绑定”起来
- * @param st
+ * @files 将翻译窗口与扩展的 storage “绑定”起来
  */
+
 import {isHostEnabled} from '../../public/util';
 import watch from '../../public/storage-watcher';
 
