@@ -1,3 +1,8 @@
+/**
+ * @files 划词翻译中,并不是所有资源都在 Webpack 的体系中,
+ * 所以需要用 gulp 将 Webpack 之外的资源处理一下
+ */
+
 const config = {
   src : './src' ,
   dist : './dist' ,

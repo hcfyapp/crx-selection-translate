@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * 因为 pdfjs-dist.zip 内有近 400 个文件,而我不想将数量如此多的文件上传在 git 里,所以写了这个脚本自动从服务器上下载到当前项目并处理其中的文件.
- * 详情见 https://github.com/lmk123/crx-selection-translate/issues/69
+ * 因为 pdfjs-dist.zip 内有近 400 个文件,
+ * 而我不想将数量如此多的文件上传在 git 里,
+ * 所以写了这个脚本将 pdfjs-dist.zip 从 GitHub 上下载到当前项目并自动对其中的文件做一些处理.
+ * 详情见 https://github.com/lmk123/crx-selection-translate/pull/159
  */
 
 const fs = require( 'fs' );
