@@ -3,7 +3,6 @@
  * @param st
  */
 import {isHostEnabled} from '../../public/util';
-import chromeCall from 'chrome-call';
 import watch from '../../public/storage-watcher';
 
 export default function ( st ) {
@@ -55,14 +54,9 @@ export default function ( st ) {
     st.$watch( 'boxPos.show' , onBoxPosShow );
     st.$on( 'after translate' , onAfterTranslate );
 
-    const storageKeys = [
+    watch( [
       'ignoreChinese' , 'ignoreNumLike' , 'showBtn' , 'disableSelection' ,
       'needCtrl' , 'defaultApi' , 'excludeDomains' , 'autoPlay'
-    ];
-
-    chromeCall( 'storage.local.get' , storageKeys ).then( onStorageChanged );
-
-    // 在设置变更时保持同步
-    watch( storageKeys , 'local' , onStorageChanged );
+    ] , onStorageChanged );
   }
 }

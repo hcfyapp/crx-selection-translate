@@ -1,5 +1,4 @@
 import watcher from '../public/storage-watcher';
-import chromeCall from 'chrome-call';
 
 const { webRequest } = chrome;
 
@@ -103,7 +102,5 @@ function onStorageChanged( items ) {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  watcher( 'pdf', 'local', onStorageChanged );
-  chromeCall( 'storage.local.get', { pdf: true } )
-    .then( onStorageChanged );
+  watcher( 'pdf', onStorageChanged );
 }

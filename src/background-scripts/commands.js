@@ -5,7 +5,7 @@
  */
 
 import {send} from 'connect.io';
-import chromeCall from 'chrome-call';
+import getOptions from '../public/default-options';
 import {getCurrentTabId} from '../public/util';
 
 /* istanbul ignore if */
@@ -26,11 +26,11 @@ export async function onCommand( command ) {
       break;
 
     case 'web':
-      const {defaultWeb} = await chromeCall( 'storage.local.get' , 'defaultWeb' );
+      const {defaultWeb} = await getOptions( 'defaultWeb' );
       send( {
         tabId ,
         name : 'web translate' ,
-        data : defaultWeb || 'youdao'
+        data : defaultWeb
       } );
       break;
   }

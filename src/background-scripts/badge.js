@@ -1,4 +1,3 @@
-import chromeCall from 'chrome-call';
 import watcher from '../public/storage-watcher';
 import {getTabLocation,isHostEnabled} from '../public/util';
 
@@ -28,10 +27,10 @@ export function onStorageChanged( changedItems ) {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  watcher( 'excludeDomains' , 'local' , onStorageChanged );
+  watcher( 'excludeDomains' , onStorageChanged );
   const {tabs} = chrome;
   tabs.onUpdated.addListener( onTabsUpdated );
   tabs.onActivated.addListener( onTabsActivated );
-  chromeCall( 'storage.local.get' , 'excludeDomains' )
-    .then( onStorageChanged );
+  // chromeCall( 'storage.local.get' , 'excludeDomains' )
+  //   .then( onStorageChanged );
 }

@@ -28,8 +28,7 @@ export function onChromeLocalStorageChanged( items ) {
 
 /* istanbul ignore if */
 if ( process.env.NODE_ENV !== 'testing' ) {
-  chromeCall( 'storage.local.get' , 'showMenu' ).then( onChromeLocalStorageChanged );
-  watcher( 'showMenu' , 'local' , onChromeLocalStorageChanged );
+  watcher( 'showMenu' , onChromeLocalStorageChanged );
   chrome.contextMenus.onClicked.addListener( onContextMenusClicked );
 }
 

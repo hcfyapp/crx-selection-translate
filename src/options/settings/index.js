@@ -1,12 +1,11 @@
 import chromeCall from 'chrome-call';
+import getOptions from '../../public/default-options';
 import template from './template.html';
 
 export default {
   template ,
-  data : ()=>({
-    options : {
-      excludeDomains : [] // 防止应用启动时模版报错
-    } ,
+  data : ()=> ({
+    options : null ,
     showAdd : false ,
     tmpDomain : ''
   }) ,
@@ -44,7 +43,7 @@ export default {
   } ,
   route : {
     async data() {
-      return { options : await chromeCall( 'storage.local.get' , null ) };
+      return { options : await getOptions( null ) };
     }
   }
 };

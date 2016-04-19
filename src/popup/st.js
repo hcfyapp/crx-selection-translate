@@ -1,6 +1,6 @@
 import client from './client';
 import Widget from '../public/widget/index';
-import chromeCall from 'chrome-call';
+import getOptions from '../public/default-options';
 import {read} from '../public/clipboard';
 
 export default Widget.extend( {
@@ -8,7 +8,7 @@ export default Widget.extend( {
   async compiled() {
     this.inline = true;
     this.showForm = true;
-    const {defaultApi , autoClipboard} = await chromeCall( 'storage.local.get' , [ 'defaultApi' , 'autoClipboard' ] );
+    const {defaultApi , autoClipboard} = await getOptions( [ 'defaultApi' , 'autoClipboard' ] );
 
     this.query.api = defaultApi;
     if ( autoClipboard ) {

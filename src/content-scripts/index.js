@@ -1,10 +1,9 @@
 import 'babel-polyfill';
 
-import chromeCall from 'chrome-call';
-
 import st from './st';
 import server from './server';
 import {noop} from '../public/util';
+import getOptions from '../public/default-options';
 import client from './client';
 
 const MOUSE_UP = 'ontouch' in window
@@ -22,7 +21,7 @@ export async function firstMouseUp( e ) {
 
     if ( 'true' === document.body.contentEditable ) {
       client.send( 'ga' , [ 'send' , 'event' , 'body 可编辑的情况' ] );
-      const {disableInEditable} = await chromeCall( 'storage.local.get' , 'disableInEditable' );
+      const {disableInEditable} = await getOptions( 'disableInEditable' );
       if ( disableInEditable ) {
         st.$destroy();
         client.send( 'ga' , [ 'send' , 'event' , 'body 可编辑的情况' , '在 body 可编辑的情况下停用了' ] );

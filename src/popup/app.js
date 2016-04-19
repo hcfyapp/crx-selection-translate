@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import template from './tpl.html';
 import chromeCall from 'chrome-call';
+import getOptions from '../public/default-options';
 import {send} from 'connect.io';
 import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
 import ST from './st';
@@ -23,7 +24,7 @@ export const appOptions = {
     async switchEnable() {
       const {_host} = this.$data ,
         enabled = this.enabled = !this.enabled ,
-        {excludeDomains} = await chromeCall( 'storage.local.get' , 'excludeDomains' );
+        {excludeDomains} = await getOptions( 'excludeDomains' );
 
       if ( enabled ) {
         excludeDomains.splice( excludeDomains.indexOf( _host ) , 1 );
