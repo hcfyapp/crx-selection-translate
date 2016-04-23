@@ -5,10 +5,7 @@ import T from 'translation.js';
 const timeout = 3000 ,
   ts = new T();
 
-ts.create( 'BaiDu' , {
-  apiKey : 'Hs18iW3px3gQ6Yfy6Za0QGg4' ,
-  timeout
-} );
+ts.create( 'BaiDu' , { timeout } );
 
 ts.create( 'YouDao' , {
   apiKey : '1361128838' ,
