@@ -7,7 +7,12 @@ export default {
   data : ()=> ({
     options : null ,
     showAdd : false ,
-    tmpDomain : ''
+    tmpDomain : '',
+    showYDApi : false,
+    addYouDaoAPI : {
+      apiKey : '',
+      keyFrom : ''
+    }
   }) ,
   methods : {
 
@@ -33,6 +38,32 @@ export default {
      */
     cancelAdd() {
       this.showAdd = false;
+    },
+
+    /**
+     * 显示添加有道翻译 API 的表单
+     */
+    showYDForm() {
+      this.showYDApi = true;
+    },
+
+    /**
+     * 隐藏有道翻译 API 的表单
+     */
+    hideYDForm() {
+      this.showYDApi = false;
+      this.addYouDaoAPI = {
+        apiKey : '',
+        keyFrom : ''
+      };
+    },
+
+    /**
+     * 添加有道 API
+     */
+    addYDApi() {
+      this.options.youDaoApi.push( this.addYouDaoAPI );
+      this.hideYDForm();
     }
   } ,
   watch : {

@@ -109,11 +109,44 @@
     </label>
   </p>
 
-  <p class="text-danger" v-show="options.defaultApi === 'YouDao'">由于有道翻译使用量过大，偶尔会被有道翻译服务器给封禁，导致出现“没有返回有效的翻译结果”的情况，所以请尽量使用其他翻译引擎。</p>
-
   <div class="help-block">
     <a target="_blank" href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题#谷歌翻译国外与谷歌翻译国内有什么区别我该如何选择">不知道该选择“谷歌翻译(国外)”还是“谷歌翻译(国内)”？</a>另外，默认的翻译引擎可能并不适合你的喜好，你可以对比不同引擎的翻译结果，选择出最适合你的那一个。比如，有道翻译可能更适合想要详细了解英文单词释义的朋友。
   </div>
+</div>
+
+<h5>有道翻译 API Key</h5>
+
+<div class="o-group">
+  <p class="text-danger">由于有道翻译使用量过大，划词翻译自带的翻译 API Key <strong>经常</strong>会被有道翻译服务器给封禁，导致出现“没有返回有效的翻译结果”的情况，所以请自行<a target="_blank" href="https://github.com/lmk123/crx-selection-translate/wiki/%E7%94%B3%E8%AF%B7%E6%9C%89%E9%81%93%E7%BF%BB%E8%AF%91-API">申请 API Key</a>。</p>
+  <p class="bg-warning">需要重启浏览器使设置生效。</p>
+  <table class="table table-striped table-bordered table-condensed" v-if="options.youDaoApi.length">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>API key</th>
+        <th>keyfrom</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="key in options.youDaoApi">
+        <td v-text="$index + 1"></td>
+        <td v-text="key.apiKey"></td>
+        <td v-text="key.keyFrom"></td>
+        <td>
+          <button type="button" @click="options.youDaoApi.splice($index,1)">删除</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <form v-show="showYDApi || !options.youDaoApi.length" @submit.prevent="addYDApi">
+    <label>API key: <input type="text" required v-model="addYouDaoAPI.apiKey"></label>
+    <label>keyfrom: <input type="text" required v-model="addYouDaoAPI.keyFrom"></label>
+    <button type="submit">添加</button>
+    <button type="button" v-show="options.youDaoApi.length" @click="hideYDForm">取消</button>
+  </form>
+  <button type="button" v-else @click="showYDForm">添加有道 API</button>
 </div>
 
 <h4>网页翻译引擎

@@ -8,6 +8,7 @@
 import chromeCall from 'chrome-call';
 
 const defaultOptions = {
+  youDaoApi: [], // 保存用户自行申请的 API key 与 keyfrom
   pdf: true, // since v6.1.0 - 是否启用 pdf 翻译
   disableSelection: false, // since v6.0.6 - 全局开关
   disableInEditable: false, // since v6.0.1 - 是否在 document.body 可编辑的情况下禁用划词翻译
