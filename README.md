@@ -5,9 +5,14 @@
 [![dependencies Status](https://img.shields.io/david/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate)
 [![devDependencies Status](https://img.shields.io/david/dev/lmk123/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/lmk123/crx-selection-translate#info=devDependencies)
 
-[![available in the chrome web store](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-
 让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
+
+## 安装
+
+ - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
+ - [下载 .crx 安装包](https://github.com/lmk123/crx-selection-translate/releases/latest)手动安装
+
+**注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
 
 **注意：**安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！
 
@@ -17,13 +22,6 @@
  - 支持在 PDF 文档内使用。
  - 支持多种翻译引擎：[有道翻译](http://fanyi.youdao.com/)、[百度翻译](http://fanyi.baidu.com/)、[谷歌翻译](https://translate.google.com/)（含[谷歌中国翻译](http://translate.google.cn/)）、[必应词典](http://cn.bing.com/dict/)。
  - 集成[有道网页翻译](http://fanyi.youdao.com/web2/)、[必应网页翻译](http://www.bing.com/widget/translator)与[谷歌网页翻译](http://translate.google.com/manager/website/?hl=zh-CN)，弥补国内 Chrome 网页翻译总是出错的不足。
-
-## 安装
-
- - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
- - [下载 .crx 安装包](https://github.com/lmk123/crx-selection-translate/releases/latest)手动安装
-
-**注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
 
 ## [捐助划词翻译](https://github.com/lmk123/crx-selection-translate/wiki/%E6%8D%90%E5%8A%A9%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
 
