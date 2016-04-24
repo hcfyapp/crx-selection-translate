@@ -11,7 +11,7 @@ const config = {
     json : [ './src/manifest.json' ] ,
     css : [ './src/pdf-viewer/**/*.css' ] ,
     js : [ './src/content-scripts/web/embed/*.js' , './src/pdf-viewer/**/*.js' ] ,
-    copy : [ './src/logo.png' , './src/pdf-viewer/**/*.{bcmap,png,svg,cur,properties}' ]
+    copy : [ './src/logo.png' , './src/pdf-viewer/**/*.{bcmap,png,svg,gif,cur,properties}' ]
   }
 };
 
