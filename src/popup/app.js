@@ -11,8 +11,7 @@ import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
 import ST from './st';
 
 export const appOptions = {
-  el : document.body ,
-  replace: false,
+  el : 'app' ,
   template ,
   data : {
     _host : null ,

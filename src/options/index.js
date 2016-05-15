@@ -31,5 +31,5 @@ if ( process.env.NODE_ENV !== 'testing' ) {
     '*' : '/options'
   } );
 
-  router.start( {} , 'body' );
+  router.start( {} , '#app' );
 }
