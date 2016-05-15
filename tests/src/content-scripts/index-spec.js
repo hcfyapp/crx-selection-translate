@@ -29,6 +29,7 @@ describe( '内容脚本的 vue 对象' , ()=> {
 
   describe( '在插入到 document.body 之前，若检测到 "true" === document.body.contentEditable' , ()=> {
     beforeEach( ()=> {
+      spyOn( getSelection() , 'toString' ).and.returnValue( 'test' );
       spyOn( st , '$appendTo' );
       spyOn( st , '$emit' );
       spyOn( st , '$destroy' );
