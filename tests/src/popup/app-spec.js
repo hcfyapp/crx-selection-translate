@@ -10,6 +10,10 @@ describe( '弹出页' , ()=> {
     spyOn( chrome.storage.local , 'get' ).and.callFake( ( x , cb )=> cb( { excludeDomains : [] } ) );
     spyOn( chrome.storage.local , 'set' ).and.callFake( ( x , cb )=> cb() );
     spyOn( Client.prototype , 'send' ).and.returnValue( Promise.resolve( { host : 'x' } ) );
+
+    const div = document.createElement( 'div' );
+    document.body.appendChild( div );
+    appOptions.el = div;
     app = new Vue( appOptions );
   } );
 
