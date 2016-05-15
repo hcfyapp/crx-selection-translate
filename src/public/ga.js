@@ -19,7 +19,7 @@ if ( process.env.NODE_ENV === 'production' ) {
   window.ga = ga;
 
   const script = document.createElement( 'script' );
-  script.async = 1;
+  script.async = true;
   script.src = 'https://www.google-analytics.com/analytics.js';
   document.body.appendChild( script );
 } else {
