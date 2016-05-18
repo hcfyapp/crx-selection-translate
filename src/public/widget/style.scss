@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-$baseBackgroundColor: #32cd74;
+$baseBackgroundColor: #08f;
 $baseFontColor: #fff;
-$baseFontHoverColor: #9a6a16;
+$baseFontHoverColor: #ff3;
 
 %transition-all {
   transition: all .2s;
@@ -74,6 +74,9 @@ $baseFontHoverColor: #9a6a16;
     width: 250px;
     background-color: $baseBackgroundColor;
     border: 1px solid $baseBackgroundColor;
+    transform: translate3d(0,-2px,0);
+    transition: box-shadow .2s linear;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
 
     .__action-list__, select, textarea {
       border: 0;
@@ -93,31 +96,33 @@ $baseFontHoverColor: #9a6a16;
     > st-header {
       @extend %clear-fix;
       cursor: move;
-      padding: 8px 0;
-
-      .st-icon-pin::before, .st-icon-down-open::before {
-        transform: translateY(0) rotate(0deg);
-      }
-      .__pinned__.st-icon-pin::before {
-        transform: rotate(-45deg);
-      }
-
+      padding: 0 0;
+	  
+	  .st-text {
+	    display: block;
+		word-break: keep-all;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		color: #fff;
+		width: 200px;
+		padding-left: 5px;
+		line-height: 22px;
+		font-size: 14px;
+	  }
+	  
       .__open__.st-icon-down-open::before {
         transform: translateY(2px) rotate(-180deg);
       }
-
-      .st-icon-cog, .st-icon-down-open {
-        float: right;
-      }
-
+	  
       .st-icon-down-open {
-        font-size: 20px !important;
+        float: right;
         position: relative;
         bottom: 1px;
       }
 
       @include apply-to-icon {
-        font-size: 22px;
+		line-height: 20px;
       }
     }
 
@@ -237,8 +242,8 @@ $baseFontHoverColor: #9a6a16;
 
     // footer
     > st-footer {
-      padding: 5px 10px;
-      text-align: right;
+	  height: 20px;
+      padding-right: 5px;
 
       &, & a {
         color: $baseFontColor;
@@ -249,6 +254,23 @@ $baseFontHoverColor: #9a6a16;
       }
       a:hover {
         color: $baseFontHoverColor;
+      }
+	  
+	  .via, .via a {
+		float: right;
+		line-height: 20px;
+		font-size: 12px;
+	  }
+
+      .st-icon-pin::before, .st-icon-down-open::before {
+        transform: translateY(0) rotate(0deg);
+      }
+      .__pinned__.st-icon-pin::before {
+        transform: rotate(-45deg);
+      }
+
+      @include apply-to-icon {
+		line-height: 20px;
       }
     }
   }
