@@ -8,25 +8,19 @@
  */
 
 const fs = require( 'fs' );
-const Download = require( 'download' );
+const download = require( 'download' );
 
 main();
 
 function main() {
   console.log( '开始下载 pdfjs-dist.zip 至 ./src/pdf-viewer/ 目录……' );
-  new Download( { mode: '755', extract: true } )
-    .get( 'https://github.com/mozilla/pdf.js/releases/download/v1.4.20/pdfjs-1.4.20-dist.zip' )
-    .dest( './src/pdf-viewer' )
-    .run( function ( err ) {
-      if ( err ) {
-        throw err;
-      }
-      console.log( '下载完成.' );
-      Promise.all( [
-        injectCode(),
-        removeLines()
-      ] ).then( ()=> console.log( '文件处理完成.' ) );
-    } );
+  download(
+    'https://github.com/mozilla/pdf.js/releases/download/v1.4.20/pdfjs-1.4.20-dist.zip',
+    './src/pdf-viewer',
+    { extract: true }
+  ).then( ()=> Promise.all( [ injectCode(), removeLines() ] ) )
+   .then( ()=> console.log( '文件处理完成.' ) );
+
 }
 
 /**
