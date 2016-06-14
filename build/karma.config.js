@@ -41,7 +41,7 @@ module.exports = function ( config ) {
     options.reporters.push( 'coveralls' );
     options.singleRun = true;
   } else {
-    options.browsers = options.browsers.concat( [ 'Firefox' , 'Chrome' , 'IE' ] );
+    options.browsers = options.browsers.concat( [ 'Firefox' , 'Chrome' , 'IE' , 'Safari' ] );
   }
 
   config.set( options );

@@ -23,11 +23,7 @@ module.exports = {
       {
         test : /\.js$/ ,
         exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome\-env)\1)/ ] ,
-        loader : 'babel-loader' ,
-        query : {
-          presets : [ 'es2015' , 'stage-3' ] ,
-          plugins : [ 'transform-runtime' ]
-        }
+        loader : 'babel-loader'
       } ,
       {
         test : /\.woff$/ ,

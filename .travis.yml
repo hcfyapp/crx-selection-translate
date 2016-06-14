@@ -4,7 +4,7 @@ node_js:
   - "4"
 
 before_install:
-  # 删除 node-sass 与 phantomjs 的镜像地址
+  # 删除镜像地址
   - rm -f .npmrc
   - npm install -g npm
 
