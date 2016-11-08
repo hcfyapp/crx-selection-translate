@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/Selection-Translator/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/Selection-Translator/crx-selection-translate)
 [![Coverage Status](https://img.shields.io/coveralls/Selection-Translator/crx-selection-translate/master.svg?style=flat-square)](https://coveralls.io/github/Selection-Translator/crx-selection-translate?branch=master)
 [![dependencies Status](https://img.shields.io/david/Selection-Translator/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/Selection-Translator/crx-selection-translate)
-[![devDependencies Status](https://img.shields.io/david/dev/Selection-Translator/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/Selection-Translator/crx-selection-translate#info=devDependencies)
+[![devDependencies Status](https://img.shields.io/david/dev/Selection-Translator/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/Selection-Translator/crx-selection-translate?type=dev)
 
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
