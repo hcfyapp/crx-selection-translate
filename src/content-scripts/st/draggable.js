@@ -30,11 +30,13 @@ export default function ( st ) {
     // 由于 interact 的问题导致会在控制台不断的报错，
     // 但官方迟迟没有解决，
     // 所以这里黑一波。
-    // 内容脚本里的 window 对象跟普通网页的 window 对象不同，
-    // 所以不会影响到普通网页
     // https://github.com/Selection-Translator/crx-selection-translate/issues/228
     window.addEventListener('error', (err)=> {
-      err.preventDefault()
+      // 尽可能的区分错误是否来自内容脚本，
+      // 但可能仍然会误杀一部分错误
+      if ( !err.colno && !err.lineno && !err.filename && err.message === 'Script error.' ) {
+        err.preventDefault()
+      }
     })
 
     interact( st.$els.stDrag )
