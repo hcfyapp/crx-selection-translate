@@ -1,6 +1,5 @@
 import * as main from '../../../src/content-scripts/server';
 import st from '../../../src/content-scripts/st';
-import * as web from '../../../src/content-scripts/web';
 
 describe( '内容脚本' , ()=> {
 
@@ -36,25 +35,6 @@ describe( '内容脚本' , ()=> {
     spyOn( st , 'safeTranslate' );
     main.onTranslate();
     expect( st.safeTranslate ).toHaveBeenCalled();
-  } );
-
-  describe( '接收到网页翻译命令时' , ()=> {
-    let resolve , reject;
-    beforeEach( ()=> {
-      resolve = jasmine.createSpy( 'x' );
-      reject = jasmine.createSpy( 'y' );
-      spyOn( web , 'youdao' );
-    } );
-
-    it( '若有指定网页翻译则翻译' , ()=> {
-      main.onWebTranslate( 'youdao' , resolve , reject );
-      expect( resolve ).toHaveBeenCalled();
-    } );
-
-    it( '若没有指定的网页翻译则 reject' , ()=> {
-      main.onWebTranslate( 'yyy' , resolve , reject );
-      expect( reject ).toHaveBeenCalled();
-    } );
   } );
 
 } );

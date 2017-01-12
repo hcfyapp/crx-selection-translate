@@ -65,5 +65,5 @@ export async function isHostEnabled( locationObj , disabledDomainList ) {
 
   const {host} = location;
   const domains = disabledDomainList || (await chromeCall( 'storage.local.get' , 'excludeDomains' )).excludeDomains;
-  return !domains.some( domain => host.endsWith( domain ) );
+  return !domains || !domains.some( domain => host.endsWith( domain ) );
 }

@@ -10,7 +10,7 @@ const config = {
     html : [ './src/*/index.html' , './src/pdf-viewer/web/viewer.html' ] ,
     json : [ './src/manifest.json' ] ,
     css : [ './src/pdf-viewer/**/*.css' ] ,
-    js : [ './src/content-scripts/web/embed/*.js' , './src/pdf-viewer/**/*.js' ] ,
+    js : [ './src/pdf-viewer/**/*.js' ] ,
     copy : [ './src/logo.png' , './src/pdf-viewer/**/*.{bcmap,png,svg,gif,cur,properties}' ]
   }
 };

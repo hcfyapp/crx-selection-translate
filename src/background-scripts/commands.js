@@ -3,7 +3,6 @@
  */
 
 import {send} from 'connect.io';
-import getOptions from '../public/default-options';
 import {getCurrentTabId} from '../public/util';
 
 /* istanbul ignore if */
@@ -20,15 +19,6 @@ export async function onCommand( command ) {
       send( {
         tabId ,
         name : 'translate'
-      } );
-      break;
-
-    case 'web':
-      const {defaultWeb} = await getOptions( 'defaultWeb' );
-      send( {
-        tabId ,
-        name : 'web translate' ,
-        data : defaultWeb
       } );
       break;
   }

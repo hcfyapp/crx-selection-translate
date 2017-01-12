@@ -73,12 +73,6 @@
         "default" : "Alt+A"
       } ,
       "description" : "翻译网页中选中的文本"
-    } ,
-    "web" : {
-      "suggested_key" : {
-        "default" : "Alt+Z"
-      } ,
-      "description" : "翻译整个网页"
     }
   } ,
   "minimum_chrome_version" : "29" ,
