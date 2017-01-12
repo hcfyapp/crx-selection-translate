@@ -26,14 +26,6 @@ describe( '弹出页' , ()=> {
     } , 0 );
   } );
 
-  it( '网页翻译方法会发送消息到内容脚本' , async ( done )=> {
-    spyOn( window , 'close' );
-    await app.webTranslate( 'h' );
-    expect( Client.prototype.send ).toHaveBeenCalledWith( 'web translate' , 'h' , true );
-    expect( window.close ).toHaveBeenCalled();
-    done();
-  } );
-
   it( '切换是否启用时会将设置写入 chrome.storage.local' , ( done )=> {
     setTimeout( async ()=> {
       expect( app.enabled ).toBe( true );

@@ -6,8 +6,7 @@ import Vue from 'vue';
 import template from './tpl.html';
 import chromeCall from 'chrome-call';
 import getOptions from '../public/default-options';
-import {send} from 'connect.io';
-import {getTabLocation,isHostEnabled,getCurrentTabId} from '../public/util';
+import {getTabLocation,isHostEnabled} from '../public/util';
 import ST from './st';
 
 export const appOptions = {
@@ -35,21 +34,6 @@ export const appOptions = {
         excludeDomains.push( _host );
       }
       return chromeCall( 'storage.local.set' , { excludeDomains } );
-    } ,
-
-    /**
-     * 使用指定的网页翻译当前标签页
-     * @param {String} webName
-     */
-    async webTranslate( webName ) {
-      await send( {
-        tabId : await getCurrentTabId() ,
-        name : 'web translate' ,
-        data : webName ,
-        needResponse : true
-      } );
-
-      window.close();
     }
   } ,
   components : {
@@ -57,11 +41,10 @@ export const appOptions = {
   } ,
   async ready() {
     const locationObj = await getTabLocation();
-
     if ( locationObj ) {
       this.$data._host = locationObj.host;
-      this.enabled = await isHostEnabled( locationObj );
       this.canInject = true;
+      this.enabled = await isHostEnabled( locationObj );
     }
   }
 };
