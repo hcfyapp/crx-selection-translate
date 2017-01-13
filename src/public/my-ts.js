@@ -5,7 +5,7 @@ import T from 'translation.js';
 import getOptions from './default-options';
 import watch from './storage-watcher';
 
-const timeout = 3000 ,
+const timeout = 15000 ,
   ts = new T();
 
 ts.create( 'BaiDu' , { timeout } );
@@ -43,7 +43,7 @@ getOptions( 'youDaoApi' ).then( ( { youDaoApi } )=> {
 } );
 
 ts.create( 'Bing' , { timeout } );
-ts.create( 'Google' , { timeout : 5000 } );
+ts.create( 'Google' , { timeout : 20000 } );
 ts.create( 'GoogleCN' , { timeout } );
 
 export default ts;
