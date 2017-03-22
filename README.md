@@ -36,11 +36,9 @@
 
 划词翻译是开源且免费的软件，我在工作之余花了大量的时间和精力开发和维护这个项目，你的捐助会给我坚持下去的动力。
 
-你可以直接转账给我的[支付宝](https://www.alipay.com/)或 [PayPal](https://www.paypal.com/) 账号： milk.lee@qq.com
-
-或使用手机支付宝扫描下面的二维码：
-
-<img src="https://tfsimg.alipay.com/images/mobilecodec/T1Bp0oXjhbXXXXXXXX" width="200" alt="手机支付宝二维码">
+<div align="center">
+  <img src="https://o93y1elkp.qnssl.com/xxxxxx.png" width="400" alt="收款二维码">
+</div>
 
 ## 参与开发
 
