@@ -26,15 +26,21 @@
  - 支持在 PDF 文档内使用。
  - 支持多种翻译引擎：[有道翻译](http://fanyi.youdao.com/)、[百度翻译](http://fanyi.baidu.com/)、[谷歌翻译](https://translate.google.com/)（含[谷歌中国翻译](http://translate.google.cn/)）、[必应词典](http://cn.bing.com/dict/)。
 
-## [捐助划词翻译](https://github.com/Selection-Translator/crx-selection-translate/wiki/%E6%8D%90%E5%8A%A9%E5%88%92%E8%AF%8D%E7%BF%BB%E8%AF%91)
-
-划词翻译是开源且免费的软件，我在工作之余花了大量的时间和精力开发和维护这个项目，你的捐助会给我坚持下去的动力。
-
 ## 相关链接
 
  + [发布日志](https://github.com/Selection-Translator/crx-selection-translate/releases)
  + [报告问题或提议新功能](https://github.com/Selection-Translator/crx-selection-translate/issues/new)
  + [Wiki](https://github.com/Selection-Translator/crx-selection-translate/wiki)
+ 
+## 捐助划词翻译
+
+划词翻译是开源且免费的软件，我在工作之余花了大量的时间和精力开发和维护这个项目，你的捐助会给我坚持下去的动力。
+
+你可以直接转账给我的[支付宝](https://www.alipay.com/)或 [PayPal](https://www.paypal.com/) 账号： milk.lee@qq.com
+
+或使用手机支付宝扫描下面的二维码：
+
+<img src="https://tfsimg.alipay.com/images/mobilecodec/T1Bp0oXjhbXXXXXXXX" width="200" alt="手机支付宝二维码">
 
 ## 参与开发
 
