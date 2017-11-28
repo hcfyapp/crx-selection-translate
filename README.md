@@ -11,8 +11,6 @@
 
 让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/cbrC2sy2ibgQEQAeJHq4w5dz/Selection-Translator/crx-selection-translate'><img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/cbrC2sy2ibgQEQAeJHq4w5dz/Selection-Translator/crx-selection-translate.svg' /></a>
-
 ## 安装
 
  - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
