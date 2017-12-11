@@ -6,9 +6,13 @@ import '../fontello/css/selection-translator.css';
 import './style.scss';
 import Vue from 'vue';
 import widgetMixin from './vue-st';
+import VueResource from 'vue-resource';
 
 import locales from '../locales';
 import template from './template.html';
+
+Vue.use(VueResource);
+Vue.http.options.emulateJSON = true;
 
 // 去掉 locales 里的 *-* 类语种，除了 zh-CN、zh-TW 和 zh-HK（百度翻译里的粤语）
 const translateLocales = [];
@@ -133,6 +137,60 @@ export default Vue.extend( {
         original = target.textContent;
       target.textContent = '已复制';
       setTimeout( ()=> target.textContent = original , 2000 );
+    } ,
+
+    /**
+     * 添加单词
+     * @param {String|String[]} textOrTextArray
+     * @param {MouseEvent} event
+     */
+    addWord( text, event) {
+      var access_token = ' ';
+      var param = {word: text, access_token: access_token}
+      Vue.http.get('https://api.shanbay.com/bdc/search/', {params: param})
+      .then((response) => {
+        if (response.status == 200) {
+          return response.json()
+        } else if (response.status == 401) {
+          alert('token 无效')
+        } else if (response.status == 429) {
+          alert('今日请求次数过多')
+        } else {
+          alert('未知错误, status_code='+response.status)
+        }
+      }, (response) => {
+        alert('查询单词发生错误')
+      })
+      .then((info) => {
+        if (info.status_code == 0) {
+          this.realAddWord(info.data.id, event);
+        } else {
+          alert('查词错误, '+info.msg)
+        }
+      });
+    } ,
+
+    realAddWord(id, event) {
+      var access_token = ' ';
+      Vue.http.post('https://api.shanbay.com/bdc/learning/', {id: id, access_token: access_token})
+      .then((response) => {
+        alert(response.status)
+        if (response.ok) {
+          return response.json()
+        }
+      }, (response) => {
+        alert('添加单词发生错误')
+      })
+      .then((res) => {
+        if (res.status_code == 0) {
+          const {target} = event ,
+          original = target.textContent;
+          target.textContent = '已添加';
+          setTimeout( ()=> target.textContent = original , 2000 );
+        } else {
+          alert('添加单词发生错误, '+info.msg)
+        }
+      });
     } ,
 
     /**

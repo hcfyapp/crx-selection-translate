@@ -73,6 +73,7 @@
       </st-div>
     </st-div>
     <st-footer>
+      <st-span v-show="!loading && result"><a @click="addWord(query.text, $event)">添加至扇贝单词本</a></st-span>
       <st-span v-show="!loading && result.api.name">via
         <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></st-span>
     </st-footer>
