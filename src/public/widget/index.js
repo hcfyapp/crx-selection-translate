@@ -184,7 +184,7 @@ export default Vue.extend( {
       .then((info) => {
         if (info.status_code == 0) {
           console.log('query word, id = '+info.data.id)
-          //this.realAddWord(info.data.id, event);
+          this.realAddWord(info.data.id, event);
         } else {
           alert('查词错误, '+info.msg)
         }
@@ -194,7 +194,6 @@ export default Vue.extend( {
     realAddWord(id, event) {
       Vue.http.post('https://api.shanbay.com/bdc/learning/', {id: id, access_token: this.access_token})
       .then((response) => {
-        alert(response.status)
         if (response.ok) {
           return response.json()
         }

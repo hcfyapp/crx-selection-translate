@@ -16,6 +16,12 @@ export default {
   }) ,
   methods : {
 
+
+    gotoAccess() {
+      chrome.runtime.sendMessage({action:'shanbay_authorize'}, function(response){
+            chromeCall( 'storage.local.set', {access_token: response.token})
+      })
+    } ,
     /**
      * 添加禁用域名
      */
