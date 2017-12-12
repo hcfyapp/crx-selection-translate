@@ -7,6 +7,7 @@ import './style.scss';
 import Vue from 'vue';
 import widgetMixin from './vue-st';
 import VueResource from 'vue-resource';
+import chromeCall from 'chrome-call';
 
 import locales from '../locales';
 import template from './template.html';
@@ -35,6 +36,7 @@ const resolvedEmptyPromise = Promise.resolve() ,
 export default Vue.extend( {
   template ,
   data : ()=>({
+    access_token: '', // 扇贝单词授权 token
     locales : translateLocales ,
     showForm : false ,
     query : {
@@ -145,34 +147,52 @@ export default Vue.extend( {
      * @param {MouseEvent} event
      */
     addWord( text, event) {
-      var access_token = ' ';
-      var param = {word: text, access_token: access_token}
+      chromeCall( 'storage.local.get', 'access_token').then( (res) => {
+        this.access_token = res.access_token;
+        if (this.access_token) {
+          this.queryWord(text, event);
+        } else {
+          this.gotoAccessToken('还未绑定扇贝单词账号，请登录授权！');
+        }
+      })
+
+    },
+
+    gotoAccessToken(tip) {
+      alert(tip)
+      chrome.runtime.sendMessage({action:'shanbay_authorize'}, function(response){
+            chromeCall( 'storage.local.set', {access_token: response.token})
+      })
+    },
+
+    queryWord(text, event) {
+      var param = {word: text, access_token: this.access_token}
       Vue.http.get('https://api.shanbay.com/bdc/search/', {params: param})
       .then((response) => {
         if (response.status == 200) {
           return response.json()
         } else if (response.status == 401) {
-          alert('token 无效')
+          this.gotoAccessToken('token 无效，请重新授权')
         } else if (response.status == 429) {
           alert('今日请求次数过多')
         } else {
           alert('未知错误, status_code='+response.status)
         }
       }, (response) => {
-        alert('查询单词发生错误')
+        this.gotoAccessToken('查询单词发生错误，请重新授权后再试一次')
       })
       .then((info) => {
         if (info.status_code == 0) {
-          this.realAddWord(info.data.id, event);
+          console.log('query word, id = '+info.data.id)
+          //this.realAddWord(info.data.id, event);
         } else {
           alert('查词错误, '+info.msg)
         }
       });
-    } ,
+    },
 
     realAddWord(id, event) {
-      var access_token = ' ';
-      Vue.http.post('https://api.shanbay.com/bdc/learning/', {id: id, access_token: access_token})
+      Vue.http.post('https://api.shanbay.com/bdc/learning/', {id: id, access_token: this.access_token})
       .then((response) => {
         alert(response.status)
         if (response.ok) {

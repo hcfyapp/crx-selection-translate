@@ -21,7 +21,8 @@
     "activeTab" ,
     "identity",
     "webRequest",
-    "webRequestBlocking"
+    "webRequestBlocking",
+    "tabs"
   ] ,
   "background" : {
     "scripts" : [
