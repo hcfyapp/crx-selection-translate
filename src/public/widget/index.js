@@ -6,14 +6,11 @@ import '../fontello/css/selection-translator.css';
 import './style.scss';
 import Vue from 'vue';
 import widgetMixin from './vue-st';
-import VueResource from 'vue-resource';
 import chromeCall from 'chrome-call';
 
 import locales from '../locales';
 import template from './template.html';
-
-Vue.use(VueResource);
-Vue.http.options.emulateJSON = true;
+const request = require('superagent');
 
 // 去掉 locales 里的 *-* 类语种，除了 zh-CN、zh-TW 和 zh-HK（百度翻译里的粤语）
 const translateLocales = [];
@@ -152,65 +149,70 @@ export default Vue.extend( {
         if (this.access_token) {
           this.queryWord(text, event);
         } else {
-          this.gotoAccessToken('还未绑定扇贝单词账号，请登录授权！');
+          this.gotoAccessToken();
         }
       })
 
     },
 
-    gotoAccessToken(tip) {
-      alert(tip)
+    gotoAccessToken() {
       chrome.runtime.sendMessage({action:'shanbay_authorize'}, function(response){
             chromeCall( 'storage.local.set', {access_token: response.token})
       })
     },
 
     queryWord(text, event) {
-      var param = {word: text, access_token: this.access_token}
-      Vue.http.get('https://api.shanbay.com/bdc/search/', {params: param})
-      .then((response) => {
-        if (response.status == 200) {
-          return response.json()
-        } else if (response.status == 401) {
-          this.gotoAccessToken('token 无效，请重新授权')
-        } else if (response.status == 429) {
-          alert('今日请求次数过多')
-        } else {
-          alert('未知错误, status_code='+response.status)
-        }
-      }, (response) => {
-        this.gotoAccessToken('查询单词发生错误，请重新授权后再试一次')
-      })
-      .then((info) => {
-        if (info.status_code == 0) {
-          console.log('query word, id = '+info.data.id)
-          this.realAddWord(info.data.id, event);
-        } else {
-          alert('查词错误, '+info.msg)
-        }
-      });
+      let params = { word: text, access_token: this.access_token }
+      request.get('https://api.shanbay.com/bdc/search/')
+        .query(params)
+        .end((err, res) => {
+          switch (res.status) {
+            case 200:
+              let info = res.body
+              if (info.status_code == 0) {
+                this.realAddWord(info.data.id, event);
+              } else {
+                alert(`查词错误, ${info.msg}`)
+              }
+              break;
+            case 401:
+              alert('token 无效，请重新授权')
+              this.gotoAccessToken()
+              break;
+            case 429:
+              alert('今日请求次数过多')
+              break;
+            default:
+              alert(`未知错误, ${err}`)
+              break;
+          }
+        })
     },
 
     realAddWord(id, event) {
-      Vue.http.post('https://api.shanbay.com/bdc/learning/', {id: id, access_token: this.access_token})
-      .then((response) => {
-        if (response.ok) {
-          return response.json()
-        }
-      }, (response) => {
-        alert('添加单词发生错误')
-      })
-      .then((res) => {
-        if (res.status_code == 0) {
-          const {target} = event ,
-          original = target.textContent;
-          target.textContent = '已添加';
-          setTimeout( ()=> target.textContent = original , 2000 );
-        } else {
-          alert('添加单词发生错误, '+info.msg)
-        }
-      });
-    } ,
+      let params = { id: id, access_token: this.access_token }
+      request.post('https://api.shanbay.com/bdc/learning/')
+        .type('form')
+        .send(params)
+        .end((err, res) => {
+          switch (res.status) {
+            case 200:
+              let info = res.body
+              if (info.status_code == 0) {
+                const { target } = event;
+                let original = target.textContent;
+                target.textContent = '已添加';
+                setTimeout(() => target.textContent = original, 2000);
+              } else {
+                alert(`添加单词发生错误, ${info.msg}`)
+              }
+              break;
+            default:
+              alert(`添加单词发生错误, ${err}`)
+              break;
+          }
+        })
+    },
 
     /**
      * 播放语音
