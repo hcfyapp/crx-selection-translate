@@ -8,6 +8,7 @@
     </label>
 
     <div class="help-block">翻译结果显示后，增加“添加至扇贝单词本”按钮，您需要事先<a href="#" @click="gotoAccess()">授权访问</a>您的扇贝账号</div>
+    <div>> 不想再使用此功能，点击<a href="#" @click="clearToken()">此处</a>清除授权信息。<font style="font-weight:bold;" v-show="clearSuccess">清除成功!</font></div>
   </div>
 </div>
 

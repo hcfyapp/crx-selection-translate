@@ -5,6 +5,7 @@ import template from './template.html';
 export default {
   template ,
   data : ()=> ({
+    clearSuccess : false,
     options : null ,
     showAdd : false ,
     tmpDomain : '',
@@ -16,11 +17,17 @@ export default {
   }) ,
   methods : {
 
+    clearToken() {
+      chrome.runtime.sendMessage({ action: 'shanbay_clear_token' }, (res) => {
+        this.clearSuccess = true
+        setTimeout(() => {
+          this.clearSuccess = false
+        }, 2000);
+      });
+    },
 
     gotoAccess() {
-      chrome.runtime.sendMessage({action:'shanbay_authorize'}, function(response){
-            chromeCall( 'storage.local.set', {access_token: response.token})
-      })
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' }, (res) => { })
     } ,
     /**
      * 添加禁用域名

@@ -143,22 +143,21 @@ export default Vue.extend( {
      * @param {String|String[]} textOrTextArray
      * @param {MouseEvent} event
      */
-    addWord( text, event) {
-      chromeCall( 'storage.local.get', 'access_token').then( (res) => {
-        this.access_token = res.access_token;
-        if (this.access_token) {
+    addWord(text, event) {
+      chrome.runtime.sendMessage({ action: 'shanbay_get_token' }, (res) => {
+        if (res.access_token) {
+          this.access_token = res.access_token;
           this.queryWord(text, event);
         } else {
+          alert('未绑定扇贝账号，请授权绑定')
           this.gotoAccessToken();
         }
-      })
+      });
 
     },
 
     gotoAccessToken() {
-      chrome.runtime.sendMessage({action:'shanbay_authorize'}, function(response){
-            chromeCall( 'storage.local.set', {access_token: response.token})
-      })
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' }, (res) => { })
     },
 
     queryWord(text, event) {
@@ -176,7 +175,7 @@ export default Vue.extend( {
               }
               break;
             case 401:
-              alert('token 无效，请重新授权')
+              alert('token 失效，请重新授权')
               this.gotoAccessToken()
               break;
             case 429:
