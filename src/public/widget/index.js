@@ -144,20 +144,21 @@ export default Vue.extend( {
      * @param {MouseEvent} event
      */
     addWord(text, event) {
-      chrome.runtime.sendMessage({ action: 'shanbay_get_token' }, (res) => {
-        if (res.access_token) {
-          this.access_token = res.access_token;
-          this.queryWord(text, event);
-        } else {
-          alert('未绑定扇贝账号，请授权绑定')
-          this.gotoAccessToken();
-        }
-      });
+      chromeCall('storage.local.get', ['access_token'])
+        .then((res) => {
+          if (res.access_token) {
+            this.access_token = res.access_token;
+            this.queryWord(text, event);
+          } else {
+            alert('未绑定扇贝账号，请授权绑定')
+            this.gotoAccessToken();
+          }
+        });
 
     },
 
     gotoAccessToken() {
-      chrome.runtime.sendMessage({ action: 'shanbay_authorize' }, (res) => { })
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' })
     },
 
     queryWord(text, event) {

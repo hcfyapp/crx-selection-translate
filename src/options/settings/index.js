@@ -18,16 +18,17 @@ export default {
   methods : {
 
     clearToken() {
-      chrome.runtime.sendMessage({ action: 'shanbay_clear_token' }, (res) => {
-        this.clearSuccess = true
-        setTimeout(() => {
-          this.clearSuccess = false
-        }, 2000);
-      });
+      chromeCall('storage.local.set', { access_token: null })
+        .then((res) => {
+          this.clearSuccess = true
+          setTimeout(() => {
+            this.clearSuccess = false
+          }, 2000);
+        });
     },
 
     gotoAccess() {
-      chrome.runtime.sendMessage({ action: 'shanbay_authorize' }, (res) => { })
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' })
     } ,
     /**
      * 添加禁用域名
