@@ -8,6 +8,7 @@
 import chromeCall from 'chrome-call';
 
 const defaultOptions = {
+  showShanbay: true, // 显示扇贝单词本
   youDaoApi: [], // 保存用户自行申请的 API key 与 keyfrom
   pdf: false, // since v6.1.0 - 是否启用 pdf 翻译
   disableSelection: false, // since v6.0.6 - 全局开关

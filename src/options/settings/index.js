@@ -5,6 +5,7 @@ import template from './template.html';
 export default {
   template ,
   data : ()=> ({
+    clearSuccess : false,
     options : null ,
     showAdd : false ,
     tmpDomain : '',
@@ -16,6 +17,19 @@ export default {
   }) ,
   methods : {
 
+    clearToken() {
+      chromeCall('storage.local.set', { access_token: null })
+        .then((res) => {
+          this.clearSuccess = true
+          setTimeout(() => {
+            this.clearSuccess = false
+          }, 2000);
+        });
+    },
+
+    gotoAccess() {
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' })
+    } ,
     /**
      * 添加禁用域名
      */

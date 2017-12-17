@@ -6,9 +6,11 @@ import '../fontello/css/selection-translator.css';
 import './style.scss';
 import Vue from 'vue';
 import widgetMixin from './vue-st';
+import chromeCall from 'chrome-call';
 
 import locales from '../locales';
 import template from './template.html';
+const request = require('superagent');
 
 // 去掉 locales 里的 *-* 类语种，除了 zh-CN、zh-TW 和 zh-HK（百度翻译里的粤语）
 const translateLocales = [];
@@ -31,6 +33,7 @@ const resolvedEmptyPromise = Promise.resolve() ,
 export default Vue.extend( {
   template ,
   data : ()=>({
+    access_token: '', // 扇贝单词授权 token
     locales : translateLocales ,
     showForm : false ,
     query : {
@@ -134,6 +137,82 @@ export default Vue.extend( {
       target.textContent = '已复制';
       setTimeout( ()=> target.textContent = original , 2000 );
     } ,
+
+    /**
+     * 添加单词
+     * @param {String|String[]} textOrTextArray
+     * @param {MouseEvent} event
+     */
+    addWord(text, event) {
+      chromeCall('storage.local.get', ['access_token'])
+        .then((res) => {
+          if (res.access_token) {
+            this.access_token = res.access_token;
+            this.queryWord(text, event);
+          } else {
+            alert('未绑定扇贝账号，请授权绑定')
+            this.gotoAccessToken();
+          }
+        });
+
+    },
+
+    gotoAccessToken() {
+      chrome.runtime.sendMessage({ action: 'shanbay_authorize' })
+    },
+
+    queryWord(text, event) {
+      let params = { word: text, access_token: this.access_token }
+      request.get('https://api.shanbay.com/bdc/search/')
+        .query(params)
+        .end((err, res) => {
+          switch (res.status) {
+            case 200:
+              let info = res.body
+              if (info.status_code == 0) {
+                this.realAddWord(info.data.id, event);
+              } else {
+                alert(`查词错误, ${info.msg}`)
+              }
+              break;
+            case 401:
+              alert('token 失效，请重新授权')
+              this.gotoAccessToken()
+              break;
+            case 429:
+              alert('今日请求次数过多')
+              break;
+            default:
+              alert(`未知错误, ${err}`)
+              break;
+          }
+        })
+    },
+
+    realAddWord(id, event) {
+      let params = { id: id, access_token: this.access_token }
+      request.post('https://api.shanbay.com/bdc/learning/')
+        .type('form')
+        .send(params)
+        .end((err, res) => {
+          switch (res.status) {
+            case 200:
+              let info = res.body
+              if (info.status_code == 0) {
+                const { target } = event;
+                let original = target.textContent;
+                target.textContent = '已添加';
+                setTimeout(() => target.textContent = original, 2000);
+              } else {
+                alert(`添加单词发生错误, ${info.msg}`)
+              }
+              break;
+            default:
+              alert(`添加单词发生错误, ${err}`)
+              break;
+          }
+        })
+    },
 
     /**
      * 播放语音

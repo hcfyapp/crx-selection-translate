@@ -55,6 +55,7 @@ export default function ( st ) {
     st.$on( 'after translate' , onAfterTranslate );
 
     watch( [
+      'showShanbay',
       'ignoreChinese' , 'ignoreNumLike' , 'showBtn' , 'disableSelection' ,
       'needCtrl' , 'defaultApi' , 'excludeDomains' , 'autoPlay'
     ] , onStorageChanged );

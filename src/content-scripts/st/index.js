@@ -5,6 +5,7 @@ import draggable from './draggable';
 import bindStorage from './storage';
 import bindGA from './ga';
 import hideOnEsc from './hide-on-esc';
+import './shanbay'
 
 const st = new Widget( { client } );
 

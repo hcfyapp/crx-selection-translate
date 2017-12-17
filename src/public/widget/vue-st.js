@@ -38,6 +38,7 @@ export default {
     ignoreNumLike : true , // 忽略数字与符号的组成
     showBtn : true , // 是否在划词后显示一个按钮，点击它才翻译
     needCtrl : false , // 是否需要配合 Ctrl 键才翻译
+    showShanbay: true, // 显示扇贝单词本
 
     // 定位的样式属性，用于翻译按钮
     btnPos : {
