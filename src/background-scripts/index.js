@@ -6,7 +6,8 @@ import './menus';
 import './server';
 import './badge';
 import './pdf-sniffer';
-import './shanbay';
+// TODO: 功能未测试，先暂时注释掉
+// import './shanbay';
 
 import ga from '../public/ga';
 ga( 'set' , 'page' , '/background-scripts/index.html' );

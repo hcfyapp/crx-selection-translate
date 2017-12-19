@@ -5,7 +5,8 @@ import draggable from './draggable';
 import bindStorage from './storage';
 import bindGA from './ga';
 import hideOnEsc from './hide-on-esc';
-import './shanbay'
+// TODO: 功能未测试，先暂时注释掉
+// import './shanbay'
 
 const st = new Widget( { client } );
 
