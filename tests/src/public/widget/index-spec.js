@@ -9,7 +9,7 @@ describe( '翻译组件' , ()=> {
     vm.$appendTo( 'body' );
   } );
 
-  it( '获取结果前会触发一次事件、并发送 translate 命令至后台以获取结果' , ( done )=> {
+  xit( '获取结果前会触发一次事件、并发送 translate 命令至后台以获取结果' , ( done )=> {
     fakeClient.send.and.returnValue( Promise.resolve( '翻译结果' ) );
     vm.getResult();
     expect( fakeClient.send ).toHaveBeenCalledWith( 'get translate result' , vm.query , true );
