@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 
+import 'translation.js/chrome-youdao'
 import './commands';
 import './install';
 import './menus';

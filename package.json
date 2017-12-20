@@ -5,7 +5,7 @@
     "url": "git+https://github.com/lmk123/crx-selection-translate.git"
   },
   "scripts": {
-    "postinstall": "node ./build/install-pdf-viewer",
+    "xpostinstall": "node ./build/install-pdf-viewer",
     "dev": "webpack --config build/webpack.dev.config.js",
     "build": "gulp --cwd . --gulpfile build/gulp-build.js",
     "test": "karma start build/karma.config.js"
@@ -15,7 +15,7 @@
     "chrome-call": "^1.0.2",
     "connect.io": "^1.0.1",
     "interact.js": "^1.2.6",
-    "translation.js": "^0.3.4",
+    "translation.js": "^0.6.7",
     "vue": "^1.0.24",
     "vue-router": "^0.7.11"
   },

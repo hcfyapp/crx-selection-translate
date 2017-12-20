@@ -1,4 +1,4 @@
-<h4>收藏单词本</h4>
+<!-- <h4>收藏单词本</h4>
 
 <div class="o-group">
   <div class="checkbox">
@@ -10,7 +10,7 @@
     <div class="help-block">翻译结果显示后，增加“添加至扇贝单词本”按钮，您需要事先<a href="#" @click="gotoAccess()">授权访问</a>您的扇贝账号</div>
     <div>> 不想再使用此功能，点击<a href="#" @click="clearToken()">此处</a>清除授权信息。<font style="font-weight:bold;" v-show="clearSuccess">清除成功!</font></div>
   </div>
-</div>
+</div> -->
 
 <h4>朗读</h4>
 
@@ -115,7 +115,7 @@
       <input type="radio" name="a" value="BaiDu" v-model="options.defaultApi"> 百度翻译
     </label>
     <label class="radio-inline">
-      <input type="radio" name="a" value="Bing" v-model="options.defaultApi"> 必应翻译
+      <input disabled type="radio" name="a" value="Bing" v-model="options.defaultApi"> 必应翻译（已失效）
     </label>
     <label class="radio-inline">
       <input type="radio" name="a" value="Google" v-model="options.defaultApi"> 谷歌翻译
@@ -129,7 +129,7 @@
     <a target="_blank" href="https://github.com/lmk123/crx-selection-translate/wiki/常见问题#谷歌翻译国外与谷歌翻译国内有什么区别我该如何选择">不知道该选择“谷歌翻译(国外)”还是“谷歌翻译(国内)”？</a>另外，默认的翻译引擎可能并不适合你的喜好，你可以对比不同引擎的翻译结果，选择出最适合你的那一个。比如，有道翻译可能更适合想要详细了解英文单词释义的朋友。
   </div>
 </div>
-
+<!--
 <h5>有道翻译 API Key</h5>
 
 <div class="o-group">
@@ -163,7 +163,7 @@
     <button type="button" v-show="options.youDaoApi.length" @click="hideYDForm">取消</button>
   </form>
   <button type="button" v-else @click="showYDForm">添加有道 API</button>
-</div>
+</div> -->
 
 <h4>域名筛选
   <small>v6.0.0 新增</small>

@@ -15,6 +15,13 @@ const server = new Server();
  * @param {Function} resolve
  */
 export async function onGetTranslateResult( queryObj , resolve ) {
+  queryObj.api = queryObj.api.toLowerCase()
+  if(queryObj.api === 'googlecn') {
+    queryObj.api = 'google'
+  } else if (queryObj.api === 'google') {
+    queryObj.api = 'google'
+    queryObj.com = true
+  }
   const {api} = queryObj;
   ga( 'send' , 'event' , '翻译' , api );
   try {
@@ -22,12 +29,12 @@ export async function onGetTranslateResult( queryObj , resolve ) {
     ga( 'send' , 'event' , '翻译成功' , api );
   }
   catch ( errorMsg ) {
-    let error = errorMsg;
-    if ( 'GoogleCN' === queryObj.api ) {
+    let error = errorMsg.message;
+    if ( 'google' === queryObj.api && !queryObj.com ) {
       error += '小提示：使用谷歌翻译（国内）时请确保你没有开启某高科技软件。';
     }
     ga( 'send' , 'event' , '翻译失败' , api );
-    resolve( { error } );
+    resolve( { error, code: errorMsg.code } );
   }
 }
 

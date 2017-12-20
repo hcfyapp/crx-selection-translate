@@ -26,7 +26,7 @@
         <select v-model="query.api" @change="safeTranslate">
           <option value="YouDao">有道翻译</option>
           <option value="BaiDu">百度翻译</option>
-          <option value="Bing">必应翻译</option>
+          <!-- <option value="Bing">必应翻译</option> -->
           <option value="Google">谷歌翻译</option>
           <option value="GoogleCN">谷歌翻译（国内）</option>
         </select>
@@ -55,12 +55,12 @@
             <st-span v-show="result.phonetic" @click="copy(result.phonetic,$event)">复制</st-span>
           </st-span>
         </st-div>
-        <st-div v-show="result.detailed && result.detailed.length">
+        <st-div v-show="result.dict && result.dict.length">
           <st-ul>
-            <st-li v-for="d in result.detailed" v-text="d"></st-li>
+            <st-li v-for="d in result.dict" v-text="d"></st-li>
           </st-ul>
           <st-div class="__copy-and-read__">
-            <st-span class="__copy-and-read__" @click="copy(result.detailed,$event)">复制</st-span>
+            <st-span class="__copy-and-read__" @click="copy(result.dict,$event)">复制</st-span>
           </st-div>
         </st-div>
         <st-div v-show="result.result&&result.result.length">
@@ -75,8 +75,8 @@
     <st-footer>
       <!-- TODO: 功能未测试，先暂时注释掉 -->
       <!-- <st-span v-show="showShanbay && !loading && result"><a @click="addWord(query.text, $event)">添加至扇贝单词本</a></st-span> -->
-      <st-span v-show="!loading && result.api.name">via
-        <a :href="result.linkToResult" target="_blank" v-text="result.api.name"></a></st-span>
+      <st-span v-show="!loading && apiName">via
+        <a :href="result.link" target="_blank" v-text="apiName"></a></st-span>
     </st-footer>
   </st-div>
   <st-div class="__st-btn__" v-el:st-btn :style="btnStyle">译</st-div>
