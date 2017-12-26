@@ -51,7 +51,7 @@ export async function onPlay( queryObj , resolve ) {
   if ( !queryObj.from ) {
     try {
       queryObj.from = await ts.detect( {
-        api : 'BaiDu' ,
+        api : 'baidu' ,
         text : queryObj.text
       } );
     }
@@ -68,7 +68,7 @@ export async function onPlay( queryObj , resolve ) {
 
   // 最后尝试使用谷歌朗读
   if ( !audioUrl ) {
-    queryObj.api = 'Google';
+    queryObj.api = 'google';
     try {
       audioUrl = await ts.audio( queryObj );
     }
