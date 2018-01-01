@@ -18,7 +18,7 @@ const defaultOptions = {
   autoPlay: false, // 自动朗读
   showMenu: true, // 是否将划词翻译添加到右键菜单
   autoClipboard: true, // 打开弹出页时是否自动翻译剪切板内的文本
-  defaultApi: 'BaiDu', // 默认使用的翻译接口
+  defaultApi: 'GoogleCN', // 默认使用的翻译接口
   needCtrl: false, // 网页划词翻译是否要配合 Ctrl（Mac 下为 Command）使用
   ignoreChinese: false, // 网页划词翻译是否忽略中文
   ignoreNumLike: true, // 网页划词翻译是否忽略无意义的文本组合，例如电话号码、密码符号等

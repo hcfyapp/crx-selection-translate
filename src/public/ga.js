@@ -18,10 +18,10 @@ if ( process.env.NODE_ENV === 'production' ) {
   ga( 'set' , 'checkProtocolTask' , null );
   window.ga = ga;
 
-  const script = document.createElement( 'script' );
-  script.src = 'https://www.google-analytics.com/analytics.js';
-  script.async = true;
-  document.body.appendChild( script );
+  // const script = document.createElement( 'script' );
+  // script.src = 'https://www.google-analytics.com/analytics.js';
+  // script.async = true;
+  // document.body.appendChild( script );
 } else {
   window.ga = function () {};
 }
