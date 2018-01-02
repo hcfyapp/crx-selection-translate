@@ -31,14 +31,6 @@
  + [发布日志](https://github.com/Selection-Translator/crx-selection-translate/releases)
  + [报告问题或提议新功能](https://github.com/Selection-Translator/crx-selection-translate/issues/new)
  + [Wiki](https://github.com/Selection-Translator/crx-selection-translate/wiki)
- 
-## 捐助划词翻译
-
-划词翻译是开源且免费的软件，我在工作之余花了大量的时间和精力开发和维护这个项目，你的捐助会给我坚持下去的动力。
-
-<div align="center">
-  <img src="https://o93y1elkp.qnssl.com/xxxxxx.png" width="400" alt="收款二维码">
-</div>
 
 ## 参与开发
 
