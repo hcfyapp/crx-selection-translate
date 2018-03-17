@@ -17,7 +17,9 @@
             <a v-link="{name:'about',activeClass:'active'}">关于</a>
           </li>
         </ul>
-        <router-view></router-view>
+        <div style="max-height:500px;overflow:auto">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
     <script src="../bundle/commons3.js"></script>
