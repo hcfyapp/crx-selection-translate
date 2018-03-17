@@ -52,6 +52,7 @@
   "options_page" : "/options/index.html" ,
   "options_ui" : {
     "page" : "/options/index.html" ,
+    "open_in_tab": true,
     "chrome_style" : true
   } ,
   "browser_action" : {
