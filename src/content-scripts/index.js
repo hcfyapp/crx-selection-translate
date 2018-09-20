@@ -6,7 +6,7 @@ import {noop} from '../public/util';
 import getOptions from '../public/default-options';
 import client from './client';
 
-const MOUSE_UP = 'ontouch' in window
+const MOUSE_UP = 'ontouchstart' in window
   /* istanbul ignore next */ ? 'touchend'
   /* istanbul ignore next */ : 'mouseup'
   , selection = getSelection();
