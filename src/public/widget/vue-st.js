@@ -14,6 +14,16 @@ const IS_TOUCH = 'ontouchstart' in window ,
     /* istanbul ignore next */ : 'ctrlKey' ,
   selection = getSelection();
 
+  const getXY = IS_TOUCH
+    ? e => {
+      const touch = e.touches[0] || e.changedTouches[0]
+      return touch ? {
+        x: touch.pageX,
+        y: touch.pageY
+      } : { x: 0, y: 0 }
+    }
+    : e => ({ x: e.pageX, y: e.pageY })
+
 export default {
   el : ()=> document.createElement( 'div' ) ,
   data : ()=> ({
@@ -153,7 +163,7 @@ export default {
     this.$on( 'mouseup' , e => {
       setTimeout( ()=> {
         const text = getText();
-        if ( text && !$box.contains( e.target ) && 0 === e.button ) {
+        if ( text && !$box.contains( e.target ) && (IS_TOUCH || 0 === e.button) ) {
           this.$emit( 'select' , e , text );
         }
       } , 0 );
@@ -161,10 +171,12 @@ export default {
 
     this.$on( 'select' , ( e , text )=> {
       if ( check( this , e , text ) ) {
-        const left = e.pageX - window.pageXOffset ,
-          top = e.pageY - window.pageYOffset + 10 ,
+        const { x, y } = getXY(e)
+        let left = x - window.pageXOffset ,
+          top = y - window.pageYOffset + 10 ,
           {btnPos} = this;
-
+        if (left < 0) left = 0;
+        if (top < 0) top = 0;
         btnPos.translateX = left;
         btnPos.translateY = top;
 
