@@ -2,7 +2,7 @@
  * @files 提取出来基本的 ST 组件配置
  */
 
-const IS_TOUCH = 'ontouchstart' in window ,
+const IS_TOUCH = false ,
   MOUSE_DOWN = IS_TOUCH
     /* istanbul ignore next */ ? 'touchstart'
     /* istanbul ignore next */ : 'mousedown' ,
