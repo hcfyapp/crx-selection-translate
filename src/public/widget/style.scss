@@ -1,8 +1,8 @@
 @charset "utf-8";
 
-$baseBackgroundColor: #b1bbbd;
+$baseBackgroundColor: #f5f5f5;
 $baseFontColor: #fff;
-$baseFontHoverColor: #9a6a16;
+$baseFontHoverColor: #f5f5f5;
 
 %transition-all {
   transition: all .2s;
@@ -219,7 +219,7 @@ $baseFontHoverColor: #9a6a16;
         display: inline-block;
         margin-right: 10px;
         cursor: pointer;
-        color: #12813e;
+        color: #000000;
       }
 
       .__copy-and-read__ > st-span {
