@@ -220,7 +220,7 @@ function check( st , event , text ) {
       return false;
     }
     // 忽略类数字组合
-    if ( st.ignoreNumLike && /^[\s.\-0-9()•+]+$/.test( text ) ) {
+    if ( st.ignoreNumLike && /^[\s\u0021-\u0040\u005B-\u0060\u007B-\u007E\u2000-\u2E7F\u3000-\u303F\uFF00-\uFFFF]+$/.test( text ) ) {
       return false;
     }
 
