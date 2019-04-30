@@ -15,7 +15,7 @@
     "chrome-call": "^1.0.2",
     "connect.io": "^1.0.1",
     "interact.js": "^1.2.6",
-    "translation.js": "^0.7.7",
+    "translation.js": "^0.7.8",
     "vue": "^1.0.24",
     "vue-router": "^0.7.11"
   },
