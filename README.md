@@ -11,6 +11,8 @@
 
 让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
 
+喜欢划词翻译吗？[在「爱发电」上赞助划词翻译吧！](https://afdian.net/@lmk123)
+
 ## 安装
 
  - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
