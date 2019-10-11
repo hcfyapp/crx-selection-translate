@@ -1,17 +1,10 @@
 # 划词翻译
 
-[![Build Status](https://img.shields.io/travis/Selection-Translator/crx-selection-translate/master.svg?style=flat-square)](https://travis-ci.org/Selection-Translator/crx-selection-translate)
-[![Coverage Status](https://img.shields.io/coveralls/Selection-Translator/crx-selection-translate/master.svg?style=flat-square)](https://coveralls.io/github/Selection-Translator/crx-selection-translate?branch=master)
-[![dependencies Status](https://img.shields.io/david/Selection-Translator/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/Selection-Translator/crx-selection-translate)
-[![devDependencies Status](https://img.shields.io/david/dev/Selection-Translator/crx-selection-translate.svg?style=flat-square)](https://david-dm.org/Selection-Translator/crx-selection-translate?type=dev)
-
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 
 让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
-
-喜欢划词翻译吗？[在「爱发电」上赞助划词翻译吧！](https://afdian.net/@lmk123)
 
 ## 安装
 
@@ -39,7 +32,7 @@
 划词翻译欢迎并鼓励开发者参与开发！请按照以下步骤搭建开发环境：
 
  1. Fork 项目之后将代码克隆到本地。
- 2. 运行 `npm i` 安装项目依赖。如果你使用的是 NPM 2.x，还需要运行 `npm i babel-runtime`。
+ 2. 将 Node.js 版本切换到 8.x（推荐使用 [nvm](https://github.com/nvm-sh/nvm)），然后运行 `npm ci` 安装项目依赖
  3. 运行 `npm run dev`，项目的 [src 文件夹](https://github.com/Selection-Translator/crx-selection-translate/tree/master/src)下会生成一个名为 `bundle` 的文件夹
  4. 在 Chrome 浏览器的扩展程序页面（chrome://extensions/）勾选开发者模式，点击“加载已解压的扩展程序”，将路径指向代码库的 [src 文件夹](https://github.com/Selection-Translator/crx-selection-translate/tree/master/src)。
 
