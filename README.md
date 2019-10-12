@@ -1,14 +1,22 @@
 # 划词翻译
 
+Chrome 网上应用店使用数据：
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-[![Chrome Web Store Downloads](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 
-让浏览任意语言的网站变得无比轻松的 Chrome 扩展程序。
+Firefox 附加组件使用数据：
+[![Mozilla Add-on Version](https://img.shields.io/amo/v/hcfy?style=flat-square)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Users](https://img.shields.io/amo/users/hcfy?style=flat-square)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+
+让浏览任意语言的网站变得无比轻松的浏览器扩展程序。
 
 ## 安装
 
  - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
+ - 在[Firefox 附加组件](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)安装
  - [下载 .crx 安装包](https://github.com/Selection-Translator/crx-selection-translate/releases/latest)手动安装
 
 **注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
