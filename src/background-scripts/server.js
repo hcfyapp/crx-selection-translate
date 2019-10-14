@@ -1,13 +1,13 @@
 /**
  * @files 用于处理其他页面发送过来的命令
  */
-import {Server} from 'connect.io';
+import {createServer} from 'connect.io';
 import chromeCall from 'chrome-call';
 import ts from '../public/my-ts';
 import {write} from '../public/clipboard';
 import ga from '../public/ga';
 
-const server = new Server();
+const server = createServer();
 
 /**
  * 获取翻译结果

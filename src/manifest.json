@@ -5,11 +5,8 @@
   "version" : "6.4.9" ,
   "homepage_url" : "https://github.com/lmk123/crx-selection-translate" ,
   "content_security_policy" : "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'" ,
-  "incognito": "split",
   "icons" : {
-    "128" : "/logo.png" ,
-    "16" : "/logo.png" ,
-    "48" : "/logo.png"
+    "128" : "/logo.png"
   } ,
   "author" : "Milk Lee <milk.lee@qq.com>" ,
   "permissions" : [

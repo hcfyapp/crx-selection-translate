@@ -2,10 +2,10 @@
  * 内容脚本同时也是一个 Server 端，用来执行扩展程序发送过来的命令
  */
 
-import {Server} from 'connect.io';
+import {createServer} from 'connect.io';
 import st from './st';
 
-const server = new Server();
+const server = createServer();
 
 /* istanbul ignore next */
 /**

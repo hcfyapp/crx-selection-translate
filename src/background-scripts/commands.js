@@ -17,7 +17,7 @@ export async function onCommand( command ) {
   switch ( command ) {
     case 'translate':
       send( {
-        tabId ,
+        id: tabId ,
         name : 'translate'
       } );
       break;

@@ -1,2 +1,2 @@
-import {Client} from 'connect.io';
-export default new Client();
+import {createClient} from 'connect.io';
+export default createClient();
