@@ -6,7 +6,9 @@ export default {
   template ,
   data : ()=> ({
     clearSuccess : false,
-    options : null ,
+    options : {
+      excludeDomains: []
+    } ,
     showAdd : false ,
     tmpDomain : '',
     showYDApi : false,
@@ -82,7 +84,9 @@ export default {
   } ,
   watch : {
     options : {
-      handler : newVal => chromeCall( 'storage.local.set' , newVal ) ,
+      // Firefox 浏览器中直接传入 Vue 的对象会"静默失败"：数据没有存进去，但也没有报错
+      // 这里需要转一下才能正常存进去数据
+      handler: newVal => chromeCall('storage.local.set', JSON.parse(JSON.stringify(newVal))),
       deep : true
     }
   } ,
