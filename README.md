@@ -1,5 +1,7 @@
 # 划词翻译
 
+**饿了么大前端招人，前后端都需要，资深及以上（一般三年工作经验），欢迎投递简历至 lmk178575[at]alibaba-inc.com**
+
 Chrome 网上应用店使用数据：
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Users)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
