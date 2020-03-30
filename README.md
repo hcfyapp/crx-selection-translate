@@ -15,6 +15,12 @@ Firefox 附加组件使用数据：
 
 让浏览任意语言的网站变得无比轻松的浏览器扩展程序。
 
+反馈问题或提议新功能可以直接通过公众号发送给我：
+
+![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
+
+图片打不开的话，直接在微信里搜索“划词翻译”即可，公众号名称就叫“划词翻译”
+
 ## 安装
 
  - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
