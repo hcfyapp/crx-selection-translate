@@ -13,6 +13,8 @@ Firefox 附加组件使用数据：
 
 Firefox 暂时下架，近期会重新上架，原因见 [#657](https://github.com/Selection-Translator/crx-selection-translate/issues/657)
 
+适用于 Microsoft Edge 浏览器的划词翻译已提交至 Microsofe Sotre，正在审核。
+
 反馈问题或提议新功能可以直接通过公众号发送给我：
 
 ![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
