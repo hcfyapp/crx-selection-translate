@@ -1,7 +1,5 @@
 # 划词翻译
 
-**饿了么大前端招人，前后端都需要，资深及以上（一般三年工作经验），欢迎投递简历至 lmk178575[at]alibaba-inc.com**
-
 Chrome 网上应用店使用数据：
 [![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
 [![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Users)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
@@ -13,7 +11,15 @@ Firefox 附加组件使用数据：
 [![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square&label=Rating)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
 [![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square&label=Downloads)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
 
-让浏览任意语言的网站变得无比轻松的浏览器扩展程序。
+Firefox 暂时下架，近期会重新上架，原因见 [#657](https://github.com/Selection-Translator/crx-selection-translate/issues/657)
+
+适用于 Microsoft Edge 浏览器的划词翻译已提交至 Microsofe Sotre，正在审核。
+
+反馈问题或提议新功能可以直接通过公众号发送给我：
+
+![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
+
+图片打不开的话，直接在微信里搜索“划词翻译”即可，公众号名称就叫“划词翻译”
 
 ## 安装
 
