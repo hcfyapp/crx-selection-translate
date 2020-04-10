@@ -23,9 +23,9 @@ Firefox 暂时下架，近期会重新上架，原因见 [#657](https://github.c
 
 ## 安装
 
- - 在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装
- - 在 [Firefox 附加组件](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)安装
- - [下载 .crx 安装包](https://github.com/Selection-Translator/crx-selection-translate/releases/latest)手动安装
+ - Chrome 浏览器请在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装或[下载 .crx 安装包](https://github.com/Selection-Translator/crx-selection-translate/releases/latest)手动安装
+ - Firefox 浏览器请在 [Firefox 附加组件](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)安装
+ - Microsoft Edge 浏览器请在[Edge 扩展程序商店](https://microsoftedge.microsoft.com/addons/detail/oikmahiipjniocckomdccmplodldodja)安装
 
 **注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
 
