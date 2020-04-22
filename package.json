@@ -31,6 +31,7 @@
     "download": "^5.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "fs-extra": "^8.1.0",
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.9",
     "gulp-htmlmin": "^2.0.0",
