@@ -2,7 +2,7 @@
  * @files 让翻译窗口可拖动
  */
 
-import interact from '../../interact';
+import interact from 'interact.js';
 import restrictBox from './restrict';
 
 export default function ( st ) {
