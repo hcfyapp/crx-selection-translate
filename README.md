@@ -11,9 +11,7 @@ Firefox 附加组件使用数据：
 [![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square&label=Rating)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
 [![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square&label=Downloads)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
 
-Firefox 暂时下架，近期会重新上架，原因见 [#657](https://github.com/Selection-Translator/crx-selection-translate/issues/657)
-
-反馈问题或提议新功能可以直接通过公众号发送给我：
+反馈问题或提议新功能也可以直接通过公众号发送给我：
 
 ![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
 
