@@ -51,7 +51,7 @@ export default Vue.extend( {
     }
   }) ,
   created() {
-    this.$options.client.once( 'disconnect' , ()=> {
+    this.$options.client.on( 'disconnect' , ()=> {
       this.result = {
         error : '连接到翻译引擎时发生了错误，请刷新网页或重启浏览器后再试。'
       }

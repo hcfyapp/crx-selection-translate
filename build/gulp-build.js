@@ -34,7 +34,10 @@ gulp.task( 'copy' , [ 'clean' ] , copy );
 gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'css' , 'json' , 'copy' ] , ( done )=> {
   del( config.dist + '/bundle/bs-lite.js' )
     .then( ()=> {
-      zipPack().on( 'finish' , ()=> done() );
+      Promise.all([
+        zipPack(true),
+        zipPack()
+      ]).then( () => done() );
     } );
 } );
 
@@ -43,7 +46,7 @@ gulp.task( 'default' , [ 'webpackP' , 'html' , 'js' , 'css' , 'json' , 'copy' ] 
  * @returns {Promise}
  */
 function clean() {
-  return del( config.dist );
+  return del( [config.dist, config.dist + '-firefox'] );
 }
 
 /**
@@ -109,11 +112,43 @@ function copy() {
     .pipe( gulp.dest( config.dist ) );
 }
 
+const fse = require('fs-extra')
+
 /**
  * 打包文件为一个压缩包
  */
-function zipPack() {
-  return gulp.src( config.dist + '/**/*' )
-    .pipe( zip( 'build.zip' ) )
-    .pipe( gulp.dest( './' ) );
+function zipPack(isFirefox) {
+  let promise
+  if (isFirefox) {
+    promise = fse.copy(config.dist, config.dist + '-firefox').then(() => {
+      // 删除 manifest.json 里的 incognito，火狐目前不支持
+      const manifest = require('../dist-firefox/manifest.json')
+      delete manifest.incognito
+      const promise1 = fse.writeJson('./dist-firefox/manifest.json', manifest)
+
+      // 删除代码里的 chrome-extension://__MSG_@@extension_id__/bundle/
+      const paths = ['bundle/commons1.js.css', 'bundle/commons3.js']
+
+      const promises = paths.map(path => {
+        const filePath = './dist-firefox/' + path
+        return fse.readFile(filePath, 'utf8').then(str => {
+          str = str.replace('chrome-extension://__MSG_@@extension_id__/bundle/', '')
+          return fse.writeFile(filePath, str, 'utf8')
+        })
+      })
+
+      promises.push(promise1)
+
+      return Promise.all(promises)
+    })
+  } else {
+    promise = Promise.resolve()
+  }
+  return promise.then(() => {
+    return new Promise(resolve => {
+      gulp.src((isFirefox ? config.dist + '-firefox' : config.dist) + '/**/*' )
+       .pipe( zip( isFirefox ? 'build-firefox.zip' : 'build-chrome.zip' ) )
+       .pipe( gulp.dest( './' ) ).on('finish', resolve).on('error', console.log);
+    })
+  })
 }

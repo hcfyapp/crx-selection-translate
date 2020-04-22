@@ -37,7 +37,7 @@ export async function getTabLocation( tabId ) {
   }
 
   return send( {
-    tabId ,
+    id: tabId ,
     frameId : 0 ,
     name : 'get location' ,
     needResponse : true

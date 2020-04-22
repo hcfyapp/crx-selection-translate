@@ -13,7 +13,7 @@ export let created = false;
 
 export async function onContextMenusClicked() {
   send( {
-    tabId : await getCurrentTabId() ,
+    id : await getCurrentTabId() ,
     name : 'translate'
   } );
 }

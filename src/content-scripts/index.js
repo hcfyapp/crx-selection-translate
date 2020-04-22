@@ -53,7 +53,7 @@ export function onTranslate() {
  */
 /* istanbul ignore next */
 function onConnect( client ) {
-  client.once( 'translate' , onTranslate );
+  client.on( 'translate' , onTranslate );
 }
 
 /* istanbul ignore if */

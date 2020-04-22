@@ -5,7 +5,7 @@ const webpack = require( 'webpack' ) ,
 module.exports = {
   entry : {
     bg : './src/background-scripts/' ,
-    content : './src/content-scripts/' ,
+    content : ['./src/content-scripts/firefox-fix.js', './src/content-scripts/'] ,
     options : './src/options/' ,
     popup : './src/popup/' ,
     'bs-lite' : './src/public/bootstrap-lite.scss'
@@ -22,7 +22,7 @@ module.exports = {
     loaders : [
       {
         test : /\.js$/ ,
-        exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome\-env)\1)/ ] ,
+        exclude : [ /node_modules(?!(\/|\\?\\)(translation\.js|selection-widget|connect\.io|chrome-env)\1)/ ] ,
         loader : 'babel-loader'
       } ,
       {

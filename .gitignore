@@ -2,6 +2,8 @@
 /src/bundle/
 /src/pdf-viewer/
 /dist/
+/dist-firefox/
 /coverage/
-/build.zip
+/build-chrome.zip
+/build-firefox.zip
 .idea
