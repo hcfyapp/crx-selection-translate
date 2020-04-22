@@ -1,21 +1,6 @@
 # 划词翻译
 
-Chrome 网上应用店使用数据：
-[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Users)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Rating)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-
-Firefox 附加组件使用数据：
-[![Mozilla Add-on Version](https://img.shields.io/amo/v/hcfy?style=flat-square&label=Mozilla%20Add-on)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Users](https://img.shields.io/amo/users/hcfy?style=flat-square&label=Users)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square&label=Rating)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square&label=Downloads)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-
-反馈问题或提议新功能也可以直接通过公众号发送给我：
-
-![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
-
-图片打不开的话，直接在微信里搜索“划词翻译”即可，公众号名称就叫“划词翻译”
+一款能用于 Chrome、Firefox 和 Microsoft Egde 浏览器的划词翻译扩展程序，我们的目标是让浏览任意语言的网站都能变得无比轻松。
 
 ## 安装
 
@@ -26,6 +11,17 @@ Firefox 附加组件使用数据：
 **注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
 
 **注意**：安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！
+
+Chrome 网上应用店使用数据：
+[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
+[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Users)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
+[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Rating)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
+
+Firefox 附加组件使用数据：
+[![Mozilla Add-on Version](https://img.shields.io/amo/v/hcfy?style=flat-square&label=Mozilla%20Add-on)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Users](https://img.shields.io/amo/users/hcfy?style=flat-square&label=Users)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square&label=Rating)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
+[![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square&label=Downloads)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
 
 ## 特点
 
@@ -38,6 +34,12 @@ Firefox 附加组件使用数据：
  + [发布日志](https://github.com/Selection-Translator/crx-selection-translate/releases)
  + [报告问题或提议新功能](https://github.com/Selection-Translator/crx-selection-translate/issues/new)
  + [Wiki](https://github.com/Selection-Translator/crx-selection-translate/wiki)
+
+反馈问题或提议新功能也可以直接通过公众号发送给我：
+
+![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
+
+图片打不开的话，直接在微信里搜索“划词翻译”即可，公众号名称就叫“划词翻译”
 
 ## 参与开发
 
