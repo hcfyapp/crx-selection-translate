@@ -15,7 +15,7 @@
 }
 */
 
-st-span[class^="st-icon-"]:before, st-span[class*=" st-icon-"]:before {
+ [class^="st-icon-"]:before, [class*=" st-icon-"]:before {
   font-family: "selection-translator";
   font-style: normal;
   font-weight: normal;
