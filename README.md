@@ -2,44 +2,7 @@
 
 一款能用于 Chrome、Firefox 和 Microsoft Egde 浏览器的划词翻译扩展程序，我们的目标是让浏览任意语言的网站都能变得无比轻松。
 
-## 安装
-
- - Chrome 浏览器请在 [Chrome 网上应用店](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)安装或[下载 .crx 安装包](https://github.com/Selection-Translator/crx-selection-translate/releases/latest)手动安装
- - Firefox 浏览器请在 [Firefox 附加组件](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)安装
- - Microsoft Edge 浏览器请在[Edge 扩展程序商店](https://microsoftedge.microsoft.com/addons/detail/oikmahiipjniocckomdccmplodldodja)安装
-
-**注意**：非官方渠道的划词翻译可能会被嵌入恶意代码，所以请一定使用以上两种方式安装。
-
-**注意**：安装完成后需要重启浏览器让扩展生效！另外，划词翻译在 Chrome 网上应用店内是无效的，这是 Chrome 自身的安全限制，请在其他网站测试！
-
-Chrome 网上应用店使用数据：
-[![Chrome Web Store Version](https://img.shields.io/chrome-web-store/v/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Chrome%20Web%20Store)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-[![Chrome Web Store Users](https://img.shields.io/chrome-web-store/d/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Users)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-[![Chrome Web Store Rating](https://img.shields.io/chrome-web-store/rating/ikhdkkncnoglghljlkmcimlnlhkeamad.svg?style=flat-square&label=Rating)](https://chrome.google.com/webstore/detail/ikhdkkncnoglghljlkmcimlnlhkeamad)
-
-Firefox 附加组件使用数据：
-[![Mozilla Add-on Version](https://img.shields.io/amo/v/hcfy?style=flat-square&label=Mozilla%20Add-on)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Users](https://img.shields.io/amo/users/hcfy?style=flat-square&label=Users)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Rating](https://img.shields.io/amo/rating/hcfy?style=flat-square&label=Rating)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-[![Mozilla Add-on Downloads](https://img.shields.io/amo/dw/hcfy?style=flat-square&label=Downloads)](https://addons.mozilla.org/zh-CN/firefox/addon/hcfy/)
-
-## 特点
-
- - 划词即显示翻译结果，简单、方便、迅速，并且支持多种语言的朗读。
- - 支持在 PDF 文档内使用。
- - 支持多种翻译引擎：[有道翻译](http://fanyi.youdao.com/)、[百度翻译](http://fanyi.baidu.com/)、[谷歌翻译](https://translate.google.com/)（含[谷歌中国翻译](http://translate.google.cn/)）、[必应词典](http://cn.bing.com/dict/)。
-
-## 相关链接
-
- + [发布日志](https://github.com/Selection-Translator/crx-selection-translate/releases)
- + [报告问题或提议新功能](https://github.com/Selection-Translator/crx-selection-translate/issues/new)
- + [Wiki](https://github.com/Selection-Translator/crx-selection-translate/wiki)
-
-反馈问题或提议新功能也可以直接通过公众号发送给我：
-
-![公众号名称：划词翻译](https://user-images.githubusercontent.com/5035625/77947483-8fe6a480-72f6-11ea-8318-5d89bf49c460.png)
-
-图片打不开的话，直接在微信里搜索“划词翻译”即可，公众号名称就叫“划词翻译”
+划词翻译的介绍与安装方式请移步官方网站 [https://hcfy.limingkai.cn](https://hcfy.limingkai.cn)。
 
 ## 参与开发
 
@@ -55,8 +18,6 @@ Firefox 附加组件使用数据：
 ### 划词翻译的子项目
 
 为了方便维护，划词翻译将一些功能分离了出来，如果你是想对以下功能进行调整，请前往对应的代码仓库：
-
- + [translation.js](https://github.com/Selection-Translator/translation.js) - 划词翻译的翻译引擎。
  + [connect.io](https://github.com/Selection-Translator/connect.io) - Chrome 扩展/应用里的实时、双向、基于事件且 Promise 友好的通信库，启发自 Socket.io。
  + [chrome-call](https://github.com/Selection-Translator/chrome-call) - 将 Chrome API 的使用回调函数接收结果的调用形式改为返回 Promise 对象的调用形式。
  + [chrome-env](https://github.com/Selection-Translator/chrome-env) - 给非扩展程序运行环境添加 `window.chrome`，被设计用于单元测试。
