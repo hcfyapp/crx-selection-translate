@@ -30,6 +30,9 @@ export async function onGetTranslateResult( queryObj , resolve ) {
   }
   catch ( errorMsg ) {
     let error = errorMsg.message;
+    if (errorMsg.code === 'NETWORK_TIMEOUT') {
+      error = ''
+    }
     if ( 'google' === queryObj.api && !queryObj.com ) {
       error += '小提示：使用谷歌翻译（国内）时请确保你没有开启某高科技软件。';
     }

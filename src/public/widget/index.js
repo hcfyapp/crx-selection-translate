@@ -103,7 +103,8 @@ export default Vue.extend( {
             let errMsg = {
               NETWORK_ERROR: '网络错误，请检查你的网络设置。',
               API_SERVER_ERROR: '接口返回了错误的数据，请稍候重试。',
-              UNSUPPORTED_LANG: '不支持的语种，请使用谷歌翻译重试。'
+              UNSUPPORTED_LANG: '不支持的语种，请使用谷歌翻译重试。',
+              NETWORK_TIMEOUT: '查询超时：5 秒内没有查询到翻译结果，已中断查询。'
             }[resultObj.code]
             if (resultObj.error) {
               errMsg += resultObj.error
