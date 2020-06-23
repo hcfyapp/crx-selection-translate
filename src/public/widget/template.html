@@ -64,7 +64,7 @@
           </st-div>
         </st-div>
         <st-div v-show="result.result&&result.result.length">
-          <st-div v-for="text in result.result" v-text="text"></st-div>
+          <st-div v-for="text in result.result" v-if="text" v-text="text"></st-div>
           <st-div class="__copy-and-read__">
             <st-span class="__copy-and-read__" @click="play(result.result,result.to)">朗读</st-span>
             <st-span class="__copy-and-read__" @click="copy(result.result,$event)">复制</st-span>
