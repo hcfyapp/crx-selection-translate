@@ -38,7 +38,7 @@ export default {
     // 结果对象
     result : {} ,
 
-    loading : false , // 是否正在查询中
+    loading : null , // 是否正在查询中
     showResult : true , // 是否显示翻译结果。inline 模式下，这个值会变成 false，并且在第一次翻译之后会变成 true。
 
     inline : false , // 是否为 inline 模式:总是显示,不会移动位置,改变大小或定位
@@ -117,17 +117,19 @@ export default {
      * @returns {Promise}
      */
     translate() {
-      this.loading = true;
       this.boxPos.show = true;
       this.$emit( 'before translate' );
-
-      return this
-        .getResult()
-        .then( ()=> {
-          this.loading = false;
+      // 把meta的引用传入闭包，需要强行中断时直接可以修改
+      var meta = {canceled: false};
+      this.loading = this.getResult().then( ()=> {
+          if (meta.canceled) 
+            return;
+          this.loading = null;
           this.boxPos.show = true;
           this.$emit( 'after translate' );
-        } );
+      } );
+      this.loading.meta = meta;
+      return this.loading;
     }
 
   } ,
@@ -154,7 +156,11 @@ export default {
         e.preventDefault(); // 点击翻译按钮时防止划选的文本消失掉
         this.query.text = getText();
         this.translate();
-      } else if ( !(this.loading || $box.contains( target ) || this.pinned || this.inline) ) {
+      } else if ( !($box.contains( target ) || this.pinned || this.inline) ) {
+        if (this.loading) {
+          this.loading.meta.canceled = true;
+          this.loading = null;
+        }
         this.boxPos.show = false;
       }
       this.btnPos.show = false;
