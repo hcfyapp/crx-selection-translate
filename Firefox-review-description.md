@@ -8,8 +8,9 @@ NPM version: v6.4.1
 
 Build steps:
 
- 1. Run `npm ci` install dependencies.
- 2. Run `npm run build`, and load extension at `dist-firefox` folder.
+ 1. Delete `.npmrc` file.
+ 2. Run `npm ci` install dependencies.
+ 3. Run `npm run build`, and load extension at `dist-firefox` folder.
 
 ## Why I use `unsafe-eval` in CSP?
 
